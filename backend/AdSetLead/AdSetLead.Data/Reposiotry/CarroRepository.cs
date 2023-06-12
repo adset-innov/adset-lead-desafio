@@ -16,7 +16,12 @@ namespace AdSetLead.Core.Repository
 {
     public class CarroRepository : ICarroRepository
     {
-        private readonly ApplicationDbContext dbContext = new ApplicationDbContext();
+        private readonly ApplicationDbContext dbContext;
+
+        public CarroRepository()
+        {
+            dbContext = new ApplicationDbContext();
+        }
 
         /// <summary>
         /// Atualiza carro
@@ -48,7 +53,7 @@ namespace AdSetLead.Core.Repository
 
                 return carroResponse;
             }
-        }
+        }     
 
         /// <summary>
         /// Busca carro por id
