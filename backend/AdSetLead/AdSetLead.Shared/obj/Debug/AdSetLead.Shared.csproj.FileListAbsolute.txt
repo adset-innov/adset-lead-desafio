@@ -1,0 +1,6 @@
+C:\Projects\adset\backend\AdSetLead\AdSetLead.Shared\bin\Debug\AdSetLead.Shared.dll
+C:\Projects\adset\backend\AdSetLead\AdSetLead.Shared\bin\Debug\AdSetLead.Shared.pdb
+C:\Projects\adset\backend\AdSetLead\AdSetLead.Shared\obj\Debug\AdSetLead.Shared.csproj.AssemblyReference.cache
+C:\Projects\adset\backend\AdSetLead\AdSetLead.Shared\obj\Debug\AdSetLead.Shared.csproj.CoreCompileInputs.cache
+C:\Projects\adset\backend\AdSetLead\AdSetLead.Shared\obj\Debug\AdSetLead.Shared.dll
+C:\Projects\adset\backend\AdSetLead\AdSetLead.Shared\obj\Debug\AdSetLead.Shared.pdb

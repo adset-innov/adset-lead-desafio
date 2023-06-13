@@ -3,6 +3,7 @@ using AdSetLead.Core.Models;
 using AdSetLead.Data.Migrations;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 
 namespace AdSetLead.Data.Context
 {
@@ -75,9 +76,33 @@ namespace AdSetLead.Data.Context
                     m.MapRightKey("OpcionalId");
                 });
 
+            modelBuilder.Entity<Opcional>().Ignore(c => c.Carros);
+
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        // Override SaveChanges method to handle relationship deletion
+        public override int SaveChanges()
+        {
+            // Get the entities that are being deleted
+            var deletedEntities = ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Deleted)
+                .Select(e => e.Entity);
+
+            // Manually remove the relationships without deleting the other entity
+            foreach (var entity in deletedEntities)
+            {
+                var carro = entity as Carro;
+                if (carro != null)
+                {
+                    carro.Opcionais.Clear(); // Remove the relationships by clearing the collection
+                }
+            }
+
+            return base.SaveChanges();
         }
     }
 }

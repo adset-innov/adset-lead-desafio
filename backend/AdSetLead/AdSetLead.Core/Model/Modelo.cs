@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AdSetLead.Core.Model
 {
-    [Table("Modelo")]
+    [Table(nameof(Modelo))]
     public class Modelo
     {
         [Key]
@@ -17,6 +17,6 @@ namespace AdSetLead.Core.Model
         [ForeignKey(nameof(Marca))]
         public int MarcaId { get; set; }
 
-        public virtual Marca Marca { get; set; }
+        public Marca Marca { get; set; }
     }
 }

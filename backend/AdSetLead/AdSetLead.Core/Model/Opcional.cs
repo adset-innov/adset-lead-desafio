@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdSetLead.Core.Model
 {
-    [Table("Opcional")]
+    [Table(nameof(Opcional))]
     public class Opcional
     {
         [Key]
@@ -16,6 +16,7 @@ namespace AdSetLead.Core.Model
         public string Nome { get; set; }
 
         public string Descricao { get; set; }
-        public virtual ICollection<Carro> Carros { get; set; }
+
+        public List<Carro> Carros { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdSetLead.Core.Model
 {
-    [Table("Marca")]
+    [Table(nameof(Marca))]
     public class Marca
     {
         [Key]

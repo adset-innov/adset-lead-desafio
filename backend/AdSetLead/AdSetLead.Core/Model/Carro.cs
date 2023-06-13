@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdSetLead.Core.Models
 {
-    [Table("Carro")]
+    [Table(nameof(Carro))]
     public class Carro
     {
         public Carro()

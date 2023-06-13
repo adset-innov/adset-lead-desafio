@@ -67,9 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\ApplicationDbContext.cs" />
-    <Compile Include="Migrations\202306120121103_Initial.cs" />
-    <Compile Include="Migrations\202306120121103_Initial.designer.cs">
-      <DependentUpon>202306120121103_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202306130023598_Initial.cs" />
+    <Compile Include="Migrations\202306130023598_Initial.designer.cs">
+      <DependentUpon>202306130023598_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\MigrationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +90,8 @@
     <Content Include="script\inserts.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202306120121103_Initial.resx">
-      <DependentUpon>202306120121103_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202306130023598_Initial.resx">
+      <DependentUpon>202306130023598_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

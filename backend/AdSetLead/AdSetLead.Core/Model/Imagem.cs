@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdSetLead.Core.Models
 {
-    [Table("Imagem")]
+    [Table(nameof(Imagem))]
     public class Imagem
     {
         [Key]
@@ -13,6 +13,6 @@ namespace AdSetLead.Core.Models
         public int CarroId { get; set; }
 
         [ForeignKey("CarroId")]
-        public virtual Carro Carro { get; set; }
+        public Carro Carro { get; set; }
     }
 }

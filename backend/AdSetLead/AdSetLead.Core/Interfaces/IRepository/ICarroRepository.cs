@@ -15,7 +15,7 @@ namespace AdSetLead.Core.Interfaces.IRepository
         /// </summary>
         /// <param name="carro">Carro a ser atualizado</param>
         /// <returns>Carro atualizado</returns>
-        CarroResponse AtualizarCarro(Carro carro);
+        Task<CarroResponse> AtualizarCarroAsync(Carro carro);
 
         /// <summary>
         /// Busca carros por request

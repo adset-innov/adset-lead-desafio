@@ -11,6 +11,7 @@ using System.Data.Entity.Migrations;
 using AdSetLead.Core.Request;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace AdSetLead.Core.Repository
 {
@@ -28,30 +29,69 @@ namespace AdSetLead.Core.Repository
         /// </summary>
         /// <param name="carro">Carro a ser atualizado</param>
         /// <returns>Carro atualizado</returns>
-        public CarroResponse AtualizarCarro(Carro carro)
+        public async Task<CarroResponse> AtualizarCarroAsync(Carro request)
         {
-            CarroResponse carroResponse = new CarroResponse();
+            CarroResponse response = new CarroResponse();
 
             try
             {
-                dbContext.Carro.AddOrUpdate(carro);
-
-                // Evita que opcionais sejam adicionados
-                foreach (Opcional opcional in carro.Opcionais.ToList())
+                Carro carro = dbContext.Set<Carro>().Find(request.Id);
+                if (request == null)
                 {
-                    dbContext.Entry(opcional).State = EntityState.Unchanged;
+                    response.AddWarningMessage("900", "Carro não existe");
+
+                    return response;
                 }
+
+                dbContext.Entry(carro).Collection(c => c.Opcionais).Load();
+
+                carro.Ano = request.Ano;
+                carro.Cor = request.Cor;
+                carro.Kilometragem = request.Kilometragem;
+                carro.MarcaId = request.MarcaId;
+                carro.ModeloId = request.ModeloId;
+                carro.Placa = request.Placa;
+                carro.Preco = request.Preco;
+
+                // Create or update relationships with Opcional entity
+                List<int> opcionalIds = request.Opcionais.Select(op => op.Id).ToList();
+
+
+                // Remove any existing relationships that are not in the new collection
+                //List<Opcional> opcionaisParaRemover = carro.Opcionais.Where(op => !opcionalIds.Contains(op.Id)).ToList();
+                /*
+                foreach (var opctional in opcionaisParaRemover)
+                {
+                    carro.Opcionais.Remove(opctional);
+                }
+                */
+
+                // Add or update the relationships with CarItem entities
+                foreach (var optionaId in opcionalIds)
+                {
+                    Opcional opcional = dbContext.Set<Opcional>().Find(optionaId);
+                    if (opcional != null)
+                    {
+                        if (!carro.Opcionais.Any(op => op.Id == opcional.Id))
+                        {
+                            // Adiciona novo item opcional
+                            carro.Opcionais.Add(opcional);
+                        }
+                    }
+                }
+
+                dbContext.Set<Carro>().AddOrUpdate(carro);
 
                 dbContext.SaveChanges();
 
-                carroResponse.ResponseData.Add(carro);
-                return carroResponse;
+                response.ResponseData.Add(carro);
+                return response;
             }
             catch (Exception ex)
             {
-                carroResponse.AddExceptionMessage("101", $"Erro de exceção: {ex.Message}");
+                response.AddExceptionMessage("101", $"Erro de exceção: {ex.Message}");
 
-                return carroResponse;
+                return response;
             }
         }     
 
@@ -66,7 +106,39 @@ namespace AdSetLead.Core.Repository
 
             try
             {
-                Carro carro = dbContext.Carro.Include("Marca").Include("Modelo").SingleOrDefault(c => c.Id == id);
+                Carro carro = dbContext.Carro.Include(nameof(Marca)).Include(nameof(Modelo)).SingleOrDefault(c => c.Id == id);
+   
+                if (carro != null)
+                {
+                    dbContext.Entry(carro).Collection(c => c.Opcionais).Load();
+
+                    carro.Marca = new Marca
+                    {
+                        Id = carro.Marca.Id,
+                        Nome = carro.Marca.Nome
+                    };
+
+                    carro.Modelo = new Modelo
+                    {
+                        Id = carro.Modelo.Id,
+                        Nome = carro.Modelo.Nome,
+                        MarcaId = carro.Modelo.MarcaId
+                    };
+
+                    carro.Imagens = carro.Imagens.Select(im => new Imagem
+                    {
+                        Id = im.Id,
+                        Url = im.Url
+                    }).ToList();
+
+                    carro.Opcionais = carro.Opcionais.Select(op => new Opcional
+                    {
+                        Id = op.Id,
+                        Nome = op.Nome,
+                        Descricao = op.Descricao
+                    }).ToList();           
+                }
+
 
                 if (carro == null)
                 {
@@ -120,7 +192,7 @@ namespace AdSetLead.Core.Repository
                     carro.Opcionais = dbContext.Entry(carro).Collection(c => c.Opcionais).Query().ToList();
                 }
 
-                // Garante traz somente os itens relacionados                
+                // Garante trazer somente os itens relacionados                
                 carros = carros.Select(c => new Carro
                 {
                     Id = c.Id,
@@ -157,7 +229,7 @@ namespace AdSetLead.Core.Repository
 
                 if (!carros.Any())
                 {
-                    response.AddErrorMessage("100", "Carros não encontrados ou algum erro inesperado aconteceu");
+                    response.AddWarningMessage("100", "Carro não encotrado");
                 }
 
                 response.ResponseData.AddRange(carros);
@@ -204,7 +276,7 @@ namespace AdSetLead.Core.Repository
 
             try
             {
-                Carro carro = dbContext.Carro.Include(nameof(Opcional)).SingleOrDefault();
+                Carro carro = dbContext.Set<Carro>().Find(id);
                 if (carro == null)
                 {
                     response.AddWarningMessage("900", "Carro não encontrado");
@@ -212,7 +284,10 @@ namespace AdSetLead.Core.Repository
                     return response;
                 }
 
-                dbContext.Carro.Remove(carro);
+                dbContext.Entry(carro).Collection(c => c.Opcionais).Load();
+                carro.Opcionais.Clear(); // Remove o relacionamento entre a entidade Carro e items Opcionais
+                dbContext.Set<Carro>().Remove(carro); // Remove a entidade carro
+
                 dbContext.SaveChanges();
 
                 response.ResponseData.Add(carro);
@@ -280,6 +355,48 @@ namespace AdSetLead.Core.Repository
             List<string> cores = dbContext.Carro.Select(c => c.Cor).Distinct().ToList();
 
             return cores;
+        }
+
+        /// <summary>
+        /// Garante o relacionamento entre carro e opcional
+        /// </summary>
+        /// <param name="carro"></param>
+        /// <returns></returns>
+        private async Task AddCarroOpcionalRelacionamento(Carro carro)
+        {
+            List<string> insertList = new List<string>();
+            List<SqlParameter> insertParams = new List<SqlParameter>();
+
+            // Evita que opcionais sejam adicionados
+            int index = 0;
+            foreach (Opcional opcional in carro.Opcionais.ToList())
+            {
+                var queryParams = new List<SqlParameter>
+                    {
+                        new SqlParameter($"@CarroId{index}", carro.Id),
+                        new SqlParameter($"@OpcionalId{index}", opcional.Id)
+                    };
+
+                string sqlQuery = $"SELECT COUNT(*) FROM CarroOpcional WHERE CarroId = @CarroId{index} AND OpcionalId = @OpcionalId{index};";
+                int count = await dbContext.Database.SqlQuery<int>(sqlQuery, queryParams.ToArray()).SingleOrDefaultAsync();
+
+                if (count == 0)
+                {
+                    string insert = $"INSERT INTO CarroOpcional (CarroId, OpcionalId) VALUES (@CarroId{index}, @OpcionalId{index})";
+
+                    insertList.Add(insert);
+                    insertParams.AddRange(queryParams.Select(p => new SqlParameter(p.ParameterName, p.Value)));
+                }
+
+                index++;
+            }
+
+            if (insertList.Any())
+            {
+                string insertQuery = string.Join(";", insertList);
+
+                await dbContext.Database.ExecuteSqlCommandAsync(insertQuery, insertParams.ToArray());
+            }
         }
 
         /// <summary>

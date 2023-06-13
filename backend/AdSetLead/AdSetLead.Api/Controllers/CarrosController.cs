@@ -1,5 +1,4 @@
 ﻿using System.Collections.Specialized;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -41,8 +40,7 @@ namespace AdSetLead.Api.Controllers
             FilterRequest filtro = queryString.BuildFilterRequest();
             
             CarroResponse response = _carroRepository.BuscarCarrosPorRequest(filtro);
-
-            if(response.HasAnyMessages)
+            if(response.HasErrorMessages || response.HasExceptionMessages)
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
 
@@ -92,14 +90,14 @@ namespace AdSetLead.Api.Controllers
         [HttpPut]
         [Route("api/carros")]
         [ResponseType(typeof(CarroResponse))]
-        public IHttpActionResult PutCarro(Carro carro)
+        public async Task<IHttpActionResult> PutCarro(Carro carro)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            CarroResponse response = _carroRepository.AtualizarCarro(carro);
+            CarroResponse response = await _carroRepository.AtualizarCarroAsync(carro);
             if (response.HasAnyMessages)
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
