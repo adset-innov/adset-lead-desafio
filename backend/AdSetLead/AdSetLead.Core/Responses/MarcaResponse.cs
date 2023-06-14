@@ -1,9 +1,9 @@
 ﻿using AdSetLead.Core.Model;
-using AdSetLead.Core.Responses.ResponseBases;
+using Daptive.Share.Response;
 
 namespace AdSetLead.Core.Responses
 {
-    public class MarcaResponse : BaseResponse<Marca>
+    public class MarcaResponse : BaseInquiryResponse<Marca>
     {
     }
 }

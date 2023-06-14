@@ -9,10 +9,12 @@ namespace AdSetLead.Core.Models
     [Table(nameof(Carro))]
     public class Carro
     {
+        /*
         public Carro()
         {
             Opcionais = new List<Opcional>();
         }
+        */
 
         [Key]
         public int Id { get; set; }
@@ -41,9 +43,9 @@ namespace AdSetLead.Core.Models
         [Required]
         public double Preco { get; set; }     
       
-        public ICollection<Imagem> Imagens { get; set; }
+        public List<Imagem> Imagens { get; set; }
 
-        public ICollection<Opcional> Opcionais { get; set; }
+        public List<Opcional> Opcionais { get; set; }
 
     }
 }

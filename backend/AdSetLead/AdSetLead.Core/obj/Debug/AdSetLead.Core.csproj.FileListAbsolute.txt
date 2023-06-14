@@ -52,3 +52,11 @@ C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\obj\Debug\A
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\obj\Debug\AdSetLead.Core.csproj.CopyComplete
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\obj\Debug\AdSetLead.Core.dll
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\obj\Debug\AdSetLead.Core.pdb
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\Daptive.Share.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\Daptive.Share.pdb
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\FluentValidation.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\FluentValidation.xml
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Core\bin\Debug\System.Threading.Tasks.Extensions.xml

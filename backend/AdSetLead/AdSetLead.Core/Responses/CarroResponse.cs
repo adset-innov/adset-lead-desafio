@@ -1,10 +1,10 @@
 ﻿
 using AdSetLead.Core.Models;
-using AdSetLead.Core.Responses.ResponseBases;
+using Daptive.Share.Response;
 
 namespace AdSetLead.Core.Responses
 {
-    public class CarroResponse : BaseResponse<Carro>
+    public class CarroResponse : BaseInquiryResponse<Carro>
     {
     }
 }

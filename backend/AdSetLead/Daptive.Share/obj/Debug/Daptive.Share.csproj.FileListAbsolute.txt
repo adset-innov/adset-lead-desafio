@@ -1,0 +1,6 @@
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\Daptive.Share\bin\Debug\Daptive.Share.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\Daptive.Share\bin\Debug\Daptive.Share.pdb
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\Daptive.Share\obj\Debug\Daptive.Share.csproj.AssemblyReference.cache
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\Daptive.Share\obj\Debug\Daptive.Share.csproj.CoreCompileInputs.cache
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\Daptive.Share\obj\Debug\Daptive.Share.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\Daptive.Share\obj\Debug\Daptive.Share.pdb

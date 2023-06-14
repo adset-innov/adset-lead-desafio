@@ -13,27 +13,36 @@ using Unity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AdSetLead.Core.Extentions;
+using System.Web;
+using System.Linq;
+using AdSetLead.Core.Extensions;
+using AdSetLead.Core.Bac;
+using AdSetLead.Api.Services;
+using AdSetLead.Core.Interfaces.IServices;
 
 namespace AdSetLead.Api.Controllers
 {
     public class CarrosController : ApiController
     {
         private readonly ICarroRepository _carroRepository;
+        private readonly IFotosService _fotosServices;
 
         public CarrosController()
         {
             UnityContainer container = new UnityContainer();
             container.RegisterType<ICarroRepository, CarroRepository>();
-            _carroRepository = container.Resolve<ICarroRepository>();
-        }
+            container.RegisterType<IFotosService, FotosService>();
 
-    
+            _carroRepository = container.Resolve<ICarroRepository>();
+            _fotosServices = container.Resolve<IFotosService>();
+        }
+            
         // GET: api/Carros
         [HttpGet]
         [Route("api/carros")]
         [ResponseType(typeof(CarroResponse))]
         public IHttpActionResult GetCarros()
-       {
+        {
             HttpRequestMessage request = Request;
             NameValueCollection queryString = request.RequestUri.ParseQueryString();
 
@@ -113,15 +122,15 @@ namespace AdSetLead.Api.Controllers
         [HttpPost]
         [Route("api/carros")]
         [ResponseType(typeof(CarroResponse))]
-        public async Task<IHttpActionResult> PostCarro(Carro carro)
+        public async Task<IHttpActionResult> PostCarro()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            HttpRequest httpRequest = HttpContext.Current.Request;
+            CarroBac carroBac = new CarroBac();
 
-            CarroResponse response = await _carroRepository.RegistrarCarro(carro);
-            if (response.HasAnyMessages)
+            CarroResponse response = carroBac.RegistrarCarroBac(httpRequest);            
+        
+            response = await _carroRepository.RegistrarCarro(response.ResponseData.FirstOrDefault());
+            if (response.InError())
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                 return ResponseMessage(resultResponse);
@@ -129,7 +138,23 @@ namespace AdSetLead.Api.Controllers
 
             response.AddInfoMessage("200", "Carro adicionado com sucesso");
 
-            return Ok(response);
+            int novoCarroRegistradoId = response.ResponseData.Select(c => c.Id).SingleOrDefault();
+            response = _carroRepository.BuscarCarroPorId(novoCarroRegistradoId);
+
+            int fotosCount = response.ResponseData.Select(c => c.Imagens.Count()).SingleOrDefault();
+            if (fotosCount >= 15)
+            {
+                response.AddWarningMessage("100", "Carro já possui limite máximo de fotos cadastradas");
+                return Ok(response);
+            }
+
+            List<Imagem> imagens = _fotosServices.UploadFotos(httpRequest);
+            Carro carroParaAtualizar = response.ResponseData.SingleOrDefault();
+            carroParaAtualizar.Imagens.AddRange(imagens);
+
+            await _carroRepository.AtualizarCarroAsync(carroParaAtualizar);
+
+            return Ok();
         }
 
         // DELETE: api/Carros/5

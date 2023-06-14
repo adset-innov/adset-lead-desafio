@@ -225,7 +225,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CarrosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImagemsController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
     <Compile Include="Controllers\OpcionalsController.cs" />
@@ -233,6 +232,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FotosService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -381,12 +381,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdSetLead.Core\AdSetLead.Core.csproj">
-      <Project>{DD085662-4BE7-41C2-AEEB-5702473BF8B8}</Project>
+      <Project>{dd085662-4be7-41c2-aeeb-5702473bf8b8}</Project>
       <Name>AdSetLead.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\AdSetLead.Data\AdSetLead.Data.csproj">
-      <Project>{7311B22F-D31C-4735-9CC0-C6A0299D3E74}</Project>
+      <Project>{7311b22f-d31c-4735-9cc0-c6a0299d3e74}</Project>
       <Name>AdSetLead.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Daptive.Share\Daptive.Share.csproj">
+      <Project>{28a90456-daa1-4895-9ee2-9048378ba4f0}</Project>
+      <Name>Daptive.Share</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

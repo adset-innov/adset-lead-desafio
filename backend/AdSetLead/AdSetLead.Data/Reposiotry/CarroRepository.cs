@@ -106,7 +106,10 @@ namespace AdSetLead.Core.Repository
 
             try
             {
-                Carro carro = dbContext.Carro.Include(nameof(Marca)).Include(nameof(Modelo)).SingleOrDefault(c => c.Id == id);
+                IQueryable<Carro> query = dbContext.Carro.Include(c => c.Imagens).Include(nameof(Marca)).Include(nameof(Modelo)).
+                    Where(c => c.Id == id);
+
+                Carro carro = query.FirstOrDefault();
    
                 if (carro != null)
                 {
@@ -322,7 +325,7 @@ namespace AdSetLead.Core.Repository
                     return response;
                 }
                     
-                dbContext.Carro.Add(carro);         
+                Carro newCar = dbContext.Carro.Add(carro);         
                 
                 // Evita que opcionais sejam adicionados
                 foreach (Opcional opcional in carro.Opcionais.ToList())
@@ -338,7 +341,7 @@ namespace AdSetLead.Core.Repository
                     return response;
                 }
 
-                response.ResponseData.Add(carro);
+                response.ResponseData.Add(newCar);
 
                 return response;
             }

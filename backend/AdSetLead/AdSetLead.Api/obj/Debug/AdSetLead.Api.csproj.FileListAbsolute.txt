@@ -397,3 +397,9 @@ C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\obj\Debug\Ad
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\obj\Debug\AdSetLead.Api.csproj.CopyComplete
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\obj\Debug\AdSetLead.Api.dll
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\obj\Debug\AdSetLead.Api.pdb
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\bin\Daptive.Share.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\bin\Daptive.Share.pdb
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\bin\FluentValidation.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\bin\System.Threading.Tasks.Extensions.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\bin\FluentValidation.xml
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Api\bin\System.Threading.Tasks.Extensions.xml

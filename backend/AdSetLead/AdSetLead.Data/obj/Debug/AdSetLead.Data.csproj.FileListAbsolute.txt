@@ -76,3 +76,11 @@ C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\obj\Debug\A
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\obj\Debug\AdSetLead.Data.pdb
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\obj\Debug\AdSetLead.Data.Migrations.Initial.resources
 C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\obj\Debug\AdSetLead.Data.csproj.GenerateResource.cache
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\Daptive.Share.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\Daptive.Share.pdb
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\FluentValidation.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\FluentValidation.xml
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Projects\repo\adset-lead-desafio\backend\AdSetLead\AdSetLead.Data\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
