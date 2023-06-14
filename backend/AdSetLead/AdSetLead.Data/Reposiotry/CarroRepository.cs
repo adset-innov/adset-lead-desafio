@@ -12,6 +12,7 @@ using AdSetLead.Core.Request;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Daptive.Share.Response;
 
 namespace AdSetLead.Core.Repository
 {
@@ -29,16 +30,16 @@ namespace AdSetLead.Core.Repository
         /// </summary>
         /// <param name="carro">Carro a ser atualizado</param>
         /// <returns>Carro atualizado</returns>
-        public async Task<CarroResponse> AtualizarCarroAsync(Carro request)
+        public async Task<ModelOperationalResponse> AtualizarCarroAsync(Carro request)
         {
-            CarroResponse response = new CarroResponse();
+            ModelOperationalResponse response = new ModelOperationalResponse();
 
             try
             {
                 Carro carro = dbContext.Set<Carro>().Find(request.Id);
                 if (request == null)
                 {
-                    response.AddWarningMessage("900", "Carro não existe");
+                    response.AddWarningMessage("Carro não existe");
 
                     return response;
                 }
@@ -53,20 +54,16 @@ namespace AdSetLead.Core.Repository
                 carro.Placa = request.Placa;
                 carro.Preco = request.Preco;
 
-                // Create or update relationships with Opcional entity
                 List<int> opcionalIds = request.Opcionais.Select(op => op.Id).ToList();
 
-
-                // Remove any existing relationships that are not in the new collection
-                //List<Opcional> opcionaisParaRemover = carro.Opcionais.Where(op => !opcionalIds.Contains(op.Id)).ToList();
-                /*
+                // Remove algum relacionamento que não existe mais com a entidade Opcional
+                List<Opcional> opcionaisParaRemover = carro.Opcionais.Where(op => !opcionalIds.Contains(op.Id)).ToList();                
                 foreach (var opctional in opcionaisParaRemover)
                 {
                     carro.Opcionais.Remove(opctional);
-                }
-                */
+                }                
 
-                // Add or update the relationships with CarItem entities
+                // Adciona ou atualiza o relacionamento com a entidade opcional
                 foreach (var optionaId in opcionalIds)
                 {
                     Opcional opcional = dbContext.Set<Opcional>().Find(optionaId);
@@ -82,9 +79,16 @@ namespace AdSetLead.Core.Repository
 
                 dbContext.Set<Carro>().AddOrUpdate(carro);
 
-                dbContext.SaveChanges();
+                int count = dbContext.SaveChanges();
+                if (count == 0)
+                {
+                    response.AddErrorMessage("Carro não foi atualizado, algo aconteceu");
 
-                response.ResponseData.Add(carro);
+                    return response;
+                }
+
+                response.AddInfoMessage("Carro foi atulizado com sucesso");
+
                 return response;
             }
             catch (Exception ex)
@@ -145,7 +149,7 @@ namespace AdSetLead.Core.Repository
 
                 if (carro == null)
                 {
-                    response.AddWarningMessage("911", "Carro não encontrado");
+                    response.AddWarningMessage("Carro não encontrado");
                 }
 
                 response.ResponseData.Add(carro);
@@ -154,7 +158,7 @@ namespace AdSetLead.Core.Repository
             }
             catch (Exception ex)
             {
-                response.AddExceptionMessage("101", $"Erro de exceção: {ex.Message}");
+                response.AddExceptionMessage("Erro de exceção: {ex.Message}");
 
                 return response;
             }            
@@ -187,8 +191,7 @@ namespace AdSetLead.Core.Repository
                 {
                     carros = query.ToList();
                 }
-                               
-
+                              
                 // Faz a relação de muitos carros para muitos opcionais
                 foreach (var carro in carros)
                 {
@@ -269,13 +272,13 @@ namespace AdSetLead.Core.Repository
         }
 
         /// <summary>
-        /// Deletar carro
+        /// Deleta carro
         /// </summary>
         /// <param name="id">id do carro</param>
         /// <returns>Carro deletado</returns>
-        public CarroResponse DeletetarCarroPorId(int id)
+        public ModelOperationalResponse DeletetarCarroPorId(int id)
         {
-            CarroResponse response = new CarroResponse();
+            ModelOperationalResponse response = new ModelOperationalResponse();
 
             try
             {
@@ -291,9 +294,13 @@ namespace AdSetLead.Core.Repository
                 carro.Opcionais.Clear(); // Remove o relacionamento entre a entidade Carro e items Opcionais
                 dbContext.Set<Carro>().Remove(carro); // Remove a entidade carro
 
-                dbContext.SaveChanges();
+                int count = dbContext.SaveChanges();
+                if (count == 0)
+                {
+                    response.AddErrorMessage("Carro não deletado, algo saiu errado");
+                }
 
-                response.ResponseData.Add(carro);
+                response.AddInfoMessage("Carro deletado com sucesso");
 
                 return response;
             }
@@ -310,9 +317,9 @@ namespace AdSetLead.Core.Repository
         /// </summary>
         /// <param name="carro">Carro a ser registrado</param>
         /// <returns>Carro registrado</returns>
-        public async Task<CarroResponse> RegistrarCarro(Carro carro)
+        public async Task<ModelOperationalResponse> RegistrarCarro(Carro carro)
         {
-            CarroResponse response = new CarroResponse();
+            ModelOperationalResponse response = new ModelOperationalResponse();
 
             try
             {
@@ -320,7 +327,7 @@ namespace AdSetLead.Core.Repository
 
                 if (placaDublipaca)
                 {
-                    response.AddValidationMessage("910", "Um carro com essa placa já existe");
+                    response.AddErrorMessage("Um carro com essa placa já existe");
 
                     return response;
                 }
@@ -337,17 +344,17 @@ namespace AdSetLead.Core.Repository
 
                 if (op == 0)
                 {
-                    response.AddErrorMessage("911", "Carro não foi salvo");
+                    response.AddErrorMessage("Carro não foi salvo");
                     return response;
                 }
 
-                response.ResponseData.Add(newCar);
+                response.AddInfoMessage("Carro adicionado com sucesso");
 
                 return response;
             }
             catch (Exception ex)
             {
-                response.AddExceptionMessage("101", $"Erro de exceção: {ex.Message}");
+                response.AddExceptionMessage($"Erro de exceção: {ex.Message}");
 
                 return response;
             }          
@@ -448,7 +455,8 @@ namespace AdSetLead.Core.Repository
 
             if (filterRequest.TemOpcionais) 
             {
-                query = query.Where(c => c.Opcionais.Any());
+               query = query.Where(c => c.Opcionais.Any(op => op.Id == 1));
+                var teste = query.ToList();
             }
 
             if (!string.IsNullOrEmpty(filterRequest.Cor))

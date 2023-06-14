@@ -1,5 +1,6 @@
 ﻿
 using AdSetLead.Core.Model;
+using Daptive.Share.Model.IModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

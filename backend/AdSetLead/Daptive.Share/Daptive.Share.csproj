@@ -44,12 +44,17 @@
     <Compile Include="Enums\MessageTypeEnum.cs" />
     <Compile Include="Extentions\ObjectExtentions.cs" />
     <Compile Include="Model\IModel\IMessage.cs" />
+    <Compile Include="Model\IModel\IModel.cs" />
     <Compile Include="Model\Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request\BaseRequest.cs" />
+    <Compile Include="Request\Interface\IBaseRequest.cs" />
+    <Compile Include="Request\ModelOperationRequest.cs" />
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\InquiryResponse.cs" />
     <Compile Include="Response\IResponse\IBaseResponse.cs" />
     <Compile Include="Response\IResponse\IInquiryResponse.cs" />
+    <Compile Include="Response\ModelOperationalResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AdSetLead.Core.Model;
+using AdSetLead.Core.Responses;
 using AdSetLead.Data.Context;
 
 namespace AdSetLead.Api.Controllers
@@ -18,12 +19,15 @@ namespace AdSetLead.Api.Controllers
         // GET: api/Opcionals
         [HttpGet]
         [Route("api/opcional")]
-        [ResponseType(typeof(Opcional))]
+        [ResponseType(typeof(OpcionalResponse))]
         public IHttpActionResult GetOpcional()
         {
+            OpcionalResponse response = new OpcionalResponse();
             List<Opcional> opcionais = db.Opcional.ToList();
 
-            return Ok(opcionais);
+            response.ResponseData.AddRange(opcionais);
+
+            return Ok(response);
         }
 
         // GET: api/Opcionals/5

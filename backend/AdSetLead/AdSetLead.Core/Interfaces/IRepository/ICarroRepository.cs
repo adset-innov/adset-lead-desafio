@@ -3,6 +3,7 @@ using AdSetLead.Core.Model;
 using AdSetLead.Core.Models;
 using AdSetLead.Core.Request;
 using AdSetLead.Core.Responses;
+using Daptive.Share.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace AdSetLead.Core.Interfaces.IRepository
         /// </summary>
         /// <param name="carro">Carro a ser atualizado</param>
         /// <returns>Carro atualizado</returns>
-        Task<CarroResponse> AtualizarCarroAsync(Carro carro);
+        Task<ModelOperationalResponse> AtualizarCarroAsync(Carro carro);
 
         /// <summary>
         /// Busca carros por request
@@ -51,13 +52,13 @@ namespace AdSetLead.Core.Interfaces.IRepository
         /// </summary>
         /// <param name="id">id do carro</param>
         /// <returns>Carro deletado</returns>
-        CarroResponse DeletetarCarroPorId(int id);
+        ModelOperationalResponse DeletetarCarroPorId(int id);
 
         /// <summary>
         /// Registra carro
         /// </summary>
         /// <param name="carro">Carro a ser registrado</param>
         /// <returns>Carro resgistrado</returns>
-        Task<CarroResponse> RegistrarCarro(Carro carro);
+        Task<ModelOperationalResponse> RegistrarCarro(Carro carro);
     }
 }

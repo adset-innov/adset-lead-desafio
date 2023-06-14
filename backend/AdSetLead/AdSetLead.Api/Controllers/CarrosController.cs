@@ -19,6 +19,7 @@ using AdSetLead.Core.Extensions;
 using AdSetLead.Core.Bac;
 using AdSetLead.Api.Services;
 using AdSetLead.Core.Interfaces.IServices;
+using Daptive.Share.Response;
 
 namespace AdSetLead.Api.Controllers
 {
@@ -98,7 +99,7 @@ namespace AdSetLead.Api.Controllers
         // PUT: api/Carros
         [HttpPut]
         [Route("api/carros")]
-        [ResponseType(typeof(CarroResponse))]
+        [ResponseType(typeof(ModelOperationalResponse))]
         public async Task<IHttpActionResult> PutCarro(Carro carro)
         {
             if (!ModelState.IsValid)
@@ -106,14 +107,12 @@ namespace AdSetLead.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            CarroResponse response = await _carroRepository.AtualizarCarroAsync(carro);
-            if (response.HasAnyMessages)
+            ModelOperationalResponse response = await _carroRepository.AtualizarCarroAsync(carro);
+            if (response.InError())
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                 return ResponseMessage(resultResponse);
             }
-
-            response.AddInfoMessage("200", "Carro atualizado com sucesso");
 
             return Ok(response);
         }
@@ -121,22 +120,25 @@ namespace AdSetLead.Api.Controllers
         // POST: api/Carros
         [HttpPost]
         [Route("api/carros")]
-        [ResponseType(typeof(CarroResponse))]
+        [ResponseType(typeof(ModelOperationalResponse))]
         public async Task<IHttpActionResult> PostCarro()
         {
             HttpRequest httpRequest = HttpContext.Current.Request;
             CarroBac carroBac = new CarroBac();
 
-            CarroResponse response = carroBac.RegistrarCarroBac(httpRequest);            
-        
-            response = await _carroRepository.RegistrarCarro(response.ResponseData.FirstOrDefault());
+            CarroResponse response = carroBac.RegistrarCarroBac(httpRequest);
             if (response.InError())
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                 return ResponseMessage(resultResponse);
             }
-
-            response.AddInfoMessage("200", "Carro adicionado com sucesso");
+        
+            ModelOperationalResponse newCarroResponse = await _carroRepository.RegistrarCarro(response.ResponseData.FirstOrDefault());
+            if (response.InError())
+            {
+                HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                return ResponseMessage(resultResponse);
+            }            
 
             int novoCarroRegistradoId = response.ResponseData.Select(c => c.Id).SingleOrDefault();
             response = _carroRepository.BuscarCarroPorId(novoCarroRegistradoId);
@@ -152,9 +154,9 @@ namespace AdSetLead.Api.Controllers
             Carro carroParaAtualizar = response.ResponseData.SingleOrDefault();
             carroParaAtualizar.Imagens.AddRange(imagens);
 
-            await _carroRepository.AtualizarCarroAsync(carroParaAtualizar);
+            newCarroResponse = await _carroRepository.AtualizarCarroAsync(carroParaAtualizar);
 
-            return Ok();
+            return Ok(newCarroResponse);
         }
 
         // DELETE: api/Carros/5
@@ -163,14 +165,12 @@ namespace AdSetLead.Api.Controllers
         [ResponseType(typeof(CarroResponse))]
         public IHttpActionResult DeleteCarro(int id)
         {
-            CarroResponse response = _carroRepository.DeletetarCarroPorId(id);
-            if (response.HasAnyMessages)
+            ModelOperationalResponse response = _carroRepository.DeletetarCarroPorId(id);
+            if (response.InError())
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                 return ResponseMessage(resultResponse);
             }
-
-            response.AddInfoMessage("200", "Excluído com sucesso");
 
             return Ok(response);
         }

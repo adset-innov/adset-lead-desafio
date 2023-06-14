@@ -87,6 +87,7 @@
     <Compile Include="Responses\BaseInquiryResponse.cs" />
     <Compile Include="Responses\CarroResponse.cs" />
     <Compile Include="Responses\MarcaResponse.cs" />
+    <Compile Include="Responses\OpcionalResponse.cs" />
     <Compile Include="Validators\CarroValidator.cs" />
   </ItemGroup>
   <ItemGroup>

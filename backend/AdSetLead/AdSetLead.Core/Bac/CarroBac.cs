@@ -3,6 +3,7 @@ using AdSetLead.Core.Model;
 using AdSetLead.Core.Models;
 using AdSetLead.Core.Responses;
 using AdSetLead.Core.Validators;
+using Daptive.Share.Request;
 using FluentValidation;
 using FluentValidation.Results;
 using Newtonsoft.Json;
@@ -29,7 +30,7 @@ namespace AdSetLead.Core.Bac
         /// <returns></returns>
         public CarroResponse RegistrarCarroBac(HttpRequest httpRequest)
         {
-            CarroResponse response = new CarroResponse();
+            CarroResponse response = new CarroResponse();           
             NameValueCollection formData = httpRequest.Form;
 
             string opcionaisJSON = formData[nameof(Carro.Opcionais)];
