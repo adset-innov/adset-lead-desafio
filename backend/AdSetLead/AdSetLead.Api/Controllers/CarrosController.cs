@@ -20,20 +20,24 @@ using AdSetLead.Core.Bac;
 using AdSetLead.Api.Services;
 using AdSetLead.Core.Interfaces.IServices;
 using Daptive.Share.Response;
+using AdSetLead.Core.Interfaces.IBac;
 
 namespace AdSetLead.Api.Controllers
 {
     public class CarrosController : ApiController
     {
+        private readonly ICarroBac _carroBac;
         private readonly ICarroRepository _carroRepository;
         private readonly IFotosService _fotosServices;
 
         public CarrosController()
         {
             UnityContainer container = new UnityContainer();
-            container.RegisterType<ICarroRepository, CarroRepository>();
-            container.RegisterType<IFotosService, FotosService>();
+            container.RegisterSingleton<ICarroBac, CarroBac>();
+            container.RegisterSingleton<ICarroRepository, CarroRepository>();
+            container.RegisterSingleton<IFotosService, FotosService>();
 
+            _carroBac = container.Resolve<ICarroBac>();
             _carroRepository = container.Resolve<ICarroRepository>();
             _fotosServices = container.Resolve<IFotosService>();
         }
@@ -91,7 +95,7 @@ namespace AdSetLead.Api.Controllers
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
                 return ResponseMessage(resultResponse);
-            }
+            }           
 
             return Ok(response);
         }
@@ -100,14 +104,19 @@ namespace AdSetLead.Api.Controllers
         [HttpPut]
         [Route("api/carros")]
         [ResponseType(typeof(ModelOperationalResponse))]
-        public async Task<IHttpActionResult> PutCarro(Carro carro)
+        public async Task<IHttpActionResult> PutCarro()
         {
-            if (!ModelState.IsValid)
+            HttpRequest httpRequest = HttpContext.Current.Request;
+
+            CarroResponse response = _carroBac.AtualizarCarroBac(httpRequest);
+
+            if (response.InError())
             {
-                return BadRequest(ModelState);
+                HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                return ResponseMessage(resultResponse);
             }
 
-            ModelOperationalResponse response = await _carroRepository.AtualizarCarroAsync(carro);
+            ModelOperationalResponse updatedResponse = await _carroRepository.AtualizarCarroAsync(response.ResponseData.SingleOrDefault());
             if (response.InError())
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
@@ -124,9 +133,8 @@ namespace AdSetLead.Api.Controllers
         public async Task<IHttpActionResult> PostCarro()
         {
             HttpRequest httpRequest = HttpContext.Current.Request;
-            CarroBac carroBac = new CarroBac();
 
-            CarroResponse response = carroBac.RegistrarCarroBac(httpRequest);
+            CarroResponse response = _carroBac.RegistrarCarroBac(httpRequest);
             if (response.InError())
             {
                 HttpResponseMessage resultResponse = Request.CreateResponse(HttpStatusCode.BadRequest, response);
@@ -150,6 +158,7 @@ namespace AdSetLead.Api.Controllers
                 return Ok(response);
             }
 
+            // TODO: Move to BAC
             List<Imagem> imagens = _fotosServices.UploadFotos(httpRequest);
             Carro carroParaAtualizar = response.ResponseData.SingleOrDefault();
             carroParaAtualizar.Imagens.AddRange(imagens);

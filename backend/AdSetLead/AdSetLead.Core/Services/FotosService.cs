@@ -6,9 +6,8 @@ using System.Web.Hosting;
 using System;
 using System.Web;
 using AdSetLead.Core.Interfaces.IServices;
-using System.Runtime.Remoting.Messaging;
 
-namespace AdSetLead.Api.Services
+namespace AdSetLead.Core.Services
 {
     public class FotosService : IFotosService
     {

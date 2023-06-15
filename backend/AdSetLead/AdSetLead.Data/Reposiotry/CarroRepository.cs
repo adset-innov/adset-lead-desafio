@@ -11,18 +11,21 @@ using System.Data.Entity.Migrations;
 using AdSetLead.Core.Request;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using Daptive.Share.Response;
+using AdSetLead.Core.Interfaces.IBac;
+using AdSetLead.Core.Bac;
 
 namespace AdSetLead.Core.Repository
 {
     public class CarroRepository : ICarroRepository
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly ICarroBac _carroBac;
 
         public CarroRepository()
         {
             dbContext = new ApplicationDbContext();
+            _carroBac = new CarroBac();
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace AdSetLead.Core.Repository
             try
             {
                 Carro carro = dbContext.Set<Carro>().Find(request.Id);
-                if (request == null)
+                if (carro == null)
                 {
                     response.AddWarningMessage("Carro não existe");
 
@@ -46,6 +49,7 @@ namespace AdSetLead.Core.Repository
 
                 dbContext.Entry(carro).Collection(c => c.Opcionais).Load();
 
+                carro.Id = request.Id;
                 carro.Ano = request.Ano;
                 carro.Cor = request.Cor;
                 carro.Kilometragem = request.Kilometragem;
@@ -191,7 +195,7 @@ namespace AdSetLead.Core.Repository
                 {
                     carros = query.ToList();
                 }
-                              
+                
                 // Faz a relação de muitos carros para muitos opcionais
                 foreach (var carro in carros)
                 {
@@ -233,22 +237,22 @@ namespace AdSetLead.Core.Repository
                     }).ToList(),                    
                 }).ToList();                                
 
-                if (!carros.Any())
+                if (carros.Count == 0)
                 {
-                    response.AddWarningMessage("100", "Carro não encotrado");
+                    response.AddWarningMessage("Carro não encotrado");
                 }
 
                 response.ResponseData.AddRange(carros);
-                response.TotalAvailableItems = totalItems;
+                response = _carroBac.BuscarCarrosPorRequestBac(response);
 
-                return response;
+                response.TotalAvailableItems = totalItems;
             }
             catch (Exception ex)
             {
-                response.AddExceptionMessage("101", $"Erro de exceção: {ex.Message}");
+                response.AddExceptionMessage($"Exception error: {ex.Message}");
+            }
 
-                return response;
-            }  
+            return response;
         }
 
         /// <summary>
@@ -372,6 +376,7 @@ namespace AdSetLead.Core.Repository
         /// </summary>
         /// <param name="carro"></param>
         /// <returns></returns>
+        /*
         private async Task AddCarroOpcionalRelacionamento(Carro carro)
         {
             List<string> insertList = new List<string>();
@@ -408,6 +413,7 @@ namespace AdSetLead.Core.Repository
                 await dbContext.Database.ExecuteSqlCommandAsync(insertQuery, insertParams.ToArray());
             }
         }
+        */
 
         /// <summary>
         /// Aplica o filtro conforme request
@@ -453,15 +459,77 @@ namespace AdSetLead.Core.Repository
                 query = query.Where(c => c.Imagens.Any());
             }
 
-            if (filterRequest.TemOpcionais) 
+            if (filterRequest.OptionalId > 0) 
             {
-               query = query.Where(c => c.Opcionais.Any(op => op.Id == 1));
-                var teste = query.ToList();
+               query = query.Where(c => c.Opcionais.Any(op => op.Id == filterRequest.OptionalId));
             }
 
             if (!string.IsNullOrEmpty(filterRequest.Cor))
             {
                 query = query.Where(c => c.Cor.Equals(filterRequest.Cor));
+            }
+
+            query = OrderBryRequest(query, filterRequest);
+
+            return query;
+        }
+
+        /// <summary>
+        /// Order By filter Request
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="filterRequest"></param>
+        /// <returns></returns>
+        private IQueryable<Carro> OrderBryRequest(IQueryable<Carro> query, FilterRequest filterRequest)
+        {
+            switch (filterRequest.SortBy)
+            {
+                case nameof(Carro.Ano):
+                    if (filterRequest.SortAction.Equals("ASC"))
+                    {
+                        query = query.OrderBy(c => c.Ano);
+                    }
+                    else if (filterRequest.SortAction.Equals("DESC"))
+                    {
+                        query = query.OrderByDescending(c => c.Ano);
+                    }
+                    break;
+
+                case nameof(Carro.Marca):
+                    if (filterRequest.SortAction.Equals("ASC"))
+                    {
+                        query = query.OrderBy(c => c.Marca.Nome).ThenBy(c => c.Modelo.Nome);                        
+                    }
+                    else if (filterRequest.SortAction.Equals("DESC"))
+                    {
+                        query = query.OrderByDescending(c => c.Marca.Nome).ThenBy(c => c.Modelo.Nome);
+                    }
+                    break;
+
+                case nameof(Carro.Preco):
+                    if (filterRequest.SortAction.Equals("ASC"))
+                    {
+                        query = query.OrderBy(c => c.Preco);
+                    }
+                    else if (filterRequest.SortBy.Equals("DESC"))
+                    {
+                        query = query.OrderByDescending(c => c.Preco);
+                    }
+                    break;
+
+                case nameof(Carro.Imagens):
+                    if (filterRequest.SortAction.Equals("ASC"))
+                    {
+                        query = query.OrderBy(c => c.Imagens.Any());
+                    }
+                    else if (filterRequest.SortAction.Equals("DESC"))
+                    {
+                        query = query.OrderByDescending(c => c.Imagens.Any());
+                    }
+                    break;
+                default:
+                    query = query.OrderBy(c => c.Id);
+                    break;
             }
 
             return query;

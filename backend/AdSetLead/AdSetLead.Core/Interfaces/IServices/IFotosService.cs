@@ -13,5 +13,12 @@ namespace AdSetLead.Core.Interfaces.IServices
         /// <param name="httpRequest"></param>
         /// <returns></returns>
         List<Imagem> UploadFotos(HttpRequest httpRequest);
+
+        /// <summary>
+        /// Constroi o caminho do local da foto no server
+        /// </summary>
+        /// <param name="imagens"></param>
+        /// <returns></returns>
+        List<Imagem> PhotoPathBuilder(List<Imagem> imagens);
     }
 }

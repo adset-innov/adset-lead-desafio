@@ -73,6 +73,7 @@
     <Compile Include="Bac\CarroBac.cs" />
     <Compile Include="Extensions\FilterExtension.cs" />
     <Compile Include="Extensions\CommonExtension.cs" />
+    <Compile Include="Interfaces\IBac\ICarroBac.cs" />
     <Compile Include="Interfaces\IRepository\ICarroRepository.cs" />
     <Compile Include="Interfaces\IRepository\IMarcaRepository.cs" />
     <Compile Include="Interfaces\IServices\IFotosService.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Responses\CarroResponse.cs" />
     <Compile Include="Responses\MarcaResponse.cs" />
     <Compile Include="Responses\OpcionalResponse.cs" />
+    <Compile Include="Services\FotosService.cs" />
     <Compile Include="Validators\CarroValidator.cs" />
   </ItemGroup>
   <ItemGroup>

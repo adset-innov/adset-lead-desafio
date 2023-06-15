@@ -144,18 +144,6 @@ INSERT [dbo].[Opcional] ([Id], [Nome], [Descricao]) VALUES (14, N'Retrovisores e
 INSERT [dbo].[Opcional] ([Id], [Nome], [Descricao]) VALUES (15, N'Central multimídia', N'Sistema que combina funções de entretenimento, navegação e conectividade.')
 SET IDENTITY_INSERT [dbo].[Opcional] OFF
 
-DELETE FROM [dbo].[Imagem];
-SET IDENTITY_INSERT [dbo].[Imagem] ON 
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (1, N'https://forbes.com.br/wp-content/uploads/2020/08/Neg%C3%B3cios-CarrosdeLuxo-180820-Divulga%C3%A7%C3%A3o9-1-768x512.jpg', 1)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (2, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro003.jpeg?alt=media&token=ff257559-de60-4c74-b8c0-228265fc826e&_gl=1*q59b67*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODg0Mi4wLjAuMA..', 1)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (3, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro003.jpeg?alt=media&token=ff257559-de60-4c74-b8c0-228265fc826e&_gl=1*q59b67*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODg0Mi4wLjAuMA..', 1)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (4, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro003.jpeg?alt=media&token=ff257559-de60-4c74-b8c0-228265fc826e&_gl=1*q59b67*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODg0Mi4wLjAuMA..', 1)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (5, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro003.jpeg?alt=media&token=ff257559-de60-4c74-b8c0-228265fc826e&_gl=1*q59b67*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODg0Mi4wLjAuMA..', 1)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (6, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro003.jpeg?alt=media&token=ff257559-de60-4c74-b8c0-228265fc826e&_gl=1*q59b67*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODg0Mi4wLjAuMA..', 1)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (7, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro002.jpeg?alt=media&token=3b1402e0-2302-4545-96a7-9c17232705ba&_gl=1*1yqliuk*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODczNS4wLjAuMA..', 2)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (8, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro002.jpeg?alt=media&token=3b1402e0-2302-4545-96a7-9c17232705ba&_gl=1*1yqliuk*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODczNS4wLjAuMA..', 2)
-INSERT [dbo].[Imagem] ([Id], [Url], [CarroId]) VALUES (9, N'https://firebasestorage.googleapis.com/v0/b/skydreamtur-fcdd8.appspot.com/o/temp%2Fcarro002.jpeg?alt=media&token=3b1402e0-2302-4545-96a7-9c17232705ba&_gl=1*1yqliuk*_ga*MTY2MjMyNzIyMy4xNjg2NDk2Nzk1*_ga_CW55HF8NVT*MTY4NjUyODUyMC4yLjEuMTY4NjUyODczNS4wLjAuMA..', 2)
-SET IDENTITY_INSERT [dbo].[Imagem] OFF
 
 DELETE FROM [dbo].[CarroOpcional];
 INSERT [dbo].[CarroOpcional] ([CarroId], [OpcionalId]) VALUES (10, 1)

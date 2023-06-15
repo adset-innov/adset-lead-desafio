@@ -13,7 +13,10 @@ namespace AdSetLead.Core.Request
         public double PrecoMin { get; set; }
         public double PrecoMax { get; set; }
         public bool TemFoto { get; set; }
-        public bool TemOpcionais { get; set; }
+        public int OptionalId { get; set; }
         public string Cor { get; set; }
+        public string SortBy { get; set; }
+        public string SortAction { get; set; }
+       
     }
 }
