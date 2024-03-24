@@ -1,0 +1,29 @@
+<mat-dialog-content>
+    @if (data.ehOpcional) {
+    <h3>Opcionais</h3>
+        @if(data.item.opcionais.length > 0){
+        <ul>
+            @for (item of data.item.opcionais; track item) {
+            <li>
+                {{item.descricao}}
+            </li>
+            }
+        </ul>
+        }@else {
+            -Sem opcionais
+        }
+    }@else{
+        <h3>Imagens</h3>
+        @if(data.item.imagens.length > 0){
+            <ul>
+                @for (item of data.item.imagens; track item) {
+                <li>
+                    <img width="300px" height="200px" [src]="convertImg(item.tipo, item.bytes)">
+                </li>
+                }
+            </ul>
+            }@else {
+                -Sem imagens
+            }
+    }
+</mat-dialog-content>

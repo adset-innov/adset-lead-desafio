@@ -1,0 +1,19 @@
+
+<div class="app-container">
+  <mat-toolbar color="secondary" 
+  fxLayoutGap="8px"
+  [class.is]
+  class="app-toolbar">
+    <a mat-button routerLink="/home">
+      <img height="50" src="assets/img/adset-lead.png" alt="">
+    </a>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" (closed)="true"></mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    
+  </mat-sidenav-container>  
+</div>

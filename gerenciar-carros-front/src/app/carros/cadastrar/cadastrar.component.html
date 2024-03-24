@@ -1,0 +1,113 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Cadastro</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form">
+        <mat-form-field class="form-full-width ">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="marca">
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width ">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="modelo">
+        </mat-form-field>
+        <mat-form-field class="form-full-width ">
+          <mat-label>Ano</mat-label>
+          <input type="number" maxlength="4" matInput formControlName="ano">
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width ">
+          <mat-label>Placa</mat-label>
+          <input matInput formControlName="placa">
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width ">
+          <mat-label>Km</mat-label>
+          <input mask="separator.2" thousandSeparator="." matInput formControlName="km">
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width ">
+          <mat-label>Cor</mat-label>
+          <input matInput formControlName="cor">
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width ">
+          <mat-label>Preço</mat-label>
+          <input matInput [allowNegativeNumbers]="false" mask="separator.2" thousandSeparator="."
+            formControlName="preco">
+        </mat-form-field>
+      </form>
+        <mat-list-item>
+          <h3>Opcionais</h3>
+          <mat-form-field class="form-full-width ">
+            <mat-label>Opcicionais</mat-label>
+            <input matInput [(ngModel)]="opcional">
+          </mat-form-field>
+          <button (click)="addOpcional()" mat-raised-button
+          color="primary">Add</button>
+          <br />
+          @if(listOpcionais.length > 0){
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Excluir</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(item of listOpcionais; track item) {
+              <tr>
+                <td>{{item.descricao}}</td>
+                <td><span (click)="excluirOpcional(item)"><mat-icon aria-hidden="false"
+                      fontIcon="delete"></mat-icon></span></td>
+              </tr>
+              }@empty {
+              Sem imagens
+              }
+            </tbody>
+          </table>
+        }
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3>Imagens</h3>
+          <input type="file" (change)="fileChange($event)" #fileInput accept="image/png, image/jpeg" [multiple]="true">
+          <br />
+          <br />
+          @if(listaImagens.length > 0){
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Excluir</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(item of listaImagens; track item) {
+              <tr>
+                <td>{{item.nome}}</td>
+                <td><span (click)="excluirImagem(item)"><mat-icon aria-hidden="false"
+                      fontIcon="delete"></mat-icon></span></td>
+              </tr>
+              }@empty {
+              Sem imagens
+              }
+            </tbody>
+          </table>
+          }
+        </mat-list-item>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-toolbar>
+        <span class="flex-spacer"></span>
+        <button [disabled]="!form.valid" (click)="salvar(form)" mat-raised-button
+          color="primary">Cadastrar</button>&nbsp;
+        <button mat-raised-button color="secundary" routerLink="/home">Voltar</button>
+      </mat-toolbar>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

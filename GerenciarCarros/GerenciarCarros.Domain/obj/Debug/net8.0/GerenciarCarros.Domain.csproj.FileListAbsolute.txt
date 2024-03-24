@@ -1,0 +1,12 @@
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\bin\Debug\net8.0\GerenciarCarros.Domain.deps.json
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\bin\Debug\net8.0\GerenciarCarros.Domain.dll
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\bin\Debug\net8.0\GerenciarCarros.Domain.pdb
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.AssemblyInfoInputs.cache
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.AssemblyInfo.cs
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.csproj.CoreCompileInputs.cache
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.sourcelink.json
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.dll
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\refint\GerenciarCarros.Domain.dll
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\GerenciarCarros.Domain.pdb
+C:\Projetos\Desafio\adset-lead\GerenciarCarros\GerenciarCarros.Domain\obj\Debug\net8.0\ref\GerenciarCarros.Domain.dll
