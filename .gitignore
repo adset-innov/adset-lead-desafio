@@ -32,5 +32,10 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
-./GerenciarCarros/vs/
+./GerenciarCarros/.vs/
 ./GerenciarCarros/GerenciarCarros.API/bin/
+
+./GerenciarCarros/GerenciarCarros.API/[Dd]ebug/
+./GerenciarCarros/GerenciarCarros.API/[Dd]ebugPublic/
+./GerenciarCarros/GerenciarCarros.API/[Rr]elease/
+./GerenciarCarros/GerenciarCarros.API/[Rr]eleases/
