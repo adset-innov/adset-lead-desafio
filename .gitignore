@@ -42,3 +42,4 @@ msbuild.wrn
 /GerenciarCarros/.vs/GerenciarCarros/v17/.suo
 /GerenciarCarros/.vs/GerenciarCarros/v17/DocumentLayout.json
 /GerenciarCarros/GerenciarCarros.API/obj/Debug/net8.0/ApiEndpoints.json
+/GerenciarCarros/GerenciarCarros.API/bin/Debug/net8.0/GerenciarCarros.API.deps.json
