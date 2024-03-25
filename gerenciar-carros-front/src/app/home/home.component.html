@@ -1,0 +1,161 @@
+<div fxLayout="row" fxLayoutAlign="end">
+    <mat-toolbar>
+        <span style="font-size: medium;">{{ totalVeiculos }} veículos
+            <p style="color: blue; margin-top: 1px;margin-bottom: 1px;">Total</p>
+        </span>
+
+        <span class="flex-spacer"></span>
+
+        <span style="font-size: medium;">{{ totalVeiculosComFoto }} veículos
+            <p style="color: green; margin-top: 1px;margin-bottom: 1px;">Com Fotos</p>
+        </span>
+
+        <span class="flex-spacer"></span>
+        <span style="font-size: medium;">{{ totalVeiculosSemFoto }} veículos<br />
+            <p style="color: red; margin-top: 1px;margin-bottom: 1px;">Sem Fotos</p>
+        </span>
+        <span class="flex-spacer"></span>
+        <span style="font-size: medium;">Exportar Estoque<br />
+            <mat-icon aria-hidden="false" fontIcon="picture_as_pdf"></mat-icon>&nbsp;
+            <img src="assets/img/excel-24.png" /></span>
+        <span class="flex-spacer"></span>
+
+        <button  matTooltip="Cadastrar Veículo"
+         mat-raised-button color="primary" routerLink="/carros">
+            <mat-icon aria-hidden="false" fontIcon="add_circle"></mat-icon>Cadastrar</button>
+
+        <span class="flex-spacer"></span>
+        <span class="flex-spacer"></span>
+        <span class="flex-spacer"></span>
+        <button  matTooltip="Atualizar Página" (click)="atualizar()" mat-raised-button color="warn"><mat-icon aria-hidden="false"
+                fontIcon="update"></mat-icon>Atualizar</button>
+    </mat-toolbar>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+    <mat-toolbar>
+        <form [formGroup]="form">
+
+            <mat-form-field>
+                <mat-label>Placa</mat-label>
+                <input matInput formControlName="placa">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Modelo</mat-label>
+                <input matInput formControlName="modelo">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Marca</mat-label>
+                <input matInput formControlName="marca">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Ano Min</mat-label>
+                <mat-select formControlName="anoMin">
+                    <mat-option value="0">Todos</mat-option>
+                    @for (item of anos; track item) {
+                    <mat-option [value]="item">{{item}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Ano Max</mat-label>
+                <mat-select formControlName="anoMax">
+                    <mat-option value="0">Todos</mat-option>
+                    @for (item of anos; track item) {
+                    <mat-option [value]="item">{{item}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Cor</mat-label>
+                <input matInput formControlName="cor">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Preço</mat-label>
+                <input matInput [allowNegativeNumbers]="false" mask="separator.2" thousandSeparator="."
+                    formControlName="preco">
+            </mat-form-field>
+        </form>
+    </mat-toolbar>
+    <button (click)="buscar(form)" mat-stroked-button color="primary"><mat-icon aria-hidden="false"
+            fontIcon="search"></mat-icon>Buscar</button>
+</div>
+<div fxLayout="row" fxLayoutAlign="left left">
+    <table [width]="'100%'">
+        <thead>
+            <th>#</th>
+            <th>Marca/Modelo</th>
+            <th>Ano</th>
+            <th>Preço</th>
+            <th>Fotos</th>
+            <th matTooltip="iCarros"><img height="50px" width="120px" src="assets/img/icarros.png"></th>
+            <th matTooltip="WebMotos"><img height="50px" width="120px" src="assets/img/webmotos.jpg"></th>
+        </thead>
+        @for (item of carros?.items; track item.id) {
+            <tr>
+                <td>
+                    <span style="cursor: pointer;" (click)="excluir(item.id)"><mat-icon aria-hidden="false" fontIcon="delete" color="red"></mat-icon></span>
+                </td>
+                <td colspan="4" align="rigth">
+                    <mat-card  class="max-width-card">
+                        <mat-card-content>
+                            <table class="table" [width]="'100%'">
+                                <tr>
+                                    <td>
+                                        @if(item.imagens.length ===0){
+                                            <img width="150px" height="150px" mat-card-lg-image src="assets/img/toro.jpg">
+                                        } @else {
+                                            <img width="150px" height="150px" [src]="convertImg(item.imagens[0].tipo, item.imagens[0].bytes)">
+                                        }
+                                    </td>
+                                    <td>
+                                        <h3>{{item.marca}} {{item.modelo}} | {{item.ano}}</h3>
+                                        <br />
+                                        <br />
+                                        Placa - {{item.placa}}<br />
+                                        Km - {{item.km}}<br />
+                                        Cor - {{item.cor}}<br />
+                                    </td>
+                                    <td style="vertical-align:bottom;">
+                                        <span mat-stroked-button color="accept" style="cursor: pointer;" (click)="editar(item.id)"><mat-icon aria-hidden="false" fontIcon="edit"></mat-icon></span>
+                                        &nbsp;
+                                        <span style="color: green;" (click)="openDialog(item, false)" style="cursor: pointer;"><mat-icon aria-hidden="false" fontIcon="photo_camera"></mat-icon>  {{item.imagens.length | mask: '00' }}</span>
+                                        &nbsp;
+                                        <span style="color: green;" (click)="openDialog(item, true)" style="cursor: pointer;"><mat-icon aria-hidden="false" fontIcon="directions_car"></mat-icon>Opcionais</span><br /><br />
+                                        R$ {{item.preco}}    
+                                    </td>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+    
+                </td>
+                <td align="center">                    
+                    <h6>Diamante Feirão</h6>
+                    <mat-checkbox (change)="verificarPacote($event, 0, item.id)" [checked]="checarPacote(item, 0)"><span style="color: red;">010</span> - <span style="color: green;">008</span></mat-checkbox>
+                    <h6>Diamante</h6>
+                    <mat-checkbox (change)="verificarPacote($event, 1, item.id)" [checked]="checarPacote(item, 1)"><span style="color: red;">030</span> - <span style="color: green;">025</span></mat-checkbox>
+                    <h6>Platinum</h6>
+                    <mat-checkbox (change)="verificarPacote($event, 2, item.id)" [checked]="checarPacote(item, 2)"><span style="color: red;">040</span> - <span style="color: green;">010</span> </mat-checkbox>
+                </td>
+                <td align="center">
+                    <h6>Basico</h6>
+                    <mat-checkbox (change)="verificarPacote($event, 3, item.id)" [checked]="checarPacote(item, 3)"><span style="color: red;">030</span> - <span style="color: green;">025</span></mat-checkbox>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7">
+                <hr />
+                </td>
+            </tr>
+        }     
+
+    </table>
+</div>
+<!-- <mat-paginator (page)="handlePageEvent($event)" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+</mat-paginator> -->
+<mat-paginator (page)="handlePageEvent($event)" [length]="tamanho" [pageSize]="tamanhoPagina" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+</mat-paginator>    

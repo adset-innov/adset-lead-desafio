@@ -1,0 +1,106 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8B394D12-F237-46B8-BFE4-D83205794B52}|GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj|c:\\projetos\\desafio\\adset-lead\\gerenciarcarros\\gerenciarcarros.domain\\repositories\\ipacoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B394D12-F237-46B8-BFE4-D83205794B52}|GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj|solutionrelative:gerenciarcarros.domain\\repositories\\ipacoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{303DD8E5-8638-440F-A48A-1CC0B4EF5DC2}|GerenciarCarros.API\\GerenciarCarros.API.csproj|c:\\projetos\\desafio\\adset-lead\\gerenciarcarros\\gerenciarcarros.api\\controllers\\carrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{303DD8E5-8638-440F-A48A-1CC0B4EF5DC2}|GerenciarCarros.API\\GerenciarCarros.API.csproj|solutionrelative:gerenciarcarros.api\\controllers\\carrocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{33ABF5C1-BA5F-458B-A609-2FD4A0B13F47}|GerenciarCarros.Application\\GerenciarCarros.Application.csproj|c:\\projetos\\desafio\\adset-lead\\gerenciarcarros\\gerenciarcarros.application\\services\\carroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{33ABF5C1-BA5F-458B-A609-2FD4A0B13F47}|GerenciarCarros.Application\\GerenciarCarros.Application.csproj|solutionrelative:gerenciarcarros.application\\services\\carroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D74237A-5CBD-4DF7-A43F-A7A8079DE056}|GerenciarCarros.Infrastructure\\GerenciarCarros.Infrastructure.csproj|c:\\projetos\\desafio\\adset-lead\\gerenciarcarros\\gerenciarcarros.infrastructure\\repositories\\pacoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D74237A-5CBD-4DF7-A43F-A7A8079DE056}|GerenciarCarros.Infrastructure\\GerenciarCarros.Infrastructure.csproj|solutionrelative:gerenciarcarros.infrastructure\\repositories\\pacoterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{33ABF5C1-BA5F-458B-A609-2FD4A0B13F47}|GerenciarCarros.Application\\GerenciarCarros.Application.csproj|c:\\projetos\\desafio\\adset-lead\\gerenciarcarros\\gerenciarcarros.application\\interfaces\\icarroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{33ABF5C1-BA5F-458B-A609-2FD4A0B13F47}|GerenciarCarros.Application\\GerenciarCarros.Application.csproj|solutionrelative:gerenciarcarros.application\\interfaces\\icarroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IPacoteRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\Repositories\\IPacoteRepository.cs",
+              "RelativeDocumentMoniker": "GerenciarCarros.Domain\\Repositories\\IPacoteRepository.cs",
+              "ToolTip": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\Repositories\\IPacoteRepository.cs",
+              "RelativeToolTip": "GerenciarCarros.Domain\\Repositories\\IPacoteRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:09:06.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CarroController.cs",
+              "DocumentMoniker": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.API\\Controllers\\CarroController.cs",
+              "RelativeDocumentMoniker": "GerenciarCarros.API\\Controllers\\CarroController.cs",
+              "ToolTip": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.API\\Controllers\\CarroController.cs",
+              "RelativeToolTip": "GerenciarCarros.API\\Controllers\\CarroController.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAmwBIAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T21:53:09.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PacoteRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Infrastructure\\Repositories\\PacoteRepository.cs",
+              "RelativeDocumentMoniker": "GerenciarCarros.Infrastructure\\Repositories\\PacoteRepository.cs",
+              "ToolTip": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Infrastructure\\Repositories\\PacoteRepository.cs",
+              "RelativeToolTip": "GerenciarCarros.Infrastructure\\Repositories\\PacoteRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:10:11.547Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ICarroService.cs",
+              "DocumentMoniker": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Application\\Interfaces\\ICarroService.cs",
+              "RelativeDocumentMoniker": "GerenciarCarros.Application\\Interfaces\\ICarroService.cs",
+              "ToolTip": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Application\\Interfaces\\ICarroService.cs",
+              "RelativeToolTip": "GerenciarCarros.Application\\Interfaces\\ICarroService.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAA9wBUAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T22:05:30.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CarroService.cs",
+              "DocumentMoniker": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Application\\Services\\CarroService.cs",
+              "RelativeDocumentMoniker": "GerenciarCarros.Application\\Services\\CarroService.cs",
+              "ToolTip": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Application\\Services\\CarroService.cs",
+              "RelativeToolTip": "GerenciarCarros.Application\\Services\\CarroService.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAQwDQAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-21T18:18:32.771Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

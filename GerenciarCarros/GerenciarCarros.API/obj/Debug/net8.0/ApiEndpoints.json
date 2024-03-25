@@ -1,0 +1,213 @@
+[
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "Get",
+    "RelativePath": "api/Carro",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "Post",
+    "RelativePath": "api/Carro",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "GerenciarCarros.Application.Models.CarroModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "Get",
+    "RelativePath": "api/Carro/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "Put",
+    "RelativePath": "api/Carro/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "value",
+        "Type": "GerenciarCarros.Application.Models.CarroModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "Delete",
+    "RelativePath": "api/Carro/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "GetAnos",
+    "RelativePath": "api/Carro/anos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "DeleteImage",
+    "RelativePath": "api/Carro/imagem/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "DeleteOpcional",
+    "RelativePath": "api/Carro/opcional/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "DeletePacote",
+    "RelativePath": "api/Carro/pacote/{id}/{tipo}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "tipo",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "GetPaginados",
+    "RelativePath": "api/Carro/paginacao",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paginacao",
+        "Type": "GerenciarCarros.Application.Models.PaginacaoCarroModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "GetTotais",
+    "RelativePath": "api/Carro/totais/{tipo}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tipo",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "Upload",
+    "RelativePath": "api/Carro/upload/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "imagens",
+        "Type": "System.Collections.Generic.IList\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "GerenciarCarros.API.Controllers.CarroController",
+    "Method": "VincularPacote",
+    "RelativePath": "api/Carro/vincularPacote",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "GerenciarCarros.Application.Models.PacoteModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
