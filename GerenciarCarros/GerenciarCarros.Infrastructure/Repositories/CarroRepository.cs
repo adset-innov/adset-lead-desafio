@@ -32,49 +32,17 @@ namespace GerenciarCarros.Infrastructure.Repositories
         private async Task<List<Carro>> ListaCarro(int tamanhoPagina, int numeroPagina, string ordenacao = "", string marca = "", string modelo = "", string cor = "", decimal? preco = null, string opcionais = "", int? anoMin = null, int? anoMax = null, string placa= "")
         {
             var items = await Db.Carros.Include(x => x.Opcionais)
-                .Include(x => x.Imagens).Include(x=> x.Pacotes).ToListAsync();
-
-            if(!string.IsNullOrEmpty(marca))
-            {
-                items = items.Where(x => x.Marca.Contains(marca)).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(modelo))
-            {
-                items = items.Where(x => x.Modelo.Contains(modelo)).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(cor))
-            {
-                items = items.Where(x => x.Cor.Contains(cor)).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(placa))
-            {
-                items = items.Where(x => x.Placa.Contains(placa)).ToList();
-            }
-
-            if (preco != null)
-            {
-                items = items.Where(x => x.Preco == preco).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(opcionais))
-            {
-                items = items.Where(x => x.Opcionais.Any(x=> x.Descricao.Contains(opcionais))).ToList();
-            }
-
-            if (anoMin != null && anoMax != null)
-            {
-                items = items.Where(x => x.Ano >= anoMin && x.Ano <= anoMax).ToList();
-            }
-            else if (anoMin != null)
-            {
-                items = items.Where(x => x.Ano == anoMin).ToList();
-            }
-            else if (anoMax != null) {
-                items = items.Where(x => x.Ano == anoMax).ToList();
-            }
+                .Include(x => x.Imagens).Include(x=> x.Pacotes)
+                .Where(x=> !string.IsNullOrEmpty(marca) ? x.Marca.ToLower().Contains(marca.ToLower()): x.Marca != null)
+                .Where(x => !string.IsNullOrEmpty(modelo) ? x.Modelo.ToLower().Contains(modelo.ToLower()) : x.Modelo != null)
+                .Where(x=> !string.IsNullOrEmpty(cor) ? x.Cor.ToLower().Contains(cor.ToLower()) : x.Cor != null)
+                .Where(x=> !string.IsNullOrEmpty(placa) ? x.Placa.ToLower().Contains(placa) : x.Placa.ToLower() != null)
+                .Where(x=> preco != null ? x.Preco == preco : x.Preco != null)
+                .Where(x=> !string.IsNullOrEmpty(opcionais) ? x.Opcionais.Any(x => x.Descricao.ToLower().Contains(opcionais.ToLower())): x.Opcionais == null || x.Opcionais != null)
+                .Where(x=> anoMin != null && anoMax != null ? x.Ano >= anoMin && x.Ano <= anoMax : x.Ano != null)
+                .Where(x=> anoMin != null && anoMax == null ? x.Ano == anoMin : x.Ano != null)
+                .Where(x=> anoMax != null && anoMin == null ? x.Ano == anoMax: x.Ano!= null)
+                .ToListAsync();            
 
             if (!string.IsNullOrEmpty(ordenacao))
             {
@@ -87,8 +55,8 @@ namespace GerenciarCarros.Infrastructure.Repositories
                 if (ordenacao == "Foto")
                     items = items.OrderBy(x => x.Imagens.Any()).ToList();
             }
-            Quantidade = items.Count();
 
+            Quantidade = items.Count();
 
             return items.Skip((numeroPagina - 1) * tamanhoPagina)
                 .Take(tamanhoPagina).ToList();
