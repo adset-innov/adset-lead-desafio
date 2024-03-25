@@ -19,7 +19,7 @@ namespace GerenciarCarros.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(_carroService.ObterTodos());
+            return Ok(await _carroService.ObterTodos());
         }
 
         [HttpPost("paginacao")]
