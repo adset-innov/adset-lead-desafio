@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UOdPCgQbVW4wNk9H8c2qrr8RT6X9FgSHgtPE4fwHxE1SicRHrWS71R0jt0WcK6KzX6t/0ZRyfCCkS29MoPo3CA==",
+  "dgSpecHash": "A6YgmJAufKqKUBdH2oFgJVOmuU6hYErJ/EjTTdZ5RNgLSqA9MjtgNu86vbiv95m3/A9+VaXys/JF+XO+yoHpgQ==",
   "success": true,
-  "projectFilePath": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.API\\GerenciarCarros.API.csproj",
+  "projectFilePath": "C:\\Projetos\\Desafio\\adset\\adset-lead\\GerenciarCarros\\GerenciarCarros.API\\GerenciarCarros.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\carli\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\carli\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

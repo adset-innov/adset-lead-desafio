@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GerenciarCarros.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39e6555cc92de962bd40898b7f5b4d3648ce1041")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d47fb11b6c91f82885889316d01d4871ed873a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("GerenciarCarros.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GerenciarCarros.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

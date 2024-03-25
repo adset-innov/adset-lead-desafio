@@ -106,7 +106,7 @@
                                 <tr>
                                     <td>
                                         @if(item.imagens.length ===0){
-                                            <img width="150px" height="150px" mat-card-lg-image src="assets/img/toro.jpg">
+                                            <img width="150px" height="150px" mat-card-lg-image src="assets/img/no-image.jpg">
                                         } @else {
                                             <img width="150px" height="150px" [src]="convertImg(item.imagens[0].tipo, item.imagens[0].bytes)">
                                         }

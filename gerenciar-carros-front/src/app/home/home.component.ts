@@ -127,13 +127,8 @@ export class HomeComponent implements OnInit {
     
     if(form.value.opcional !=='')
       paginacao.opcional = form.value.opcional;
-    
-    console.log(form.value);
-    console.log(paginacao);
-
     this._carroService.getCarros(paginacao)
     .subscribe(data => {
-      console.log(data);
       this.carros = data;   
       this.tamanhoPagina = data.tamanhoPagina;
       this.tamanho = data.quantidadeTotal;      

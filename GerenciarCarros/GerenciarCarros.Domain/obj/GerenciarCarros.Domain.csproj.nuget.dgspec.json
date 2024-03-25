@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj": {}
+    "C:\\Projetos\\Desafio\\adset\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj": {
+    "C:\\Projetos\\Desafio\\adset\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj",
+        "projectUniqueName": "C:\\Projetos\\Desafio\\adset\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj",
         "projectName": "GerenciarCarros.Domain",
-        "projectPath": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj",
+        "projectPath": "C:\\Projetos\\Desafio\\adset\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\GerenciarCarros.Domain.csproj",
         "packagesPath": "C:\\Users\\carli\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\Desafio\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\obj\\",
+        "outputPath": "C:\\Projetos\\Desafio\\adset\\adset-lead\\GerenciarCarros\\GerenciarCarros.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
