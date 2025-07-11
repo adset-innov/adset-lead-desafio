@@ -1,0 +1,6 @@
+@Adsetdesafio_HostAddress = http://localhost:5282
+
+GET {{Adsetdesafio_HostAddress}}api/cars/
+Accept: application/json
+
+###
