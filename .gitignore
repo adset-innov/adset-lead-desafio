@@ -18,3 +18,4 @@ backend/Adsetdesafio/.vs/Adsetdesafio/CopilotIndices/17.14.734.62261/SemanticSym
 *.exe
 /backend/Adsetdesafio/bin
 /backend/Adsetdesafio/obj
+backend/Adsetdesafio/appsettings.Development.json
