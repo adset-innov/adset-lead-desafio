@@ -1,0 +1,6 @@
+@ADSET.DESAFIO.API_HostAddress = http://localhost:5177
+
+GET {{ADSET.DESAFIO.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

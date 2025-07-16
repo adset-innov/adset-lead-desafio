@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ADSET.DESAFIO.APPLICATION\ADSET.DESAFIO.APPLICATION.csproj" />
+    <ProjectReference Include="..\ADSET.DESAFIO.DOMAIN\ADSET.DESAFIO.DOMAIN.csproj" />
+    <ProjectReference Include="..\ADSET.DESAFIO.INFRASTRUCTURE\ADSET.DESAFIO.INFRASTRUCTURE.csproj" />
+  </ItemGroup>
+
+</Project>
