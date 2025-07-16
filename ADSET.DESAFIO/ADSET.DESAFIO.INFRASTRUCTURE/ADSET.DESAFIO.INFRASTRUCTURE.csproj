@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ADSET.DESAFIO.APPLICATION\ADSET.DESAFIO.APPLICATION.csproj" />
     <ProjectReference Include="..\ADSET.DESAFIO.DOMAIN\ADSET.DESAFIO.DOMAIN.csproj" />
   </ItemGroup>
