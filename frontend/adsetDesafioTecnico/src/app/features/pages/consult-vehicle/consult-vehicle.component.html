@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Veículos</title>
+    <link rel="stylesheet" href="./consult-vehicle.component.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <img src="./../../../../assets//adset-lead.png" class="logo-image" />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-number total">
+            {{ total.toString().padStart(3, "0") }}
+          </div>
+          <div class="stat-label">veículos<br />Total</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number with-photos">
+            {{ comFotos.toString().padStart(3, "0") }}
+          </div>
+          <div class="stat-label">veículos<br />com fotos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number without-photos">
+            {{ semFotos.toString().padStart(3, "0") }}
+          </div>
+          <div class="stat-label">veículos<br />sem fotos</div>
+        </div>
+        <div class="export-section">
+          <button class="add-btn" (click)="PostVehicle(0)">➕ Adicionar Veículo</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="filter-row">
+          <div class="filter-group">
+            <label>Placa</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.placa"
+              placeholder="ABC-1234"
+              (keyup.enter)="onSearch()"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label>Marca</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.marca"
+              placeholder="Ex: Toyota"
+              (keyup.enter)="onSearch()"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label>Modelo</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.modelo"
+              placeholder="Ex: Corolla"
+              (keyup.enter)="onSearch()"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label>Ano Min</label>
+            <select [(ngModel)]="filters.anoMin">
+              <option value="">Todos</option>
+              <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Ano Max</label>
+            <select [(ngModel)]="filters.anoMax">
+              <option value="">Todos</option>
+              <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Preço</label>
+            <select [(ngModel)]="filters.preco">
+              <option value="">Todos</option>
+              <option *ngFor="let preco of precoOptions" [value]="preco.value">
+                {{ preco.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Fotos</label>
+            <select [(ngModel)]="filters.fotos">
+              <option value="">Todos</option>
+              <option *ngFor="let foto of fotoOptions" [value]="foto.value">
+                {{ foto.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Opcionais</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.opcionais"
+              placeholder="Ex: Ar condicionado"
+              (keyup.enter)="onSearch()"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label>Cor</label>
+            <select [(ngModel)]="filters.cor">
+              <option value="">Todos</option>
+              <option *ngFor="let cor of corOptions" [value]="cor.value">
+                {{ cor.label }}
+              </option>
+            </select>
+          </div>
+
+          <button class="clear-icon-btn" type="button" (click)="clearFilters()">
+            <i class="fas fa-eraser"></i>
+          </button>
+        </div>
+
+        <div style="text-align: center">
+          <button class="search-btn" (click)="onSearch()" [disabled]="loading">
+            <span *ngIf="loading">🔄 Buscando...</span>
+            <span *ngIf="!loading">🔍 Buscar</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <div class="main-content">
+          <div class="table-header">
+            <div class="table-controls">
+              <span></span>
+              <span>Marca / Modelo</span>
+              <span>Ano</span>
+              <span>Preço</span>
+              <span>Fotos</span>
+            </div>
+            <div class="show-count">Exibir {{ veiculos?.length || 0 }}</div>
+          </div>
+
+          <div class="vehicle-item" *ngFor="let v of veiculos">
+            <button class="delete-btn" (click)="deleteVehicle(v)">🗑️</button>
+
+            <img
+              [src]="v.fotoUrl || defaultImg"
+              alt="{{ v.marca }} {{ v.modelo }}"
+              class="vehicle-image"
+            />
+
+            <div class="vehicle-info">
+              <div class="vehicle-title">
+                {{ v.marca?.toUpperCase() }} {{ v.modelo?.toUpperCase() }} |
+                {{ v.ano }}
+              </div>
+              <div class="vehicle-details">
+                Placa - {{ v.placa }}<br />
+                Km - {{ v.km | number : "1.0-0" }}<br />
+               Cor - {{ getCorLabel(v.cor) }}
+              </div>
+              <div class="vehicle-price">
+                {{ v.preco | currency : "BRL" : "symbol-narrow" : "1.2-2" }}
+              </div>
+            </div>
+
+            <div class="vehicle-actions">
+              <button class="edit-btn" (click)="PostVehicle(v.id)">
+                Editar Veículo
+              </button>
+              <div class="optional-badge">
+                {{ v.opcionaisVeiculo?.length || 0 }} Opcionais
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!loading && veiculos?.length === 0" class="vehicle-item">
+            <p style="margin: auto; color: #888">
+              Nenhum veículo encontrado com os filtros aplicados.
+            </p>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-header">iCarros</div>
+            <div class="sidebar-content">
+              <div class="info-icon">i</div>
+              <div class="status-items">
+                <div class="status-item">
+                  <span class="status-diamond">♦</span>
+                  <span>Diamante Feirão</span>
+                  <span style="color: #dc3545">010 - 008</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-platinum">♦</span>
+                  <span>Diamante</span>
+                  <span style="color: #28a745">030 - 025</span>
+                </div>
+                <div class="status-item">
+                  <span class="status-basic">♦</span>
+                  <span>Platinum</span>
+                  <span style="color: #28a745">040 - 010</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-header">WebMotors</div>
+            <div class="sidebar-content">
+              <div class="info-icon webmotors-icon">H</div>
+              <div class="status-items">
+                <div class="status-item">
+                  <span class="status-diamond">♦</span>
+                  <span>Básico</span>
+                  <span style="color: #28a745">030 - 025</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="up-arrow"
+      style="
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        font-size: 24px;
+        cursor: pointer;
+      "
+      onclick="window.scrollTo(0,0)"
+    >
+      ↑
+    </div>
+  </body>
+</html>

@@ -1,4 +1,5 @@
-﻿using Adsetdesafio.Domain.Models.Extension;
+﻿using Adsetdesafio.Domain.Models.Entities;
+using Adsetdesafio.Domain.Models.Extension;
 using Microsoft.EntityFrameworkCore;
 
 namespace Adsetdesafio.Data
@@ -8,7 +9,7 @@ namespace Adsetdesafio.Data
        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
-
+        public DbSet<Car> Cars { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

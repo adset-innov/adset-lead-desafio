@@ -2,6 +2,7 @@
 {
     public enum EnumOptionsCar
     {
+        None,
         ArCondicionado,
         Alarme,
         Airbag,

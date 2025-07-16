@@ -46,6 +46,11 @@ namespace Adsetdesafio.Domain.Models.Mapping
             builder.Property(c => c.OpcionaisVeiculo);
 
             builder.Property(c => c.Fotos);
+
+            builder.HasMany(c => c.PortaisAnuncio)
+              .WithOne()
+              .HasForeignKey(x => x.CarId)
+              .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

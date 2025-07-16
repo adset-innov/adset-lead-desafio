@@ -8,6 +8,7 @@ namespace Adsetdesafio.Domain.Models.Extension
         public static void AddMappings(ModelBuilder modelbuilder)
         {
             modelbuilder.ApplyConfiguration(new CarMap());
+            modelbuilder.ApplyConfiguration(new AnnouncementPortalMap());
 
         }
     }

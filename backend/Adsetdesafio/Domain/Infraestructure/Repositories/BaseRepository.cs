@@ -7,8 +7,8 @@ namespace Adsetdesafio.Domain.Infraestructure.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly AppDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        public readonly AppDbContext _context;
+        public readonly DbSet<T> _dbSet;
 
         public BaseRepository(AppDbContext context)
         {
@@ -24,6 +24,16 @@ namespace Adsetdesafio.Domain.Infraestructure.Repositories
         public async Task<T> GetEntityAsync(Expression<Func<T, bool>> expression)
         {
             return await _dbSet.FirstOrDefaultAsync(expression);
+        }
+
+        public async Task<T> GetEntityAsync(Expression<Func<T, bool>> expression,Func<IQueryable<T>, IQueryable<T>>? include = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (include != null)
+                query = include(query);
+
+            return await query.FirstOrDefaultAsync(expression);
         }
 
         public IList<T> GetListOfEntity(Expression<Func<T, bool>> expression)
@@ -61,7 +71,7 @@ namespace Adsetdesafio.Domain.Infraestructure.Repositories
             _dbSet.Update(entity);
         }
 
-        public void Remove(T entity)
+        public void Delete(T entity)
         {
             _dbSet.Remove(entity);
         }
