@@ -7,20 +7,20 @@ namespace ADSET.DESAFIO.DOMAIN.Entities
     public class CarPhoto
     {
         [Key]
-        [Column("id")]
+        [Column(name: "id")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "CarId is required.")]
-        [Column("car_id")]
+        [Column(name: "car_id")]
         public int CarId { get; set; }
 
         [Required(ErrorMessage = "Url is required.")]
         [Url(ErrorMessage = "Url format is invalid.")]
-        [Column("url")]
+        [Column(name: "url")]
         public string Url { get; set; } = string.Empty;
 
         [Range(0, int.MaxValue, ErrorMessage = "Order cannot be negative.")]
-        [Column("order")]
+        [Column(name: "order")]
         public int Order { get; set; }
 
         [ForeignKey(nameof(CarId))]

@@ -8,18 +8,18 @@ namespace ADSET.DESAFIO.DOMAIN.Entities
     public class CarPortalPackage
     {
         [Key]
-        [Column("car_id")]
+        [Column(name: "car_id")]
         [Required(ErrorMessage = "CarId is mandatory.")]
         public int CarId { get; set; }
 
         [Required(ErrorMessage = "Portal is mandatory.")]
         [EnumDataType(typeof(Portal), ErrorMessage = "Invalid portal.")]
-        [Column("portal")]
+        [Column(name: "portal")]
         public Portal Portal { get; set; }
 
         [Required(ErrorMessage = "Package is mandatory.")]
         [EnumDataType(typeof(Package), ErrorMessage = "Invalid package.")]
-        [Column("package")]
+        [Column(name: "package")]
         public Package Package { get; set; }
 
         [ForeignKey(nameof(CarId))]

@@ -4,45 +4,45 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ADSET.DESAFIO.DOMAIN.Entities
 {
-    [Table("tb_car")]
+    [Table(name: "tb_car")]
     public class Car
     {
         [Key]
-        [Column("id")]
+        [Column(name: "id")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Brand is required.")]
         [StringLength(50, ErrorMessage = "Brand cannot exceed 50 characters.")]
-        [Column("brand")]
+        [Column(name: "brand")]
         public string Brand { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Model is required.")]
         [StringLength(50, ErrorMessage = "Model cannot exceed 50 characters.")]
-        [Column("model")]
+        [Column(name: "model")]
         public string Model { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Year is required.")]
         [Range(2000, 2024, ErrorMessage = "Year must be between 2000 and 2024.")]
-        [Column("year")]
+        [Column(name: "year")]
         public int Year { get; set; }
 
         [Required(ErrorMessage = "Plate is required.")]
         [RegularExpression(@"^[A-Z0-9-]+$", ErrorMessage = "Plate format is invalid.")]
-        [Column("plate")]
+        [Column(name: "plate")]
         public string Plate { get; set; } = string.Empty;
 
         [Range(0, int.MaxValue, ErrorMessage = "Kilometers cannot be negative.")]
-        [Column("km")]
+        [Column(name: "km")]
         public int Km { get; set; }
 
         [Required(ErrorMessage = "Color is required.")]
         [StringLength(30, ErrorMessage = "Color cannot exceed 30 characters.")]
-        [Column("color")]
+        [Column(name: "color")]
         public string Color { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Price is required.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
-        [Column("price")]
+        [Column(name: "price", TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         public ICollection<CarOptional> Optionals { get; set; } = new List<CarOptional>();
