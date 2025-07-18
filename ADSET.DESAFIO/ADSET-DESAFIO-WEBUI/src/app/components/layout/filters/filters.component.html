@@ -1,0 +1,82 @@
+<div *ngIf="!filtersCollapsed" class="filters">
+  <div class="item-filters">
+    <div class="filter">
+      <label for="placa">Placa</label>
+      <input id="placa" type="text" />
+    </div>
+
+    <div class="filter">
+      <label for="marca">Marca</label>
+      <input id="marca" type="text" />
+    </div>
+
+    <div class="filter">
+      <label for="modelo">Modelo</label>
+      <input id="modelo" type="text" />
+    </div>
+
+    <div class="filter-group">
+      <div class="filter custom-select anoMaxMin">
+        <label for="anoMin">Ano Min</label>
+        <select id="anoMin" class="custom-anoMin">
+          <option value="">Todos</option>
+          <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+      <div class="filter custom-select anoMaxMin">
+        <label for="anoMax">Ano Max</label>
+        <select id="anoMax" class="custom-anoMax">
+          <option value="">Todos</option>
+          <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter custom-select custom-select--small">
+      <label for="preco">Preço</label>
+      <select id="preco">
+        <option value="">Todos</option>
+        <option *ngFor="let faixa of precoFaixas" [value]="faixa">{{ faixa }}</option>
+      </select>
+    </div>
+
+    <div class="filter custom-select custom-select--small">
+      <label for="fotos">Fotos</label>
+      <select id="fotos">
+        <option value="">Todos</option>
+        <option value="com">Com Fotos</option>
+        <option value="sem">Sem Fotos</option>
+      </select>
+    </div>
+
+    <div class="filter">
+      <label for="opcionais">Opcionais</label>
+      <input id="opcionais" type="text" />
+    </div>
+
+    <div class="filter custom-select custom-select--small">
+      <label for="cor">Cor</label>
+      <select id="cor">
+        <option value="">Todos</option>
+        <option *ngFor="let c of cores" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <button class="clear-filters-btn" (click)="clearFilters()" aria-label="Limpar filtros">
+      <img src="assets/image/delete-icon.png" alt="Limpar" />
+    </button>
+  </div>
+</div>
+
+<div class="filter-actions">
+  <button class="btn-search" (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+    Buscar
+  </button>
+
+  <div class="btn-drop-filter">
+    <button class="btn-toggle" (click)="toggleFilters()">
+      <mat-icon>{{ filtersCollapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
+    </button>
+  </div>
+</div>

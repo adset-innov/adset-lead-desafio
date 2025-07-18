@@ -1,0 +1,15 @@
+.app-toolbar {
+  height: 7rem;
+  background-color: #E7E7E7;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 6rem;
+  width: auto;
+}

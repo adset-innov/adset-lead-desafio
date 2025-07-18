@@ -1,0 +1,46 @@
+<div class="summary-toolbar">
+  <div class="counters">
+    <div class="counter">
+      <div class="value">{{ total }} veículos</div>
+      <div class="label total">Total</div>
+    </div>
+    <div class="divider divider--rotated"></div>
+    <div class="counter">
+      <div class="value">{{ withPhotos }} veículos</div>
+      <div class="label with-photos">com fotos</div>
+    </div>
+    <div class="divider divider--rotated"></div>
+    <div class="counter">
+      <div class="value">{{ withoutPhotos }} veículos</div>
+      <div class="label without-photos">sem fotos</div>
+    </div>
+    <div class="divider divider--spaced"></div>
+  </div>
+
+  <div class="actions">
+    <div class="export-group">
+      <div class="export-label">Exportar Estoque</div>
+      <div class="export-icons">
+        <button class="icon-button excel-btn" (click)="onExportExcel()" aria-label="Exportar Excel">
+          <img src="assets/image/excel-logo.png" alt="Excel">
+        </button>
+        <button class="icon-button csv-btn" (click)="onExportCsv()" aria-label="Download CSV">
+          <mat-icon class="csv-icon">download_for_offline</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="divider divider--actions"></div>
+    <button class="icon-button register-btn" (click)="onRegister()" aria-label="Cadastrar Veículo">
+      <img src="assets/image/car-add.png" alt="Add Car">
+    </button>
+  </div>
+
+  <div class="save">
+    <button class="save-btn" (click)="onSave()" aria-label="Salvar">
+      <span class="save-icon">
+        <img src="assets/image/world-save.png" alt="Salvar" />
+      </span>
+      <span class="save-label">Salvar</span>
+    </button>
+  </div>
+</div>

@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ADSET-DESAFIO-WEBUI';
+  handleExportExcel() { }
+  handleExportCsv()   { }
+  handleRegister()    { }
+  handleSave()        { }
 }
