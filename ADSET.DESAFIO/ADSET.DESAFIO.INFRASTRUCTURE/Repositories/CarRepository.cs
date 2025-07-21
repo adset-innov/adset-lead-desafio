@@ -28,7 +28,8 @@ namespace ADSET.DESAFIO.INFRASTRUCTURE.Repositories
 
         public async Task<List<Car>> GetAllAsync()
         {
-            return await _context.Cars.Include(c => c.Optionals)
+            return await _context.Cars.AsNoTracking()
+                                      .Include(c => c.Optionals)
                                       .Include(c => c.Photos)
                                       .Include(c => c.PortalPackages)
                                       .ToListAsync();

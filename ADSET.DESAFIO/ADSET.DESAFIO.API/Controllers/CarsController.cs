@@ -18,9 +18,9 @@ namespace ADSET.DESAFIO.API.Controllers
         }
 
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAll([FromQuery] CarFilterDTO filter)
+        public async Task<IActionResult> GetAll(int pageNumber, int pageSize, [FromQuery] CarFilterDTO filter)
         {
-            return Ok((List<Car>)await _mediator.Send(new GetAllCarQuery(filter)));
+            return Ok(await _mediator.Send(new GetAllCarQuery(pageNumber, pageSize, filter)));
         }
 
         [HttpGet("get-by-id/{id}")]

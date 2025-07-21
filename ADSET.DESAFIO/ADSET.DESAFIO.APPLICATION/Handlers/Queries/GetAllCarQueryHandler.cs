@@ -1,10 +1,11 @@
-﻿using ADSET.DESAFIO.DOMAIN.Entities;
+﻿using ADSET.DESAFIO.APPLICATION.Common;
+using ADSET.DESAFIO.DOMAIN.Entities;
 using ADSET.DESAFIO.DOMAIN.Interfaces;
 using MediatR;
 
 namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
 {
-    public class GetAllCarQueryHandler : IRequestHandler<GetAllCarQuery, IEnumerable<Car>>
+    public class GetAllCarQueryHandler : IRequestHandler<GetAllCarQuery, PaginatedList<Car>>
     {
         private readonly ICarRepository _carRepository;
 
@@ -13,29 +14,31 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
             _carRepository = carRepository;
         }
 
-        public async Task<IEnumerable<Car>> Handle(GetAllCarQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedList<Car>> Handle(GetAllCarQuery request, CancellationToken cancellationToken)
         {
-            List<Car> cars = await _carRepository.GetAllAsync();
+            List<Car> listCars = await _carRepository.GetAllAsync();
+
+            IQueryable<Car> cars = listCars.AsQueryable();
 
             if (request.CarFilterDto.YearMin.HasValue)
-                cars = cars.Where(c => c.Year >= request.CarFilterDto.YearMin.Value).ToList();
+                cars = cars.Where(c => c.Year >= request.CarFilterDto.YearMin.Value);
 
             if (request.CarFilterDto.YearMax.HasValue)
-                cars = cars.Where(c => c.Year <= request.CarFilterDto.YearMax.Value).ToList();
+                cars = cars.Where(c => c.Year <= request.CarFilterDto.YearMax.Value);
 
             if (request.CarFilterDto.PriceMin.HasValue)
-                cars = cars.Where(c => c.Price >= request.CarFilterDto.PriceMin.Value).ToList();
+                cars = cars.Where(c => c.Price >= request.CarFilterDto.PriceMin.Value);
 
             if (request.CarFilterDto.PriceMax.HasValue)
-                cars = cars.Where(c => c.Price <= request.CarFilterDto.PriceMax.Value).ToList();
+                cars = cars.Where(c => c.Price <= request.CarFilterDto.PriceMax.Value);
 
             if (request.CarFilterDto.HasPhotos.HasValue)
-                cars = request.CarFilterDto.HasPhotos.Value ? cars.Where(c => c.Photos != null && c.Photos.Any()).ToList() : cars.Where(c => c.Photos == null || !c.Photos.Any()).ToList();
+                cars = request.CarFilterDto.HasPhotos.Value ? cars.Where(c => c.Photos != null && c.Photos.Any()) : cars.Where(c => c.Photos == null || !c.Photos.Any());
 
             if (!string.IsNullOrWhiteSpace(request.CarFilterDto.Color))
-                cars = cars.Where(c => c.Color.Equals(request.CarFilterDto.Color, StringComparison.OrdinalIgnoreCase)).ToList();
+                cars = cars.Where(c => c.Color.Equals(request.CarFilterDto.Color, StringComparison.OrdinalIgnoreCase));
 
-            return cars;
+            return PaginatedList<Car>.CreateAsync(cars, request.PageNumber, request.PageSize);
         }
     }
 }
