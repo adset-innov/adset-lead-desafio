@@ -4,6 +4,15 @@ namespace ADSET.DESAFIO.APPLICATION.DTOs
 {
     public class CarFilterDTO
     {
+        [StringLength(40, ErrorMessage = "Color cannot exceed 40 characters.")]
+        public string Brand { get; set; } = string.Empty;
+
+        [StringLength(100, ErrorMessage = "Color cannot exceed 100 characters.")]
+        public string Model { get; set; } = string.Empty;
+
+        [StringLength(30, ErrorMessage = "Color cannot exceed 30 characters.")]
+        public string Plate { get; set; } = string.Empty;
+
         [Range(2000, 2024, ErrorMessage = "YearMin must be between 2000 and 2024.")]
         public int? YearMin { get; set; }
 

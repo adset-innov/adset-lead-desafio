@@ -2,30 +2,30 @@
   <div class="item-filters">
     <div class="filter">
       <label for="placa">Placa</label>
-      <input id="placa" type="text" />
+      <input id="placa" name="placa" type="text" [(ngModel)]="filters.placa" />
     </div>
 
     <div class="filter">
       <label for="marca">Marca</label>
-      <input id="marca" type="text" />
+      <input id="marca" name="marca" type="text" [(ngModel)]="filters.marca" />
     </div>
 
     <div class="filter">
       <label for="modelo">Modelo</label>
-      <input id="modelo" type="text" />
+      <input id="modelo" name="modelo" type="text" [(ngModel)]="filters.modelo" />
     </div>
 
     <div class="filter-group">
       <div class="filter custom-select anoMaxMin">
         <label for="anoMin">Ano Min</label>
-        <select id="anoMin" class="custom-anoMin">
+        <select id="anoMin" name="anoMin" class="custom-anoMin" [(ngModel)]="filters.anoMin">
           <option value="">Todos</option>
           <option *ngFor="let y of years" [value]="y">{{ y }}</option>
         </select>
       </div>
       <div class="filter custom-select anoMaxMin">
         <label for="anoMax">Ano Max</label>
-        <select id="anoMax" class="custom-anoMax">
+        <select id="anoMax" name="anoMax" class="custom-anoMax" [(ngModel)]="filters.anoMax">
           <option value="">Todos</option>
           <option *ngFor="let y of years" [value]="y">{{ y }}</option>
         </select>
@@ -34,7 +34,7 @@
 
     <div class="filter custom-select custom-select--small">
       <label for="preco">Preço</label>
-      <select id="preco">
+      <select id="preco" name="preco" [(ngModel)]="filters.preco">
         <option value="">Todos</option>
         <option *ngFor="let faixa of precoFaixas" [value]="faixa">{{ faixa }}</option>
       </select>
@@ -42,21 +42,21 @@
 
     <div class="filter custom-select custom-select--small">
       <label for="fotos">Fotos</label>
-      <select id="fotos">
-        <option value="">Todos</option>
-        <option value="com">Com Fotos</option>
-        <option value="sem">Sem Fotos</option>
+      <select id="fotos" name="fotos" [(ngModel)]="filters.fotos">
+        <option [ngValue]="null" selected>Todos</option>
+        <option [ngValue]="true">Com Fotos</option>
+        <option [ngValue]="false">Sem Fotos</option>
       </select>
     </div>
 
     <div class="filter">
       <label for="opcionais">Opcionais</label>
-      <input id="opcionais" type="text" />
+      <input id="opcionais" name="opcionais" type="text" [(ngModel)]="filters.opcionais" />
     </div>
 
     <div class="filter custom-select custom-select--small">
       <label for="cor">Cor</label>
-      <select id="cor">
+      <select id="cor" name="cor" [(ngModel)]="filters.cor">
         <option value="">Todos</option>
         <option *ngFor="let c of cores" [value]="c">{{ c }}</option>
       </select>

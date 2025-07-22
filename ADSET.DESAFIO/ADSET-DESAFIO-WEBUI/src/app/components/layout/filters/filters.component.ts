@@ -25,7 +25,7 @@ export class FiltersComponent implements OnInit {
     anoMin: 0,
     anoMax: 0,
     preco: 0,
-    fotos: false,
+    fotos: true,
     opcionais: '',
     cor: ''
   };
@@ -54,7 +54,7 @@ export class FiltersComponent implements OnInit {
       anoMin: 0,
       anoMax: 0,
       preco: 0,
-      fotos: false,
+      fotos: true,
       opcionais: '',
       cor: ''
     };

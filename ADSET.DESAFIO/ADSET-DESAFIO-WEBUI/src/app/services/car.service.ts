@@ -6,7 +6,7 @@ import { Car } from '../models/car.model';
 import { PaginatedList } from '../models/paginated-list.model';
 import { CarFilterDto } from '../dto/car-filter.dto';
 import { environment } from '../../environments/environment';
-debugger;
+
 @Injectable({ providedIn: 'root' })
 export class CarService {
   private readonly baseUrl = `${environment.apiUrl}/api/cars`;
@@ -20,7 +20,7 @@ export class CarService {
         params = params.set(key, value.toString());
       }
     });
-    debugger;
+
     return this.http.get<any>(`${this.baseUrl}/get-all`, { params }).pipe(
       map(resp => ({
         pageIndex: resp.pageIndex ?? resp.PageIndex,
