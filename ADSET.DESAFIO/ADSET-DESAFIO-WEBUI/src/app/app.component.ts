@@ -47,6 +47,16 @@ export class AppComponent {
     this.loadCars();
   }
 
+  onDelete(id: number) {
+    if (!confirm('Confirma a exclusão do veículo?')) {
+      return;
+    }
+    this.carService.delete(id).subscribe(() => {
+      this.cars = this.cars.filter(c => c.id !== id);
+      this.loadCars();
+    });
+  }
+
   private loadCars() {
     const dto: CarFilterDto = {
       plate: this.filters?.placa,

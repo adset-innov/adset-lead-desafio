@@ -49,8 +49,16 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Commands
                 int order = 0;
                 foreach (IFormFile file in request.CarUpdateDto.Photos)
                 {
-                    var url = $"/uploads/{file.FileName}";
-                    car.Photos.Add(new CarPhoto(request.Id, url, order++));
+                    using MemoryStream stream = new MemoryStream();
+                    await file.CopyToAsync(stream);
+                    byte[] bytes = stream.ToArray();
+
+                    car.Photos.Add(new CarPhoto
+                    {
+                        CarId = 0,
+                        PhotoData = bytes,
+                        Order = order++
+                    });
                 }
             }
 

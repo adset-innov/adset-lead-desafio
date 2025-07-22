@@ -14,10 +14,9 @@ namespace ADSET.DESAFIO.DOMAIN.Entities
         [Column(name: "car_id")]
         public int CarId { get; set; }
 
-        [Required(ErrorMessage = "Url is required.")]
-        [Url(ErrorMessage = "Url format is invalid.")]
-        [Column(name: "url")]
-        public string Url { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Photo Data is required.")]
+        [Column(name: "photo_data")]
+        public byte[]? PhotoData { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Order cannot be negative.")]
         [Column(name: "order")]
@@ -28,10 +27,10 @@ namespace ADSET.DESAFIO.DOMAIN.Entities
 
         public CarPhoto() { }
 
-        public CarPhoto(int carId, string url, int order)
+        public CarPhoto(int carId, byte[]? photoData, int order)
         {
             CarId = carId;
-            Url = url;
+            PhotoData = photoData;
             Order = order;
         }
     }

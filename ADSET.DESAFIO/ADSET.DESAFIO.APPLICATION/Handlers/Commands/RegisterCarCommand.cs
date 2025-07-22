@@ -4,5 +4,5 @@ using MediatR;
 
 namespace ADSET.DESAFIO.APPLICATION.Handlers.Commands
 {
-    public record RegisterCarCommand(CarCreateDTO carCreateDto) : IRequest<Car>;
+    public record RegisterCarCommand(CarCreateDTO CarCreateDto) : IRequest<Car>;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Car } from '../../../models/car.model';
 import { CarService } from '../../../services/car.service';
 import {
@@ -17,6 +17,7 @@ export class CarListComponent implements OnInit {
   @Input() cars: Car[] = [];
   @Input() currentPage = 1;
   @Input() totalPagesFromApi = 1;
+  @Output() delete = new EventEmitter<number>();
   showPackagesMap: { [carId: number]: boolean } = {};
   pageSize = 10;
 
@@ -61,6 +62,10 @@ export class CarListComponent implements OnInit {
     const group = this.groupByPortal(car.portalPackages).find(g => g.portalName === portalName)!;
     group.options.forEach(o => (o.selected = false));
     toggled.selected = true;
+  }
+
+  deleteCar(id: number): void {
+    this.delete.emit(id);
   }
 
   private lookupCode(p: RawCarPortalPackage): string {

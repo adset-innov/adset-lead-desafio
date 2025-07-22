@@ -19,32 +19,40 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Commands
 
         public async Task<Car> Handle(RegisterCarCommand request, CancellationToken cancellationToken)
         {
-            Car car = _mapper.Map<Car>(request.carCreateDto);
+            Car car = _mapper.Map<Car>(request.CarCreateDto);
 
-            if (request.carCreateDto.Optionals != null)
+            if (request.CarCreateDto.Optionals != null)
             {
-                foreach (string name in request.carCreateDto.Optionals)
+                foreach (string name in request.CarCreateDto.Optionals)
                 {
                     car.Optionals.Add(new CarOptional { Optional = new Optional(name) });
                 }
             }
 
-            if (request.carCreateDto.PortalPackages != null)
+            if (request.CarCreateDto.PortalPackages != null)
             {
-                foreach (KeyValuePair<Portal, Package> keyValue in request.carCreateDto.PortalPackages)
+                foreach (KeyValuePair<Portal, Package> keyValue in request.CarCreateDto.PortalPackages)
                 {
                     car.PortalPackages.Add(new CarPortalPackage(0, keyValue.Key, keyValue.Value));
                 }
             }
 
-            if (request.carCreateDto.Photos != null)
+            if (request.CarCreateDto.Photos != null)
             {
                 int order = 0;
 
-                foreach (IFormFile IFormFile in request.carCreateDto.Photos)
+                foreach (IFormFile file in request.CarCreateDto.Photos)
                 {
-                    string? url = $"/uploads/{IFormFile.FileName}";
-                    car.Photos.Add(new CarPhoto(0, url, order++));
+                    using MemoryStream stream = new MemoryStream();
+                    await file.CopyToAsync(stream);
+                    byte[] bytes = stream.ToArray();
+
+                    car.Photos.Add(new CarPhoto
+                    {
+                        CarId = 0,
+                        PhotoData = bytes,
+                        Order = order++
+                    });
                 }
             }
 

@@ -1,14 +1,15 @@
 <div class="car-list" *ngFor="let car of cars" [ngClass]="{'shift-left': showPackagesMap[car.id]}">
   <div class="car-card">
     <div class="div-delete">
-      <button class="btn-delete" aria-label="Excluir veículo">      
+      <button class="btn-delete" aria-label="Excluir veículo" (click)="deleteCar(car.id)">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
 
     <div class="car-image">
-      <!--[src]="car.photos" alt="{{car.brand}} {{car.model}}"-->
-      <img src="../../../../assets/image/vw-car-image-test.png">
+      <ng-container *ngFor="let photo of car.photos">
+        <img [src]="photo.displayUrl" alt="{{ car.brand }} {{ car.model }}" class="thumbnail" />
+      </ng-container>
     </div>
 
     <div class="car-details">

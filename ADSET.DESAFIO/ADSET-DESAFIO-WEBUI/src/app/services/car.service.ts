@@ -13,8 +13,12 @@ export class CarService {
 
   constructor(private http: HttpClient) { }
 
-  list(filter: CarFilterDto, pageNumber: number, pageSize: number): Observable<PaginatedList<Car>> {
-    let params = new HttpParams().set('pageNumber', pageNumber).set('pageSize', pageSize);
+  list(filter: CarFilterDto, pageNumber: number, pageSize: number)
+    : Observable<PaginatedList<Car>> {
+    let params = new HttpParams()
+      .set('pageNumber', pageNumber)
+      .set('pageSize', pageSize);
+
     Object.entries(filter).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         params = params.set(key, value.toString());
@@ -22,11 +26,28 @@ export class CarService {
     });
 
     return this.http.get<any>(`${this.baseUrl}/get-all`, { params }).pipe(
-      map(resp => ({
-        pageIndex: resp.pageIndex ?? resp.PageIndex,
-        totalPages: resp.totalPages ?? resp.TotalPages,
-        items: resp.items ?? resp
-      }) as PaginatedList<Car>)
+      map(resp => {
+        const pageIndex = resp.pageIndex ?? resp.PageIndex;
+        const totalPages = resp.totalPages ?? resp.TotalPages;
+        const items: Car[] = (resp.items ?? resp).map((car: any) => ({
+          ...car,
+          photos: (car.photos as any[]).map(p => ({
+            id: p.id,
+            carId: p.carId,
+            order: p.order,          
+            displayUrl: Array.isArray(p.photoData)
+              ? `data:image/jpeg;base64,${btoa(
+                String.fromCharCode(...(p.photoData as number[]))
+              )}`: `data:image/jpeg;base64,${p.photoData}`
+          }))
+        }));
+
+        return {
+          pageIndex,
+          totalPages,
+          items
+        } as PaginatedList<Car>;
+      })
     );
   }
 
