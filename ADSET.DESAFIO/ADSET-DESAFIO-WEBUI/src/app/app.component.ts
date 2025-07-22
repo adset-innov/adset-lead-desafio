@@ -34,7 +34,11 @@ export class AppComponent {
   handleSave() { }
   onSortByChange() { }
   onSortDirChange() { }
-  onPageSizeChange() { }
+  onPageSizeChange(size: number) {
+    this.currentPageSize = size;
+    this.currentPage = 1;
+    this.loadCars();
+  }
 
   onSearch(filters: Filters) {
     this.filters = filters;

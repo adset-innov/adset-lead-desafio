@@ -9,7 +9,7 @@
                          (save)="handleSave()">   
     </app-summary-toolbar>
     <app-filters (search)="onSearch($event)"></app-filters>
-    <app-list-controls [sortBy]="currentSortBy" [sortDir]="currentSortDir" [pageSize]="currentPageSize" (sortByChange)="onSortByChange()" (sortDirChange)="onSortDirChange()" (pageSizeChange)="onPageSizeChange()"></app-list-controls>
+    <app-list-controls [sortBy]="currentSortBy" [sortDir]="currentSortDir" [pageSize]="currentPageSize" (sortByChange)="onSortByChange()" (sortDirChange)="onSortDirChange()" (pageSizeChange)="onPageSizeChange($event)"></app-list-controls>
     <app-car-list [cars]="cars" [currentPage]="currentPage" [totalPagesFromApi]="totalPagesFromApi" (delete)="onDelete($event)"></app-car-list>
     <app-pagination [totalPages]="totalPagesFromApi" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
 </main>

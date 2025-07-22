@@ -15,8 +15,8 @@
     </div>
 
     <div class="filter custom-select itensPagina">
-        <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange(+($any($event.target).value))">
-            <option value="">Todos:</option>
+        <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange(+($any($event.target).value))" style="font-size: 1.1rem">
+            <option *ngFor="let size of pageSizes" [value]="size"> Exibir <b style="font-weight: 500;">{{ size }}</b></option>
         </select>
     </div>
 
