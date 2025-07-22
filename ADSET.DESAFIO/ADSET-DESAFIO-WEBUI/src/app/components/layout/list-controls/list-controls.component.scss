@@ -27,7 +27,10 @@
 
       mat-icon {
         color: #fff;
-        font-size: 1.25rem;
+        position: relative;
+        right: 1.5rem;
+        bottom: 0;
+        font-size: 1.6rem;
       }
     }
 
@@ -93,7 +96,19 @@
   cursor: pointer;
 
   img {
-    width: 2rem;
+    position: relative;
+    right: 3.9rem;
+    top: 0.1rem;
+    width: 1.3rem;
+    background-color: white;
+    border-radius: 2rem;
+  }
+}
+
+.clear-filters-btn-side {
+  img {
+    position: relative !important;
+    left: 0rem !important;
   }
 }
 

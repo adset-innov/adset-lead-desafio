@@ -1,8 +1,7 @@
 <div class="car-list" *ngFor="let car of cars" [ngClass]="{'shift-left': showPackagesMap[car.id]}">
   <div class="car-card">
-    <div class="div-delete" style="background-color: #E7E7E7; width: 3rem;">
-      <button class="btn-delete" aria-label="Excluir veículo"
-        style="margin: 0 auto; display: flex; position: relative; left: 0.60rem; color: #E2001A;">
+    <div class="div-delete">
+      <button class="btn-delete" aria-label="Excluir veículo">      
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -12,36 +11,29 @@
       <img src="../../../../assets/image/vw-car-image-test.png">
     </div>
 
-    <div class="car-details"
-      style="flex: 1; padding: 1.5rem; display: flex; flex-direction: column; position: relative; left: 2rem;">
+    <div class="car-details">
       <div class="car-header">
         <div class="div-car-title">
-          <span class="car-title"
-            style="font-weight: bold; width: 17rem; height: 2.5rem; text-align: center; color: #707173; font-size: 1.45rem; border-radius: 0.8rem;">{{car.brand}}
-            {{car.model}} | {{car.year}}</span>
+          <span class="car-title">{{car.brand}} {{car.model}} | {{car.year}}</span>
         </div>
       </div>
       <ul class="car-info">
-        <li style="color: #40A52B; font-size: 1.1rem;"><strong style="color: #58585A;">Placa - </strong> {{car.plate}}
+        <li><strong>Placa - </strong> {{car.plate}}
         </li>
-        <li style="color: #40A52B; font-size: 1.1rem;"><strong style="color: #58585A;">Km - </strong> {{car.km |
-          number}}</li>
-        <li style="color: #40A52B; font-size: 1.1rem;"><strong style="color: #58585A;">Cor - </strong> {{car.color}}
-        </li>
+        <li><strong>Km - </strong> {{car.km | number}}</li>
+        <li><strong>Cor - </strong> {{car.color}}</li>
       </ul>
       <div class="car-extras">
-        <button class="btn-edit" aria-label="Editar"
-          style="background: #1085C6; width: 2.50rem; height: 1.75rem; padding: 0.30rem; border-radius: 0 0.60rem 0.60rem 0;">
-          <mat-icon class="material-symbols-outlined"
-            style="font-size: 1.2rem; padding: 0 0.30rem 0 0; color: white;">edit_square</mat-icon>
+        <button class="btn-edit" aria-label="Editar">
+          <mat-icon class="material-symbols-outlined">edit_square</mat-icon>
         </button>
-        <button class="btn-photo-count" aria-label="Fotos" style="gap: 0.75rem;">
-          <mat-icon style="color: #707173;">photo_camera</mat-icon>
-          <span style="color: #40A52B;">{{car.photos.length}}</span>
+        <button class="btn-photo-count" aria-label="Fotos">
+          <mat-icon>photo_camera</mat-icon>
+          <span>{{car.photos.length}}</span>
         </button>
-        <button class="btn-optionals" aria-label="Opcionais" style="position: relative; top: -0.50rem;">
-          <img src="assets/image/car-options.png" alt="Opcionais" style="width: 2.5rem;">
-          <span style="color: #40A52B;">Opcionais</span>
+        <button class="btn-optionals" aria-label="Opcionais">
+          <img src="assets/image/car-options.png" alt="Opcionais">
+          <span>Opcionais</span>
         </button>
       </div>
       <div class="car-price-wrapper">
@@ -57,7 +49,7 @@
     </button>
 
     <button class="toggle-packages-btn" aria-label="Alternar pacotes" (click)="togglePackages(car.id)">
-      <mat-icon style="color: #41A62A;">arrow_right_alt</mat-icon>
+      <mat-icon>arrow_right_alt</mat-icon>
     </button>
 
     <div class="portal-packages" *ngIf="showPackagesMap[car.id]">
