@@ -36,6 +36,7 @@ namespace ADSET.DESAFIO.INFRASTRUCTURE.IOC
                 cfg.RegisterServicesFromAssembly(typeof(RegisterCarCommand).Assembly);
                 cfg.RegisterServicesFromAssembly(typeof(UpdateCarCommand).Assembly);
                 cfg.RegisterServicesFromAssembly(typeof(GetAllCarQuery).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(GetAllFilterCarQuery).Assembly);
                 cfg.RegisterServicesFromAssembly(typeof(GetCarByIdQuery).Assembly);
             });
 

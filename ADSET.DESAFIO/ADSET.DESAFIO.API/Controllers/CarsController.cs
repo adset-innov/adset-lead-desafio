@@ -1,4 +1,5 @@
-﻿using ADSET.DESAFIO.APPLICATION.DTOs;
+﻿using ADSET.DESAFIO.APPLICATION.Common;
+using ADSET.DESAFIO.APPLICATION.DTOs;
 using ADSET.DESAFIO.APPLICATION.Handlers.Commands;
 using ADSET.DESAFIO.APPLICATION.Handlers.Queries;
 using ADSET.DESAFIO.DOMAIN.Entities;
@@ -20,7 +21,20 @@ namespace ADSET.DESAFIO.API.Controllers
         [HttpGet("get-all")]
         public async Task<IActionResult> GetAll(int pageNumber, int pageSize, [FromQuery] CarFilterDTO filter)
         {
-            return Ok(await _mediator.Send(new GetAllCarQuery(pageNumber, pageSize, filter)));
+            return Ok(await _mediator.Send(new GetAllCarQuery()));
+        }
+
+        [HttpGet("get-all-filter")]
+        public async Task<IActionResult> GetAllFilter(int pageNumber, int pageSize, [FromQuery] CarFilterDTO filter)
+        {
+            PaginatedList<Car> result = await _mediator.Send(new GetAllFilterCarQuery(pageNumber, pageSize, filter));
+
+            return Ok(new
+            {
+                pageIndex = result.PageIndex,
+                totalPages = result.TotalPages,
+                items = result
+            });
         }
 
         [HttpGet("get-by-id/{id}")]
