@@ -16,8 +16,8 @@ import { Portal, PackageType } from '../../../enums/car-portal-package.enums';
 export class CarListComponent implements OnInit {
   @Input() cars: Car[] = [];
   @Input() currentPage = 1;
-  @Input() totalPagesFromApi = 1;
   @Output() delete = new EventEmitter<number>();
+  @Output() edit = new EventEmitter<Car>();
   showPackagesMap: { [carId: number]: boolean } = {};
   pageSize = 10;
 
@@ -66,6 +66,10 @@ export class CarListComponent implements OnInit {
 
   deleteCar(id: number): void {
     this.delete.emit(id);
+  }
+
+  onEdit(car: Car): void {
+    this.edit.emit(car);
   }
 
   private lookupCode(p: RawCarPortalPackage): string {

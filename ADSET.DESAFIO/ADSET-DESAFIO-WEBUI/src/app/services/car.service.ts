@@ -28,13 +28,15 @@ export class CarService {
     return this.http.get<any>(`${this.baseUrl}/get-all`, { params }).pipe(
       map(resp => {
         const pageIndex = resp.pageIndex ?? resp.PageIndex;
-        const totalPages = resp.totalPages ?? resp.TotalPages;
-        const items: Car[] = (resp.items ?? resp).map((car: any) => ({
+        const totalPagesRaw = resp.totalPages ?? resp.TotalPages;
+        const totalPages = Math.max(totalPagesRaw, 1);
+        const rawItems = resp.items ?? resp.Items ?? resp;
+        const items: Car[] = rawItems.map((car: any) => ({
           ...car,
           photos: (car.photos as any[]).map(p => ({
             id: p.id,
             carId: p.carId,
-            order: p.order,          
+            order: p.order,         
             displayUrl: Array.isArray(p.photoData)
               ? `data:image/jpeg;base64,${btoa(
                 String.fromCharCode(...(p.photoData as number[]))

@@ -25,7 +25,7 @@
         <li><strong>Cor - </strong> {{car.color}}</li>
       </ul>
       <div class="car-extras">
-        <button class="btn-edit" aria-label="Editar">
+        <button class="btn-edit" (click)="onEdit(car)" aria-label="Editar">
           <mat-icon class="material-symbols-outlined">edit_square</mat-icon>
         </button>
         <button class="btn-photo-count" aria-label="Fotos">

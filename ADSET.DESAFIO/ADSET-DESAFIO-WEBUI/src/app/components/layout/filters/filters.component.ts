@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 export interface Filters {
   placa: string;
@@ -34,6 +34,8 @@ export class FiltersComponent implements OnInit {
   years: number[] = [];
   precoFaixas: string[] = [];
   cores: string[] = [];
+
+  @Input() hideActions = false;
 
   @Output() search = new EventEmitter<Filters>();
 

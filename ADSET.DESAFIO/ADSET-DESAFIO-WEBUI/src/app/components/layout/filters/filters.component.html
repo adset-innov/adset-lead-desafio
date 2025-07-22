@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<div class="filter-actions">
+<div class="filter-actions" *ngIf="!hideActions">
   <button class="btn-search" (click)="onSearch()">
     <mat-icon>search</mat-icon>
     Buscar

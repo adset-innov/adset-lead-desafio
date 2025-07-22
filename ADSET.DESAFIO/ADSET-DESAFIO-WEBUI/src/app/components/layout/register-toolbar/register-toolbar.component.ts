@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CarService } from '../../../services/car.service';
+import { Car } from '../../../models/car.model';
 
 @Component({
   selector: 'app-register-toolbar',
   templateUrl: './register-toolbar.component.html',
   styleUrls: ['./register-toolbar.component.scss']
 })
-export class RegisterToolbarComponent {
+export class RegisterToolbarComponent implements OnChanges {
   form: FormGroup;
   photos: File[] = [];
 
+  @Input() car: Car | null = null;
   @Output() submitted = new EventEmitter<void>();
 
   constructor(private fb: FormBuilder, private carService: CarService) {
@@ -24,6 +26,25 @@ export class RegisterToolbarComponent {
       price: [''],
       optionals: this.fb.array([])
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['car'] && this.car) {
+      this.form.patchValue({
+        brand: this.car.brand,
+        model: this.car.model,
+        year: this.car.year,
+        plate: this.car.plate,
+        km: this.car.km,
+        color: this.car.color,
+        price: this.car.price
+      });
+
+      this.optionals.clear();
+      if (Array.isArray(this.car.optionals)) {
+        this.car.optionals.forEach(() => this.optionals.push(this.fb.control('')));
+      }
+    }
   }
 
   get optionals(): FormArray {
@@ -41,7 +62,11 @@ export class RegisterToolbarComponent {
   onFilesChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.photos = Array.from(input.files);
+      this.photos = [
+        ...this.photos,
+        ...Array.from(input.files)
+      ];
+      input.value = '';
     }
   }
 
@@ -61,7 +86,8 @@ export class RegisterToolbarComponent {
     formData.append('optionals', JSON.stringify(this.optionals.value));
     this.photos.forEach(file => formData.append('photos', file));
 
-    this.carService.create(formData).subscribe(() => {
+    const request = this.car ? this.carService.update(this.car.id, formData) : this.carService.create(formData);
+    request.subscribe(() => {
       this.form.reset();
       this.photos = [];
       this.optionals.clear();

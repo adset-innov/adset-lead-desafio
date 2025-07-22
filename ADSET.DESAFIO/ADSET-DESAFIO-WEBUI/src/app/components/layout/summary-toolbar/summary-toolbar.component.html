@@ -35,7 +35,7 @@
     </button>
   </div>
 
-  <div class="save">
+  <div class="save" *ngIf="showSaveButton">
     <button class="save-btn" (click)="onSave()" aria-label="Salvar">
       <span class="save-icon">
         <img src="assets/image/world-save.png" alt="Salvar" />

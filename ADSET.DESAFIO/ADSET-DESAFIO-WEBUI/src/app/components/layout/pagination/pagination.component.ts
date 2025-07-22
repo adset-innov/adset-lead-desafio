@@ -30,7 +30,8 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   private buildPages() {
-    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    const total = Math.max(this.totalPages || 0, 1);
+    this.pages = Array.from({ length: total }, (_, i) => i + 1);
   }
 
   goTo(page: number) {

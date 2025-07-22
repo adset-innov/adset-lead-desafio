@@ -9,6 +9,7 @@ export class SummaryToolbarComponent {
   @Input() total = 0;
   @Input() withPhotos = 0;
   @Input() withoutPhotos = 0;
+  @Input() showSaveButton = false;
 
   @Output() exportExcel = new EventEmitter<void>();
   @Output() exportCsv = new EventEmitter<void>();

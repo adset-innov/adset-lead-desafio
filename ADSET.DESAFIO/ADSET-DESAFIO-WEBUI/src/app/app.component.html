@@ -1,16 +1,17 @@
 <app-toolbar></app-toolbar>
 <main class="main-content">
-    <app-summary-toolbar [total]="110"
-                         [withPhotos]="80" 
-                         [withoutPhotos]="30" 
-                         (exportExcel)="handleExportExcel()" 
+    <app-summary-toolbar [total]="total"
+                         [withPhotos]="withPhotos"
+                         [withoutPhotos]="withoutPhotos"
+                         [showSaveButton]="showSaveButton"
+                         (exportExcel)="handleExportExcel()"
                          (exportCsv)="handleExportCsv()"
                          (register)="handleRegister()"
-                         (save)="handleSave()">   
+                         (save)="handleSave()">
     </app-summary-toolbar>
-    <app-register-toolbar *ngIf="showRegisterToolbar" (submitted)="onRegistered()"></app-register-toolbar>
-    <app-filters (search)="onSearch($event)"></app-filters>   
+    <app-register-toolbar *ngIf="showRegisterToolbar" [car]="editingCar" (submitted)="onRegistered()"></app-register-toolbar>
+    <app-filters (search)="onSearch($event)" [hideActions]="showRegisterToolbar"></app-filters>
     <app-list-controls [sortBy]="currentSortBy" [sortDir]="currentSortDir" [pageSize]="currentPageSize" (sortByChange)="onSortByChange($event)" (sortDirChange)="onSortDirChange($event)" (pageSizeChange)="onPageSizeChange($event)"></app-list-controls>
-    <app-car-list [cars]="cars" [currentPage]="currentPage" [totalPagesFromApi]="totalPagesFromApi" (delete)="onDelete($event)"></app-car-list>
+    <app-car-list [cars]="cars" [currentPage]="currentPage" (delete)="onDelete($event)" (edit)="onEdit($event)"></app-car-list>
     <app-pagination [totalPages]="totalPagesFromApi" [currentPage]="currentPage" (pageChange)="onPageChange($event)"></app-pagination>
 </main>

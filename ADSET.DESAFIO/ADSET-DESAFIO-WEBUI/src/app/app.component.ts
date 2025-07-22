@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Car } from './models/car.model';
 import { CarService } from './services/car.service';
 import { Filters } from './components/layout/filters/filters.component';
 import { CarFilterDto } from './dto/car-filter.dto';
+import { RegisterToolbarComponent } from './components/layout/register-toolbar/register-toolbar.component';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,15 @@ export class AppComponent {
   currentPage = 1;
   totalPagesFromApi = 1;
 
+  total = 0;
+  withPhotos = 0;
+  withoutPhotos = 0;
+
   cars: Car[] = [];
   showRegisterToolbar = false;
+  showSaveButton = false;
+  editingCar: Car | null = null;
+  @ViewChild('registerToolbar') registerToolbar?: RegisterToolbarComponent;
   private filters: Filters | null = null;
 
   constructor(private carService: CarService) { }
@@ -31,11 +39,30 @@ export class AppComponent {
 
   handleExportExcel() { }
   handleExportCsv() { }
-  handleRegister() { this.showRegisterToolbar = !this.showRegisterToolbar; }
-  handleSave() { }
+  handleRegister() {
+    this.showRegisterToolbar = !this.showRegisterToolbar;
+    this.showSaveButton = this.showRegisterToolbar;
+  }
+
+  handleSave() {
+    if (this.showRegisterToolbar && this.registerToolbar) {
+      this.registerToolbar.onSubmit();
+    }
+  }
+
+  onEdit(car: Car) {
+    this.editingCar = car;
+    this.showRegisterToolbar = true;
+    this.showSaveButton = this.showRegisterToolbar;
+    setTimeout(() => {
+      document.querySelector('.register-toolbar')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
 
   onRegistered() {
     this.showRegisterToolbar = false;
+    this.showSaveButton = false;
+    this.editingCar = null;
     this.loadCars();
   }
 
@@ -96,6 +123,9 @@ export class AppComponent {
     this.carService.list(dto, this.currentPage, this.currentPageSize).subscribe(result => {
       this.cars = result.items;
       this.totalPagesFromApi = result.totalPages;
+      this.total = this.cars.length;
+      this.withPhotos = this.cars.filter(c => c.photos && c.photos.length > 0).length;
+      this.withoutPhotos = this.total - this.withPhotos;
     });
   }
 }
