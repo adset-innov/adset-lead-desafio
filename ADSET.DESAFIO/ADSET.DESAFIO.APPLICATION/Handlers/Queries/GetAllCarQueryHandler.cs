@@ -22,10 +22,10 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
                 cars = cars.Where(c => c.Brand.Contains(request.CarFilterDto.Brand));
 
             if (!string.IsNullOrEmpty(request.CarFilterDto.Model))
-                cars = cars.Where(c => c.Brand.Contains(request.CarFilterDto.Model));
+                cars = cars.Where(c => c.Model.Contains(request.CarFilterDto.Model));
 
             if (!string.IsNullOrEmpty(request.CarFilterDto.Plate))
-                cars = cars.Where(c => c.Brand.Contains(request.CarFilterDto.Plate));
+                cars = cars.Where(c => c.Plate.Contains(request.CarFilterDto.Plate));
 
             if (request.CarFilterDto.YearMin.HasValue)
                 cars = cars.Where(c => c.Year >= request.CarFilterDto.YearMin.Value);
@@ -59,7 +59,7 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
                 };
             }
 
-            return PaginatedList<Car>.CreateAsync(cars, request.PageNumber, request.PageSize);
+            return await Task.Run(() => PaginatedList<Car>.CreateAsync(cars, request.PageNumber, request.PageSize));
         }
     }
 }

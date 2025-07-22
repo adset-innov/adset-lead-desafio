@@ -46,11 +46,15 @@
       mat-icon {
         font-size: 1rem;
         margin-left: 0.25rem;
-        color: #40A52B;
+        color: #6F7072;
       }
 
       &.active {
         font-weight: 600;
+
+        mat-icon {
+          color: #40A52B;
+        }
       }
 
       &::after {

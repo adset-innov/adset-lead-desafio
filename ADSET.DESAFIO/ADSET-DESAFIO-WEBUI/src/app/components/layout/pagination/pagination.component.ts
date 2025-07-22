@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
   OnChanges,
+  OnInit,
   SimpleChanges
 } from '@angular/core';
 
@@ -12,13 +13,17 @@ import {
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnChanges {
+export class PaginationComponent implements OnInit, OnChanges {
   @Input() totalPages = 1;
   @Input() currentPage = 1;
 
   @Output() pageChange = new EventEmitter<number>();
 
   pages: number[] = [];
+
+  ngOnInit() {
+    this.buildPages();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.buildPages();

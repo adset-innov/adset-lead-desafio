@@ -1,7 +1,7 @@
 <div class="list-controls">
     <div class="sort-fields">
         <button class="sort-indicator" (click)="toggleSortDir()" aria-label="Trocar direção">
-            <mat-icon>unfold_more</mat-icon>
+            <mat-icon>{{ sortDir === 'asc' ? 'unfold_more' : 'unfold_more' }}</mat-icon>
         </button>
         <button class="clear-filters-btn" (click)="toggleSortDir()" aria-label="Apagar Filtro">
             <img src="assets/image/delete-icon.png" alt="Limpar">
@@ -10,13 +10,22 @@
         <div class="field" *ngFor="let f of sortFields" [class.active]="sortBy === f.value"
             (click)="onSortByChange(f.value)">
             {{ f.label }}
-            <mat-icon>unfold_more</mat-icon>
+            <mat-icon [ngClass]="{active: sortBy === f.value}"
+                [style.color]="sortBy === f.value ? '#40A52B' : '#6F7072'">
+                {{
+                sortBy === f.value
+                ? (sortDir === 'asc' ? 'unfold_more' : 'unfold_more')
+                : 'unfold_more'
+                }}
+            </mat-icon>
         </div>
     </div>
 
     <div class="filter custom-select itensPagina">
-        <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange(+($any($event.target).value))" style="font-size: 1.1rem">
-            <option *ngFor="let size of pageSizes" [value]="size"> Exibir <b style="font-weight: 500;">{{ size }}</b></option>
+        <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange(+($any($event.target).value))"
+            style="font-size: 1.1rem">
+            <option *ngFor="let size of pageSizes" [value]="size"> Exibir <b style="font-weight: 500;">{{ size }}</b>
+            </option>
         </select>
     </div>
 
