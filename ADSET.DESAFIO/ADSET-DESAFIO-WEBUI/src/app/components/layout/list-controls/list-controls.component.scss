@@ -1,0 +1,249 @@
+.list-controls {
+  display: flex;
+  align-items: center;
+  background: #F2F2F2;
+  padding: 0.5rem 1rem;
+  position: relative;
+  bottom: -2rem;
+  left: 14rem;
+  width: 95rem;
+
+  .sort-fields {
+    display: flex;
+    align-items: center;
+
+    .sort-indicator {
+      width: 4.5rem;
+      height: 2.5rem;
+      background: #4AA934;
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.75rem;
+      cursor: pointer;
+      -webkit-clip-path: polygon(0 0, 70% 0, 100% 50%, 70% 100%, 0 100%);
+
+      mat-icon {
+        color: #fff;
+        font-size: 1.25rem;
+      }
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: #58585A;
+      cursor: pointer;
+      position: relative;
+      margin-right: 1rem;
+
+      mat-icon {
+        font-size: 1rem;
+        margin-left: 0.25rem;
+        color: #40A52B;
+      }
+
+      &.active {
+        font-weight: 600;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: -0.5rem;
+        width: 1px;
+        height: 1.25rem;
+        background: rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+
+  .page-size {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+      font-size: 1rem;
+      color: #58585A;
+    }
+
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: #fff url('/assets/icons/arrow_drop_down_green.svg') no-repeat right 0.75rem center;
+      background-size: 1rem;
+      border: 1px solid #ADADAE;
+      border-radius: 4px;
+      padding: 0.25rem 1.5rem 0.25rem 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.clear-filters-btn {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  img {
+    width: 2rem;
+  }
+}
+
+.custom-select {
+  position: relative;
+  left: 33rem;
+  --arrow-size: 2rem;
+  --select-width: 8rem;
+
+  select {
+    appearance: none;
+    width: var(--select-width);
+    height: 2.4rem;
+    padding: 0 8px;
+    border: 2px solid #ADADAE;
+    border-radius: 0.65rem;
+    background: #fff;
+    font-size: 1rem;
+  }
+
+  &::after {
+    content: "▼";
+    position: absolute;
+    top: 0rem;
+    right: 0;
+    width: var(--arrow-size);
+    height: 100%;
+    background: #41A62A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+}
+
+.itensPagina::after {
+  border-radius: 0 !important;
+}
+
+.custom-select--small {
+  --select-width: 7rem;
+}
+
+.portal-cards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  position: relative;
+  top: -1.1rem;
+  right: 3.5rem;
+}
+
+.portal-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 1rem 1rem 0 0;
+  width: 8rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  left: 38rem;
+
+  .portal-logo {
+    max-width: 3rem;
+    max-height: 3rem;
+  }
+
+  .portal-actions {
+    position: absolute;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .action-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+
+      img {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+}
+
+.buttons-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 0.5rem;
+  gap: 0.5rem;
+  background: #fff;
+  width: 2.4rem;
+  height: 3.5rem;
+  border-radius: 3.5rem;
+  padding: 0.5rem 0.1rem;
+  position: absolute;
+  right: 2.8rem;
+  top: 65.2%;
+  transform: translateY(-50%);
+  transform: rotate(90deg);
+  z-index: 100;
+
+  button {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .clear-filters-btn img {
+    width: 1.3rem;
+    height: 1.3rem;
+    transform: rotate(-90deg);
+  }
+
+  .toggle-filters-btn mat-icon {
+    font-size: 1.75rem;
+    color: #008541;
+  }
+
+  .clear-filters-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .toggle-filters-btn mat-icon {
+    font-size: 1.75rem;
+    color: #008541;
+  }
+}

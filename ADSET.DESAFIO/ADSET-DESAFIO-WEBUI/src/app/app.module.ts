@@ -9,13 +9,19 @@ import { ToolbarComponent } from './components/layout/toolbar/toolbar.component'
 import { SummaryToolbarComponent } from './components/layout/summary-toolbar/summary-toolbar.component';
 import { FiltersComponent } from './components/layout/filters/filters.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CarListComponent } from './components/layout/car-list/car-list.component';
+import { ListControlsComponent } from './components/layout/list-controls/list-controls.component';
+import { PaginationComponent } from './components/layout/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     SummaryToolbarComponent,
-    FiltersComponent
+    FiltersComponent,
+    CarListComponent,
+    ListControlsComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

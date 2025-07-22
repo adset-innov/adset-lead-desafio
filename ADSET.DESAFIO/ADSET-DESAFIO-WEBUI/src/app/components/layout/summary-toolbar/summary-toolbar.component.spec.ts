@@ -8,9 +8,9 @@ describe('SummaryToolbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SummaryToolbarComponent ]
+      declarations: [SummaryToolbarComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

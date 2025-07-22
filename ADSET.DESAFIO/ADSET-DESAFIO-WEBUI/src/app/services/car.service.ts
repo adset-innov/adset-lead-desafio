@@ -8,7 +8,7 @@ import { CarFilterDto } from '../dto/car-filter.dto';
 export class CarService {
   private readonly baseUrl = '/api/cars';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   list(filter: CarFilterDto): Observable<Car[]> {
     let params = new HttpParams();

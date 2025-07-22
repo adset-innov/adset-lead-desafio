@@ -1,15 +1,15 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 export interface Filters {
-  placa:     string;
-  marca:     string;
-  modelo:    string;
-  anoMin:    string;
-  anoMax:    string;
-  preco:     string;
-  fotos:     string;
+  placa: string;
+  marca: string;
+  modelo: string;
+  anoMin: string;
+  anoMax: string;
+  preco: string;
+  fotos: string;
   opcionais: string;
-  cor:       string;
+  cor: string;
 }
 
 @Component({
@@ -19,21 +19,21 @@ export interface Filters {
 })
 export class FiltersComponent implements OnInit {
   filters: Filters = {
-    placa:     '',
-    marca:     '',
-    modelo:    '',
-    anoMin:    '',
-    anoMax:    '',
-    preco:     '',
-    fotos:     '',
+    placa: '',
+    marca: '',
+    modelo: '',
+    anoMin: '',
+    anoMax: '',
+    preco: '',
+    fotos: '',
     opcionais: '',
-    cor:       ''
+    cor: ''
   };
 
-  filtersCollapsed = false;
-  years:       number[] = [];
+  filtersCollapsed = true;
+  years: number[] = [];
   precoFaixas: string[] = [];
-  cores:       string[] = [];
+  cores: string[] = [];
 
   @Output() search = new EventEmitter<Filters>();
 
@@ -41,22 +41,22 @@ export class FiltersComponent implements OnInit {
 
   ngOnInit(): void {
     const currentYear = new Date().getFullYear() - 1;
-    this.years       = Array.from({ length: 25 }, (_, i) => currentYear - i);
+    this.years = Array.from({ length: 25 }, (_, i) => currentYear - i);
     this.precoFaixas = ['<20k', '20k-50k', '50k-100k', '>100k'];
-    this.cores       = ['Branco', 'Preto', 'Prata', 'Vermelho', 'Azul'];
+    this.cores = ['Branco', 'Preto', 'Prata', 'Vermelho', 'Azul'];
   }
 
   clearFilters(): void {
     this.filters = {
-      placa:     '',
-      marca:     '',
-      modelo:    '',
-      anoMin:    '',
-      anoMax:    '',
-      preco:     '',
-      fotos:     '',
+      placa: '',
+      marca: '',
+      modelo: '',
+      anoMin: '',
+      anoMax: '',
+      preco: '',
+      fotos: '',
       opcionais: '',
-      cor:       ''
+      cor: ''
     };
   }
 

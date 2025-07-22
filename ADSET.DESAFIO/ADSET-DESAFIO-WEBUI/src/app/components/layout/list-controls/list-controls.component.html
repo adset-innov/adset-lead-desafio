@@ -1,0 +1,49 @@
+<div class="list-controls">
+    <div class="sort-fields">
+        <button class="sort-indicator" (click)="toggleSortDir()" aria-label="Trocar direção">
+            <mat-icon style="position: relative; right: 1.5rem; bottom: 0rem; font-size: 1.6rem;">unfold_more</mat-icon>
+        </button>
+        <button class="clear-filters-btn" (click)="toggleSortDir()" aria-label="Apagar Filtro">
+            <img src="assets/image/delete-icon.png" alt="Limpar"
+                style="position: relative; right: 3.9rem; top: 0.1rem; width: 1.3rem; background-color: white; border-radius: 2rem;">
+        </button>
+
+        <div class="field" *ngFor="let f of sortFields" [class.active]="sortBy === f.value"
+            (click)="onSortByChange(f.value)">
+            {{ f.label }}
+            <mat-icon>unfold_more</mat-icon>
+        </div>
+    </div>
+
+    <div class="filter custom-select itensPagina">
+        <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange(+($any($event.target).value))">
+            <option value="">Todos:</option>
+        </select>
+    </div>
+
+    <div class="portal-cards">
+        <div class="portal-card">
+            <img src="assets/image/icar-icon.png" alt="iCarros" class="portal-logo" />
+            <div class="buttons-side">
+                <button class="clear-filters-btn" aria-label="Limpar filtros">
+                    <img src="assets/image/delete-icon.png" alt="Limpar filtros" />
+                </button>
+                <button class="toggle-filters-btn" aria-label="Alternar filtros">
+                    <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="portal-card">
+            <img src="assets/image/webmotors-icon.png" alt="WebMotors" class="portal-logo" />
+            <div class="buttons-side">
+                <button class="clear-filters-btn" aria-label="Limpar filtros">
+                    <img src="assets/image/delete-icon.png" alt="Limpar filtros" />
+                </button>
+                <button class="toggle-filters-btn" aria-label="Alternar filtros">
+                    <mat-icon>arrow_right_alt</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

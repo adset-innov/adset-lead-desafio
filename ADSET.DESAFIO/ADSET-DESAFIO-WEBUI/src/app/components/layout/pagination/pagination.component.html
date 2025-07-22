@@ -1,0 +1,7 @@
+<nav class="pagination">
+  <button class="btn" (click)="first()" [disabled]="currentPage === 1">«</button>
+  <button class="btn" (click)="prev()" [disabled]="currentPage === 1">‹</button>
+  <button *ngFor="let p of pages" class="btn page-number" [class.active]="p === currentPage" (click)="goTo(p)">{{ p }}</button>
+  <button class="btn" (click)="next()" [disabled]="currentPage === totalPages">›</button>
+  <button class="btn" (click)="last()" [disabled]="currentPage === totalPages">»</button>
+</nav>

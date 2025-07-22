@@ -11,12 +11,12 @@ export class SummaryToolbarComponent {
   @Input() withoutPhotos = 0;
 
   @Output() exportExcel = new EventEmitter<void>();
-  @Output() exportCsv   = new EventEmitter<void>();
-  @Output() register    = new EventEmitter<void>();
-  @Output() save        = new EventEmitter<void>();
+  @Output() exportCsv = new EventEmitter<void>();
+  @Output() register = new EventEmitter<void>();
+  @Output() save = new EventEmitter<void>();
 
   onExportExcel(): void { this.exportExcel.emit(); }
-  onExportCsv(): void   { this.exportCsv.emit(); }
-  onRegister(): void    { this.register.emit(); }
-  onSave(): void        { this.save.emit(); }
+  onExportCsv(): void { this.exportCsv.emit(); }
+  onRegister(): void { this.register.emit(); }
+  onSave(): void { this.save.emit(); }
 }
