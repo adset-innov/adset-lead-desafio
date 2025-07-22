@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CarService } from '../../../services/car.service';
 import { Car } from '../../../models/car.model';
+import { Portal, PackageType } from '../../../enums/car-portal-package.enums';
 
 @Component({
   selector: 'app-register-toolbar',
@@ -11,6 +12,7 @@ import { Car } from '../../../models/car.model';
 export class RegisterToolbarComponent implements OnChanges {
   form: FormGroup;
   photos: File[] = [];
+  packageTypes: PackageType[] = [];
 
   @Input() car: Car | null = null;
   @Output() submitted = new EventEmitter<void>();
@@ -24,8 +26,12 @@ export class RegisterToolbarComponent implements OnChanges {
       km: [''],
       color: [''],
       price: [''],
+      icarrosPackage: [''],
+      webmotorsPackage: [''],
       optionals: this.fb.array([])
     });
+
+    this.packageTypes = Object.values(PackageType);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -39,6 +45,18 @@ export class RegisterToolbarComponent implements OnChanges {
         color: this.car.color,
         price: this.car.price
       });
+
+      const map = new Map<Portal, PackageType>();
+      if (Array.isArray(this.car.portalPackages)) {
+        for (const pkg of this.car.portalPackages) {
+          map.set(pkg.portal, pkg.package);
+        }
+      }
+      this.form.patchValue({
+        icarrosPackage: map.get(Portal.iCarros) ?? '',
+        webmotorsPackage: map.get(Portal.WebMotors) ?? ''
+      });
+
 
       this.optionals.clear();
       if (Array.isArray(this.car.optionals)) {
@@ -83,6 +101,14 @@ export class RegisterToolbarComponent implements OnChanges {
     }
     formData.append('color', value.color);
     formData.append('price', value.price);
+    const portalPackages: { [key: string]: PackageType } = {};
+    if (value.icarrosPackage) {
+      portalPackages[Portal.iCarros] = value.icarrosPackage;
+    }
+    if (value.webmotorsPackage) {
+      portalPackages[Portal.WebMotors] = value.webmotorsPackage;
+    }
+    formData.append('portalPackages', JSON.stringify(portalPackages));
     formData.append('optionals', JSON.stringify(this.optionals.value));
     this.photos.forEach(file => formData.append('photos', file));
 

@@ -25,12 +25,14 @@ export class CarService {
       }
     });
 
-    return this.http.get<any>(`${this.baseUrl}/get-all`, { params }).pipe(
+    return this.http.get<any>(`${this.baseUrl}/get-all-filter`, { params }).pipe(
       map(resp => {
-        const pageIndex = resp.pageIndex ?? resp.PageIndex;
-        const totalPagesRaw = resp.totalPages ?? resp.TotalPages;
-        const totalPages = Math.max(totalPagesRaw, 1);
-        const rawItems = resp.items ?? resp.Items ?? resp;
+        const pageIndex = resp.pageIndex;
+        const totalPages = Math.max(resp.totalPages, 1);
+        const totalItems = resp.totalItems;
+        const withPhotos = resp.withPhotos;
+        const withoutPhotos = resp.withoutPhotos;
+        const rawItems = resp.items;
         const items: Car[] = rawItems.map((car: any) => ({
           ...car,
           photos: (car.photos as any[]).map(p => ({
@@ -47,6 +49,9 @@ export class CarService {
         return {
           pageIndex,
           totalPages,
+          totalItems,
+          withPhotos,
+          withoutPhotos,
           items
         } as PaginatedList<Car>;
       })
@@ -67,5 +72,9 @@ export class CarService {
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete?id=${id}`);
+  }
+
+  exportExcel(): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/export-excel`, { responseType: 'blob' });
   }
 }

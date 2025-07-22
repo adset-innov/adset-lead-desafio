@@ -1,9 +1,11 @@
 ﻿using ADSET.DESAFIO.APPLICATION.Handlers.Commands;
 using ADSET.DESAFIO.APPLICATION.Handlers.Queries;
+using ADSET.DESAFIO.APPLICATION.Interfaces;
 using ADSET.DESAFIO.DOMAIN.Interfaces;
 using ADSET.DESAFIO.INFRASTRUCTURE.IOC.Profiles;
 using ADSET.DESAFIO.INFRASTRUCTURE.Persistence;
 using ADSET.DESAFIO.INFRASTRUCTURE.Repositories;
+using ADSET.DESAFIO.INFRASTRUCTURE.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +43,8 @@ namespace ADSET.DESAFIO.INFRASTRUCTURE.IOC
             });
 
             services.AddScoped<ICarRepository, CarRepository>();
+
+            services.AddScoped<IExportFileService, ExportFileService>();
 
             return services;
         }

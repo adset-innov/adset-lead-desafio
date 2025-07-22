@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { saveAs } from 'file-saver';
 import { Car } from './models/car.model';
 import { CarService } from './services/car.service';
 import { Filters } from './components/layout/filters/filters.component';
@@ -37,8 +38,12 @@ export class AppComponent {
     this.loadCars();
   }
 
-  handleExportExcel() { }
-  handleExportCsv() { }
+  handleExportExcel() {
+    this.carService.exportExcel().subscribe(blob => {
+      saveAs(blob, 'cars.xlsx');
+    });
+  }
+
   handleRegister() {
     this.showRegisterToolbar = !this.showRegisterToolbar;
     this.showSaveButton = this.showRegisterToolbar;
@@ -51,12 +56,28 @@ export class AppComponent {
   }
 
   onEdit(car: Car) {
-    this.editingCar = car;
-    this.showRegisterToolbar = true;
-    this.showSaveButton = this.showRegisterToolbar;
-    setTimeout(() => {
-      document.querySelector('.register-toolbar')?.scrollIntoView({ behavior: 'smooth' });
-    });
+    if (this.showRegisterToolbar && this.editingCar && this.editingCar.id === car.id) {
+      this.showRegisterToolbar = false;
+      this.showSaveButton = false;
+      this.editingCar = null;
+      if (this.registerToolbar) {
+        this.registerToolbar.form.reset();
+        this.registerToolbar.optionals.clear();
+        this.registerToolbar.photos = [];
+      }
+    } else {
+      if (this.registerToolbar) {
+        this.registerToolbar.form.reset();
+        this.registerToolbar.optionals.clear();
+        this.registerToolbar.photos = [];
+      }
+      this.editingCar = car;
+      this.showRegisterToolbar = true;
+      this.showSaveButton = this.showRegisterToolbar;
+      setTimeout(() => {
+        document.querySelector('.register-toolbar')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
   }
 
   onRegistered() {
@@ -123,9 +144,9 @@ export class AppComponent {
     this.carService.list(dto, this.currentPage, this.currentPageSize).subscribe(result => {
       this.cars = result.items;
       this.totalPagesFromApi = result.totalPages;
-      this.total = this.cars.length;
-      this.withPhotos = this.cars.filter(c => c.photos && c.photos.length > 0).length;
-      this.withoutPhotos = this.total - this.withPhotos;
+      this.total = result.totalItems;
+      this.withPhotos = result.withPhotos;
+      this.withoutPhotos = result.withoutPhotos;
     });
   }
 }

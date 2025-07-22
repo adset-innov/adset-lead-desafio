@@ -17,7 +17,6 @@ export class SummaryToolbarComponent {
   @Output() save = new EventEmitter<void>();
 
   onExportExcel(): void { this.exportExcel.emit(); }
-  onExportCsv(): void { this.exportCsv.emit(); }
   onRegister(): void { this.register.emit(); }
   onSave(): void { this.save.emit(); }
 }

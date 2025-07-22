@@ -2,9 +2,12 @@
 using ADSET.DESAFIO.APPLICATION.DTOs;
 using ADSET.DESAFIO.APPLICATION.Handlers.Commands;
 using ADSET.DESAFIO.APPLICATION.Handlers.Queries;
+using ADSET.DESAFIO.APPLICATION.Interfaces;
 using ADSET.DESAFIO.DOMAIN.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace ADSET.DESAFIO.API.Controllers
 {
@@ -13,13 +16,15 @@ namespace ADSET.DESAFIO.API.Controllers
     public class CarsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public CarsController(IMediator mediator)
+        private readonly IExportFileService _exportFileService;
+        public CarsController(IMediator mediator, IExportFileService exportFileService)
         {
             _mediator = mediator;
+            _exportFileService = exportFileService;
         }
 
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAll(int pageNumber, int pageSize, [FromQuery] CarFilterDTO filter)
+        public async Task<IActionResult> GetAll()
         {
             return Ok(await _mediator.Send(new GetAllCarQuery()));
         }
@@ -28,11 +33,17 @@ namespace ADSET.DESAFIO.API.Controllers
         public async Task<IActionResult> GetAllFilter(int pageNumber, int pageSize, [FromQuery] CarFilterDTO filter)
         {
             PaginatedList<Car> result = await _mediator.Send(new GetAllFilterCarQuery(pageNumber, pageSize, filter));
+            List<Car> listCar = await _mediator.Send(new GetAllCarQuery());
+            int total = listCar.Count;
+            int withPhotos = listCar.Where(c => c.Photos != null && c.Photos.Any()).Count();
 
             return Ok(new
             {
                 pageIndex = result.PageIndex,
                 totalPages = result.TotalPages,
+                totalItems = listCar.Count,
+                withPhotos = withPhotos,
+                withoutPhotos = total - withPhotos,
                 items = result
             });
         }
@@ -41,6 +52,12 @@ namespace ADSET.DESAFIO.API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             return Ok((Car)await _mediator.Send(new GetCarByIdQuery(id)));
+        }
+
+        [HttpGet("export-excel")]
+        public async Task<IActionResult> ExportExcel()
+        {
+            return File(await _exportFileService.ExportToExcelAsync(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "cars.xlsx");
         }
 
         [HttpPost("register")]

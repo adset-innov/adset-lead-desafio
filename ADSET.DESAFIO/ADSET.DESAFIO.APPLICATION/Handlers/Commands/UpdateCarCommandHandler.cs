@@ -43,9 +43,10 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Commands
                 }
             }
 
-            car.Photos.Clear();
             if (request.CarUpdateDto.Photos != null)
             {
+                car.Photos.Clear();
+
                 int order = 0;
                 foreach (IFormFile file in request.CarUpdateDto.Photos)
                 {

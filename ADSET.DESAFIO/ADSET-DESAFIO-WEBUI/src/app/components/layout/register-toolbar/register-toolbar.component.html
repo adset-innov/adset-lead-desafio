@@ -9,17 +9,20 @@
     <input class="input-register-car" formControlName="color" placeholder="Cor" />
     <input class="input-register-car" formControlName="price" placeholder="Preço" type="number" />
 
+    <select class="input-register-car" formControlName="icarrosPackage">
+      <option value="">Pacote iCarros</option>
+      <option *ngFor="let pkg of packageTypes" [value]="pkg">{{ pkg }}</option>
+    </select>
+
+    <select class="input-register-car" formControlName="webmotorsPackage">
+      <option value="">Pacote Webmotors</option>
+      <option *ngFor="let pkg of packageTypes" [value]="pkg">{{ pkg }}</option>
+    </select>
+
     <div class="optionals" formArrayName="optionals">
       <div *ngFor="let opt of optionals.controls; let i = index" class="optional-item">
-        <input
-          class="input-register-car optional-input"
-          [formControlName]="i"
-          placeholder="Opcional" />
-        <button
-          type="button"
-          class="btn-remove-opt"
-          (click)="removeOptional(i)"
-          aria-label="Remover opcional">
+        <input class="input-register-car optional-input" [formControlName]="i" placeholder="Opcional" />
+        <button type="button" class="btn-remove-opt" (click)="removeOptional(i)" aria-label="Remover opcional">
           ×
         </button>
       </div>
@@ -30,11 +33,7 @@
 
     <label class="file-input-label">
       Fotos do veículo
-      <input
-        type="file"
-        multiple
-        (change)="onFilesChange($event)"
-        class="file-input" />
+      <input type="file" multiple (change)="onFilesChange($event)" class="file-input" />
     </label>
   </form>
 </div>
