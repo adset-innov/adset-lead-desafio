@@ -4,8 +4,10 @@ export interface CarFilterDto {
   model?: string;
   yearMin?: number;
   yearMax?: number;
-  price?: string;
-  photos?: string;
+  priceMin?: number;
+  priceMax?: number;
+  hasPhotos?: boolean;
   optionals?: string;
   color?: string;
+  pageNumber?: number;
 }

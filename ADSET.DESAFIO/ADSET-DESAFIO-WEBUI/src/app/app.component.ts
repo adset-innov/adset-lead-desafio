@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Car } from './models/car.model';
+import { CarService } from './services/car.service';
+import { Filters } from './components/layout/filters/filters.component';
+import { CarFilterDto } from './dto/car-filter.dto';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +13,20 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'ADSET-DESAFIO-WEBUI';
-  currentSortBy = "";
+  currentSortBy = '';
   currentSortDir: 'asc' | 'desc' = 'asc';
   currentPageSize = 10;
   currentPage = 1;
-  totalPagesFromApi = 10;
+  totalPagesFromApi = 1;
+
+  cars: Car[] = [];
+  private filters: Filters | null = null;
+
+  constructor(private carService: CarService) { }
+
+  ngOnInit(): void {
+    this.loadCars();
+  }
 
   handleExportExcel() { }
   handleExportCsv() { }
@@ -22,4 +35,36 @@ export class AppComponent {
   onSortByChange() { }
   onSortDirChange() { }
   onPageSizeChange() { }
+
+  onSearch(filters: Filters) {
+    this.filters = filters;
+    this.currentPage = 1;
+    this.loadCars();
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadCars();
+  }
+
+  private loadCars() {
+    const dto: CarFilterDto = {
+      plate: this.filters?.placa,
+      brand: this.filters?.marca,
+      model: this.filters?.modelo,
+      yearMin: this.filters?.anoMin ? +this.filters.anoMin : undefined,
+      yearMax: this.filters?.anoMax ? +this.filters.anoMax : undefined,
+      priceMin: this.filters?.preco,
+      priceMax: this.filters?.preco,
+      hasPhotos: this.filters?.fotos,
+      optionals: this.filters?.opcionais,
+      color: this.filters?.cor,
+      pageNumber: this.currentPage
+    };
+
+    this.carService.list(dto, this.currentPage, this.currentPageSize).subscribe(result => {
+      this.cars = result.items;
+      this.totalPagesFromApi = result.totalPages;
+    });
+  }
 }

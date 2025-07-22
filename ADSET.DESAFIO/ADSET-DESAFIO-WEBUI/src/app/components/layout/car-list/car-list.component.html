@@ -29,7 +29,7 @@
         </button>
         <button class="btn-photo-count" aria-label="Fotos">
           <mat-icon>photo_camera</mat-icon>
-          <span>{{car.photos.length}}</span>
+          <span style="position: relative !important; top: 0.55rem !important;">{{car.photos.length}}</span>
         </button>
         <button class="btn-optionals" aria-label="Opcionais">
           <img src="assets/image/car-options.png" alt="Opcionais">
@@ -38,7 +38,7 @@
       </div>
       <div class="car-price-wrapper">
         <div class="car-price">
-          R$ {{ car.price | currency:'BRL':'symbol':'1.2-2' }}
+          {{ car.price | currency:'BRL':'symbol':'1.2-2' }}
         </div>
       </div>
     </div>

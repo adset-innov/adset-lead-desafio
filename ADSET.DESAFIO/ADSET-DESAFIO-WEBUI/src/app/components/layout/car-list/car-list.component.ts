@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Car } from '../../../models/car.model';
+import { CarService } from '../../../services/car.service';
 import {
   RawCarPortalPackage,
   PackageOption,
@@ -13,37 +14,15 @@ import { Portal, PackageType } from '../../../enums/car-portal-package.enums';
   styleUrls: ['./car-list.component.scss']
 })
 export class CarListComponent implements OnInit {
-  cars: Car[] = [];
+  @Input() cars: Car[] = [];
+  @Input() currentPage = 1;
+  @Input() totalPagesFromApi = 1;
   showPackagesMap: { [carId: number]: boolean } = {};
-  currentPage = 1;
-  totalPagesFromApi = 10;
+  pageSize = 10;
 
-  ngOnInit(): void {
-    this.cars = [
-      {
-        id: 1,
-        brand: 'Volkswagen',
-        model: 'Golf',
-        year: 2020,
-        plate: 'AAA-0102',
-        km: 25000,
-        color: 'Branco',
-        price: 103900.00,
-        optionals: [
-          { carId: 1, optionalId: 1 },
-          { carId: 1, optionalId: 2 }
-        ],
-        photos: [
-          { id: 1, carId: 1, url: 'assets/sample-car.jpg', order: 0 }
-        ],
-        portalPackages: [
-          { carId: 1, portal: Portal.iCarros, package: PackageType.Diamante },
-          { carId: 1, portal: Portal.iCarros, package: PackageType.Platinum },
-          { carId: 1, portal: Portal.WebMotors, package: PackageType.Basico }
-        ] as RawCarPortalPackage[]
-      }
-    ];
-  }
+  constructor(private carService: CarService) { }
+
+  ngOnInit(): void { }
 
   togglePackages(carId: number): void {
     this.showPackagesMap[carId] = !this.showPackagesMap[carId];
@@ -96,5 +75,4 @@ export class CarListComponent implements OnInit {
   onPageChange(newPage: number) {
     this.currentPage = newPage;
   }
-
 }

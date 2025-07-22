@@ -4,10 +4,10 @@ export interface Filters {
   placa: string;
   marca: string;
   modelo: string;
-  anoMin: string;
-  anoMax: string;
-  preco: string;
-  fotos: string;
+  anoMin: number;
+  anoMax: number;
+  preco: number;
+  fotos: boolean;
   opcionais: string;
   cor: string;
 }
@@ -22,10 +22,10 @@ export class FiltersComponent implements OnInit {
     placa: '',
     marca: '',
     modelo: '',
-    anoMin: '',
-    anoMax: '',
-    preco: '',
-    fotos: '',
+    anoMin: 0,
+    anoMax: 0,
+    preco: 0,
+    fotos: false,
     opcionais: '',
     cor: ''
   };
@@ -51,10 +51,10 @@ export class FiltersComponent implements OnInit {
       placa: '',
       marca: '',
       modelo: '',
-      anoMin: '',
-      anoMax: '',
-      preco: '',
-      fotos: '',
+      anoMin: 0,
+      anoMax: 0,
+      preco: 0,
+      fotos: false,
       opcionais: '',
       cor: ''
     };

@@ -92,31 +92,6 @@
         color: #707173;
         font-size: 1.45rem;
       }
-
-      .btn-edit {
-        width: 2.5rem;
-        height: 1.75rem;
-        padding: 0.3rem;
-        background: #1085C6;
-        border: none;
-        border-radius: 0 0.6rem 0.6rem 0;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        transition: background-color .2s;
-
-        mat-icon {
-          font-size: 1.2rem;
-          padding: 0 0.3rem 0 0;
-          color: white;
-        }
-      }
-
-      .btn-edit:hover,
-      .btn-edit:focus {
-        background: #0056b3;
-      }
     }
 
     .car-info {
@@ -157,12 +132,37 @@
       }
     }
 
+    .btn-edit {
+      width: 2.5rem;
+      height: 1.75rem;
+      padding: 0.3rem;
+      background: #1085C6 !important;
+      border: none;
+      border-radius: 0 0.6rem 0.6rem 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color .2s;
+
+      mat-icon {
+        font-size: 1.2rem;
+        padding: 0 0.3rem 0 0;
+        color: white;
+      }
+    }
+
+    .btn-edit:hover,
+    .btn-edit:focus {
+      background: #0056b3;
+    }
+
     .btn-optionals {
       position: relative;
       top: -0.5rem;
 
       img {
-        width: 2.5rem;
+        width: 2.5rem !important;
       }
 
       span {
@@ -202,7 +202,7 @@
       padding: 0.8rem;
       position: relative;
       left: 34.1rem;
-      top: -2.4rem;
+      top: -3.4rem;
       clip-path: polygon(20px 0, 100% 0, 100% 100%, 0 100%);
     }
   }
