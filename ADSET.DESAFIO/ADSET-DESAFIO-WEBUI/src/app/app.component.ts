@@ -20,6 +20,7 @@ export class AppComponent {
   totalPagesFromApi = 1;
 
   cars: Car[] = [];
+  showRegisterToolbar = false;
   private filters: Filters | null = null;
 
   constructor(private carService: CarService) { }
@@ -30,8 +31,14 @@ export class AppComponent {
 
   handleExportExcel() { }
   handleExportCsv() { }
-  handleRegister() { }
+  handleRegister() { this.showRegisterToolbar = !this.showRegisterToolbar; }
   handleSave() { }
+
+  onRegistered() {
+    this.showRegisterToolbar = false;
+    this.loadCars();
+  }
+
   onSortByChange(sort: string) {
     this.currentSortBy = sort;
     this.loadCars();

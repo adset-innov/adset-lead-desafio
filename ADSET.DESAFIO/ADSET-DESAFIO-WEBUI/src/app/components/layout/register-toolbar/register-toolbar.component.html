@@ -1,0 +1,44 @@
+<div class="register-toolbar">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <input class="input-register-car" formControlName="brand" placeholder="Marca" />
+    <input class="input-register-car" formControlName="model" placeholder="Modelo" />
+    <input class="input-register-car" formControlName="year" placeholder="Ano" type="number" />
+    <input class="input-register-car" formControlName="plate" placeholder="Placa" />
+    <input class="input-register-car" formControlName="km" placeholder="Km" type="number" />
+    <input class="input-register-car" formControlName="color" placeholder="Cor" />
+    <input class="input-register-car" formControlName="price" placeholder="Preço" type="number" />
+
+    <div class="optionals" formArrayName="optionals">
+      <div *ngFor="let opt of optionals.controls; let i = index" class="optional-item">
+        <input
+          class="input-register-car optional-input"
+          [formControlName]="i"
+          placeholder="Opcional" />
+        <button
+          type="button"
+          class="btn-remove-opt"
+          (click)="removeOptional(i)"
+          aria-label="Remover opcional">
+          ×
+        </button>
+      </div>
+      <button type="button" class="button-opcional" (click)="addOptional()">
+        + Adicionar opcional
+      </button>
+    </div>
+
+    <label class="file-input-label">
+      Fotos do veículo
+      <input
+        type="file"
+        multiple
+        (change)="onFilesChange($event)"
+        class="file-input" />
+    </label>
+
+    <button type="submit" class="btn-submit">
+      Cadastrar
+    </button>
+  </form>
+</div>
