@@ -10,4 +10,6 @@ export interface CarFilterDto {
   optionals?: string;
   color?: string;
   pageNumber?: number;
+  sortBy?: string;
+  sortDir?: 'asc' | 'desc';
 }

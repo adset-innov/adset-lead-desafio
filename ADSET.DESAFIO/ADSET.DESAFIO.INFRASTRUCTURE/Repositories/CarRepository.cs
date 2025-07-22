@@ -26,13 +26,11 @@ namespace ADSET.DESAFIO.INFRASTRUCTURE.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Car>> GetAllAsync()
+        public IQueryable<Car> QueryAll()
         {
-            return await _context.Cars.AsNoTracking()
-                                      .Include(c => c.Optionals)
-                                      .Include(c => c.Photos)
-                                      .Include(c => c.PortalPackages)
-                                      .ToListAsync();
+            return _context.Cars.AsNoTracking().Include(c => c.Optionals)
+                                               .Include(c => c.Photos)
+                                               .Include(c => c.PortalPackages);
         }
 
         public async Task<Car?> GetByIdAsync(int id)

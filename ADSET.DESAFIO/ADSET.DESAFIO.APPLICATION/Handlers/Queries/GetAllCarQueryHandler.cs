@@ -16,9 +16,7 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
 
         public async Task<PaginatedList<Car>> Handle(GetAllCarQuery request, CancellationToken cancellationToken)
         {
-            List<Car> listCars = await _carRepository.GetAllAsync();
-
-            IQueryable<Car> cars = listCars.AsQueryable();
+            IQueryable<Car> cars = _carRepository.QueryAll();
 
             if (!string.IsNullOrEmpty(request.CarFilterDto.Brand))
                 cars = cars.Where(c => c.Brand.Contains(request.CarFilterDto.Brand));
@@ -46,6 +44,20 @@ namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
 
             if (!string.IsNullOrWhiteSpace(request.CarFilterDto.Color))
                 cars = cars.Where(c => c.Color.Equals(request.CarFilterDto.Color, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(request.CarFilterDto.SortBy))
+            {
+                bool desc = string.Equals(request.CarFilterDto.SortDir, "desc", StringComparison.OrdinalIgnoreCase);
+                cars = request.CarFilterDto.SortBy.ToLower() switch
+                {
+                    "brand" => desc ? cars.OrderByDescending(c => c.Brand) : cars.OrderBy(c => c.Brand),
+                    "model" => desc ? cars.OrderByDescending(c => c.Model) : cars.OrderBy(c => c.Model),
+                    "year" => desc ? cars.OrderByDescending(c => c.Year) : cars.OrderBy(c => c.Year),
+                    "price" => desc ? cars.OrderByDescending(c => c.Price) : cars.OrderBy(c => c.Price),
+                    "photos" => desc ? cars.OrderByDescending(c => c.Photos.Count) : cars.OrderBy(c => c.Photos.Count),
+                    _ => cars
+                };
+            }
 
             return PaginatedList<Car>.CreateAsync(cars, request.PageNumber, request.PageSize);
         }

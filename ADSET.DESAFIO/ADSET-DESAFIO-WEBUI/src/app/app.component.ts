@@ -32,8 +32,16 @@ export class AppComponent {
   handleExportCsv() { }
   handleRegister() { }
   handleSave() { }
-  onSortByChange() { }
-  onSortDirChange() { }
+  onSortByChange(sort: string) {
+    this.currentSortBy = sort;
+    this.loadCars();
+  }
+
+  onSortDirChange(dir: 'asc' | 'desc') {
+    this.currentSortDir = dir;
+    this.loadCars();
+  }
+
   onPageSizeChange(size: number) {
     this.currentPageSize = size;
     this.currentPage = 1;
@@ -73,7 +81,9 @@ export class AppComponent {
       hasPhotos: this.filters?.fotos,
       optionals: this.filters?.opcionais,
       color: this.filters?.cor,
-      pageNumber: this.currentPage
+      pageNumber: this.currentPage,
+      sortBy: this.currentSortBy,
+      sortDir: this.currentSortDir
     };
 
     this.carService.list(dto, this.currentPage, this.currentPageSize).subscribe(result => {
