@@ -6,7 +6,7 @@ import {
   PackageOption,
   PortalGroup
 } from '../../../models/car-portal-package.model';
-import { Portal, PackageType } from '../../../enums/car-portal-package.enums';
+import { Portal, PackageType, PackageTypeApiMap } from '../../../enums/car-portal-package.enums';
 
 @Component({
   selector: 'app-car-list',
@@ -38,7 +38,7 @@ export class CarListComponent implements OnInit {
       }
 
       map.get(p.portal)!.push({
-        name: p.package,
+        name: this.displayName(p.package),
         code: this.lookupCode(p),
         selected: false
       });
@@ -79,6 +79,14 @@ export class CarListComponent implements OnInit {
       case PackageType.Basico: return '030-025';
       default: return '';
     }
+  }
+
+  private displayName(pkg: any): string {
+    if (PackageTypeApiMap[pkg as PackageType]) {
+      return pkg as string;
+    }
+    const entry = Object.entries(PackageTypeApiMap).find(([key, value]) => value === pkg || +key === pkg);
+    return entry ? entry[0] : String(pkg);
   }
 
   onPageChange(newPage: number) {

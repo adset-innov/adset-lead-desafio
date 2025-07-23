@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ADSET.DESAFIO.APPLICATION.Handlers.Commands
 {
-    internal class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, Car>
+    public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, Car>
     {
         public readonly ICarRepository _carRepository;
         private readonly IMapper _mapper;

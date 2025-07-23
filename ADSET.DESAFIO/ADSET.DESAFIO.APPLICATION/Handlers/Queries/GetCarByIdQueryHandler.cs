@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
 {
-    internal class GetCarByIdQueryHandler : IRequestHandler<GetCarByIdQuery, Car>
+    public class GetCarByIdQueryHandler : IRequestHandler<GetCarByIdQuery, Car>
     {
         private readonly ICarRepository _carRepository;
         private readonly IMapper _mapper;

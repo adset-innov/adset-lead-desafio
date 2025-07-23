@@ -1,12 +1,6 @@
-﻿using ADSET.DESAFIO.APPLICATION.Common;
-using ADSET.DESAFIO.DOMAIN.Entities;
+﻿using ADSET.DESAFIO.DOMAIN.Entities;
 using ADSET.DESAFIO.DOMAIN.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ADSET.DESAFIO.APPLICATION.Handlers.Queries
 {

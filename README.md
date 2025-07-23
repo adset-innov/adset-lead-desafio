@@ -32,3 +32,103 @@ Após terminar seu teste submeta um pull request e aguarde seu feedback.
 
 ## Notas:
 * Lembre-se de fazer um fork deste repositório! Apenas cloná-lo vai te impedir de criar o pull request e dificultar a entrega;
+
+## Sobre o Projeto
+
+Este repositório contém uma aplicação de inventário de veículos desenvolvida como proposta de desafio. O back‑end foi construído em **ASP.NET Core 9** seguindo DDD e utiliza **Entity Framework Core** para persistência. Já o front‑end utiliza **Angular 12** e **Angular Material** para a interface.
+
+No domínio principal há a entidade `Car` com diversos atributos obrigatórios, como mostrado na declaração a seguir:
+
+```csharp
+        [Required(ErrorMessage = "Brand is required.")]
+        [StringLength(50, ErrorMessage = "Brand cannot exceed 50 characters.")]
+        [Column(name: "brand")]
+        public string Brand { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Model is required.")]
+        [StringLength(50, ErrorMessage = "Model cannot exceed 50 characters.")]
+        [Column(name: "model")]
+        public string Model { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Year is required.")]
+        [Range(2000, 2024, ErrorMessage = "Year must be between 2000 and 2024.")]
+        [Column(name: "year")]
+        public int Year { get; set; }
+
+        [Required(ErrorMessage = "Plate is required.")]
+        [RegularExpression(@"^[A-Z0-9-]+$", ErrorMessage = "Plate format is invalid.")]
+        [Column(name: "plate")]
+        public string Plate { get; set; } = string.Empty;
+
+        [Range(0, int.MaxValue, ErrorMessage = "Kilometers cannot be negative.")]
+        [Column(name: "km")]
+        public int Km { get; set; }
+
+        [Required(ErrorMessage = "Color is required.")]
+        [StringLength(30, ErrorMessage = "Color cannot exceed 30 characters.")]
+        [Column(name: "color")]
+        public string Color { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
+        [Column(name: "price", TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
+        public ICollection<CarOptional> Optionals { get; set; } = new List<CarOptional>();
+        public ICollection<CarPhoto> Photos { get; set; } = new List<CarPhoto>();
+public ICollection<CarPortalPackage> PortalPackages { get; set; } = new List<CarPortalPackage>();
+```
+
+O projeto expõe um controlador `CarsController` com rotas de CRUD, além de consultas com filtros e paginação. A configuração de serviços e do Swagger está definida em `Program.cs`.
+
+```csharp
+builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "ADSET.DESAFIO", Version = "v1" }); });
+builder.Services.AddGeneralInfrastructure(builder.Configuration);
+builder.Services.AddControllers().AddJsonOptions(opts =>
+{
+    opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    opts.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
+builder.Services.AddOpenApi();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+    });
+});
+```
+
+## Como executar
+
+1. Configure uma instância do **SQL Server** e defina a string de conexão no arquivo `ADSET.DESAFIO.API/appsettings.json` em `ConnectionStrings:MasterDbConnection`.
+2. Aplique as migrations executando na pasta `ADSET.DESAFIO`:
+   ```bash
+   dotnet ef database update --project ADSET.DESAFIO.INFRASTRUCTURE/ADSET.DESAFIO.INFRASTRUCTURE.csproj --startup-project ADSET.DESAFIO.API
+   ```
+3. Inicie a API:
+   ```bash
+   dotnet run --project ADSET.DESAFIO.API
+   ```
+   O perfil `https` utilizará a porta **7096** por padrão.
+4. Para o front‑end, navegue até `ADSET.DESAFIO/ADSET-DESAFIO-WEBUI` e instale as dependências:
+   ```bash
+   npm install
+   npm start
+   ```
+   A aplicação Angular abrirá em `http://localhost:4200` e utilizará o proxy definido em `proxy.conf.json` para encaminhar chamadas `/api` para a API.
+   
+## Executando o projeto
+1. Compile a solução:
+   ```bash
+   cd ADSET.DESAFIO
+   dotnet build
+   ```
+2. Aplique as migrações do Entity Framework:
+   ```bash
+   dotnet ef database update
+   ```
+3. Execute os testes:
+   ```bash
+   dotnet test
+   ```

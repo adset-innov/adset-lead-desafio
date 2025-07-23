@@ -9,3 +9,10 @@ export enum PackageType {
   Platinum = 'Platinum',
   Basico = 'Básico'
 }
+
+export const PackageTypeApiMap: Record<PackageType, string> = {
+  [PackageType.Bronze]: 'Bronze',
+  [PackageType.Diamante]: 'Diamond',
+  [PackageType.Platinum]: 'Platinum',
+  [PackageType.Basico]: 'Basic'
+};

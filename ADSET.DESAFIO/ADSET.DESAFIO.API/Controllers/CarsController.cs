@@ -6,8 +6,6 @@ using ADSET.DESAFIO.APPLICATION.Interfaces;
 using ADSET.DESAFIO.DOMAIN.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ClosedXML.Excel;
-using System.IO;
 
 namespace ADSET.DESAFIO.API.Controllers
 {

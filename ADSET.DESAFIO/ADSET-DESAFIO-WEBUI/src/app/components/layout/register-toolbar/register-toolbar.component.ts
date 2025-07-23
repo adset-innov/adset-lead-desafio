@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CarService } from '../../../services/car.service';
 import { Car } from '../../../models/car.model';
-import { Portal, PackageType } from '../../../enums/car-portal-package.enums';
+import { Portal, PackageType, PackageTypeApiMap } from '../../../enums/car-portal-package.enums';
 
 @Component({
   selector: 'app-register-toolbar',
@@ -12,7 +12,9 @@ import { Portal, PackageType } from '../../../enums/car-portal-package.enums';
 export class RegisterToolbarComponent implements OnChanges {
   form: FormGroup;
   photos: File[] = [];
-  packageTypes: PackageType[] = [];
+  public packageTypes: PackageType[] = Object.values(PackageType);
+  public Portal = Portal;
+  portalPackages: { [key in Portal]?: PackageType } = {};
 
   @Input() car: Car | null = null;
   @Output() submitted = new EventEmitter<void>();
@@ -30,8 +32,6 @@ export class RegisterToolbarComponent implements OnChanges {
       webmotorsPackage: [''],
       optionals: this.fb.array([])
     });
-
-    this.packageTypes = Object.values(PackageType);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -62,6 +62,14 @@ export class RegisterToolbarComponent implements OnChanges {
       if (Array.isArray(this.car.optionals)) {
         this.car.optionals.forEach(() => this.optionals.push(this.fb.control('')));
       }
+      
+      const pkgObj: { [key in Portal]?: PackageType } = {};
+      if (Array.isArray(this.car.portalPackages)) {
+        this.car.portalPackages.forEach(p => {
+          pkgObj[p.portal] = p.package;
+        });
+      }
+      this.portalPackages = pkgObj;
     }
   }
 
@@ -75,6 +83,15 @@ export class RegisterToolbarComponent implements OnChanges {
 
   removeOptional(index: number): void {
     this.optionals.removeAt(index);
+  }
+
+  onPackageSelect(portal: Portal, pkg: string): void {
+    const type = pkg as PackageType;
+    if (type) {
+      this.portalPackages[portal] = type;
+    } else {
+      delete this.portalPackages[portal];
+    }
   }
 
   onFilesChange(event: Event): void {
@@ -108,7 +125,7 @@ export class RegisterToolbarComponent implements OnChanges {
     if (value.webmotorsPackage) {
       portalPackages[Portal.WebMotors] = value.webmotorsPackage;
     }
-    formData.append('portalPackages', JSON.stringify(portalPackages));
+    formData.append('portalPackages', JSON.stringify(this.portalPackages));
     formData.append('optionals', JSON.stringify(this.optionals.value));
     this.photos.forEach(file => formData.append('photos', file));
 
@@ -119,5 +136,13 @@ export class RegisterToolbarComponent implements OnChanges {
       this.optionals.clear();
       this.submitted.emit();
     });
+  }
+
+  private getPortalPackagesForApi(): Record<Portal, string> {
+    const result: Record<Portal, string> = {} as Record<Portal, string>;
+    Object.entries(this.portalPackages).forEach(([portal, pkg]) => {
+      result[portal as Portal] = PackageTypeApiMap[pkg as PackageType];
+    });
+    return result;
   }
 }
