@@ -1,6 +1,6 @@
 ﻿namespace Backend_adset_lead.DTOs
 {
-    public class CarroRequestDTO
+    public class BuscaCarroRequestDTO
     {
         public string? Placa { get; set; }
         public string? Marca { get; set; }

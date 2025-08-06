@@ -8,7 +8,7 @@ namespace Backend_adset_lead.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public required int CarroId { get; set; }
+        public int CarroId { get; set; }
         public Carro Carro { get; set; } = null!;
         [Required]
         public Portal Portal { get; set; }

@@ -10,10 +10,7 @@ namespace Backend_adset_lead.Repositories
     {
         private readonly AdsetLeadContext _context;
 
-        public CarroRepository(AdsetLeadContext context)
-        {
-            _context = context;
-        }
+        public CarroRepository(AdsetLeadContext context) => _context = context;
 
         public async Task<int> Add(Carro carro)
         {
@@ -35,7 +32,7 @@ namespace Backend_adset_lead.Repositories
             return await _context.Carros.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<List<Carro>> GetFiltered(CarroRequestDTO filtro)
+        public async Task<List<Carro>> GetFiltered(BuscaCarroRequestDTO filtro)
         {
             var query = _context.Carros
                 .AsQueryable()

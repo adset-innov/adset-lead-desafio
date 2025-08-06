@@ -8,10 +8,7 @@ namespace Backend_adset_lead.Services
     {
         private readonly ICarroRepository _repository;
 
-        public CarroService(CarroRepository repository)
-        {
-            _repository = repository;
-        }
+        public CarroService(ICarroRepository repository) => _repository = repository;
 
         public async Task<int> AddAsync(Carro carro)
         {
@@ -23,7 +20,7 @@ namespace Backend_adset_lead.Services
             return await _repository.Delete(id);
         }
 
-        public async Task<List<Carro>> GetFilteredAsync(CarroRequestDTO filtro)
+        public async Task<List<Carro>> GetFilteredAsync(BuscaCarroRequestDTO filtro)
         {
             return await _repository.GetFiltered(filtro);
         }
