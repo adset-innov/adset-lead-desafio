@@ -46,7 +46,7 @@ namespace Backend_adset_lead.Controllers
         {
             try
             {
-                return Ok(new { message = "Get", request });
+                return Ok(new { message = "Funcionalidade deve ser implementada", request });
             }
             catch (Exception ex)
             {
@@ -60,7 +60,8 @@ namespace Backend_adset_lead.Controllers
         {
             try
             {
-                return Ok(new { message = "Delete", id });
+                var result = await _service.DeleteAsync(id);
+                return NoContent();
             }
             catch (Exception ex)
             {
