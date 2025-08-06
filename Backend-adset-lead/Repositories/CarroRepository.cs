@@ -21,9 +21,9 @@ namespace Backend_adset_lead.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> Delete(Carro carro)
+        public async Task<int> Delete(int id)
         {
-            var carroEncontrado = await GetById(carro.Id);
+            var carroEncontrado = await GetById(id);
             if (carroEncontrado is null) CarroNaoencontradoException();
 
             _context.Carros.Remove(carroEncontrado!);

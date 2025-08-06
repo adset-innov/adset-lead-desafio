@@ -8,7 +8,7 @@ namespace Backend_adset_lead.Repositories
         Task<int> Add(Carro carro);
         Task<Carro?> GetById(int id);
         Task<List<Carro>> GetFiltered(CarroRequestDTO filtro);
-        Task<int> Delete(Carro carro);
+        Task<int> Delete(int id);
         Task<int> Update(Carro categoria);
     }
 }

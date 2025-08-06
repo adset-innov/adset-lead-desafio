@@ -1,5 +1,6 @@
 using Backend_adset_lead.Contexts;
 using Backend_adset_lead.Repositories;
+using Backend_adset_lead.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICarroRepository, CarroRepository>();
+builder.Services.AddScoped<ICarroService, CarroService>();
 
 var app = builder.Build();
 
