@@ -123,7 +123,7 @@ namespace Backend_adset_lead.Migrations
             modelBuilder.Entity("Backend_adset_lead.Models.PortalPacote", b =>
                 {
                     b.HasOne("Backend_adset_lead.Models.Carro", "Carro")
-                        .WithMany("PortalPackages")
+                        .WithMany("PortalPacotes")
                         .HasForeignKey("CarroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -135,7 +135,7 @@ namespace Backend_adset_lead.Migrations
                 {
                     b.Navigation("Fotos");
 
-                    b.Navigation("PortalPackages");
+                    b.Navigation("PortalPacotes");
                 });
 #pragma warning restore 612, 618
         }

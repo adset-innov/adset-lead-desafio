@@ -20,7 +20,7 @@ namespace Backend_adset_lead.Models
         [Required]
         public decimal Preco { get; set; }
         public string? ListaOpcionais { get; set; }
-        public List<PortalPacote> PortalPackages { get; set; } = new();
+        public List<PortalPacote> PortalPacotes { get; set; } = new();
         public List<Foto> Fotos { get; set; } = new();
 
     }

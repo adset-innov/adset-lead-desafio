@@ -30,7 +30,9 @@ namespace Backend_adset_lead.Controllers
                             )
                     });
                 }
-                return Ok(new {message = "Post", request});
+
+                var response = await _service.AddAsync(request);
+                return Ok(new {RegistrosInseridos = response});
             }
             catch (Exception ex)
             {

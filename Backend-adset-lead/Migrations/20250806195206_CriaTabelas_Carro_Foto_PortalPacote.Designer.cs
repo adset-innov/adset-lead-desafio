@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend_adset_lead.Migrations
 {
     [DbContext(typeof(AdsetLeadContext))]
-    [Migration("20250805224635_CriaTabelas_Carros_Fotos_PortaisPacotes")]
-    partial class CriaTabelas_Carros_Fotos_PortaisPacotes
+    [Migration("20250806195206_CriaTabelas_Carro_Foto_PortalPacote")]
+    partial class CriaTabelas_Carro_Foto_PortalPacote
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,7 +126,7 @@ namespace Backend_adset_lead.Migrations
             modelBuilder.Entity("Backend_adset_lead.Models.PortalPacote", b =>
                 {
                     b.HasOne("Backend_adset_lead.Models.Carro", "Carro")
-                        .WithMany("PortalPackages")
+                        .WithMany("PortalPacotes")
                         .HasForeignKey("CarroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -138,7 +138,7 @@ namespace Backend_adset_lead.Migrations
                 {
                     b.Navigation("Fotos");
 
-                    b.Navigation("PortalPackages");
+                    b.Navigation("PortalPacotes");
                 });
 #pragma warning restore 612, 618
         }

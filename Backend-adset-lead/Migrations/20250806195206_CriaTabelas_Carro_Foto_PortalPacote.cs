@@ -5,7 +5,7 @@
 namespace Backend_adset_lead.Migrations
 {
     /// <inheritdoc />
-    public partial class CriaTabelas_Carros_Fotos_PortaisPacotes : Migration
+    public partial class CriaTabelas_Carro_Foto_PortalPacote : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

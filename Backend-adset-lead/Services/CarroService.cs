@@ -10,9 +10,31 @@ namespace Backend_adset_lead.Services
 
         public CarroService(ICarroRepository repository) => _repository = repository;
 
-        public async Task<int> AddAsync(Carro carro)
+        public async Task<int> AddAsync(NovoCarroRequestDTO carro)
         {
-            return await _repository.Add(carro);
+            var novoCarro = new Carro
+            {
+                Marca = carro.Marca,
+                Modelo = carro.Modelo,
+                Ano = carro.Ano,
+                Placa = carro.Placa,
+                Quilometragem = carro.Quilometragem,
+                Cor = carro.Cor,
+                Preco = carro.Preco,
+                ListaOpcionais = carro.ListaOpcionais,
+                PortalPacotes = carro.PortalPacotes
+                .Select(p => new PortalPacote
+                {
+                    Portal = p.Portal,
+                    Pacote = p.Pacote,
+                }).ToList(),
+                Fotos = carro.Fotos.Select(f => new Foto
+                {
+                    Url = f.Url,
+                }).ToList(),
+            };
+
+            return await _repository.Add(novoCarro);
         }
 
         public async Task<int> DeleteAsync(int id)
