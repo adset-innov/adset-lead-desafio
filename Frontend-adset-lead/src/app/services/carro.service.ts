@@ -1,0 +1,63 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface CarroRequest {
+  marca?: string;
+  modelo?: string;
+  anoMin?: number;
+  anoMax?: number;
+  precoMin?: number;
+  precoMax?: number;
+  hasPhotos?: boolean;
+  opcionais?: string;
+  cor?: string;
+  placa?: string;
+  page: number;
+  pageSize: number;
+}
+
+export interface CarroResponse {
+  id?: number;
+  ano?: number;
+  cor?: string;
+  //fotos?: FotoResponse[];
+  listaOpcionais?: string;
+  marca?: string;
+  modelo?: string;
+  placa?: string;
+  //portalPacotes?: PacoteResponse[];
+  preco?: number;
+  quilometragem?: number;
+  page: number;
+  pageSize: number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CarroService {
+  private apiUrl = 'http://localhost:5025/v1/Carro';
+
+  constructor(private http: HttpClient) {}
+
+  getCarros(filtro: CarroRequest): Observable<any> {
+    let params = new HttpParams();
+
+    if (filtro.marca) params = params.set('Marca', filtro.marca);
+    if (filtro.modelo) params = params.set('Modelo', filtro.modelo);
+    if (filtro.anoMin !== undefined) params = params.set('AnoMin', filtro.anoMin.toString());
+    if (filtro.anoMax !== undefined) params = params.set('AnoMax', filtro.anoMax.toString());
+    if (filtro.precoMin !== undefined) params = params.set('PrecoMin', filtro.precoMin.toString());
+    if (filtro.precoMax !== undefined) params = params.set('PrecoMax', filtro.precoMax.toString());
+    if (filtro.hasPhotos !== undefined) params = params.set('HasPhotos', filtro.hasPhotos.toString());
+    if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
+    if (filtro.cor) params = params.set('Cor', filtro.cor);
+    if (filtro.placa) params = params.set('Placa', filtro.placa);
+    
+    params = params.set('Page', filtro.page.toString());
+    params = params.set('PageSize', filtro.pageSize.toString());
+
+    return this.http.get<any>(this.apiUrl, { params });
+  }
+}

@@ -48,7 +48,7 @@ namespace Backend_adset_lead.Controllers
                 var response = await _service.GetFilteredAsync(request);
                 return Ok(new
                 {
-                    Content = response,
+                    Content = response.Items,
                     request.Page,
                     request.PageSize,
                     response.TotalPages
