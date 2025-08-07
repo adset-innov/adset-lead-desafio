@@ -2,7 +2,6 @@
 using Backend_adset_lead.DTOs;
 using Backend_adset_lead.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
 
 namespace Backend_adset_lead.Repositories
 {
@@ -32,12 +31,12 @@ namespace Backend_adset_lead.Repositories
             return await _context.Carros.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<List<Carro>> GetFiltered(BuscaCarroRequestDTO filtro)
+        public async Task<PagedListDTO<Carro>> GetFiltered(BuscaCarroRequestDTO filtro)
         {
             var query = _context.Carros
                 .AsQueryable()
                 .Include(c => c.Fotos)
-                .Include(c => c.ListaOpcionais)
+                .Include(c => c.PortalPacotes)
                 .AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(filtro.Placa))
@@ -91,7 +90,14 @@ namespace Backend_adset_lead.Repositories
 
             query = query.OrderBy(c => c.Id);
             var skip = (Math.Max(filtro.Page, 1) - 1) * Math.Max(filtro.PageSize, 1);
-            return await query.Skip(skip).Take(filtro.PageSize).ToListAsync();
+            var totalPaginas = await query.CountAsync();
+            var result = await query.Skip(skip).Take(filtro.PageSize).ToListAsync();
+
+            return new PagedListDTO<Carro>
+            {
+                Items = result,
+                TotalPages = totalPaginas
+            };
         }
 
         public async Task<int> Update(CarroUpdateRequestDTO carroAtualizado)

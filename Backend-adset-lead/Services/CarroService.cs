@@ -42,9 +42,41 @@ namespace Backend_adset_lead.Services
             return await _repository.Delete(id);
         }
 
-        public async Task<List<Carro>> GetFilteredAsync(BuscaCarroRequestDTO filtro)
+        public async Task<PagedListDTO<CarroResponseDTO>> GetFilteredAsync(BuscaCarroRequestDTO filtro)
         {
-            return await _repository.GetFiltered(filtro);
+            var response = await _repository.GetFiltered(filtro);
+
+            var result = response.Items.Select(r => new CarroResponseDTO
+            {
+                Id = r.Id,
+                Marca = r.Marca,
+                Modelo = r.Modelo,
+                Ano = r.Ano,
+                Placa = r.Placa,
+                Quilometragem = r.Quilometragem,
+                Cor = r.Cor,
+                Preco = r.Preco,
+                ListaOpcionais = r.ListaOpcionais,
+                PortalPacotes = r.PortalPacotes.Select(pp => new PortalPacoteResponseDTO
+                {
+                    Id = pp.Id,
+                    CarroId = pp.CarroId,
+                    Portal = pp.Portal,
+                    Pacote = pp.Pacote
+                }).ToList(),
+                Fotos = r.Fotos.Select(f => new FotoResponseDTO
+                {
+                    Id = f.Id,
+                    Url = f.Url,
+                    CarroId = f.CarroId,
+                }).ToList()
+            }).ToList();
+
+            return new PagedListDTO<CarroResponseDTO>
+            {
+                Items = result,
+                TotalPages = response.TotalPages
+            };
         }
 
         public async Task<int> UpdateAsync(CarroUpdateRequestDTO carro)

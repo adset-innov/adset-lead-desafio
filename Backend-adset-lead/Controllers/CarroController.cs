@@ -45,7 +45,14 @@ namespace Backend_adset_lead.Controllers
         {
             try
             {
-                return Ok(new { message = "Funcionalidade deve ser implementada", request });
+                var response = await _service.GetFilteredAsync(request);
+                return Ok(new
+                {
+                    Content = response,
+                    request.Page,
+                    request.PageSize,
+                    response.TotalPages
+                });
             }
             catch (Exception ex)
             {
@@ -59,7 +66,7 @@ namespace Backend_adset_lead.Controllers
         {
             try
             {
-                var result = await _service.DeleteAsync(id);
+                var response = await _service.DeleteAsync(id);
                 return NoContent();
             }
             catch (Exception ex)
