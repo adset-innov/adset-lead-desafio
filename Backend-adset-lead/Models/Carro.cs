@@ -22,6 +22,5 @@ namespace Backend_adset_lead.Models
         public string? ListaOpcionais { get; set; }
         public List<PortalPacote> PortalPacotes { get; set; } = new();
         public List<Foto> Fotos { get; set; } = new();
-
     }
 }

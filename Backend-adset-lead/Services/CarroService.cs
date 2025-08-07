@@ -47,7 +47,7 @@ namespace Backend_adset_lead.Services
             return await _repository.GetFiltered(filtro);
         }
 
-        public async Task<int> UpdateAsync(Carro carro)
+        public async Task<int> UpdateAsync(CarroUpdateRequestDTO carro)
         {
             return await _repository.Update(carro);
         }

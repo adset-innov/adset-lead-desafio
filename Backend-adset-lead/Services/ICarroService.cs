@@ -8,6 +8,6 @@ namespace Backend_adset_lead.Services
         Task<int> AddAsync(NovoCarroRequestDTO carro);
         Task<List<Carro>> GetFilteredAsync(BuscaCarroRequestDTO filtro);
         Task<int> DeleteAsync(int id);
-        Task<int> UpdateAsync(Carro carro);
+        Task<int> UpdateAsync(CarroUpdateRequestDTO carro);
     }
 }

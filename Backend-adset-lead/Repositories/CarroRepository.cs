@@ -94,12 +94,51 @@ namespace Backend_adset_lead.Repositories
             return await query.Skip(skip).Take(filtro.PageSize).ToListAsync();
         }
 
-        public async Task<int> Update(Carro carro)
+        public async Task<int> Update(CarroUpdateRequestDTO carroAtualizado)
         {
-            var carroEncontrado = await GetById(carro.Id);
-            if (carroEncontrado is null) CarroNaoencontradoException();
+            var carroExistente = await _context.Carros
+                .Include(c => c.Fotos)
+                .Include(c => c.PortalPacotes)
+                .FirstOrDefaultAsync(c => c.Id == carroAtualizado.Id);
+            if (carroExistente == null)
+                throw new Exception("Carro não encontrado.");
 
-            _context.Carros.Update(carroEncontrado!);
+            _context.Entry(carroExistente).CurrentValues.SetValues(carroAtualizado);
+
+            carroExistente.Fotos.RemoveAll(f => !carroAtualizado.Fotos.Any(nf => nf.Id == f.Id));
+            foreach (var novaFoto in carroAtualizado.Fotos.Where(nf => nf.Id == 0))
+            {
+                carroExistente.Fotos.Add(new Foto { Url = novaFoto.Url });
+            }
+            
+            foreach (var fotoAtualizada in carroAtualizado.Fotos.Where(nf => nf.Id != 0))
+            {
+                var fotoExistente = carroExistente.Fotos.FirstOrDefault(f => f.Id == fotoAtualizada.Id);
+                if (fotoExistente != null)
+                {
+                    _context.Entry(fotoExistente).CurrentValues.SetValues(fotoAtualizada);
+                }
+            }
+
+            carroExistente.PortalPacotes.RemoveAll(p => !carroAtualizado.PortalPacotes.Any(np => np.Id == p.Id));
+            foreach (var novoPacote in carroAtualizado.PortalPacotes.Where(np => np.Id == 0))
+            {
+                carroExistente.PortalPacotes.Add(new PortalPacote
+                {
+                    Pacote = novoPacote.Pacote,
+                    Portal = novoPacote.Portal
+                });
+            }
+
+            foreach (var pacoteAtualizado in carroAtualizado.PortalPacotes.Where(np => np.Id != 0))
+            {
+                var pacoteExistente = carroExistente.PortalPacotes.FirstOrDefault(p => p.Id == pacoteAtualizado.Id);
+                if (pacoteExistente != null)
+                {
+                    _context.Entry(pacoteExistente).CurrentValues.SetValues(pacoteAtualizado);
+                }
+            }
+
             return await _context.SaveChangesAsync();
         }
 

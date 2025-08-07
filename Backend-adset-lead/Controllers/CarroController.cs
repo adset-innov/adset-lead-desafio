@@ -1,5 +1,4 @@
 ﻿using Backend_adset_lead.DTOs;
-using Backend_adset_lead.Models;
 using Backend_adset_lead.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,11 +69,12 @@ namespace Backend_adset_lead.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Alterar([FromBody] Carro request)
+        public async Task<IActionResult> Alterar([FromBody] CarroUpdateRequestDTO request)
         {
             try
             {
-                return Ok(new { message = "Put", request });
+                var response = await _service.UpdateAsync(request);
+                return Ok(new { RegistrosAlterados = response });
             }
             catch (Exception ex)
             {

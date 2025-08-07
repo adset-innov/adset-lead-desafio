@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Backend_adset_lead.DTOs
+﻿namespace Backend_adset_lead.DTOs
 {
-    public class NovoCarroRequestDTO
+    public class CarroUpdateRequestDTO
     {
+        public required int Id { get; set; }
         public required string Marca { get; set; }
         public required string Modelo { get; set; }
         public required int Ano { get; set; }
@@ -12,8 +11,7 @@ namespace Backend_adset_lead.DTOs
         public required string Cor { get; set; }
         public required decimal Preco { get; set; }
         public string? ListaOpcionais { get; set; }
-        public required List<PacoteRequestDTO> PortalPacotes { get; set; } = new();
-        public List<FotoRequestDTO> Fotos { get; set; } = new();
-
+        public required List<PacoteUpdateRequestDTO> PortalPacotes { get; set; } = new();
+        public List<FotoUpdateRequestDTO> Fotos { get; set; } = new();
     }
 }
