@@ -13,6 +13,7 @@ export interface CarroRequest {
   opcionais?: string;
   cor?: string;
   placa?: string;
+  fotos?: FotoRequest[]
   page: number;
   pageSize: number;
 }
@@ -21,7 +22,7 @@ export interface CarroResponse {
   id: number;
   ano?: number;
   cor?: string;
-  //fotos?: FotoResponse[];
+  fotos: FotoResponse[];
   listaOpcionais?: string;
   marca?: string;
   modelo?: string;
@@ -33,12 +34,22 @@ export interface CarroResponse {
   pageSize: number;
 }
 
+export interface FotoResponse{
+  id: number;
+  url?: string;
+  carroId?: number;
+}
+
+export interface FotoRequest{
+  url?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class CarroService {
-  //private apiUrl = 'https://localhost:7162/v1/Carro';
-  private apiUrl = 'http://localhost:5025/v1/Carro';
+  private apiUrl = 'https://localhost:7162/v1/Carro';
+  //private apiUrl = 'http://localhost:5025/v1/Carro';
 
   constructor(private http: HttpClient) {}
 

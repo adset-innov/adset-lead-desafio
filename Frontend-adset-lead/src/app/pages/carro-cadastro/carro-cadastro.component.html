@@ -1,12 +1,15 @@
 <h2>Cadastro de Carro</h2>
 
 <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
-
   <label>
     Marca:
     <input formControlName="marca" />
   </label>
-  <div *ngIf="cadastroForm.get('marca')?.invalid && cadastroForm.get('marca')?.touched">
+  <div
+    *ngIf="
+      cadastroForm.get('marca')?.invalid && cadastroForm.get('marca')?.touched
+    "
+  >
     Marca é obrigatória.
   </div>
 
@@ -14,7 +17,11 @@
     Modelo:
     <input formControlName="modelo" />
   </label>
-  <div *ngIf="cadastroForm.get('modelo')?.invalid && cadastroForm.get('modelo')?.touched">
+  <div
+    *ngIf="
+      cadastroForm.get('modelo')?.invalid && cadastroForm.get('modelo')?.touched
+    "
+  >
     Modelo é obrigatório.
   </div>
 
@@ -22,7 +29,9 @@
     Ano:
     <input type="number" formControlName="ano" />
   </label>
-  <div *ngIf="cadastroForm.get('ano')?.invalid && cadastroForm.get('ano')?.touched">
+  <div
+    *ngIf="cadastroForm.get('ano')?.invalid && cadastroForm.get('ano')?.touched"
+  >
     Ano inválido.
   </div>
 
@@ -30,7 +39,11 @@
     Placa:
     <input formControlName="placa" />
   </label>
-  <div *ngIf="cadastroForm.get('placa')?.invalid && cadastroForm.get('placa')?.touched">
+  <div
+    *ngIf="
+      cadastroForm.get('placa')?.invalid && cadastroForm.get('placa')?.touched
+    "
+  >
     Placa é obrigatória.
   </div>
 
@@ -43,7 +56,11 @@
     Preço:
     <input type="number" formControlName="preco" />
   </label>
-  <div *ngIf="cadastroForm.get('preco')?.invalid && cadastroForm.get('preco')?.touched">
+  <div
+    *ngIf="
+      cadastroForm.get('preco')?.invalid && cadastroForm.get('preco')?.touched
+    "
+  >
     Preço é obrigatório.
   </div>
 
@@ -57,19 +74,49 @@
     <input type="number" formControlName="quilometragem" />
   </label>
 
-  <!-- <label>
-    <input type="checkbox" formControlName="hasPhotos" />
-    Tem fotos
-  </label> -->
+  <div formArrayName="fotos">
+    <label>Fotos (URLs):</label>
+
+    <div
+      *ngFor="let fotoGroup of fotos.controls; let i = index"
+      [formGroupName]="i"
+      style="margin-bottom: 10px"
+    >
+      <input
+        formControlName="url"
+        placeholder="URL da foto"
+        style="width: 60%"
+      />
+
+      <img
+        *ngIf="fotoGroup.get('url')?.value"
+        [src]="fotoGroup.get('url')?.value"
+        alt="Preview da foto"
+        width="80"
+        height="60"
+        style="object-fit: cover; border-radius: 4px; margin-left: 10px"
+      />
+
+      <button type="button" (click)="removerFoto(i)" style="margin-left: 10px">
+        🗑️
+      </button>
+    </div>
+
+    <button
+      type="button"
+      (click)="adicionarFoto()"
+      [disabled]="fotos.length >= 15"
+    >
+      ➕ Adicionar Foto
+    </button>
+  </div>
 
   <button type="submit">Cadastrar</button>
   <button [routerLink]="['/carros']">Voltar</button>
 </form>
 
-<div *ngIf="sucesso" style="color: green;">
-  Carro cadastrado com sucesso!
-</div>
+<div *ngIf="sucesso" style="color: green">Carro cadastrado com sucesso!</div>
 
-<div *ngIf="erro" style="color: red;">
+<div *ngIf="erro" style="color: red">
   {{ erro }}
 </div>

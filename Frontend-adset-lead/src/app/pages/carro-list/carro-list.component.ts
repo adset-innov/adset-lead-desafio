@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CarroResponse, CarroService } from '../../services/carro.service';
@@ -9,21 +9,22 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  //templateUrl: './app.component.html',
   templateUrl: './carro-list.component.html',
   styleUrls: ['./carro-list.component.css'],
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule, RouterModule],
 })
-export class CarrosComponent {
+export class CarrosComponent implements OnInit {
   filtroForm: FormGroup;
   totalPaginas: number = 0;
   pagina: number = 1;
   tamanhoPagina: number = 10;
   carros: CarroResponse[] = [];
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private carroService: CarroService,
-    private router: Router) {
+    private router: Router
+  ) {
     this.filtroForm = this.fb.group({
       placa: [''],
       marca: [''],
@@ -38,6 +39,9 @@ export class CarrosComponent {
       page: [1],
       pageSize: [10],
     });
+  }
+  ngOnInit(): void {
+    this.buscarCarros();
   }
 
   buscarCarros() {

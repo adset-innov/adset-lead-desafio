@@ -4,13 +4,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarroService, CarroResponse } from '../../services/carro.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carro-edicao',
   standalone: true,
   templateUrl: './carro-edicao.component.html',
   styleUrls: ['./carro-edicao.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule]
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule]
 })
 export class CarroEdicaoComponent implements OnInit {
   carroForm: FormGroup;
