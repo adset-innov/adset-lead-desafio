@@ -1,0 +1,75 @@
+<h2>Cadastro de Carro</h2>
+
+<form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    Marca:
+    <input formControlName="marca" />
+  </label>
+  <div *ngIf="cadastroForm.get('marca')?.invalid && cadastroForm.get('marca')?.touched">
+    Marca é obrigatória.
+  </div>
+
+  <label>
+    Modelo:
+    <input formControlName="modelo" />
+  </label>
+  <div *ngIf="cadastroForm.get('modelo')?.invalid && cadastroForm.get('modelo')?.touched">
+    Modelo é obrigatório.
+  </div>
+
+  <label>
+    Ano:
+    <input type="number" formControlName="ano" />
+  </label>
+  <div *ngIf="cadastroForm.get('ano')?.invalid && cadastroForm.get('ano')?.touched">
+    Ano inválido.
+  </div>
+
+  <label>
+    Placa:
+    <input formControlName="placa" />
+  </label>
+  <div *ngIf="cadastroForm.get('placa')?.invalid && cadastroForm.get('placa')?.touched">
+    Placa é obrigatória.
+  </div>
+
+  <label>
+    Cor:
+    <input formControlName="cor" />
+  </label>
+
+  <label>
+    Preço:
+    <input type="number" formControlName="preco" />
+  </label>
+  <div *ngIf="cadastroForm.get('preco')?.invalid && cadastroForm.get('preco')?.touched">
+    Preço é obrigatório.
+  </div>
+
+  <label>
+    Opcionais:
+    <input formControlName="listaOpcionais" />
+  </label>
+
+  <label>
+    Quilometragem:
+    <input type="number" formControlName="quilometragem" />
+  </label>
+
+  <!-- <label>
+    <input type="checkbox" formControlName="hasPhotos" />
+    Tem fotos
+  </label> -->
+
+  <button type="submit">Cadastrar</button>
+  <button [routerLink]="['/carros']">Voltar</button>
+</form>
+
+<div *ngIf="sucesso" style="color: green;">
+  Carro cadastrado com sucesso!
+</div>
+
+<div *ngIf="erro" style="color: red;">
+  {{ erro }}
+</div>

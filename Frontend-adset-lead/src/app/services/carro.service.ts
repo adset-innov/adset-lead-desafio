@@ -37,7 +37,8 @@ export interface CarroResponse {
   providedIn: 'root'
 })
 export class CarroService {
-  private apiUrl = 'http://localhost:5025/v1/Carro';
+  //private apiUrl = 'http://localhost:5025/v1/Carro';
+  private apiUrl = 'https://localhost:7162/v1/Carro';
 
   constructor(private http: HttpClient) {}
 
@@ -60,4 +61,9 @@ export class CarroService {
 
     return this.http.get<any>(this.apiUrl, { params });
   }
+
+  cadastrarCarro(carro: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, carro);
+  }
+
 }

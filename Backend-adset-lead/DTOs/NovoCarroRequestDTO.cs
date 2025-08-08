@@ -12,7 +12,7 @@ namespace Backend_adset_lead.DTOs
         public required string Cor { get; set; }
         public required decimal Preco { get; set; }
         public string? ListaOpcionais { get; set; }
-        public required List<PacoteRequestDTO> PortalPacotes { get; set; } = new();
+        public List<PacoteRequestDTO> PortalPacotes { get; set; } = new();
         public List<FotoRequestDTO> Fotos { get; set; } = new();
 
     }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CarroResponse, CarroService } from '../../services/carro.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   //templateUrl: './app.component.html',
   templateUrl: './carro-list.component.html',
   styleUrls: ['./carro-list.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, RouterModule],
 })
 export class CarrosComponent {
   filtroForm: FormGroup;

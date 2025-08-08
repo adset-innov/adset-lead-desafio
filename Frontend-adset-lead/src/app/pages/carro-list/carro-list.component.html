@@ -1,4 +1,6 @@
 <form [formGroup]="filtroForm" (ngSubmit)="buscarCarros()">
+  <button [routerLink]="['/carros/cadastrar']">Cadastrar novo carro</button>
+  
   <div>
     <label>Marca: <input formControlName="marca"></label>
     <label>Modelo: <input formControlName="modelo"></label>
