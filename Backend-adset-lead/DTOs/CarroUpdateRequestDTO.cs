@@ -11,7 +11,25 @@
         public required string Cor { get; set; }
         public required decimal Preco { get; set; }
         public string? ListaOpcionais { get; set; }
-        public required List<PacoteUpdateRequestDTO> PortalPacotes { get; set; } = new();
+        public List<PacoteUpdateRequestDTO> PortalPacotes { get; set; } = new();
         public List<FotoUpdateRequestDTO> Fotos { get; set; } = new();
     }
 }
+
+/*
+id: 5
+marca: "Ford"
+modelo: "Ka"
+ano: 2025
+placa: "XYZ6584"
+quilometragem: 85000
+cor: "Branco"
+preco: 45000
+
+listaOpcionais: "Vidros elétricos"
+
+
+
+
+
+*/

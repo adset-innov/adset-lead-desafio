@@ -28,7 +28,11 @@ namespace Backend_adset_lead.Repositories
 
         public async Task<Carro?> GetById(int id)
         {
-            return await _context.Carros.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Carros
+                .Include(c => c.PortalPacotes)
+                .Include(c => c.Fotos)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<PagedListDTO<Carro>> GetFiltered(BuscaCarroRequestDTO filtro)

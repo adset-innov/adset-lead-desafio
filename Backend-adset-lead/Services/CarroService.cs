@@ -42,6 +42,40 @@ namespace Backend_adset_lead.Services
             return await _repository.Delete(id);
         }
 
+        public async Task<CarroResponseDTO> GetByIdAsync(int id)
+        {
+            var response = await _repository.GetById(id);
+            if (response == null) throw new ArgumentNullException("Carro não encontrado");
+
+            var result = new CarroResponseDTO
+            {
+                Id = response.Id,
+                Marca = response.Marca,
+                Modelo = response.Modelo,
+                Ano = response.Ano,
+                Placa = response.Placa,
+                Quilometragem = response.Quilometragem,
+                Cor = response.Cor,
+                Preco = response.Preco,
+                ListaOpcionais = response.ListaOpcionais,
+                PortalPacotes = response.PortalPacotes.Select(pp => new PortalPacoteResponseDTO
+                {
+                    Id = pp.Id,
+                    CarroId = pp.CarroId,
+                    Portal = pp.Portal,
+                    Pacote = pp.Pacote
+                }).ToList(),
+                Fotos = response.Fotos.Select(f => new FotoResponseDTO
+                {
+                    Id = f.Id,
+                    Url = f.Url,
+                    CarroId = f.CarroId,
+                }).ToList()
+            };
+
+            return result;
+        }
+
         public async Task<PagedListDTO<CarroResponseDTO>> GetFilteredAsync(BuscaCarroRequestDTO filtro)
         {
             var response = await _repository.GetFiltered(filtro);
