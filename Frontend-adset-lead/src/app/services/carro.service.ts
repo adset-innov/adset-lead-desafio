@@ -46,11 +46,11 @@ export class CarroService {
 
     if (filtro.marca) params = params.set('Marca', filtro.marca);
     if (filtro.modelo) params = params.set('Modelo', filtro.modelo);
-    if (filtro.anoMin !== undefined) params = params.set('AnoMin', filtro.anoMin.toString());
-    if (filtro.anoMax !== undefined) params = params.set('AnoMax', filtro.anoMax.toString());
-    if (filtro.precoMin !== undefined) params = params.set('PrecoMin', filtro.precoMin.toString());
-    if (filtro.precoMax !== undefined) params = params.set('PrecoMax', filtro.precoMax.toString());
-    if (filtro.hasPhotos !== undefined) params = params.set('HasPhotos', filtro.hasPhotos.toString());
+    if (filtro.anoMin != null) params = params.set('AnoMin', filtro.anoMin.toString());
+    if (filtro.anoMax != null) params = params.set('AnoMax', filtro.anoMax.toString());
+    if (filtro.precoMin != null) params = params.set('PrecoMin', filtro.precoMin.toString());
+    if (filtro.precoMax != null) params = params.set('PrecoMax', filtro.precoMax.toString());
+    if (filtro.hasPhotos != null) params = params.set('HasPhotos', filtro.hasPhotos.toString());
     if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
     if (filtro.cor) params = params.set('Cor', filtro.cor);
     if (filtro.placa) params = params.set('Placa', filtro.placa);
