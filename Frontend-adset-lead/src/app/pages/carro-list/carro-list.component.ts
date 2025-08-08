@@ -32,7 +32,7 @@ export class CarrosComponent {
       anoMax: [''],
       precoMin: [''],
       precoMax: [''],
-      hasPhotos: [false],
+      hasPhotos: [''],
       opcionais: [''],
       cor: [''],
       page: [1],

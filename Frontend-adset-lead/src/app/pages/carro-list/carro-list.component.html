@@ -36,12 +36,12 @@
     <li *ngFor="let carro of carros" [attr.data-id]="carro.id">
       <button (click)="deletarCarro(carro.id)" style="margin-left: 10px;">🗑️</button>
       <button (click)="editarCarro(carro.id)" style="margin-left: 10px;">📝</button>
-      
+
       {{ carro.marca }} {{ carro.modelo }} - {{ carro.placa }} - {{ carro.ano }} - {{ carro.cor }} - R$ {{ carro.preco }} - {{ carro.listaOpcionais }} - {{ carro.quilometragem }}
     </li>
   </ul>
   <p>Página: {{ pagina }}</p>
-  <p>Tamanho da página: {{ pagina }}</p>
+  <p>Tamanho da página: {{ tamanhoPagina }}</p>
   <p>Total de Páginas: {{ totalPaginas }}</p>
 </div>
 

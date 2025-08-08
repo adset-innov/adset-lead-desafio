@@ -94,8 +94,10 @@ namespace Backend_adset_lead.Repositories
 
             query = query.OrderBy(c => c.Id);
             var skip = (Math.Max(filtro.Page, 1) - 1) * Math.Max(filtro.PageSize, 1);
-            var totalPaginas = await query.CountAsync();
             var result = await query.Skip(skip).Take(filtro.PageSize).ToListAsync();
+
+            var totalItens = await query.CountAsync();
+            var totalPaginas = (int)Math.Ceiling((double)totalItens / filtro.PageSize);
 
             return new PagedListDTO<Carro>
             {

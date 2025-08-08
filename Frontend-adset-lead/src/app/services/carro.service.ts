@@ -37,7 +37,8 @@ export interface CarroResponse {
   providedIn: 'root',
 })
 export class CarroService {
-  private apiUrl = 'https://localhost:7162/v1/Carro';
+  //private apiUrl = 'https://localhost:7162/v1/Carro';
+  private apiUrl = 'http://localhost:5025/v1/Carro';
 
   constructor(private http: HttpClient) {}
 
@@ -54,8 +55,11 @@ export class CarroService {
       params = params.set('PrecoMin', filtro.precoMin.toString());
     if (filtro.precoMax != null)
       params = params.set('PrecoMax', filtro.precoMax.toString());
-    if (filtro.hasPhotos != null)
+    if (filtro.hasPhotos == true) {
       params = params.set('HasPhotos', filtro.hasPhotos.toString());
+    } else {
+      params = params.set('HasPhotos', '');
+    }
     if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
     if (filtro.cor) params = params.set('Cor', filtro.cor);
     if (filtro.placa) params = params.set('Placa', filtro.placa);
