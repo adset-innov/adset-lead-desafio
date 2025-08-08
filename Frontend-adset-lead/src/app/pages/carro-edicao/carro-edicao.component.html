@@ -25,7 +25,33 @@
   <label>Quilometragem:</label>
   <input formControlName="quilometragem"><br>
 
-  <button type="submit">Salvar</button>
+  <div formArrayName="fotos">
+    <h3>Fotos do Automóvel</h3>
 
+    <div class="galeria-fotos">
+      <div class="foto-item" *ngFor="let foto of fotos.controls; let i = index" [formGroupName]="i">
+        
+        <ng-container *ngIf="foto.get('url')?.value; else novaFoto">
+          <img [src]="foto.get('url')?.value" alt="Foto do carro" width="120" height="90">
+          <button type="button" (click)="removerFoto(i)">Remover</button>
+        </ng-container>
+
+        <ng-template #novaFoto>
+          <input formControlName="url" placeholder="Cole a URL da nova foto">
+        </ng-template>
+      </div>
+    </div>
+
+    <div>
+      <button type="button" (click)="adicionarFoto()" [disabled]="fotos.length >= 15">
+        Adicionar Foto
+      </button>
+      <p *ngIf="fotos.length >= 15" style="color: red;">Limite de 15 fotos atingido.</p>
+    </div>
+  </div>
+
+  <br>
+
+  <button type="submit">Salvar</button>
   <button [routerLink]="['/carros']">Voltar</button>
 </form>
