@@ -1,6 +1,6 @@
 <form [formGroup]="filtroForm" (ngSubmit)="buscarCarros()">
   <button [routerLink]="['/carros/cadastrar']">Cadastrar novo carro</button>
-  
+
   <div>
     <label>Marca: <input formControlName="marca"></label>
     <label>Modelo: <input formControlName="modelo"></label>
@@ -33,7 +33,8 @@
 <h2>Resultados:</h2>
 <div *ngIf="carros.length > 0; else nenhumResultado">
   <ul>
-    <li *ngFor="let carro of carros">
+    <li *ngFor="let carro of carros" [attr.data-id]="carro.id">
+      <button (click)="deletarCarro(carro.id)" style="margin-left: 10px;">🗑️</button>
       {{ carro.marca }} {{ carro.modelo }} - {{ carro.placa }} - {{ carro.ano }} - {{ carro.cor }} - R$ {{ carro.preco }} - {{ carro.listaOpcionais }} - {{ carro.quilometragem }}
     </li>
   </ul>

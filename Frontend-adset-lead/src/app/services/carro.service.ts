@@ -18,7 +18,7 @@ export interface CarroRequest {
 }
 
 export interface CarroResponse {
-  id?: number;
+  id: number;
   ano?: number;
   cor?: string;
   //fotos?: FotoResponse[];
@@ -64,6 +64,10 @@ export class CarroService {
 
   cadastrarCarro(carro: any): Observable<any> {
     return this.http.post(`${this.apiUrl}`, carro);
+  }
+
+  deletarCarro(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
 }

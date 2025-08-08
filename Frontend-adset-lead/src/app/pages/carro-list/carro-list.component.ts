@@ -52,4 +52,18 @@ export class CarrosComponent {
       }
     });
   }
+
+    deletarCarro(id: number) {
+    if (!confirm('Tem certeza que deseja excluir este carro?')) return;
+
+    this.carroService.deletarCarro(id).subscribe({
+      next: () => {
+        this.carros = this.carros.filter(c => c.id !== id);
+      },
+      error: err => {
+        console.error('Erro ao deletar carro:', err);
+        alert('Erro ao deletar carro.');
+      }
+    });
+  }
 }
