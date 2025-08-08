@@ -1,0 +1,29 @@
+<h2>Editar Carro</h2>
+
+<form [formGroup]="carroForm" (ngSubmit)="salvar()">
+  <label>Placa:</label>
+  <input formControlName="placa"><br>
+
+  <label>Marca:</label>
+  <input formControlName="marca"><br>
+
+  <label>Modelo:</label>
+  <input formControlName="modelo"><br>
+
+  <label>Ano:</label>
+  <input formControlName="ano"><br>
+
+  <label>Cor:</label>
+  <input formControlName="cor"><br>
+
+  <label>Preço:</label>
+  <input formControlName="preco"><br>
+
+  <label>Opcionais:</label>
+  <input formControlName="listaOpcionais"><br>
+
+  <label>Quilometragem:</label>
+  <input formControlName="quilometragem"><br>
+
+  <button type="submit">Salvar</button>
+</form>

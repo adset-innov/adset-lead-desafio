@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CarroResponse, CarroService } from '../../services/carro.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,12 @@ export class CarrosComponent {
   filtroForm: FormGroup;
   totalPaginas: number = 0;
   pagina: number = 1;
-  tamanhoPagina: number = 10
+  tamanhoPagina: number = 10;
   carros: CarroResponse[] = [];
 
-  constructor(private fb: FormBuilder, private carroService: CarroService) {
+  constructor(private fb: FormBuilder,
+    private carroService: CarroService,
+    private router: Router) {
     this.filtroForm = this.fb.group({
       placa: [''],
       marca: [''],
@@ -33,11 +36,11 @@ export class CarrosComponent {
       opcionais: [''],
       cor: [''],
       page: [1],
-      pageSize: [10]
+      pageSize: [10],
     });
   }
 
-    buscarCarros() {
+  buscarCarros() {
     const filtro = this.filtroForm.value;
 
     this.carroService.getCarros(filtro).subscribe({
@@ -45,25 +48,29 @@ export class CarrosComponent {
         this.carros = response.content;
         this.totalPaginas = response.totalPages;
         this.pagina = response.page;
-        this.tamanhoPagina = response.pageSize
+        this.tamanhoPagina = response.pageSize;
       },
-      error: err => {
+      error: (err) => {
         console.error('Erro ao buscar carros:', err);
-      }
+      },
     });
   }
 
-    deletarCarro(id: number) {
+  deletarCarro(id: number) {
     if (!confirm('Tem certeza que deseja excluir este carro?')) return;
 
     this.carroService.deletarCarro(id).subscribe({
       next: () => {
-        this.carros = this.carros.filter(c => c.id !== id);
+        this.carros = this.carros.filter((c) => c.id !== id);
       },
-      error: err => {
+      error: (err) => {
         console.error('Erro ao deletar carro:', err);
         alert('Erro ao deletar carro.');
-      }
+      },
     });
+  }
+
+  editarCarro(id: number) {
+    this.router.navigate(['/carros/editar', id]);
   }
 }

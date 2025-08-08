@@ -34,10 +34,9 @@ export interface CarroResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarroService {
-  //private apiUrl = 'http://localhost:5025/v1/Carro';
   private apiUrl = 'https://localhost:7162/v1/Carro';
 
   constructor(private http: HttpClient) {}
@@ -47,15 +46,20 @@ export class CarroService {
 
     if (filtro.marca) params = params.set('Marca', filtro.marca);
     if (filtro.modelo) params = params.set('Modelo', filtro.modelo);
-    if (filtro.anoMin != null) params = params.set('AnoMin', filtro.anoMin.toString());
-    if (filtro.anoMax != null) params = params.set('AnoMax', filtro.anoMax.toString());
-    if (filtro.precoMin != null) params = params.set('PrecoMin', filtro.precoMin.toString());
-    if (filtro.precoMax != null) params = params.set('PrecoMax', filtro.precoMax.toString());
-    if (filtro.hasPhotos != null) params = params.set('HasPhotos', filtro.hasPhotos.toString());
+    if (filtro.anoMin != null)
+      params = params.set('AnoMin', filtro.anoMin.toString());
+    if (filtro.anoMax != null)
+      params = params.set('AnoMax', filtro.anoMax.toString());
+    if (filtro.precoMin != null)
+      params = params.set('PrecoMin', filtro.precoMin.toString());
+    if (filtro.precoMax != null)
+      params = params.set('PrecoMax', filtro.precoMax.toString());
+    if (filtro.hasPhotos != null)
+      params = params.set('HasPhotos', filtro.hasPhotos.toString());
     if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
     if (filtro.cor) params = params.set('Cor', filtro.cor);
     if (filtro.placa) params = params.set('Placa', filtro.placa);
-    
+
     params = params.set('Page', filtro.page.toString());
     params = params.set('PageSize', filtro.pageSize.toString());
 
@@ -70,4 +74,12 @@ export class CarroService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  getCarroPorId(id: number) {
+    return this.http.get<CarroResponse>(`${this.apiUrl}/${id}`);
+  }
+
+  atualizarCarro(id: number, dados: any) {
+    dados.id = id;
+    return this.http.put(`${this.apiUrl}`, dados);
+  }
 }
