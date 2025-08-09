@@ -1,27 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CarroResponse, CarroService } from '../../services/carro.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './carro-list.component.html',
   styleUrls: ['./carro-list.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatFormFieldModule,
+  ],
 })
 export class CarrosComponent implements OnInit {
+  displayedColumns = [
+    'acoes',
+    'foto',
+    'marcaModelo',
+    'placa',
+    'ano',
+    'cor',
+    'preco',
+    'opcionais',
+    'quilometragem',
+  ];
   filtroForm: FormGroup;
   anos: number[] = [];
-  totalCarros: number = 0;
+  totalCarrosCadastrados: number = 0;
+  totalCarrosFiltrados: number = 0;
   totalCarrosComFotos: number = 0;
   totalCarrosSemFotos: number = 0;
   cores: string[] = [];
   totalPaginas: number = 0;
-  pagina: number = 1;
+  pagina: number = 0;
   tamanhoPagina: number = 10;
   pacotes = [
     { label: 'Nenhum', value: null },
@@ -31,6 +69,8 @@ export class CarrosComponent implements OnInit {
     { label: 'Básico', value: 4 },
   ];
   carros: CarroResponse[] = [];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +91,7 @@ export class CarrosComponent implements OnInit {
       cor: [''],
       pacoteIcarros: [''],
       pacoteWebmotors: [''],
-      page: [1],
+      page: [0],
       pageSize: [10],
     });
   }
@@ -76,18 +116,30 @@ export class CarrosComponent implements OnInit {
       precoMax: max,
     });
 
+    this.filtroForm.patchValue({
+      page: this.pagina + 1,
+      pageSize: this.tamanhoPagina,
+    });
+
     const filtro = this.filtroForm.value;
 
     this.carroService.getCarros(filtro).subscribe({
       next: (response: any) => {
         this.carros = response.content;
-        this.totalCarros = response.totalCarros;
+        this.totalCarrosCadastrados = response.totalCarrosCadastrados;
+        this.totalCarrosFiltrados = response.totalCarrosFiltrados;
         this.totalCarrosComFotos = response.totalCarrosComFotos;
         this.totalCarrosSemFotos = response.totalCarrosSemFotos;
         this.cores = response.cores;
         this.totalPaginas = response.totalPages;
-        this.pagina = response.page;
         this.tamanhoPagina = response.pageSize;
+        if (typeof response.page === 'number') {
+          const lastIndex = Math.max(
+            Math.ceil(this.carros.length / this.tamanhoPagina) - 1,
+            0
+          );
+          this.pagina = Math.min(Math.max(response.page - 1, 0), lastIndex);
+        }
       },
       error: (err) => {
         console.error('Erro ao buscar carros:', err);
@@ -111,5 +163,11 @@ export class CarrosComponent implements OnInit {
 
   editarCarro(id: number) {
     this.router.navigate(['/carros/editar', id]);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pagina = event.pageIndex;
+    this.tamanhoPagina = event.pageSize;
+    this.buscarCarros();
   }
 }

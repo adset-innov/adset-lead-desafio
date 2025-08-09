@@ -1,0 +1,23 @@
+.foto-mini {
+  width: 80px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.filtros-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.campo {
+  flex: 1 1 150px;
+  min-width: 150px;
+}
+
+.botao-buscar {
+  flex: 1 1 100px;
+  min-width: 100px;
+}

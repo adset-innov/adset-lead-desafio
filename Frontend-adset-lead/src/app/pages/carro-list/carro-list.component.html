@@ -1,126 +1,187 @@
 <form [formGroup]="filtroForm" (ngSubmit)="buscarCarros()">
-  <button [routerLink]="['/carros/cadastrar']">Cadastrar novo carro</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/carros/cadastrar']"
+  >
+    Cadastrar novo carro
+  </button>
 
-  <div>
-    <a>Total de Carros: {{ totalCarros }}</a>
-    <a>Total de Carros Com Fotos: {{ totalCarrosComFotos }}</a>
-    <a>Total de Carros Sem Fotos: {{ totalCarrosSemFotos }}</a>
+  <div class="totais">
+    <span>Total de Carros: {{ totalCarrosCadastrados }}</span> /
+    <span style="color: green">Com Fotos: {{ totalCarrosComFotos }}</span> /
+    <span style="color: red">Sem Fotos: {{ totalCarrosSemFotos }}</span>
   </div>
 
-  <div>
-    <label>Marca: <input formControlName="marca" /></label>
-    <label>Modelo: <input formControlName="modelo" /></label>
-    <label>Placa: <input formControlName="placa" /></label>
-     <label
-      >Cor:
-      <select formControlName="cor">
-        <option *ngFor="let cor of cores" [value]="cor">{{ cor }}</option>
-      </select>
-    </label>
-  </div>
+  <div class="filtros-grid">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Marca</mat-label>
+      <input matInput formControlName="marca" />
+    </mat-form-field>
 
-  <div>
-    <label
-      >Ano Min:
-      <select formControlName="anoMin">
-        <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
-      </select>
-    </label>
-    <label
-      >Ano Max:
-      <select formControlName="anoMax">
-        <option *ngFor="let ano of anos" [value]="ano">{{ ano }}</option>
-      </select>
-    </label>
-    <label
-      >Preço:
-      <select formControlName="preco">
-        <option [value]="'10000-50000'">10mil a 50mil</option>
-        <option [value]="'50000-90000'">50mil a 90mil</option>
-        <option [value]="'90000'">+90mil</option>
-      </select>
-    </label>
-  </div>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Modelo</mat-label>
+      <input matInput formControlName="modelo" />
+    </mat-form-field>
 
-  <div>
-    <label>Opcionais: <input formControlName="opcionais" /></label>
-    <label
-      >Fotos:
-      <select formControlName="hasPhotos">
-        <option [value]="true">Com Fotos</option>
-        <option [value]="false">Sem Fotos</option>
-      </select>
-    </label>
-  </div>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Placa</mat-label>
+      <input matInput formControlName="placa" />
+    </mat-form-field>
 
-  <div class="form-group">
-    <label><strong>Pacote ICarros</strong></label>
-    <div *ngFor="let pacote of pacotes">
-      <label>
-        <input
-          type="radio"
-          formControlName="pacoteIcarros"
-          [value]="pacote.value"
-        />
-        {{ pacote.label }}
-      </label>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Cor</mat-label>
+      <mat-select formControlName="cor">
+        <mat-option *ngFor="let cor of cores" [value]="cor">{{
+          cor
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Ano Min -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Ano Min</mat-label>
+      <mat-select formControlName="anoMin">
+        <mat-option *ngFor="let ano of anos" [value]="ano">{{
+          ano
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Ano Max -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Ano Max</mat-label>
+      <mat-select formControlName="anoMax">
+        <mat-option *ngFor="let ano of anos" [value]="ano">{{
+          ano
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Preço -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Preço</mat-label>
+      <mat-select formControlName="preco">
+        <mat-option [value]="'10000-50000'">10mil a 50mil</mat-option>
+        <mat-option [value]="'50000-90000'">50mil a 90mil</mat-option>
+        <mat-option [value]="'90000'">+90mil</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Opcionais -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Opcionais</mat-label>
+      <input matInput formControlName="opcionais" />
+    </mat-form-field>
+
+    <!-- Fotos -->
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Fotos</mat-label>
+      <mat-select formControlName="hasPhotos">
+        <mat-option [value]="true">Com Fotos</mat-option>
+        <mat-option [value]="false">Sem Fotos</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botão buscar -->
+    <div class="botao-buscar">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        aria-label="Buscar carros"
+      >
+        <mat-icon>search</mat-icon> Buscar
+      </button>
     </div>
-  </div>
-
-  <div class="form-group">
-    <label><strong>Pacote Webmotors</strong></label>
-    <div *ngFor="let pacote of pacotes">
-      <label>
-        <input
-          type="radio"
-          formControlName="pacoteWebmotors"
-          [value]="pacote.value"
-        />
-        {{ pacote.label }}
-      </label>
-    </div>
-  </div>
-
-  <div>
-    <label>Página: <input type="number" formControlName="page" /></label>
-    <label
-      >Itens por página: <input type="number" formControlName="pageSize"
-    /></label>
-    <button type="submit">Buscar</button>
   </div>
 </form>
 
-<h2>Resultados:</h2>
-<div *ngIf="carros.length > 0; else nenhumResultado">
-  <ul>
-    <li *ngFor="let carro of carros" [attr.data-id]="carro.id">
-      <button (click)="deletarCarro(carro.id)" style="margin-left: 10px">
-        🗑️
+<table mat-table [dataSource]="carros" class="mat-elevation-z8">
+  <!-- Coluna Ações -->
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let carro">
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deletarCarro(carro.id)"
+        matTooltip="Excluir carro"
+      >
+        <mat-icon>delete</mat-icon>
       </button>
-      <button (click)="editarCarro(carro.id)" style="margin-left: 10px">
-        📝
+      <button
+        mat-icon-button
+        color="primary"
+        (click)="editarCarro(carro.id)"
+        matTooltip="Editar carro"
+      >
+        <mat-icon>edit</mat-icon>
       </button>
+    </td>
+  </ng-container>
 
+  <!-- Coluna Foto -->
+  <ng-container matColumnDef="foto">
+    <th mat-header-cell *matHeaderCellDef>Foto</th>
+    <td mat-cell *matCellDef="let carro">
       <img
         *ngIf="carro.fotos.length > 0"
         [src]="carro.fotos[0].url"
         alt="Foto do carro"
-        width="100"
-        height="60"
-        style="margin-right: 10px; object-fit: cover; border-radius: 4px"
+        class="foto-mini"
       />
+    </td>
+  </ng-container>
 
-      {{ carro.marca }} {{ carro.modelo }} - {{ carro.placa }} -
-      {{ carro.ano }} - {{ carro.cor }} - R$ {{ carro.preco }} -
-      {{ carro.listaOpcionais }} -
-      {{ carro.quilometragem }}
-    </li>
-  </ul>
-  <p>Página: {{ pagina }}</p>
-  <p>Tamanho da página: {{ tamanhoPagina }}</p>
-  <p>Total de Páginas: {{ totalPaginas }}</p>
-</div>
+  <!-- Colunas restantes -->
+  <ng-container matColumnDef="marcaModelo">
+    <th mat-header-cell *matHeaderCellDef>Marca / Modelo</th>
+    <td mat-cell *matCellDef="let carro">
+      {{ carro.marca }} / {{ carro.modelo }}
+    </td>
+  </ng-container>
 
-<ng-template #nenhumResultado>
-  <p>Nenhum carro encontrado.</p>
-</ng-template>
+  <ng-container matColumnDef="placa">
+    <th mat-header-cell *matHeaderCellDef>Placa</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.placa }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="ano">
+    <th mat-header-cell *matHeaderCellDef>Ano</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.ano }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="cor">
+    <th mat-header-cell *matHeaderCellDef>Cor</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.cor }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="preco">
+    <th mat-header-cell *matHeaderCellDef>Preço</th>
+    <td mat-cell *matCellDef="let carro">
+      R$ {{ carro.preco | number : "1.2-2" }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opcionais">
+    <th mat-header-cell *matHeaderCellDef>Opcionais</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.listaOpcionais }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="quilometragem">
+    <th mat-header-cell *matHeaderCellDef>Quilometragem</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.quilometragem }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [length]="totalCarrosFiltrados"
+  [pageSize]="tamanhoPagina"
+  [pageSizeOptions]="[2, 5, 10, 15, 20, 25, 50, 100]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>
