@@ -13,7 +13,9 @@ export interface CarroRequest {
   opcionais?: string;
   cor?: string;
   placa?: string;
-  fotos?: FotoRequest[]
+  fotos?: FotoRequest[];
+  pacoteIcarros?: number;
+  pacoteWebmotors?: number;
   page: number;
   pageSize: number;
 }
@@ -48,8 +50,8 @@ export interface FotoRequest{
   providedIn: 'root',
 })
 export class CarroService {
-  //private apiUrl = 'https://localhost:7162/v1/Carro';
-  private apiUrl = 'http://localhost:5025/v1/Carro';
+  private apiUrl = 'https://localhost:7162/v1/Carro';
+  //private apiUrl = 'http://localhost:5025/v1/Carro';
 
   constructor(private http: HttpClient) {}
 
@@ -74,6 +76,8 @@ export class CarroService {
     if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
     if (filtro.cor) params = params.set('Cor', filtro.cor);
     if (filtro.placa) params = params.set('Placa', filtro.placa);
+    if (filtro.pacoteIcarros) params = params.set('PacoteIcarros', filtro.pacoteIcarros);
+    if (filtro.pacoteWebmotors) params = params.set('PacoteWebmotors', filtro.pacoteWebmotors);
 
     params = params.set('Page', filtro.page.toString());
     params = params.set('PageSize', filtro.pageSize.toString());

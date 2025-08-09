@@ -2,30 +2,60 @@
   <button [routerLink]="['/carros/cadastrar']">Cadastrar novo carro</button>
 
   <div>
-    <label>Marca: <input formControlName="marca"></label>
-    <label>Modelo: <input formControlName="modelo"></label>
-    <label>Placa: <input formControlName="placa"></label>
-    <label>Cor: <input formControlName="cor"></label>
+    <label>Marca: <input formControlName="marca" /></label>
+    <label>Modelo: <input formControlName="modelo" /></label>
+    <label>Placa: <input formControlName="placa" /></label>
+    <label>Cor: <input formControlName="cor" /></label>
   </div>
 
   <div>
-    <label>Ano Min: <input type="number" formControlName="anoMin"></label>
-    <label>Ano Max: <input type="number" formControlName="anoMax"></label>
-    <label>Preço Min: <input type="number" formControlName="precoMin"></label>
-    <label>Preço Max: <input type="number" formControlName="precoMax"></label>
+    <label>Ano Min: <input type="number" formControlName="anoMin" /></label>
+    <label>Ano Max: <input type="number" formControlName="anoMax" /></label>
+    <label>Preço Min: <input type="number" formControlName="precoMin" /></label>
+    <label>Preço Max: <input type="number" formControlName="precoMax" /></label>
   </div>
 
   <div>
-    <label>Opcionais: <input formControlName="opcionais"></label>
+    <label>Opcionais: <input formControlName="opcionais" /></label>
     <label>
-      <input type="checkbox" formControlName="hasPhotos">
+      <input type="checkbox" formControlName="hasPhotos" />
       Apenas com fotos
     </label>
   </div>
 
+  <div class="form-group">
+    <label><strong>Pacote ICarros</strong></label>
+    <div *ngFor="let pacote of pacotes">
+      <label>
+        <input
+          type="radio"
+          formControlName="pacoteIcarros"
+          [value]="pacote.value"
+        />
+        {{ pacote.label }}
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label><strong>Pacote Webmotors</strong></label>
+    <div *ngFor="let pacote of pacotes">
+      <label>
+        <input
+          type="radio"
+          formControlName="pacoteWebmotors"
+          [value]="pacote.value"
+        />
+        {{ pacote.label }}
+      </label>
+    </div>
+  </div>
+
   <div>
-    <label>Página: <input type="number" formControlName="page"></label>
-    <label>Itens por página: <input type="number" formControlName="pageSize"></label>
+    <label>Página: <input type="number" formControlName="page" /></label>
+    <label
+      >Itens por página: <input type="number" formControlName="pageSize"
+    /></label>
     <button type="submit">Buscar</button>
   </div>
 </form>
@@ -34,21 +64,24 @@
 <div *ngIf="carros.length > 0; else nenhumResultado">
   <ul>
     <li *ngFor="let carro of carros" [attr.data-id]="carro.id">
-      <button (click)="deletarCarro(carro.id)" style="margin-left: 10px;">🗑️</button>
-      <button (click)="editarCarro(carro.id)" style="margin-left: 10px;">📝</button>
+      <button (click)="deletarCarro(carro.id)" style="margin-left: 10px">
+        🗑️
+      </button>
+      <button (click)="editarCarro(carro.id)" style="margin-left: 10px">
+        📝
+      </button>
 
-      <img *ngIf="carro.fotos.length > 0" 
-         [src]="carro.fotos[0].url" 
-         alt="Foto do carro" 
-         width="100" 
-         height="60"
-         style="margin-right: 10px; object-fit: cover; border-radius: 4px;" />
+      <img
+        *ngIf="carro.fotos.length > 0"
+        [src]="carro.fotos[0].url"
+        alt="Foto do carro"
+        width="100"
+        height="60"
+        style="margin-right: 10px; object-fit: cover; border-radius: 4px"
+      />
 
-      {{ carro.marca }} {{ carro.modelo }} -
-      {{ carro.placa }} -
-      {{ carro.ano }} -
-      {{ carro.cor }} -
-      R$ {{ carro.preco }} -
+      {{ carro.marca }} {{ carro.modelo }} - {{ carro.placa }} -
+      {{ carro.ano }} - {{ carro.cor }} - R$ {{ carro.preco }} -
       {{ carro.listaOpcionais }} -
       {{ carro.quilometragem }}
     </li>
@@ -61,4 +94,3 @@
 <ng-template #nenhumResultado>
   <p>Nenhum carro encontrado.</p>
 </ng-template>
-

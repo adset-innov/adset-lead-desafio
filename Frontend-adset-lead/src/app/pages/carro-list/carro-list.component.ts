@@ -18,6 +18,13 @@ export class CarrosComponent implements OnInit {
   totalPaginas: number = 0;
   pagina: number = 1;
   tamanhoPagina: number = 10;
+  pacotes = [
+    { label: 'Bronze', value: 1 },
+    { label: 'Diamante', value: 2 },
+    { label: 'Platinum', value: 3 },
+    { label: 'Básico', value: 4 },
+  ];
+
   carros: CarroResponse[] = [];
 
   constructor(
@@ -36,6 +43,8 @@ export class CarrosComponent implements OnInit {
       hasPhotos: [''],
       opcionais: [''],
       cor: [''],
+      pacoteIcarros: [''],
+      pacoteWebmotors: [''],
       page: [1],
       pageSize: [10],
     });
