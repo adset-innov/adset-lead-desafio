@@ -2,6 +2,12 @@
   <button [routerLink]="['/carros/cadastrar']">Cadastrar novo carro</button>
 
   <div>
+    <a>Total de Carros: {{ totalCarros }}</a>
+    <a>Total de Carros Com Fotos: {{ totalCarrosComFotos }}</a>
+    <a>Total de Carros Sem Fotos: {{ totalCarrosSemFotos }}</a>
+  </div>
+
+  <div>
     <label>Marca: <input formControlName="marca" /></label>
     <label>Modelo: <input formControlName="modelo" /></label>
     <label>Placa: <input formControlName="placa" /></label>

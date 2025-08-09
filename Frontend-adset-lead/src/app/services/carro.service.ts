@@ -32,6 +32,9 @@ export interface CarroResponse {
   portalPacotes: PacoteResponse[];
   preco?: number;
   quilometragem?: number;
+  totalCarros?: number;
+  totalCarrosComFotos?: number;
+  totalCarrosSemFotos?: number;
   page: number;
   pageSize: number;
 }

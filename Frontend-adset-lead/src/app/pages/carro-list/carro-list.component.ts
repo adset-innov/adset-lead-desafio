@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
 })
 export class CarrosComponent implements OnInit {
   filtroForm: FormGroup;
+  totalCarros: number = 0;
+  totalCarrosComFotos: number = 0;
+  totalCarrosSemFotos: number = 0;
   totalPaginas: number = 0;
   pagina: number = 1;
   tamanhoPagina: number = 10;
@@ -25,7 +28,6 @@ export class CarrosComponent implements OnInit {
     { label: 'Platinum', value: 3 },
     { label: 'Básico', value: 4 },
   ];
-
   carros: CarroResponse[] = [];
 
   constructor(
@@ -60,6 +62,9 @@ export class CarrosComponent implements OnInit {
     this.carroService.getCarros(filtro).subscribe({
       next: (response: any) => {
         this.carros = response.content;
+        this.totalCarros = response.totalCarros;
+        this.totalCarrosComFotos = response.totalCarrosComFotos;
+        this.totalCarrosSemFotos = response.totalCarrosSemFotos;
         this.totalPaginas = response.totalPages;
         this.pagina = response.page;
         this.tamanhoPagina = response.pageSize;
