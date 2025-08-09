@@ -74,6 +74,40 @@
     <input type="number" formControlName="quilometragem" />
   </label>
 
+  <div formArrayName="portalPacotes">
+    <div [formGroupName]="0">
+      <h3>Pacote ICarros</h3>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="1" /> Bronze
+      </label>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="2" /> Diamante
+      </label>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="3" /> Platinum
+      </label>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="4" /> Básico
+      </label>
+    </div>
+
+    <div [formGroupName]="1">
+      <h3>Pacote Webmotors</h3>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="1" /> Bronze
+      </label>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="2" /> Diamante
+      </label>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="3" /> Platinum
+      </label>
+      <label>
+        <input type="radio" formControlName="pacote" [value]="4" /> Básico
+      </label>
+    </div>
+  </div>
+
   <div formArrayName="fotos">
     <label>Fotos (URLs):</label>
 

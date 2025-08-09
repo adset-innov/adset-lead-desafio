@@ -40,11 +40,25 @@ export class CarroCadastroComponent {
       preco: ['', Validators.required],
       listaOpcionais: [''],
       fotos: this.fb.array<FormGroup>([]),
+      portalPacotes: this.fb.array([
+        this.fb.group({
+          portal: [1],
+          pacote: [null, Validators.required],
+        }),
+        this.fb.group({
+          portal: [2],
+          pacote: [null, Validators.required],
+        }),
+      ]),
     });
   }
 
   get fotos() {
     return this.cadastroForm.get('fotos') as FormArray<FormGroup>;
+  }
+
+  get portalPacotes(): FormArray {
+    return this.cadastroForm.get('portalPacotes') as FormArray;
   }
 
   adicionarFoto(): void {
