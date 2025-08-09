@@ -103,14 +103,38 @@ namespace Backend_adset_lead.Repositories
             var skip = (Math.Max(filtro.Page, 1) - 1) * Math.Max(filtro.PageSize, 1);
             var result = await query.Skip(skip).Take(filtro.PageSize).ToListAsync();
 
+            var totalCarros = await GetTotalCarros();
+            var (totalCarrosComFotos, totalCarrosSemFotos) = await GetContagemCarrosFotos();
+
             var totalItens = await query.CountAsync();
             var totalPaginas = (int)Math.Ceiling((double)totalItens / filtro.PageSize);
 
             return new PagedListDTO<Carro>
             {
                 Items = result,
-                TotalPages = totalPaginas
+                TotalPages = totalPaginas,
+                TotalCarros = totalCarros,
+                TotalCarrosComFotos = totalCarrosComFotos,
+                TotalCarrosSemFotos = totalCarrosSemFotos
             };
+        }
+
+        private async Task<(int comFotos, int semFotos)> GetContagemCarrosFotos()
+        {
+            var result = await _context.Carros
+                .GroupBy(c => 1)
+                .Select(g => new
+                {
+                    ComFotos = g.Count(c => c.Fotos.Any()),
+                    SemFotos = g.Count(c => !c.Fotos.Any())
+                }).FirstAsync();
+
+            return (result.ComFotos, result.SemFotos);
+        }
+
+        private async Task<int> GetTotalCarros()
+        {
+            return await _context.Carros.CountAsync();
         }
 
         public async Task<int> Update(CarroUpdateRequestDTO carroAtualizado)
@@ -129,7 +153,7 @@ namespace Backend_adset_lead.Repositories
             {
                 carroExistente.Fotos.Add(new Foto { Url = novaFoto.Url });
             }
-            
+
             foreach (var fotoAtualizada in carroAtualizado.Fotos.Where(nf => nf.Id != 0))
             {
                 var fotoExistente = carroExistente.Fotos.FirstOrDefault(f => f.Id == fotoAtualizada.Id);

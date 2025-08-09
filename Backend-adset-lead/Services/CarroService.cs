@@ -109,7 +109,10 @@ namespace Backend_adset_lead.Services
             return new PagedListDTO<CarroResponseDTO>
             {
                 Items = result,
-                TotalPages = response.TotalPages
+                TotalPages = response.TotalPages,
+                TotalCarros = response.TotalCarros,
+                TotalCarrosComFotos = response.TotalCarrosComFotos,
+                TotalCarrosSemFotos = response.TotalCarrosSemFotos,
             };
         }
 
