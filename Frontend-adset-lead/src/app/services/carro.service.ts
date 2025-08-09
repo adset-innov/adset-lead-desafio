@@ -29,20 +29,27 @@ export interface CarroResponse {
   marca?: string;
   modelo?: string;
   placa?: string;
-  //portalPacotes?: PacoteResponse[];
+  portalPacotes: PacoteResponse[];
   preco?: number;
   quilometragem?: number;
   page: number;
   pageSize: number;
 }
 
-export interface FotoResponse{
+export interface PacoteResponse {
+  id: number;
+  carroId: number;
+  portal: number;
+  pacote: number;
+}
+
+export interface FotoResponse {
   id: number;
   url?: string;
   carroId?: number;
 }
 
-export interface FotoRequest{
+export interface FotoRequest {
   url?: string;
 }
 
@@ -76,8 +83,10 @@ export class CarroService {
     if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
     if (filtro.cor) params = params.set('Cor', filtro.cor);
     if (filtro.placa) params = params.set('Placa', filtro.placa);
-    if (filtro.pacoteIcarros) params = params.set('PacoteIcarros', filtro.pacoteIcarros);
-    if (filtro.pacoteWebmotors) params = params.set('PacoteWebmotors', filtro.pacoteWebmotors);
+    if (filtro.pacoteIcarros)
+      params = params.set('PacoteIcarros', filtro.pacoteIcarros);
+    if (filtro.pacoteWebmotors)
+      params = params.set('PacoteWebmotors', filtro.pacoteWebmotors);
 
     params = params.set('Page', filtro.page.toString());
     params = params.set('PageSize', filtro.pageSize.toString());

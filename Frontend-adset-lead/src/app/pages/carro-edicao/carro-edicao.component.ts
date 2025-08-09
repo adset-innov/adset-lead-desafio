@@ -38,7 +38,8 @@ export class CarroEdicaoComponent implements OnInit {
       cor: [''],
       preco: [''],
       listaOpcionais: [''],
-      // portalPacotes: [''],
+      pacoteIcarros: [null],
+      pacoteWebmotors: [null],
       fotos: this.fb.array([]),
     });
   }
@@ -81,6 +82,8 @@ export class CarroEdicaoComponent implements OnInit {
           cor: carro.cor,
           preco: carro.preco,
           listaOpcionais: carro.listaOpcionais,
+          pacoteIcarros: this.getPacoteByPortal(carro.portalPacotes, 1),
+          pacoteWebmotors: this.getPacoteByPortal(carro.portalPacotes, 2),
         });
 
         this.fotos.clear();
@@ -103,17 +106,39 @@ export class CarroEdicaoComponent implements OnInit {
   salvar() {
     if (this.carroForm.invalid) return;
 
-    this.carroService
-      .atualizarCarro(this.carroId, this.carroForm.value)
-      .subscribe({
-        next: () => {
-          alert('Carro atualizado com sucesso!');
-          this.router.navigate(['/carros']);
-        },
-        error: (err) => {
-          console.error('Erro ao atualizar carro:', err);
-          alert('Erro ao atualizar carro.');
-        },
-      });
+    const formValue = this.carroForm.value;
+
+    const payload = {
+      id: formValue.id,
+      marca: formValue.marca,
+      modelo: formValue.modelo,
+      ano: formValue.ano,
+      placa: formValue.placa,
+      quilometragem: formValue.quilometragem,
+      cor: formValue.cor,
+      preco: formValue.preco,
+      listaOpcionais: formValue.listaOpcionais,
+      fotos: formValue.fotos,
+      portalPacotes: [
+        { portal: 1, pacote: formValue.pacoteIcarros },
+        { portal: 2, pacote: formValue.pacoteWebmotors },
+      ],
+    };
+
+    this.carroService.atualizarCarro(this.carroId, payload).subscribe({
+      next: () => {
+        alert('Carro atualizado com sucesso!');
+        this.router.navigate(['/carros']);
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar carro:', err);
+        alert('Erro ao atualizar carro.');
+      },
+    });
+  }
+
+  getPacoteByPortal(pacotes: any[], portal: number) {
+    const p = pacotes.find((x) => x.portal === portal);
+    return p ? p.pacote : null;
   }
 }

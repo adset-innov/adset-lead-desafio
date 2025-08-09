@@ -2,55 +2,117 @@
 
 <form [formGroup]="carroForm" (ngSubmit)="salvar()">
   <label>Placa:</label>
-  <input formControlName="placa"><br>
+  <input formControlName="placa" /><br />
 
   <label>Marca:</label>
-  <input formControlName="marca"><br>
+  <input formControlName="marca" /><br />
 
   <label>Modelo:</label>
-  <input formControlName="modelo"><br>
+  <input formControlName="modelo" /><br />
 
   <label>Ano:</label>
-  <input formControlName="ano"><br>
+  <input formControlName="ano" /><br />
 
   <label>Cor:</label>
-  <input formControlName="cor"><br>
+  <input formControlName="cor" /><br />
 
   <label>Preço:</label>
-  <input formControlName="preco"><br>
+  <input formControlName="preco" /><br />
 
   <label>Opcionais:</label>
-  <input formControlName="listaOpcionais"><br>
+  <input formControlName="listaOpcionais" /><br />
 
   <label>Quilometragem:</label>
-  <input formControlName="quilometragem"><br>
+  <input formControlName="quilometragem" /><br />
+
+  <div>
+    <label>Pacote iCarros:</label>
+    <label
+      ><input type="radio" formControlName="pacoteIcarros" [value]="null" />
+      Nenhum</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteIcarros" [value]="1" />
+      Bronze</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteIcarros" [value]="2" />
+      Diamante</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteIcarros" [value]="3" />
+      Platinum</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteIcarros" [value]="4" />
+      Básico</label
+    >
+  </div>
+
+  <div>
+    <label>Pacote Webmotors:</label>
+    <label
+      ><input type="radio" formControlName="pacoteWebmotors" [value]="null" />
+      Nenhum</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteWebmotors" [value]="1" />
+      Bronze</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteWebmotors" [value]="2" />
+      Diamante</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteWebmotors" [value]="3" />
+      Platinum</label
+    >
+    <label
+      ><input type="radio" formControlName="pacoteWebmotors" [value]="4" />
+      Básico</label
+    >
+  </div>
 
   <div formArrayName="fotos">
     <h3>Fotos do Automóvel</h3>
 
     <div class="galeria-fotos">
-      <div class="foto-item" *ngFor="let foto of fotos.controls; let i = index" [formGroupName]="i">
-        
+      <div
+        class="foto-item"
+        *ngFor="let foto of fotos.controls; let i = index"
+        [formGroupName]="i"
+      >
         <ng-container *ngIf="foto.get('url')?.value; else novaFoto">
-          <img [src]="foto.get('url')?.value" alt="Foto do carro" width="120" height="90">
+          <img
+            [src]="foto.get('url')?.value"
+            alt="Foto do carro"
+            width="120"
+            height="90"
+          />
           <button type="button" (click)="removerFoto(i)">Remover</button>
         </ng-container>
 
         <ng-template #novaFoto>
-          <input formControlName="url" placeholder="Cole a URL da nova foto">
+          <input formControlName="url" placeholder="Cole a URL da nova foto" />
         </ng-template>
       </div>
     </div>
 
     <div>
-      <button type="button" (click)="adicionarFoto()" [disabled]="fotos.length >= 15">
+      <button
+        type="button"
+        (click)="adicionarFoto()"
+        [disabled]="fotos.length >= 15"
+      >
         Adicionar Foto
       </button>
-      <p *ngIf="fotos.length >= 15" style="color: red;">Limite de 15 fotos atingido.</p>
+      <p *ngIf="fotos.length >= 15" style="color: red">
+        Limite de 15 fotos atingido.
+      </p>
     </div>
   </div>
 
-  <br>
+  <br />
 
   <button type="submit">Salvar</button>
   <button [routerLink]="['/carros']">Voltar</button>
