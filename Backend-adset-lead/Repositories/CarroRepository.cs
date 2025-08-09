@@ -69,6 +69,13 @@ namespace Backend_adset_lead.Repositories
 
             if (filtro.PrecoMax.HasValue) query = query.Where(c => c.Preco <= filtro.PrecoMax.Value);
 
+            if (filtro.PacoteIcarros.HasValue)
+                query = query.Where(c => c.PortalPacotes.Any(p => p.Portal == Enuns.Portal.iCarros && p.Pacote == filtro.PacoteIcarros.Value));
+
+            if (filtro.PacoteWebmotors.HasValue)
+                query = query.Where(c => c.PortalPacotes.Any(p => p.Portal == Enuns.Portal.WebMotors && p.Pacote == filtro.PacoteWebmotors.Value));
+
+
             if (filtro.HasPhotos.HasValue)
             {
                 query = filtro.HasPhotos.Value ?

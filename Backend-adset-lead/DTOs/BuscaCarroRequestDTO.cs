@@ -1,4 +1,6 @@
-﻿namespace Backend_adset_lead.DTOs
+﻿using Backend_adset_lead.Enuns;
+
+namespace Backend_adset_lead.DTOs
 {
     public class BuscaCarroRequestDTO
     {
@@ -10,6 +12,8 @@
         public decimal? PrecoMin { get; set; }
         public decimal? PrecoMax { get; set; }
         public bool? HasPhotos { get; set; }
+        public Pacote? PacoteIcarros { get; set; }
+        public Pacote? PacoteWebmotors { get; set; }
         public string? Opcionais { get; set; }
         public string? Cor { get; set; }
         
