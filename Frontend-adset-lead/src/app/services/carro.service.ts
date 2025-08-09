@@ -35,6 +35,7 @@ export interface CarroResponse {
   totalCarros?: number;
   totalCarrosComFotos?: number;
   totalCarrosSemFotos?: number;
+  cores?: string[];
   page: number;
   pageSize: number;
 }
@@ -78,11 +79,8 @@ export class CarroService {
       params = params.set('PrecoMin', filtro.precoMin.toString());
     if (filtro.precoMax != null)
       params = params.set('PrecoMax', filtro.precoMax.toString());
-    if (filtro.hasPhotos == true) {
+    if (filtro.hasPhotos != null)
       params = params.set('HasPhotos', filtro.hasPhotos.toString());
-    } else {
-      params = params.set('HasPhotos', '');
-    }
     if (filtro.opcionais) params = params.set('Opcionais', filtro.opcionais);
     if (filtro.cor) params = params.set('Cor', filtro.cor);
     if (filtro.placa) params = params.set('Placa', filtro.placa);

@@ -15,9 +15,11 @@ import { Router } from '@angular/router';
 })
 export class CarrosComponent implements OnInit {
   filtroForm: FormGroup;
+  anos: number[] = [];
   totalCarros: number = 0;
   totalCarrosComFotos: number = 0;
   totalCarrosSemFotos: number = 0;
+  cores: string[] = [];
   totalPaginas: number = 0;
   pagina: number = 1;
   tamanhoPagina: number = 10;
@@ -41,6 +43,7 @@ export class CarrosComponent implements OnInit {
       modelo: [''],
       anoMin: [''],
       anoMax: [''],
+      preco: [''],
       precoMin: [''],
       precoMax: [''],
       hasPhotos: [''],
@@ -53,10 +56,26 @@ export class CarrosComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    const anoAtual = 2024;
+    for (let ano = 2000; ano <= anoAtual; ano++) {
+      this.anos.push(ano);
+    }
     this.buscarCarros();
   }
 
   buscarCarros() {
+    this.filtroForm.patchValue({
+      precoMin: '',
+      precoMax: '',
+    });
+
+    const faixaPreco = this.filtroForm.get('preco')?.value;
+    const [min, max] = faixaPreco.split('-');
+    this.filtroForm.patchValue({
+      precoMin: min,
+      precoMax: max,
+    });
+
     const filtro = this.filtroForm.value;
 
     this.carroService.getCarros(filtro).subscribe({
@@ -65,6 +84,7 @@ export class CarrosComponent implements OnInit {
         this.totalCarros = response.totalCarros;
         this.totalCarrosComFotos = response.totalCarrosComFotos;
         this.totalCarrosSemFotos = response.totalCarrosSemFotos;
+        this.cores = response.cores;
         this.totalPaginas = response.totalPages;
         this.pagina = response.page;
         this.tamanhoPagina = response.pageSize;
