@@ -67,6 +67,7 @@ namespace Backend_adset_lead.Controllers
                     response.TotalCarros,
                     response.TotalCarrosComFotos,
                     response.TotalCarrosSemFotos,
+                    response.Cores,
                     request.Page,
                     request.PageSize,
                     response.TotalPages

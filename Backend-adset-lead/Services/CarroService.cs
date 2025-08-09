@@ -113,6 +113,7 @@ namespace Backend_adset_lead.Services
                 TotalCarros = response.TotalCarros,
                 TotalCarrosComFotos = response.TotalCarrosComFotos,
                 TotalCarrosSemFotos = response.TotalCarrosSemFotos,
+                Cores = response.Cores,
             };
         }
 

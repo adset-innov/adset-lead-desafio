@@ -106,6 +106,8 @@ namespace Backend_adset_lead.Repositories
             var totalCarros = await GetTotalCarros();
             var (totalCarrosComFotos, totalCarrosSemFotos) = await GetContagemCarrosFotos();
 
+            var listaCores = await GetCoresDistintas();
+
             var totalItens = await query.CountAsync();
             var totalPaginas = (int)Math.Ceiling((double)totalItens / filtro.PageSize);
 
@@ -115,8 +117,18 @@ namespace Backend_adset_lead.Repositories
                 TotalPages = totalPaginas,
                 TotalCarros = totalCarros,
                 TotalCarrosComFotos = totalCarrosComFotos,
-                TotalCarrosSemFotos = totalCarrosSemFotos
+                TotalCarrosSemFotos = totalCarrosSemFotos,
+                Cores = listaCores!,
             };
+        }
+
+        private Task<List<string?>> GetCoresDistintas()
+        {
+            return _context.Carros
+                .Select(c => c.Cor)
+                .Distinct()
+                .OrderBy(cor => cor)
+                .ToListAsync();
         }
 
         private async Task<(int comFotos, int semFotos)> GetContagemCarrosFotos()
