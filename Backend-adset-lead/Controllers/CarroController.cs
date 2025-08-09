@@ -64,7 +64,8 @@ namespace Backend_adset_lead.Controllers
                 return Ok(new
                 {
                     Content = response.Items,
-                    response.TotalCarros,
+                    response.TotalCarrosCadastrados,
+                    response.TotalCarrosFiltrados,
                     response.TotalCarrosComFotos,
                     response.TotalCarrosSemFotos,
                     response.Cores,

@@ -110,7 +110,8 @@ namespace Backend_adset_lead.Services
             {
                 Items = result,
                 TotalPages = response.TotalPages,
-                TotalCarros = response.TotalCarros,
+                TotalCarrosCadastrados = response.TotalCarrosCadastrados,
+                TotalCarrosFiltrados = response.TotalCarrosFiltrados,
                 TotalCarrosComFotos = response.TotalCarrosComFotos,
                 TotalCarrosSemFotos = response.TotalCarrosSemFotos,
                 Cores = response.Cores,

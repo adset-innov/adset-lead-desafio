@@ -108,14 +108,15 @@ namespace Backend_adset_lead.Repositories
 
             var listaCores = await GetCoresDistintas();
 
-            var totalItens = await query.CountAsync();
-            var totalPaginas = (int)Math.Ceiling((double)totalItens / filtro.PageSize);
+            var totalCarrosFiltrados = await query.CountAsync();
+            var totalPaginas = (int)Math.Ceiling((double)totalCarrosFiltrados / filtro.PageSize);
 
             return new PagedListDTO<Carro>
             {
                 Items = result,
                 TotalPages = totalPaginas,
-                TotalCarros = totalCarros,
+                TotalCarrosCadastrados = totalCarros,
+                TotalCarrosFiltrados = totalCarrosFiltrados,
                 TotalCarrosComFotos = totalCarrosComFotos,
                 TotalCarrosSemFotos = totalCarrosSemFotos,
                 Cores = listaCores!,
