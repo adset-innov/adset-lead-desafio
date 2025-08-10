@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CarroResponse, CarroService } from '../../services/carro.service';
@@ -9,13 +9,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-root',
@@ -37,9 +38,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
     MatTooltipModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatSortModule,
   ],
 })
-export class CarrosComponent implements OnInit {
+export class CarrosComponent implements OnInit, AfterViewInit {
   displayedColumns = [
     'acoes',
     'foto',
@@ -69,7 +71,9 @@ export class CarrosComponent implements OnInit {
     { label: 'Básico', value: 4 },
   ];
   carros: CarroResponse[] = [];
+  dataSource = new MatTableDataSource<CarroResponse>([]);
 
+  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -95,6 +99,12 @@ export class CarrosComponent implements OnInit {
       pageSize: [10],
     });
   }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
   ngOnInit(): void {
     const anoAtual = 2024;
     for (let ano = 2000; ano <= anoAtual; ano++) {
@@ -140,6 +150,18 @@ export class CarrosComponent implements OnInit {
           );
           this.pagina = Math.min(Math.max(response.page - 1, 0), lastIndex);
         }
+
+        this.dataSource.data = this.carros;
+        this.dataSource.sortingDataAccessor = (item, property) => {
+          if (property === 'marcaModelo') {
+            return (item.marca + ' ' + item.modelo).toLowerCase();
+          }
+
+          if (property === 'foto') {
+            return item.fotos && item.fotos.length > 0 ? 1 : 0;
+          }
+          return (item as any)[property];
+        };
       },
       error: (err) => {
         console.error('Erro ao buscar carros:', err);
