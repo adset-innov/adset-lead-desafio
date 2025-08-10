@@ -9,13 +9,29 @@ import {
 import { CommonModule } from '@angular/common';
 import { CarroService } from '../../services/carro.service';
 import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-carro-cadastro',
   standalone: true,
   templateUrl: './carro-cadastro.component.html',
   styleUrls: ['./carro-cadastro.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatIconModule,
+    MatCardModule,
+  ],
 })
 export class CarroCadastroComponent {
   cadastroForm: FormGroup;
@@ -78,6 +94,8 @@ export class CarroCadastroComponent {
   onSubmit(): void {
     if (this.cadastroForm.valid) {
       const carro = this.cadastroForm.value;
+
+      if (carro.quilometragem == "") carro.quilometragem = 0;
 
       this.carroService.cadastrarCarro(carro).subscribe({
         next: () => {
