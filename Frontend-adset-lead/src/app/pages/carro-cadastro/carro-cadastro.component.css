@@ -55,3 +55,19 @@
   font-weight: bold;
   margin-top: 16px;
 }
+
+.titulo {
+  background-color: #e6f0ff;
+}
+
+.titulo-pagina {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-weight: 500;
+  color: #419ddf;
+}
+
+.card-contend {
+  background-color: #e6f0ff;
+}
