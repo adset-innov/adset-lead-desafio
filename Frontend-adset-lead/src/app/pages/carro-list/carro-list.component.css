@@ -1,3 +1,7 @@
+.header-container {
+  background-color: #e6f0ff;
+}
+
 .foto-mini {
   width: 80px;
   height: 50px;
@@ -9,7 +13,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .campo {
@@ -17,7 +21,28 @@
   min-width: 150px;
 }
 
-.botao-buscar {
-  flex: 1 1 100px;
-  min-width: 100px;
+div.container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.form {
+  padding-left: 1%;
+  padding-right: 1%;
+  background-color: #e6f0ff;
+}
+
+.table {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.logo {
+  padding-left: 3%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  display: flex;
+  background-color: #419ddf;
+  border-radius: 0 0 20px 20px;
 }

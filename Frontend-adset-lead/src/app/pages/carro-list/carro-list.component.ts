@@ -120,11 +120,13 @@ export class CarrosComponent implements OnInit, AfterViewInit {
     });
 
     const faixaPreco = this.filtroForm.get('preco')?.value;
-    const [min, max] = faixaPreco.split('-');
-    this.filtroForm.patchValue({
-      precoMin: min,
-      precoMax: max,
-    });
+    if (faixaPreco) {
+      const [min, max] = faixaPreco.split('-');
+      this.filtroForm.patchValue({
+        precoMin: min,
+        precoMax: max,
+      });
+    }
 
     this.filtroForm.patchValue({
       page: this.pagina + 1,
@@ -190,6 +192,11 @@ export class CarrosComponent implements OnInit, AfterViewInit {
   onPageChange(event: PageEvent) {
     this.pagina = event.pageIndex;
     this.tamanhoPagina = event.pageSize;
+    this.buscarCarros();
+  }
+
+  limparFiltros() {
+    this.filtroForm.reset();
     this.buscarCarros();
   }
 }
