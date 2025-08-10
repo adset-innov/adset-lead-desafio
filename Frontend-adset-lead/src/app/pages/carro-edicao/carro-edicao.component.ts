@@ -10,13 +10,30 @@ import { CommonModule } from '@angular/common';
 import { CarroService, CarroResponse } from '../../services/carro.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-carro-edicao',
   standalone: true,
   templateUrl: './carro-edicao.component.html',
   styleUrls: ['./carro-edicao.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatIconModule,
+    MatCardModule,
+  ],
 })
 export class CarroEdicaoComponent implements OnInit {
   carroForm: FormGroup;
@@ -124,6 +141,8 @@ export class CarroEdicaoComponent implements OnInit {
         { portal: 2, pacote: formValue.pacoteWebmotors },
       ],
     };
+
+    if (payload.quilometragem == null) payload.quilometragem = 0;
 
     this.carroService.atualizarCarro(this.carroId, payload).subscribe({
       next: () => {
