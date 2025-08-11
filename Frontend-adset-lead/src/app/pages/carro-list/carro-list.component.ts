@@ -178,6 +178,7 @@ export class CarrosComponent implements OnInit, AfterViewInit {
     this.carroService.deletarCarro(id).subscribe({
       next: () => {
         this.carros = this.carros.filter((c) => c.id !== id);
+        this.buscarCarros();
       },
       error: (err) => {
         console.error('Erro ao deletar carro:', err);
