@@ -151,6 +151,9 @@ export class CarroEdicaoComponent implements OnInit {
     };
 
     if (payload.quilometragem == null) payload.quilometragem = 0;
+    if (payload.placa) {
+      payload.placa = payload.placa.replace(/-/g, '');
+    }
 
     this.carroService.atualizarCarro(this.carroId, payload).subscribe({
       next: () => {
@@ -167,5 +170,11 @@ export class CarroEdicaoComponent implements OnInit {
   getPacoteByPortal(pacotes: any[], portal: number) {
     const p = pacotes.find((x) => x.portal === portal);
     return p ? p.pacote : null;
+  }
+
+  toUppercase(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase();
+    this.carroForm.get('placa')?.setValue(value, { emitEvent: false });
   }
 }

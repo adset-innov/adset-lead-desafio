@@ -6,7 +6,12 @@
     <form [formGroup]="carroForm" (ngSubmit)="salvar()" class="form-grid">
       <mat-form-field appearance="outline">
         <mat-label>Placa</mat-label>
-        <input matInput formControlName="placa" />
+        <input
+          matInput
+          formControlName="placa"
+          mask="AAA-9A99"
+          (keyup)="toUppercase($event)"
+        />
         <mat-error
           *ngIf="
             carroForm.get('placa')?.touched && carroForm.get('placa')?.invalid

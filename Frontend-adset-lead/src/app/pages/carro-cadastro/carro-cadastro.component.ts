@@ -98,6 +98,9 @@ export class CarroCadastroComponent {
       const carro = this.cadastroForm.value;
 
       if (carro.quilometragem == '') carro.quilometragem = 0;
+      if (carro.placa) {
+        carro.placa = carro.placa.replace(/-/g, '');
+      }
 
       this.carroService.cadastrarCarro(carro).subscribe({
         next: () => {
@@ -116,5 +119,11 @@ export class CarroCadastroComponent {
     } else {
       this.cadastroForm.markAllAsTouched();
     }
+  }
+
+  toUppercase(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase();
+    this.cadastroForm.get('placa')?.setValue(value, { emitEvent: false });
   }
 }

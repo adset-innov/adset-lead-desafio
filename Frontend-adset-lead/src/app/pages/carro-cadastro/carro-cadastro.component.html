@@ -7,7 +7,12 @@
     <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form-grid">
       <mat-form-field appearance="outline">
         <mat-label>Placa</mat-label>
-        <input matInput formControlName="placa" />
+        <input
+          matInput
+          formControlName="placa"
+          mask="AAA-9A99"
+          (keyup)="toUppercase($event)"
+        />
         <mat-error
           *ngIf="
             cadastroForm.get('placa')?.touched &&

@@ -16,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +38,7 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
     MatDividerModule,
     MatFormFieldModule,
     MatSortModule,
+    NgxMaskDirective,
   ],
 })
 export class CarrosComponent implements OnInit, AfterViewInit {
@@ -136,6 +138,10 @@ export class CarrosComponent implements OnInit, AfterViewInit {
 
     const filtro = this.filtroForm.value;
 
+    if (filtro.placa) {
+      filtro.placa = filtro.placa.replace(/-/g, '');
+    }
+
     this.carroService.getCarros(filtro).subscribe({
       next: (response: any) => {
         this.carros = response.content;
@@ -200,5 +206,18 @@ export class CarrosComponent implements OnInit, AfterViewInit {
   limparFiltros() {
     this.filtroForm.reset();
     this.buscarCarros();
+  }
+
+  formatarPlaca(placa: string): string {
+    if (!placa) {
+      return '';
+    }
+    return `${placa.substring(0, 3)}-${placa.substring(3, 7)}`;
+  }
+
+  toUppercase(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase();
+    this.filtroForm.get('placa')?.setValue(value, { emitEvent: false });
   }
 }
