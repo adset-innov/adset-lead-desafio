@@ -6,6 +6,19 @@
   <mat-card-content class="card-contend">
     <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form-grid">
       <mat-form-field appearance="outline">
+        <mat-label>Placa</mat-label>
+        <input matInput formControlName="placa" />
+        <mat-error
+          *ngIf="
+            cadastroForm.get('placa')?.touched &&
+            cadastroForm.get('placa')?.invalid
+          "
+        >
+          Placa é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
         <mat-label>Marca</mat-label>
         <input matInput formControlName="marca" />
         <mat-error
@@ -44,24 +57,6 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Placa</mat-label>
-        <input matInput formControlName="placa" />
-        <mat-error
-          *ngIf="
-            cadastroForm.get('placa')?.touched &&
-            cadastroForm.get('placa')?.invalid
-          "
-        >
-          Placa é obrigatória.
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Cor</mat-label>
-        <input matInput formControlName="cor" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
         <mat-label>Preço</mat-label>
         <input
           matInput
@@ -80,6 +75,11 @@
         >
           Preço é obrigatório.
         </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cor</mat-label>
+        <input matInput formControlName="cor" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
