@@ -1,5 +1,4 @@
 ﻿using Backend_adset_lead.DTOs;
-using Backend_adset_lead.Models;
 
 namespace Backend_adset_lead.Services
 {

@@ -6,7 +6,7 @@ namespace Backend_adset_lead.DTOs
     {
         public int Id { get; set; }
         public int CarroId { get; set; }
-        public Portal Portal { get; set; }
-        public Pacote Pacote { get; set; }
+        public required Portal Portal { get; set; }
+        public required Pacote Pacote { get; set; }
     }
 }
