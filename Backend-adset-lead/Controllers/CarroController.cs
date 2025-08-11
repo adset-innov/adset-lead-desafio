@@ -40,6 +40,21 @@ namespace Backend_adset_lead.Controllers
             
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var response = await _service.GetByIdAsync(id);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return SendBadRequest(ex);
+            }
+            
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetFiltered([FromQuery] BuscaCarroRequestDTO request)
         {
@@ -48,7 +63,12 @@ namespace Backend_adset_lead.Controllers
                 var response = await _service.GetFilteredAsync(request);
                 return Ok(new
                 {
-                    Content = response,
+                    Content = response.Items,
+                    response.TotalCarrosCadastrados,
+                    response.TotalCarrosFiltrados,
+                    response.TotalCarrosComFotos,
+                    response.TotalCarrosSemFotos,
+                    response.Cores,
                     request.Page,
                     request.PageSize,
                     response.TotalPages

@@ -1,0 +1,58 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.pacote-group {
+  grid-column: 1 / -1;
+  margin-top: 16px;
+}
+
+.fotos-container {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foto-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.foto-preview {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.limite-fotos {
+  color: red;
+}
+
+.titulo {
+  background-color: #e6f0ff;
+}
+
+.titulo-pagina {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-weight: 500;
+  color: #419ddf;
+}
+
+.card-contend {
+  background-color: #e6f0ff;
+}

@@ -1,0 +1,73 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.pacotes-container {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pacotes-container h3 {
+  margin-bottom: 8px;
+}
+
+.fotos-container {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foto-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.foto-item img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.titulo {
+  background-color: #e6f0ff;
+}
+
+.titulo-pagina {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-weight: 500;
+  color: #419ddf;
+}
+
+.card-contend {
+  background-color: #e6f0ff;
+}
