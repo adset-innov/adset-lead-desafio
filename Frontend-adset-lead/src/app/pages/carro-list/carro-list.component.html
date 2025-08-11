@@ -92,27 +92,31 @@
     </mat-form-field>
   </div>
   <div class="filtros-grid">
-    <mat-form-field appearance="outline">
-      <mat-label>Pacote iCarros</mat-label>
-      <mat-select formControlName="pacoteIcarros">
-        <mat-option [value]="null">Nenhum</mat-option>
-        <mat-option [value]="1">Bronze</mat-option>
-        <mat-option [value]="2">Diamante</mat-option>
-        <mat-option [value]="3">Platinum</mat-option>
-        <mat-option [value]="4">Básico</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="pacotes-container">
+      <mat-radio-group
+        formControlName="pacoteIcarros"
+        aria-label="Pacote iCarros"
+        class="pacotes-conteudo"
+      >
+        <h4>Pacote iCarros</h4>
+        <mat-radio-button [value]="1">Bronze</mat-radio-button>
+        <mat-radio-button [value]="2">Diamante</mat-radio-button>
+        <mat-radio-button [value]="3">Platinum</mat-radio-button>
+        <mat-radio-button [value]="4">Básico</mat-radio-button>
+      </mat-radio-group>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Pacote WebMotors</mat-label>
-      <mat-select formControlName="pacoteWebmotors">
-        <mat-option [value]="null">Nenhum</mat-option>
-        <mat-option [value]="1">Bronze</mat-option>
-        <mat-option [value]="2">Diamante</mat-option>
-        <mat-option [value]="3">Platinum</mat-option>
-        <mat-option [value]="4">Básico</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-radio-group
+        formControlName="pacoteWebmotors"
+        aria-label="Pacote WebMotors"
+        class="pacotes-conteudo"
+      >
+        <h4>Pacote WebMotors</h4>
+        <mat-radio-button [value]="1">Bronze</mat-radio-button>
+        <mat-radio-button [value]="2">Diamante</mat-radio-button>
+        <mat-radio-button [value]="3">Platinum</mat-radio-button>
+        <mat-radio-button [value]="4">Básico</mat-radio-button>
+      </mat-radio-group>
+    </div>
 
     <button
       mat-raised-button
