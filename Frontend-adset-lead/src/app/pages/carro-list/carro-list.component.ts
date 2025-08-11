@@ -99,10 +99,13 @@ export class CarrosComponent implements OnInit, AfterViewInit {
       pageSize: [10],
     });
   }
-
+  
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.sort.sortChange.subscribe(() => {
+      this.pagina = 0;
+      this.buscarCarros();
+    });
   }
 
   ngOnInit(): void {
