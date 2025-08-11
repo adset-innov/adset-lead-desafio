@@ -53,6 +53,11 @@
       <mat-form-field appearance="outline">
         <mat-label>Cor</mat-label>
         <input matInput formControlName="cor" />
+        <mat-error
+          *ngIf="carroForm.get('cor')?.touched && carroForm.get('cor')?.invalid"
+        >
+          Cor é obrigatório
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">

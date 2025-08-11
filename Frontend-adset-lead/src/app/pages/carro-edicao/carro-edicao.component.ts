@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarroService, CarroResponse } from '../../services/carro.service';
@@ -34,7 +35,7 @@ import { NgxMaskDirective } from 'ngx-mask';
     MatRadioModule,
     MatIconModule,
     MatCardModule,
-    NgxMaskDirective
+    NgxMaskDirective,
   ],
 })
 export class CarroEdicaoComponent implements OnInit {
@@ -49,13 +50,20 @@ export class CarroEdicaoComponent implements OnInit {
   ) {
     this.carroForm = this.fb.group({
       id: [''],
-      marca: [''],
-      modelo: [''],
-      ano: [''],
-      placa: [''],
+      marca: ['', Validators.required],
+      modelo: ['', Validators.required],
+      ano: [
+        '',
+        [
+          Validators.required,
+          Validators.min(1900),
+          Validators.max(new Date().getFullYear()),
+        ],
+      ],
+      placa: ['', Validators.required],
       quilometragem: [''],
-      cor: [''],
-      preco: [''],
+      cor: ['', Validators.required],
+      preco: ['', Validators.required],
       listaOpcionais: [''],
       pacoteIcarros: [null],
       pacoteWebmotors: [null],
