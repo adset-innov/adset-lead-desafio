@@ -63,7 +63,15 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Preço</mat-label>
-        <input matInput type="number" formControlName="preco" />
+        <input
+          matInput
+          type="text"
+          formControlName="preco"
+          mask="separator.2"
+          thousandSeparator="."
+          decimalMarker=","
+          prefix="R$ "
+        />
         <mat-error
           *ngIf="
             cadastroForm.get('preco')?.touched &&
@@ -81,7 +89,13 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Quilometragem</mat-label>
-        <input matInput type="number" formControlName="quilometragem" />
+        <input
+          matInput
+          type="text"
+          formControlName="quilometragem"
+          mask="separator.0"
+          thousandSeparator="."
+        />
       </mat-form-field>
 
       <div formArrayName="portalPacotes" class="pacotes-container">

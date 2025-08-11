@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-carro-edicao',
@@ -33,6 +34,7 @@ import { MatCardModule } from '@angular/material/card';
     MatRadioModule,
     MatIconModule,
     MatCardModule,
+    NgxMaskDirective
   ],
 })
 export class CarroEdicaoComponent implements OnInit {
