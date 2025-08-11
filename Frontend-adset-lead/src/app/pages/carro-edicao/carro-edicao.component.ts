@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarroService, CarroResponse } from '../../services/carro.service';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -27,7 +26,6 @@ import { NgxMaskDirective } from 'ngx-mask';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule,
     RouterModule,
     MatFormFieldModule,
     MatInputModule,

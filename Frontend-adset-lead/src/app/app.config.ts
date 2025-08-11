@@ -7,6 +7,6 @@ export const appConfig = {
   providers: [
     provideHttpClient(),
     provideRouter([]),
-    importProvidersFrom(ReactiveFormsModule)
-  ]
+    importProvidersFrom(ReactiveFormsModule),
+  ],
 };

@@ -32,7 +32,7 @@ import { NgxMaskDirective } from 'ngx-mask';
     MatRadioModule,
     MatIconModule,
     MatCardModule,
-    NgxMaskDirective
+    NgxMaskDirective,
   ],
 })
 export class CarroCadastroComponent {
@@ -97,7 +97,7 @@ export class CarroCadastroComponent {
     if (this.cadastroForm.valid) {
       const carro = this.cadastroForm.value;
 
-      if (carro.quilometragem == "") carro.quilometragem = 0;
+      if (carro.quilometragem == '') carro.quilometragem = 0;
 
       this.carroService.cadastrarCarro(carro).subscribe({
         next: () => {

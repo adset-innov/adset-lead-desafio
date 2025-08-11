@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CarroResponse, CarroService } from '../../services/carro.service';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
@@ -26,7 +25,6 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule,
     RouterModule,
     MatInputModule,
     MatSelectModule,
@@ -99,7 +97,7 @@ export class CarrosComponent implements OnInit, AfterViewInit {
       pageSize: [10],
     });
   }
-  
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.sort.sortChange.subscribe(() => {

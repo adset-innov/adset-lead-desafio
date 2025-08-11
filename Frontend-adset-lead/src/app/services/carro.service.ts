@@ -33,7 +33,7 @@ export interface CarroResponse {
   preco?: number;
   quilometragem?: number;
   totalCarrosCadastrados?: number;
-  totalCarrosFiltrados?: number
+  totalCarrosFiltrados?: number;
   totalCarrosComFotos?: number;
   totalCarrosSemFotos?: number;
   cores?: string[];
@@ -62,7 +62,6 @@ export interface FotoRequest {
   providedIn: 'root',
 })
 export class CarroService {
-  //private apiUrl = 'https://localhost:7162/v1/Carro';
   private apiUrl = 'http://localhost:5025/v1/Carro';
 
   constructor(private http: HttpClient) {}

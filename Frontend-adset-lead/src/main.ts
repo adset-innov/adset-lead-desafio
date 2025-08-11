@@ -18,5 +18,5 @@ bootstrapApplication(AppComponent, {
     provideAnimationsAsync(),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     provideNgxMask(),
-  ]
+  ],
 });
