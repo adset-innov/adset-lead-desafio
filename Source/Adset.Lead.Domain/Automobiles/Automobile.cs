@@ -105,6 +105,7 @@ public sealed class Automobile : Entity
         if (photos != null)
         {
             Photos.Clear();
+            
             foreach (var photoUrl in photos)
             {
                 Photos.Add(new Photo(photoUrl));
