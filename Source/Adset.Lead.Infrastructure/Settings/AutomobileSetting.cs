@@ -1,5 +1,6 @@
 ﻿using Adset.Lead.Domain.Automobiles;
 using Adset.Lead.Infrastructure.Extensions;
+using Adset.Lead.Infrastructure.ValueComparers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -43,8 +44,10 @@ internal sealed class AutomobileSetting : IEntityTypeConfiguration<Automobile>
             .IsRequired()
             .HasJsonConversion<Automobile, OptionalFeatures>();
         
+        // Configuração para Photos - JSON conversion com comparador customizado para detectar mudanças
         builder.Property(a => a.Photos)
-            .HasJsonConversion<Automobile, Photo>();
+            .HasJsonConversion<Automobile, Photo>()
+            .Metadata.SetValueComparer(PhotoListValueComparer.Create());
 
         // Configuração do relacionamento um-para-um com PortalPackage
         builder.HasOne(a => a.PortalPackage)
