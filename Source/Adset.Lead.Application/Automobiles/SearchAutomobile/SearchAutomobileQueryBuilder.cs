@@ -30,7 +30,7 @@ internal static class SearchAutomobileQueryBuilder
                 a.Color,
                 a.Price,
                 a.Features AS FeaturesJson,
-                a.Photos,
+                a.Photos AS PhotosJson,
                 pp.Portal,
                 pp.Package
             FROM Automobiles a

@@ -35,7 +35,11 @@ public sealed class SearchAutomobileResponse
         } 
     }
     
-    public string Photos { get; init; } = null!;
+    // Propriedade interna para o Dapper mapear
+    public string PhotosJson { get; init; } = "[]";
+    
+    // Propriedade pública que retorna string de Photos tratando valores nulos/vazios
+    public string Photos => string.IsNullOrWhiteSpace(PhotosJson) ? "[]" : PhotosJson;
     public string? Portal { get; init; }
     public string? Package { get; init; }
 }

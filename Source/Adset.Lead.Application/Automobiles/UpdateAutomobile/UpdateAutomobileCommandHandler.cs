@@ -20,7 +20,9 @@ internal sealed class UpdateAutomobileCommandHandler : ICommandHandler<UpdateAut
         var automobile = await _automobilerepository.GetByIdAsync(request.AutomobileId, cancellationToken);
         
         if (automobile is null)
+        {
             return Result.Failure(AutomobileErrors.NotFound);
+        }
 
         // Converte as features para lista, removendo duplicatas e None
         var optionalFeatures = request.OptionalFeatures?
@@ -39,7 +41,7 @@ internal sealed class UpdateAutomobileCommandHandler : ICommandHandler<UpdateAut
             portal: request.Portal,
             package: request.Package,
             features: optionalFeatures,
-            photos: request.PhotoUrls);
+            photos: request.FileNames);
 
         if (updateResult.IsFailure)
             return updateResult;
@@ -51,8 +53,7 @@ internal sealed class UpdateAutomobileCommandHandler : ICommandHandler<UpdateAut
         }
         catch (Exception ex)
         {
-            return Result.Failure(
-                new Error("UpdateAutomobile.Failed", $"Failed to update automobile: {ex.Message}"));
+            return Result.Failure(new Error("UpdateAutomobile.Failed", $"Failed to update automobile: {ex.Message}"));
         }
     }
 }

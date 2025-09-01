@@ -25,7 +25,7 @@ internal sealed class CreateAutomobileCommandHandler : ICommandHandler<CreateAut
             return Result.Failure<Guid>(validationResult.Error);
 
         // Converte URLs de fotos para objetos Photo
-        var photos = request.PhotoUrls?.Select(url => new Photo(url)).ToList() ?? new List<Photo>();
+        var photos = request.FileNames?.Select(fileName => new Photo(fileName)).ToList() ?? new List<Photo>();
         
         // Converte as features para lista, removendo duplicatas e None
         var optionalFeatures = request.OptionalFeatures?

@@ -15,4 +15,4 @@ public sealed record UpdateAutomobileCommand(
     Portal Portal,
     Package Package,
     IReadOnlyCollection<OptionalFeatures>? OptionalFeatures = null,
-    IReadOnlyCollection<string>? PhotoUrls = null) : ICommand;
+    IReadOnlyCollection<string>? FileNames = null) : ICommand;

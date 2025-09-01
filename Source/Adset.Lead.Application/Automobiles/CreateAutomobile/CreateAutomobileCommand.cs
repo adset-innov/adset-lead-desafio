@@ -14,4 +14,4 @@ public sealed record CreateAutomobileCommand(
     Portal Portal,
     Package Package,
     IReadOnlyCollection<OptionalFeatures>? OptionalFeatures = null,
-    IReadOnlyCollection<string>? PhotoUrls = null) : ICommand<Guid>;
+    IReadOnlyCollection<string>? FileNames = null) : ICommand<Guid>;
