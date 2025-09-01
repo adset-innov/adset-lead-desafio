@@ -1,0 +1,307 @@
+<div class="container">
+  <!-- Header -->
+  <mat-toolbar color="primary" class="header-toolbar">
+    <div class="logo-container">
+      <img src="assets/pic-logomarca-adset.webp" class="logo-image" alt="Adset Logo">
+    </div>
+    <span class="spacer"></span>
+  </mat-toolbar>
+
+  <div class="main-content">
+    
+    <div class="stats-section">
+      <div class="stats-container">
+        <div class="stat-item">
+          <span class="stat-number">{{ vehicleStats.total.toString().padStart(3, '0') }}</span>
+          <span class="stat-label total">Veículos<br>Total</span>
+        </div>
+        <span class="stat-separator">/</span>
+        <div class="stat-item">
+          <span class="stat-number">{{ vehicleStats.withPhotos.toString().padStart(3, '0') }}</span>
+          <span class="stat-label com-fotos">Veículos<br>com fotos</span>
+        </div>
+        <span class="stat-separator">/</span>
+        <div class="stat-item">
+          <span class="stat-number">{{ vehicleStats.withoutPhotos.toString().padStart(3, '0') }}</span>
+          <span class="stat-label sem-fotos">Veículos<br>sem fotos</span>
+        </div>
+        
+        <div class="stats-action-buttons">
+          <div class="excel-export" (click)="onExportStock()">
+            <span class="excel-text">Exportar estoque</span>
+            <mat-icon class="excel-icon">description</mat-icon>
+          </div>
+
+          <div class="car-register" (click)="onRegisterVehicle()">
+            <span class="car-text">Registrar veículo</span>
+            <button mat-fab class="car-icon-btn">
+              <mat-icon class="car-icon">directions_car</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="action-buttons">        
+        <button 
+          mat-raised-button 
+          color="warn" 
+          class="salvar-btn" 
+          (click)="onSave()"
+          [disabled]="pendingCount === 0">
+          <mat-icon>language</mat-icon>
+          Salvar
+          <span class="save-badge" *ngIf="pendingCount > 0">{{ pendingCount }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filters Section -->
+    <form [formGroup]="filterForm" class="filters-section">
+      <div class="filter-row">
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Placa</mat-label>
+          <input matInput formControlName="plate">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="brand">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="model">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field small">
+          <mat-label>Ano Mínimo</mat-label>
+          <mat-select formControlName="yearMin">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let year of [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]" [value]="year">
+              {{ year }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field small">
+          <mat-label>Ano Máximo</mat-label>
+          <mat-select formControlName="yearMax">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let year of [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]" [value]="year">
+              {{ year }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Preço</mat-label>
+          <mat-select formControlName="price">
+            <mat-option *ngFor="let option of priceOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Fotos</mat-label>
+          <mat-select formControlName="photos">
+            <mat-option *ngFor="let option of photoOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Opções</mat-label>
+          <mat-select formControlName="features">
+            <mat-option *ngFor="let option of featuresOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="filter-field">
+          <mat-label>Cor</mat-label>
+          <mat-select formControlName="color">
+            <mat-option *ngFor="let option of colorOptions" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="search-button-container">
+        <button mat-raised-button color="primary" class="search-btn" (click)="onSearch()">
+          <mat-icon>search</mat-icon>
+          Buscar
+        </button>
+        
+        <button mat-stroked-button color="primary" class="clear-btn" (click)="onClearFilters()">
+          <mat-icon>clear</mat-icon>
+          Limpar Filtros
+        </button>
+      </div>
+    </form>
+
+    <!-- Cabeçalho de resultados com controles de plataforma -->
+    <div class="results-and-platforms">
+      <div class="results-header">
+        <div class="filter-indicator">
+          <mat-icon class="filter-icon">filter_list</mat-icon>
+          <span>Brand / Model</span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          
+          <span>Ano</span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          
+          <span>Preço</span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          
+          <span>Photos</span>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        
+        <!-- Controles do lado direito -->
+        <div class="header-controls">
+          <div class="export-control">
+            <span>Exibir</span>
+            <mat-form-field appearance="outline" class="export-select">
+              <mat-select value="100">
+                <mat-option value="50">50</mat-option>
+                <mat-option value="100">100</mat-option>
+                <mat-option value="200">200</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="platform-tabs">
+            <div class="platform-tab icarros">
+              <span class="tab-label">iCarros</span>     
+            </div>
+            
+            <div class="platform-tab webmotors">
+              <span class="tab-label">WebMotors</span>              
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Layout principal: apenas lista de veículos -->
+    <div class="main-layout">
+      <div class="vehicle-list">
+        <mat-card class="vehicle-card" *ngFor="let vehicle of vehicles">
+          <div class="vehicle-content">
+            <button mat-icon-button class="delete-btn" (click)="onDeleteVehicle(vehicle)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <div class="vehicle-image">
+              <img [src]="vehicle.imageUrl || 'assets/images/default-car.jpg'" [alt]="vehicle.brand + ' ' + vehicle.model">
+            </div>
+            
+            <div class="vehicle-details">
+              <div class="vehicle-header">
+                <h3 class="vehicle-title">{{ vehicle.brand.toUpperCase() }} {{ vehicle.model.toUpperCase() }} | {{ vehicle.year }}</h3>
+              </div>
+              
+              <div class="vehicle-info">
+                <p>Plate - <span class="vehicle-property">{{ vehicle.plate }}</span></p>
+                <div class="km-edit-row">
+                  <p>Km - <span class="vehicle-property">{{ vehicle.km}}</span></p>
+                </div>
+                <div class="cor-actions-row">
+                  <p>Color - <span class="vehicle-property">{{ vehicle.color }}</span></p>
+                  <div class="vehicle-actions">
+                    <div class="edit-vehicle" (click)="onEditVehicle(vehicle)">
+                      <span class="edit-text">Edit Vehicle</span>
+                      <mat-icon class="edit-icon">edit</mat-icon>
+                    </div>
+                    
+                    <div class="fotos-vehicle">
+                      <mat-icon class="fotos-icon">photo_camera</mat-icon>
+                      <span class="fotos-text">{{ (vehicle.photosCount || 0).toString().padStart(2, '0') }} Photos</span>
+                    </div>
+                    
+                    <div class="opcionais-vehicle">
+                      <mat-icon class="opcionais-icon">build</mat-icon>
+                      <span class="opcionais-text">{{ (vehicle.featuresCount || 0).toString().padStart(2, '0') }} Opcionais</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Price section -->
+              <div class="vehicle-price">
+                <span class="price">R$ {{ (vehicle.price || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2}) }}</span>
+              </div>
+            </div>
+            
+            <!-- Checkboxes inside card - Divided into two cards -->
+            <div class="vehicle-checkboxes-container">
+              <!-- iCarros Card -->
+              <div class="vehicle-checkboxes icarros-card">
+                <div class="checkbox-header"></div>
+                <div class="checkbox-group">
+                  <div class="checkbox-section">
+                    <mat-checkbox class="checkbox-item" 
+                                  [checked]="isBronze(vehicle)" 
+                                  [disabled]="isBronze(vehicle)">
+                      <span class="checkbox-text">Bronze</span>
+                    </mat-checkbox>
+                  </div>
+                  
+                  <div class="checkbox-section">
+                    <mat-checkbox class="checkbox-item" 
+                                  [checked]="isDiamante(vehicle)" 
+                                  [disabled]="isDiamante(vehicle)">
+                      <span class="checkbox-text">Diamante</span>
+                    </mat-checkbox>
+                  </div>
+                  
+                  <div class="checkbox-section">
+                    <mat-checkbox class="checkbox-item" 
+                                  [checked]="isPlatinum(vehicle)" 
+                                  [disabled]="isPlatinum(vehicle)">
+                      <span class="checkbox-text">Platina</span>
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- WebMotors Card -->
+              <div class="vehicle-checkboxes webmotors-card">
+                <div class="checkbox-header"></div>
+                <div class="checkbox-group">
+                  <div class="checkbox-section">
+                    <mat-checkbox class="checkbox-item" 
+                                  [checked]="isBasic(vehicle)" 
+                                  [disabled]="isBasic(vehicle)">
+                      <span class="checkbox-text">Basico</span>
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+    <!-- Paginação -->
+    <div class="pagination-container">
+      <mat-paginator 
+        [length]="vehicleStats.total"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[1, 5, 10, 25, 100]"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Veículo -->
+<app-vehicle-modal
+  *ngIf="isModalOpen"
+  [vehicle]="selectedVehicle"
+  [isEditMode]="isEditMode"
+  (save)="onVehicleSave($event)"
+  (close)="onModalClose()">
+</app-vehicle-modal>

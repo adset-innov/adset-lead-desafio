@@ -1,0 +1,201 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ isEditMode ? 'Editar Veículo' : 'Cadastrar Novo Veículo' }}</h2>
+      <button mat-icon-button (click)="onClose()" class="modal-close-btn">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <form [formGroup]="vehicleForm" class="vehicle-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Placa</mat-label>
+            <input matInput formControlName="plate" placeholder="ABC-1234">
+            <mat-error *ngIf="vehicleForm.get('plate')?.hasError('required')">
+              Placa é obrigatória
+            </mat-error>
+            <mat-error *ngIf="vehicleForm.get('plate')?.hasError('pattern')">
+              Formato inválido (ABC-1234)
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="brand" placeholder="Toyota">
+            <mat-error *ngIf="vehicleForm.get('brand')?.hasError('required')">
+              Marca é obrigatória
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="model" placeholder="Corolla">
+            <mat-error *ngIf="vehicleForm.get('model')?.hasError('required')">
+              Modelo é obrigatório
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Ano</mat-label>
+            <mat-select formControlName="year">
+              <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="vehicleForm.get('year')?.hasError('required')">
+              Ano é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>KM</mat-label>
+            <input matInput formControlName="km" type="number" placeholder="25000">
+            <mat-error *ngIf="vehicleForm.get('km')?.hasError('min')">
+              KM não pode ser negativo
+            </mat-error>
+            <mat-error *ngIf="vehicleForm.get('km')?.hasError('max')">
+              KM parece muito alto
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Cor</mat-label>
+            <input matInput formControlName="color" placeholder="Branco">
+            <mat-error *ngIf="vehicleForm.get('color')?.hasError('required')">
+              Cor é obrigatória
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Preço</mat-label>
+            <input matInput formControlName="price" type="number" placeholder="50000">
+            <mat-error *ngIf="vehicleForm.get('price')?.hasError('required')">
+              Preço é obrigatório
+            </mat-error>
+            <mat-error *ngIf="vehicleForm.get('price')?.hasError('min')">
+              Preço deve ser maior que zero
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <!-- Portal Selection -->
+        <div class="form-row full-width">
+          <div class="portal-selection">
+            <h4>Selecionar Portal:</h4>
+            <div class="portal-checkboxes">
+              <mat-checkbox 
+                [checked]="isPortalSelected('ICars')"
+                (change)="onPortalChange('ICars')">
+                iCarros
+              </mat-checkbox>
+              
+              <mat-checkbox 
+                [checked]="isPortalSelected('WebMotors')"
+                (change)="onPortalChange('WebMotors')">
+                WebMotors
+              </mat-checkbox>
+            </div>
+            
+            <!-- Package Selection -->
+            <div class="package-selection" *ngIf="selectedPortal">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Pacote</mat-label>
+                <mat-select formControlName="package">
+                  <mat-option *ngFor="let pkg of getAvailablePackages()" [value]="pkg">
+                    {{ getPackageLabel(pkg) }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="vehicleForm.get('package')?.hasError('required')">
+                  Pacote é obrigatório
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="form-row full-width">
+          <div class="features-section">
+            <!-- Modo Cadastro: Exibe checkboxes para seleção -->
+            <div *ngIf="!isEditMode">
+              <h4>Opcionais do Veículo:</h4>
+              <div class="features-selection">
+                <div class="feature-checkbox" *ngFor="let feature of availableFeatures">
+                  <mat-checkbox 
+                    [checked]="feature.selected"
+                    (change)="onFeatureChange(feature.id, $event.checked)">
+                    {{ feature.name }}
+                  </mat-checkbox>
+                </div>
+              </div>
+              
+              <!-- Visualização dos opcionais selecionados no modo cadastro -->
+              <div class="selected-features" *ngIf="getSelectedFeatures().length > 0">
+                <h5>Opcionais selecionados:</h5>
+                <div class="features-display">
+                  <div class="feature-chip" *ngFor="let featureName of getSelectedFeatures()">
+                    <mat-icon class="feature-icon">check_circle</mat-icon>
+                    <span class="feature-name">{{ featureName }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="no-features-message" *ngIf="getSelectedFeatures().length === 0">
+                <mat-icon class="info-icon">info</mat-icon>
+                <span>Nenhum opcional selecionado</span>
+              </div>
+            </div>
+            
+            <!-- Modo Edição: Exibe apenas os opcionais já selecionados -->
+            <div *ngIf="isEditMode">
+              <h4>Opcionais do Veículo:</h4>
+              <div class="selected-features" *ngIf="getSelectedFeatures().length > 0">
+                <div class="features-display">
+                  <div class="feature-chip" *ngFor="let featureName of getSelectedFeatures()">
+                    <mat-icon class="feature-icon">check_circle</mat-icon>
+                    <span class="feature-name">{{ featureName }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="no-features-message" *ngIf="getSelectedFeatures().length === 0">
+                <mat-icon class="info-icon">info</mat-icon>
+                <span>Nenhum opcional selecionado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row full-width">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>URL da Imagem</mat-label>
+            <input matInput formControlName="imageUrl" placeholder="https://exemplo.com/imagem.jpg">
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button mat-button (click)="onClose()" class="cancel-btn">
+        Cancelar
+      </button>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="onSave()" 
+        class="save-btn"
+        [disabled]="isFormDisabled()">
+        <mat-icon>{{ isEditMode ? 'edit' : 'add' }}</mat-icon>
+        {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Veículo' }}
+      </button>
+    </div>
+  </div>
+</div>

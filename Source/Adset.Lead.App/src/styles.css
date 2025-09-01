@@ -1,0 +1,49 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --adset-orange: #ff9800;
+  --adset-dark: #333333;
+  --adset-green: #4caf50;
+  --adset-red: #f44336;
+  --adset-gray: #f5f5f5;
+  --adset-light-gray: #e0e0e0;
+  --adset-blue: #2196f3;
+}
+
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  padding: 0;
+}
+
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: #2196f3;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #2196f3;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #2196f3 !important;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: var(--adset-blue) !important;
+  color: white !important;
+}
+
+.mat-raised-button.mat-accent {
+  background-color: var(--adset-green) !important;
+  color: white !important;
+}
