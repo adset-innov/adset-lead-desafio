@@ -46,9 +46,6 @@ internal static class Seeds
             // Gera múltiplas features como lista
             var featuresArray = GenerateRandomOptionalFeaturesArray(faker, price);
             var featuresJson = JsonSerializer.Serialize(featuresArray.Select(f => (int)f).ToArray());
-            
-            // Gera URLs de fotos fake
-            var photos = GeneratePhotos(faker, 2, 5);
 
             automobiles.Add(new
             {
@@ -61,7 +58,7 @@ internal static class Seeds
                 Color = color,
                 Price = price,
                 Features = featuresJson,
-                Photos = JsonSerializer.Serialize(photos)
+                Photos = "[]"
             });
 
             // Cria um PortalPackage para cada automóvel
@@ -167,19 +164,5 @@ internal static class Seeds
         
         // Seleciona features aleatórias sem repetição e retorna como array
         return faker.PickRandom(availableFeatures, featureCount).ToArray();
-    }
-
-    private static List<Photo> GeneratePhotos(Faker faker, int minCount, int maxCount)
-    {
-        var count = faker.Random.Int(minCount, maxCount);
-        var photos = new List<Photo>();
-        
-        for (int i = 0; i < count; i++)
-        {
-            var photoUrl = $"https://picsum.photos/800/600?random={faker.Random.Int(1, 1000)}";
-            photos.Add(new Photo(photoUrl));
-        }
-        
-        return photos;
     }
 }

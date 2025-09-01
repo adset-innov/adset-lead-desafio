@@ -13,4 +13,4 @@ public record UpdateAutomobileRequest(
     Portal Portal,
     Package Package,
     IReadOnlyCollection<OptionalFeatures>? OptionalFeatures = null,
-    IReadOnlyCollection<string>? PhotoUrls = null);
+    IReadOnlyCollection<string>? FileNames = null);
