@@ -65,9 +65,7 @@ export class VehicleListingComponent implements OnInit {
   loadVehicles(): void {
     this.vehicleService.getVehicles().subscribe(vehicles => {
       this.vehicles = vehicles;
-      // Debug: verificar dados de cada veículo
       this.vehicles.forEach((vehicle, index) => {
-        
       });
     });
   }
@@ -113,16 +111,13 @@ export class VehicleListingComponent implements OnInit {
   }
 
   onExportStock(): void {
-    // Implement export stock functionality
+    // falta excel
   }
 
   onSave(): void {
     if (this.pendingVehicles.length === 0) {
-      console.log('No pending vehicles to save');
       return;
     }
-
-    console.log('Saving pending vehicles:', this.pendingVehicles.length);
     
     const savePromises = this.pendingVehicles.map(vehicle => {
       if (vehicle.id.startsWith('temp-')) {
@@ -139,14 +134,12 @@ export class VehicleListingComponent implements OnInit {
 
     Promise.all(savePromises)
       .then((savedVehicles) => {
-        console.log('All vehicles saved successfully:', savedVehicles.length);
         this.pendingVehicles = [];
         this.pendingCount = 0;
         this.hasPendingChanges = false;
         this.loadStats();
       })
       .catch((error) => {
-        console.error('Error saving vehicles:', error);
         alert('Erro ao salvar veículos. Verifique o console para mais detalhes.');
       });
   }
@@ -201,8 +194,6 @@ export class VehicleListingComponent implements OnInit {
     this.hasPendingChanges = this.pendingCount > 0;
     this.isModalOpen = false;
     this.selectedVehicle = null;
-    
-    console.log('Vehicle added to pending list. Total pending:', this.pendingCount);
   }
 
   onModalClose(): void {
@@ -254,5 +245,28 @@ export class VehicleListingComponent implements OnInit {
   getFeaturesAsString(features: number[]): string {
     const names = this.getFeatureNames(features);
     return names.length > 0 ? names.join(', ') : 'Nenhuma';
+  }
+
+  // Método para obter URL da primeira imagem do veículo
+  getVehicleImageUrl(vehicle: Vehicle): string {
+    if (vehicle.photos && vehicle.photos.length > 0) {
+      const firstPhoto = vehicle.photos[0];
+
+      // Garantir que firstPhoto seja uma string válida
+      let fileName = '';
+      if (typeof firstPhoto === 'string') {
+        fileName = firstPhoto;
+      } else if (firstPhoto != null) {
+        // Se for um objeto, tentar extrair uma propriedade que contenha o nome do arquivo
+        fileName = String(firstPhoto);
+      }
+      
+      if (fileName && fileName !== '[object Object]') {
+        // Usar endpoint da API para servir as imagens
+        const imageUrl = `http://localhost:5062/api/images/${fileName}`;
+        return imageUrl;
+      }
+    }
+    return '';
   }
 }

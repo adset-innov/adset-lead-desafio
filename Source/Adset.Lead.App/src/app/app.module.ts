@@ -21,6 +21,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { VehicleListingComponent } from './components/vehicle-listing/vehicle-listing.component';
 import { VehicleModalComponent } from './components/vehicle-modal/vehicle-modal.component';
@@ -50,7 +51,8 @@ import { VehicleModalComponent } from './components/vehicle-modal/vehicle-modal.
     MatChipsModule,
     MatGridListModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

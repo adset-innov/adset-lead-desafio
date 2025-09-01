@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Vehicle } from '../../models/vehicle.model';
+import { ImageUploadService } from '../../services/image-upload.service';
 
 @Component({
   selector: 'app-vehicle-modal',
@@ -32,7 +33,13 @@ export class VehicleModalComponent implements OnInit {
     { id: 5, name: 'MP3 Player', selected: false }
   ];
 
-  constructor(private fb: FormBuilder) {
+  // Image upload
+  uploadedImages: { fileName: string, previewUrl: string }[] = [];
+  isUploading: boolean = false;
+  isDragOver: boolean = false;
+  uploadError: string | null = null;
+
+  constructor(private fb: FormBuilder, private imageUploadService: ImageUploadService) {
     this.vehicleForm = this.createForm();
     this.generateYears();
   }
@@ -55,7 +62,6 @@ export class VehicleModalComponent implements OnInit {
     // Debug: Verificar status do formulário no modo edição
     if (this.isEditMode) {
       this.vehicleForm.statusChanges.subscribe(status => {
-        console.log('Form status:', status);
         if (status === 'INVALID') {
           this.logFormErrors();
         }
@@ -94,9 +100,6 @@ export class VehicleModalComponent implements OnInit {
         Validators.required,
         Validators.min(0.01)
       ]],
-      imageUrl: ['', [
-        Validators.pattern(/^$|^https?:\/\/.+/)
-      ]],
       portal: [''],
       package: ['']
     });
@@ -119,10 +122,17 @@ export class VehicleModalComponent implements OnInit {
         km: this.vehicle.km,
         color: this.vehicle.color,
         price: this.vehicle.price,
-        imageUrl: this.vehicle.imageUrl || '',
         portal: this.vehicle.portal || '',
         package: this.vehicle.package || ''
       });
+
+      // Carregar fotos existentes
+      if (this.vehicle.photos && this.vehicle.photos.length > 0) {
+        this.uploadedImages = this.vehicle.photos.map(fileName => ({
+          fileName: fileName,
+          previewUrl: `http://localhost:5062/api/images/${fileName}`
+        }));
+      }
 
       // Marcar os opcionais selecionados
       if (this.vehicle.features && this.vehicle.features.length > 0) {
@@ -136,7 +146,6 @@ export class VehicleModalComponent implements OnInit {
       
       // Debug: Verificar se o formulário está válido após popular
       setTimeout(() => {
-        console.log('Form valid after populate:', this.vehicleForm.valid);
         if (!this.vehicleForm.valid) {
           this.logFormErrors();
         }
@@ -150,6 +159,9 @@ export class VehicleModalComponent implements OnInit {
     this.availableFeatures.forEach(feature => {
       feature.selected = false;
     });
+    // Limpar imagens e erros
+    this.uploadedImages = [];
+    this.uploadError = null;
     this.close.emit();
   }
 
@@ -178,14 +190,13 @@ export class VehicleModalComponent implements OnInit {
         price: parseFloat(formValue.price) || 0,
         km: formValue.km || undefined,
         features: selectedFeatures.length > 0 ? selectedFeatures : (this.vehicle?.features || [1]), // Manter features originais se não alteradas
-        photos: JSON.stringify([]),
+        photos: this.uploadedImages.map(img => img.fileName),
         portal: formValue.portal || this.vehicle?.portal || 'WebMotors',
         package: formValue.package || this.vehicle?.package || 'Basic',
         
         // Calculated properties
-        imageUrl: formValue.imageUrl || null,
-        photosCount: this.vehicle?.photosCount || 0,
-        hasPhotos: this.vehicle?.hasPhotos || false,
+        photosCount: this.uploadedImages.length,
+        hasPhotos: this.uploadedImages.length > 0,
         featuresCount: selectedFeatures.length > 0 ? selectedFeatures.length : (this.vehicle?.featuresCount || 0)
       };
 
@@ -390,5 +401,114 @@ export class VehicleModalComponent implements OnInit {
     };
     
     return featureMap[featureValue] || null;
+  }
+
+  // Image upload methods
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.uploadImage(file);
+    }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      if (file.type.startsWith('image/')) {
+        this.uploadImage(file);
+      }
+    }
+  }
+
+  private uploadImage(file: File): void {
+    // Validar tamanho do arquivo (máximo 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      this.uploadError = 'Arquivo muito grande. Tamanho máximo: 5MB';
+      return;
+    }
+
+    // Validar tipo do arquivo
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      this.uploadError = 'Tipo de arquivo não permitido. Use: JPG, PNG, GIF, BMP ou WEBP';
+      return;
+    }
+
+    this.isUploading = true;
+    this.uploadError = null;
+
+    this.imageUploadService.uploadImage(file).subscribe({
+      next: (response) => {
+        // Adicionar nova imagem à lista
+        this.uploadedImages.push({
+          fileName: response.fileName,
+          previewUrl: `http://localhost:5062${response.url}`
+        });
+        
+        // Se estamos editando um automóvel existente, associar a imagem
+        if (this.isEditMode && this.vehicle?.id) {
+          this.imageUploadService.addImageToAutomobile(this.vehicle.id, response.fileName).subscribe({
+            next: () => {
+              // Atualizar o array local de fotos para refletir a mudança
+              if (this.vehicle) {
+                this.vehicle.photos = this.vehicle.photos || [];
+                if (!this.vehicle.photos.includes(response.fileName)) {
+                  this.vehicle.photos.unshift(response.fileName); // Adiciona no início
+                }
+              }
+            },
+            error: (error) => {
+              console.error('Erro ao associar imagem ao automóvel:', error);
+              // Remover a imagem da lista local se a associação falhar
+              const imageIndex = this.uploadedImages.findIndex(img => img.fileName === response.fileName);
+              if (imageIndex > -1) {
+                this.uploadedImages.splice(imageIndex, 1);
+              }
+            }
+          });
+        }
+        
+        this.isUploading = false;
+      },
+      error: (error) => {
+        console.error('Erro ao fazer upload da imagem:', error);
+        this.uploadError = 'Erro ao fazer upload da imagem. Tente novamente.';
+        this.isUploading = false;
+      }
+    });
+  }
+
+  removeImage(index: number): void {
+    if (index >= 0 && index < this.uploadedImages.length) {
+      const imageToRemove = this.uploadedImages[index];
+      
+      // Se estamos editando e o veículo tem fotos, remover do array local também
+      if (this.isEditMode && this.vehicle?.photos) {
+        const photoIndex = this.vehicle.photos.indexOf(imageToRemove.fileName);
+        if (photoIndex > -1) {
+          this.vehicle.photos.splice(photoIndex, 1);
+        }
+      }
+      
+      this.uploadedImages.splice(index, 1);
+      this.uploadError = null;
+    }
   }
 }

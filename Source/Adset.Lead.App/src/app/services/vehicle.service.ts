@@ -147,24 +147,49 @@ export class VehicleService {
 
   // Mapeia dados da API para o formato esperado pelo frontend
   private mapVehicleFromApi(apiVehicle: ApiVehicle): Vehicle {
+    // Garantir que photos seja um array de strings
     let photos: string[] = [];
-
     try {
-      photos = apiVehicle.photos ? JSON.parse(apiVehicle.photos) : [];
-    } catch {
+      const parsed = apiVehicle.photos ? JSON.parse(apiVehicle.photos) : [];
+      
+      if (Array.isArray(parsed)) {
+        // Garantir que todos os elementos sejam strings
+        photos = parsed.map(photo => {
+          if (typeof photo === 'string') {
+            return photo;
+          } else if (photo && typeof photo === 'object' && photo.FileName) {
+            // Se é um objeto com propriedade FileName, extrair o valor
+            return photo.FileName;
+          } else if (photo != null) {
+            return String(photo);
+          } else {
+            return '';
+          }
+        }).filter(photo => photo.length > 0); // Remover strings vazias
+      }
+    } catch (error) {
+      console.error('Failed to parse photos:', error);
       photos = [];
     }
+
+    // Adicionar extensão .jpg aos nomes de arquivo se não tiver
+    const photosWithExtension = photos.map(photoName => {
+      // Se já tem extensão, manter; senão adicionar .jpg
+      return photoName.includes('.') ? photoName : `${photoName}.jpg`;
+    });
 
     // Features agora vem como array de números diretamente da API
     const features = Array.isArray(apiVehicle.features) ? apiVehicle.features : [];
 
     // Garantir que imageUrl seja sempre uma string válida
-    let imageUrl = 'assets/images/default-car.jpg';
+    let imageUrl = '';
     if (photos.length > 0 && typeof photos[0] === 'string' && photos[0].trim()) {
-      imageUrl = photos[0];
+      // Usar endpoint da API para servir as imagens
+      const fileName = photosWithExtension[0]; // Já tem a extensão .jpg
+      imageUrl = `http://localhost:5062/api/images/${fileName}`;
     }
 
-    return {
+    const mappedVehicle = {
       // API 
       id: apiVehicle.id,
       plate: apiVehicle.plate,
@@ -175,31 +200,29 @@ export class VehicleService {
       price: apiVehicle.price,
       km: apiVehicle.km,
       features: features, // Agora é array de números
-      photos: apiVehicle.photos,
+      photos: photosWithExtension, // Array de nomes de arquivo com extensão
       portal: apiVehicle.portal,
       package: apiVehicle.package,
-      
       hasPhotos: photos.length > 0,
       photosCount: photos.length,
-      featuresCount: features.length,
-      imageUrl: imageUrl
+      featuresCount: features.length
     };
+    
+    return mappedVehicle;
   }
 
   private mapVehicleToApi(vehicle: Partial<Vehicle>): any {
     // Features agora já é array de números
     const featuresArray = vehicle.features || [];
 
-    let photosArray: string[] = [];
-    if (vehicle.photos) {
-      try {
-        photosArray = JSON.parse(vehicle.photos);
-      } catch {
-        photosArray = [];
-      }
-    }
+    // Photos já é um array de strings (GUIDs) - remover extensões se existirem
+    const photosArray: string[] = (vehicle.photos || []).map(photo => {
+      // Se o photo contém extensão, remove ela para obter apenas o GUID
+      const photoWithoutExtension = photo.includes('.') ? photo.substring(0, photo.lastIndexOf('.')) : photo;
+      return photoWithoutExtension;
+    });
 
-    return {
+    const mappedVehicle = {
       brand: vehicle.brand,
       model: vehicle.model,
       year: vehicle.year,
@@ -210,8 +233,10 @@ export class VehicleService {
       portal: this.mapPortalName(vehicle.portal || 'WebMotors'),
       package: this.mapPackageName(vehicle.package || 'Basic'),
       optionalFeatures: this.mapFeatures(featuresArray),
-      photoUrls: photosArray
+      fileNames: photosArray
     };
+    
+    return mappedVehicle;
   }
 
   private mapPortalName(portalName: string): number {

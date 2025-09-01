@@ -174,16 +174,57 @@
           </div>
         </div>
         
+        <!-- Image Upload Section -->
         <div class="form-row full-width">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>URL da Imagem</mat-label>
-            <input matInput formControlName="imageUrl" placeholder="https://exemplo.com/imagem.jpg">
-          </mat-form-field>
+          <div class="image-upload-section">
+            <h4>Imagens do Veículo:</h4>
+            
+            <!-- Uploaded Images Display -->
+            <div class="uploaded-images" *ngIf="uploadedImages.length > 0">
+              <div class="image-item" *ngFor="let image of uploadedImages; let i = index">
+                <img [src]="image.previewUrl" 
+                     alt="Imagem do veículo" 
+                     class="preview-image">
+                <button mat-icon-button 
+                        class="remove-image-btn" 
+                        (click)="removeImage(i)"
+                        type="button"
+                        matTooltip="Excluir imagem">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Upload Area -->
+            <div class="upload-area"
+                 (click)="fileInput.click()">
+              <input type="file" 
+                     #fileInput 
+                     (change)="onFileSelected($event)"
+                     accept="image/*"
+                     style="display: none;">
+              
+              <div class="upload-content" *ngIf="!isUploading">
+                <mat-icon>cloud_upload</mat-icon>
+                <p><button mat-button color="primary" type="button">Clique para selecionar imagens</button></p>
+                <small>Formatos suportados: JPG, PNG, GIF, BMP, WEBP (máx. 5MB)</small>
+              </div>
+              
+              <div class="upload-progress" *ngIf="isUploading">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                <p>Enviando imagem...</p>
+              </div>
+            </div>>
+            
+            <!-- Upload Error -->
+            <div class="upload-error" *ngIf="uploadError">
+              <mat-icon color="warn">error</mat-icon>
+              <p>{{ uploadError }}</p>
+            </div>
+          </div>
         </div>
       </form>
-    </div>
-    
-    <div class="modal-footer">
+    </div>    <div class="modal-footer">
       <button mat-button (click)="onClose()" class="cancel-btn">
         Cancelar
       </button>

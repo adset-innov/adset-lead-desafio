@@ -26,7 +26,7 @@ export interface Vehicle {
   price: number;
   km?: number;
   features: number[];
-  photos: string;
+  photos: string[]; // Array de GUIDs das fotos
   portal?: string;
   package?: string;
   
@@ -34,7 +34,6 @@ export interface Vehicle {
   hasPhotos?: boolean; 
   photosCount?: number; 
   featuresCount?: number; 
-  imageUrl?: string; 
 }
 
 export interface VehicleFilter {

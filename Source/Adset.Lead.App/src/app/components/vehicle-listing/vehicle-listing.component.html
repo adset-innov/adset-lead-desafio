@@ -195,7 +195,15 @@
               <mat-icon>delete</mat-icon>
             </button>
             <div class="vehicle-image">
-              <img [src]="vehicle.imageUrl || 'assets/images/default-car.jpg'" [alt]="vehicle.brand + ' ' + vehicle.model">
+              <div *ngIf="getVehicleImageUrl(vehicle); else noImage">
+                <img [src]="getVehicleImageUrl(vehicle)" [alt]="vehicle.brand + ' ' + vehicle.model">
+              </div>
+              <ng-template #noImage>
+                <div class="no-image-placeholder">
+                  <mat-icon>photo_camera</mat-icon>
+                  <span>Sem foto</span>
+                </div>
+              </ng-template>
             </div>
             
             <div class="vehicle-details">
