@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VehicleService } from '../../services/vehicle.service';
+import { ExcelExportService } from '../../services/excel-export.service';
 import { Vehicle, VehicleStats, VehicleFilter, FeatureNames } from '../../models/vehicle.model';
 
 @Component({
@@ -17,7 +18,6 @@ export class VehicleListingComponent implements OnInit {
   currentPage = 1;
   pageSize = 1;
   
-  // Modal properties
   isModalOpen = false;
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
@@ -42,7 +42,8 @@ export class VehicleListingComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private vehicleService: VehicleService
+    private vehicleService: VehicleService,
+    private excelExportService: ExcelExportService
   ) {
     this.filterForm = this.fb.group({
       plate: [''],
@@ -111,7 +112,19 @@ export class VehicleListingComponent implements OnInit {
   }
 
   onExportStock(): void {
-    // falta excel
+    if (this.vehicles.length === 0) {
+      alert('Nenhum veículo encontrado para exportar.');
+      return;
+    }
+
+    try {
+      console.log('Iniciando exportação Excel...');
+      this.excelExportService.exportVehiclesToExcel(this.vehicles, 'estoque-veiculos-adset');
+      console.log('Exportação Excel concluída com sucesso!');
+    } catch (error) {
+      console.error('Erro na exportação:', error);
+      alert('Erro ao exportar arquivo Excel. Tente novamente.');
+    }
   }
 
   onSave(): void {
