@@ -1,3 +1,5 @@
+> Leia: [Readme..ipynb] localizado na raiz do projeto.
+
 <img src="https://github.com/adset-innov/adset-lead-desafio/blob/main/adset-lead.png">
 
 # Desafio para candidatos (AdSet Lead)

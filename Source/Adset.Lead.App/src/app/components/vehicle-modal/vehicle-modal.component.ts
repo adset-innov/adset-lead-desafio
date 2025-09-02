@@ -24,6 +24,15 @@ export class VehicleModalComponent implements OnInit {
   iCarrosPackages = ['Bronze', 'Diamond', 'Platinum'];
   webMotorsPackages = ['Basic'];
 
+  // Cores disponíveis
+  availableColors = [
+    'Branco',
+    'Preto',
+    'Prata',
+    'Azul',
+    'Vermelho'
+  ];
+
   // Opcionais disponíveis
   availableFeatures = [
     { id: 1, name: 'Ar Condicionado', selected: false },
