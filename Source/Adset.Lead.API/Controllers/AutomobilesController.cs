@@ -14,10 +14,12 @@ namespace Adset.Lead.API.Controllers;
 public class AutomobilesController : ControllerBase
 {
     private readonly ISender _sender;
+    private readonly ILogger<AutomobilesController> _logger;
 
-    public AutomobilesController(ISender sender)
+    public AutomobilesController(ISender sender, ILogger<AutomobilesController> logger)
     {
         _sender = sender;
+        _logger = logger;
     }
 
     [HttpGet("{id}")]
@@ -34,10 +36,10 @@ public class AutomobilesController : ControllerBase
 
         if (automobile == null)
             return NotFound($"Automobile with ID {id} not found");
-        
+
         return Ok(automobile);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> SearchAutomobiles(
         [FromQuery] SearchAutomobilesRequest request,
@@ -160,71 +162,66 @@ public class AutomobilesController : ControllerBase
 
             if (searchResult.IsFailure)
                 return BadRequest(searchResult.Error);
-            
+
             var automobile = searchResult.Value.FirstOrDefault();
             if (automobile == null)
                 return NotFound($"Automobile with ID {id} not found");
 
-        // Preparar lista atual de fotos
-        var currentPhotos = new List<string>();
-        if (!string.IsNullOrEmpty(automobile.Photos))
-        {
-            try
+            // Preparar lista atual de fotos
+            var currentPhotos = new List<string>();
+            if (!string.IsNullOrEmpty(automobile.Photos))
             {
-                currentPhotos = System.Text.Json.JsonSerializer.Deserialize<List<string>>(automobile.Photos) ?? new List<string>();
+                try
+                {
+                    currentPhotos = System.Text.Json.JsonSerializer.Deserialize<List<string>>(automobile.Photos) ?? new List<string>();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to deserialize photos for automobile {AutomobileId}", id);
+                    currentPhotos = new List<string>();
+                }
             }
-            catch (Exception ex)
+
+            // Extrair apenas o GUID do nome do arquivo (remover extensão)
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(request.FileName);
+
+            // Adicionar nova imagem se não existir
+            if (!string.IsNullOrEmpty(fileNameWithoutExtension) && !currentPhotos.Contains(fileNameWithoutExtension))
             {
-                currentPhotos = new List<string>();
+                currentPhotos.Insert(0, fileNameWithoutExtension); // Adiciona no início da lista
             }
+            else
+            {
+                _logger.LogWarning($"Não é possível adicionar imagem: fileName é nulo/vazio ou imagem '{request.FileName}' já existe na lista.");
+            }
+
+            // Atualizar o automóvel com as novas fotos
+            var updateCommand = new UpdateAutomobileCommand(
+                AutomobileId: id,
+                Brand: automobile.Brand,
+                Model: automobile.Model,
+                Year: automobile.Year,
+                Plate: automobile.Plate,
+                Color: automobile.Color,
+                Price: automobile.Price,
+                Km: automobile.Km,
+                Portal: ParsePortal(automobile.Portal),
+                Package: ParsePackage(automobile.Package),
+                OptionalFeatures: automobile.Features?.Select(f => (OptionalFeatures)f).ToList() ?? new List<OptionalFeatures>(),
+                FileNames: currentPhotos);
+
+            var updateResult = await _sender.Send(updateCommand, cancellationToken);
+
+            return updateResult.IsSuccess
+                ? Ok(new { message = "Imagem adicionada com sucesso", photos = currentPhotos })
+                : BadRequest(updateResult.Error);
         }
-
-        // Extrair apenas o GUID do nome do arquivo (remover extensão)
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(request.FileName);
-
-        // Adicionar nova imagem se não existir
-        if (!string.IsNullOrEmpty(fileNameWithoutExtension) && !currentPhotos.Contains(fileNameWithoutExtension))
+        catch (Exception ex)
         {
-            currentPhotos.Insert(0, fileNameWithoutExtension); // Adiciona no início da lista
+            _logger.LogError(ex, "Exceção em AddImageToAutomobile para automóvel {AutomobileId} com nome do arquivo {FileName}", id, request.FileName);
+            return BadRequest($"Erro do Servidor Interno: {ex.Message}");
         }
-        else
-        {
-            Console.WriteLine("Photo already exists in the list or fileName is null/empty");
-        }
-
-        // Atualizar o automóvel com as novas fotos
-        var updateCommand = new UpdateAutomobileCommand(
-            AutomobileId: id,
-            Brand: automobile.Brand,
-            Model: automobile.Model,
-            Year: automobile.Year,
-            Plate: automobile.Plate,
-            Color: automobile.Color,
-            Price: automobile.Price,
-            Km: automobile.Km,
-            Portal: ParsePortal(automobile.Portal),
-            Package: ParsePackage(automobile.Package),
-            OptionalFeatures: automobile.Features?.Select(f => (OptionalFeatures)f).ToList() ?? new List<OptionalFeatures>(),
-            FileNames: currentPhotos);
-
-        var updateResult = await _sender.Send(updateCommand, cancellationToken);
-        
-        if (updateResult.IsFailure)
-        {
-            Console.WriteLine($"Update failed: {updateResult.Error.Code} - {updateResult.Error.Name}");
-        }
-
-        return updateResult.IsSuccess 
-            ? Ok(new { message = "Imagem adicionada com sucesso", photos = currentPhotos })
-            : BadRequest(updateResult.Error);
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Exception in AddImageToAutomobile: {ex.Message}");
-        Console.WriteLine($"Stack trace: {ex.StackTrace}");
-        return BadRequest($"Internal server error: {ex.Message}");
-    }
-}
 
     private static Portal ParsePortal(string? portalString)
     {

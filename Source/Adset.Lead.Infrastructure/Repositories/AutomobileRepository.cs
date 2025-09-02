@@ -190,7 +190,7 @@ internal sealed class AutomobileRepository : Repository<Automobile>, IAutomobile
     {
         return await _context.Set<PortalPackage>()
             .FirstOrDefaultAsync(pp => pp.AutomobileId == automobileId && pp.Portal == portal)
-            ?? throw new InvalidOperationException($"Portal package not found for automobile {automobileId} and portal {portal}");
+            ?? throw new InvalidOperationException($"Pacote de portal não encontrado para automóvel {automobileId} e portal {portal}");
     }
 
     public async Task SetPortalPackageAsync(Guid automobileId, Portal portal, Package package)
