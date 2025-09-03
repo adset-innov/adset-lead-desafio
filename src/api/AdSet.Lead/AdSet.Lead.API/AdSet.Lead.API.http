@@ -1,0 +1,6 @@
+@AdSet.Lead.API_HostAddress = http://localhost:5028
+
+GET {{AdSet.Lead.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
