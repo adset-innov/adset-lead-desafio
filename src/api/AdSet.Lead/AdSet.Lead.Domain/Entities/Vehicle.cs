@@ -1,5 +1,6 @@
 ﻿using AdSet.Lead.Core.Exceptions;
 using AdSet.Lead.Core.Validators;
+using AdSet.Lead.Domain.Enums;
 using AdSet.Lead.Domain.Interfaces;
 using AdSet.Lead.Domain.VOs;
 
@@ -23,6 +24,9 @@ public sealed class Vehicle : IBaseEntity
     private readonly List<Photo> _photos = [];
     public IReadOnlyCollection<Photo> Photos => _photos.AsReadOnly();
 
+    private readonly List<PortalPackage> _portalPackages = [];
+    public IReadOnlyCollection<PortalPackage> PortalPackages => _portalPackages.AsReadOnly();
+
     private Vehicle()
     {
     }
@@ -36,12 +40,14 @@ public sealed class Vehicle : IBaseEntity
         decimal price,
         int mileage = 0,
         VehicleOptions? options = null,
-        IEnumerable<Photo>? photos = null
+        IEnumerable<Photo>? photos = null,
+        IEnumerable<PortalPackage>? portalPackages = null
     )
     {
         var photoList = photos?.ToList() ?? [];
+        var portalPackageList = portalPackages?.ToList() ?? [];
 
-        Validate(brand, model, year, price, photoList);
+        Validate(brand, model, year, price, photoList, portalPackageList);
 
         Id = Guid.NewGuid();
         CreatedOn = DateTime.UtcNow;
@@ -56,6 +62,7 @@ public sealed class Vehicle : IBaseEntity
         Mileage = mileage;
         Options = options ?? new VehicleOptions(false, false, false, false);
         _photos.AddRange(photoList);
+        _portalPackages.AddRange(portalPackageList);
     }
 
     private static void Validate(
@@ -63,7 +70,8 @@ public sealed class Vehicle : IBaseEntity
         string model,
         int year,
         decimal price,
-        ICollection<Photo> photos
+        List<Photo> photos,
+        List<PortalPackage> portalPackages
     )
     {
         StringValidator.Validate(brand, "Brand", 1, 100);
@@ -78,10 +86,18 @@ public sealed class Vehicle : IBaseEntity
 
         if (photos.Count > 15)
             throw new DomainValidationException("A vehicle can have a maximum of 15 photos.");
+
+        if (portalPackages
+            .GroupBy(p => p.Portal)
+            .Any(g => g.Count() > 1))
+            throw new DomainValidationException("A vehicle can only have one package per portal.");
     }
 
     public void AddPhoto(Photo photo)
     {
+        if (photo is null)
+            throw new DomainValidationException("Photo cannot be null.");
+
         if (_photos.Count >= 15)
             throw new DomainValidationException("A vehicle can have a maximum of 15 photos.");
 
@@ -96,6 +112,30 @@ public sealed class Vehicle : IBaseEntity
             throw new DomainValidationException("Photo not found.");
 
         _photos.Remove(photo);
+        UpdatedOn = DateTime.UtcNow;
+    }
+
+    public void AddOrUpdatePortalPackage(PortalPackage portalPackage)
+    {
+        if (portalPackage is null)
+            throw new DomainValidationException("PortalPackage cannot be null.");
+
+        var existingPortalPackage = _portalPackages.FirstOrDefault(p => p.Portal == portalPackage.Portal);
+
+        if (existingPortalPackage is not null)
+            _portalPackages.Remove(existingPortalPackage);
+
+        _portalPackages.Add(portalPackage);
+        UpdatedOn = DateTime.UtcNow;
+    }
+
+    public void RemovePortalPackage(Portal portal)
+    {
+        var existingPortalPackage = _portalPackages.FirstOrDefault(p => p.Portal == portal);
+        if (existingPortalPackage is null)
+            throw new DomainValidationException($"No package found for portal {portal}.");
+
+        _portalPackages.Remove(existingPortalPackage);
         UpdatedOn = DateTime.UtcNow;
     }
 }

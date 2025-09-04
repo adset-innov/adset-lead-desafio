@@ -39,12 +39,11 @@ public sealed class VehicleOptions
     }
 
     private bool Equals(VehicleOptions other)
-    {
-        return AirConditioning == other.AirConditioning
-               && Alarm == other.Alarm
-               && Airbag == other.Airbag
-               && AbsBrakes == other.AbsBrakes;
-    }
+        => AirConditioning == other.AirConditioning
+           && Alarm == other.Alarm
+           && Airbag == other.Airbag
+           && AbsBrakes == other.AbsBrakes;
+
 
     public override bool Equals(object? obj)
     {
