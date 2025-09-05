@@ -3,7 +3,7 @@ using AdSet.Lead.Domain.Interfaces;
 
 namespace AdSet.Lead.Domain.Entities;
 
-public class Photo : IBaseEntity
+public class Photo : IEntity
 {
     public Guid Id { get; private set; }
     public DateTime CreatedOn { get; private set; }

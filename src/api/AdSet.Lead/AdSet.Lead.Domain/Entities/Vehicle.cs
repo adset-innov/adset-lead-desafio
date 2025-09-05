@@ -6,7 +6,7 @@ using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.Domain.Entities;
 
-public sealed class Vehicle : IBaseEntity
+public sealed class Vehicle : IEntity
 {
     public Guid Id { get; private set; }
     public DateTime CreatedOn { get; private set; }
