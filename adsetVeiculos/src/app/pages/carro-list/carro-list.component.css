@@ -1,0 +1,465 @@
+.painel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ececec;
+  padding: 18px 32px 0 32px;
+  border-bottom: 2px solid #e0e0e0;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo-principal {
+  height: 60px;
+}
+.totais {
+  display: flex;
+  gap: 24px;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 24px 0 12px 0;
+  align-items: center;
+  justify-content: center;
+}
+.totais span {
+  padding: 0 8px;
+}
+.totais .total {
+  color: #888 !important;
+}
+.totais .com-fotos {
+  color: #25a745 !important;
+  font-weight: bold;
+}
+.totais .sem-fotos {
+  color: #e6362a !important;
+  font-weight: bold;
+}
+.exportar-estoque {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  color: #888;
+}
+.painel-botoes {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.btn-cadastrar-circular {
+  background: #3d84f5 !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  width: 56px !important;
+  height: 56px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px !important;
+  box-shadow: 0 2px 8px rgba(3, 102, 126, 0.08) !important;
+  padding: 0 !important;
+  padding-left: 13px !important;
+}
+.btn-salvar {
+  background: #f7941d !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  font-size: 22px !important;
+  padding: 12px 32px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+.btn-cadastrar {
+  background: #444 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  border-radius: 32px !important;
+  font-size: 20px !important;
+  padding: 12px 32px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+
+/* Filtros */
+.filtros-bar {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 18px 32px;
+  margin: 0 auto 24px auto;
+  max-width: 98vw;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.filtros-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 0;
+}
+.campo {
+  min-width: 140px;
+  flex: 1;
+  margin-bottom: 0 !important;
+}
+.mat-form-field {
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+  min-height: 48px !important;
+  border: 1px solid #d1d1d1 !important;
+  padding: 0 12px !important;
+  margin-bottom: 0 !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-radius: 18px !important;
+  border: 1px solid #d1d1d1 !important;
+}
+.mat-select {
+  background: #5a5a5a !important;
+  color: #fff !important;
+  border-radius: 14px !important;
+  min-height: 40px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+}
+.mat-select-arrow {
+  color: #fff !important;
+}
+.mat-select-trigger, .mat-input-element {
+  font-size: 18px !important;
+  color: #444444 !important;
+  padding: 8px 0 !important;
+}
+.buscar-centralizado {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.btn-buscar {
+  background: #048017 !important;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Pacotes */
+.pacotes-container {
+  display: flex;
+  gap: 32px;
+  margin: 18px 0;
+  align-items: flex-start;
+}
+.pacotes-conteudo {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 12px 18px;
+  min-width: 180px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.pacotes-conteudo h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.mat-radio-group {
+  margin-bottom: 8px !important;
+}
+.mat-radio-button {
+  margin-right: 12px;
+  font-size: 16px;
+}
+.mat-radio-button .mat-radio-label-content {
+  font-size: 16px !important;
+  color: #444 !important;
+  opacity: 1 !important;
+}
+
+/* Tabela */
+.table {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-top: 24px;
+}
+.mat-header-row, .mat-header-cell {
+  background: #ececec !important;
+  color: #444 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  border-bottom: 2px solid #e0e0e0 !important;
+}
+.mat-row, .mat-cell {
+  font-size: 17px !important;
+  color: #333 !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+.foto-mini {
+  width: 80px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.09);
+}
+
+/* Paginação */
+.mat-paginator {
+  margin-top: 18px !important;
+  background: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+  padding: 8px 16px !important;
+  font-size: 16px !important;
+}
+
+/* Fixar tabela e paginação no rodapé */
+.mat-mdc-paginator-outer-container.tabela-footer {
+  width: 100vw !important;
+  left: 0;
+  right: 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  background: #181417;
+}
+.tabela-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* Layout ocupa altura total da tela */
+body, html, :host {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.painel-top, .filtros-bar, .table, .mat-paginator {
+  box-sizing: border-box;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .form, .filtros-bar { padding: 12px 6px; }
+  .filtros-grid { gap: 8px; }
+  .totais { font-size: 18px; }
+  .mat-header-row, .mat-header-cell { font-size: 15px; }
+  .mat-row, .mat-cell { font-size: 14px; }
+}
+
+/* Cabeçalho */
+.header-container {
+  background: #9d9b9b;
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #e0e0e0;
+}
+.cadastrar-btn {
+  background: #444;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Botões Angular Material */
+.mat-raised-button {
+  border-radius: 8px !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  padding: 10px 24px !important;
+  margin-top: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+.mat-raised-button.mat-primary {
+  background: #25a745 !important;
+  color: #fff !important;
+}
+.mat-raised-button:not(.mat-primary) {
+  background: #444 !important;
+  color: #fff !important;
+}
+
+/* Campos Angular Material */
+.mat-form-field {
+  border-radius: 8px !important;
+  background: #f7f7f7 !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-radius: 8px !important;
+}
+.mat-select-trigger, .mat-input-element {
+  font-size: 18px !important;
+}
+
+/* Radio Angular Material */
+.mat-radio-button .mat-radio-label-content {
+  font-size: 16px !important;
+}
+.mat-radio-group {
+  margin-bottom: 8px !important;
+}
+
+/* Tabela Angular Material */
+.mat-header-row, .mat-header-cell {
+  background: #ececec !important;
+  color: #444 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  border-bottom: 2px solid #e0e0e0 !important;
+}
+.mat-row, .mat-cell {
+  font-size: 17px !important;
+  color: #333 !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+/* Paginação Angular Material */
+.mat-paginator {
+  margin-top: 18px !important;
+  background: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+  padding: 8px 16px !important;
+  font-size: 16px !important;
+}
+
+/* Container dos filtros */
+.form {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 24px 32px;
+  margin: 0 auto 24px auto;
+  max-width: 98vw;
+}
+.filtros-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.campo {
+  min-width: 140px;
+  flex: 1;
+}
+.mat-form-field {
+  border-radius: 8px !important;
+  background: #f7f7f7;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-radius: 8px;
+}
+.mat-select-trigger, .mat-input-element {
+  font-size: 18px;
+}
+
+/* Botões */
+button[mat-raised-button] {
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 24px;
+  margin-top: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+button[mat-raised-button][color=\"primary\"] {
+  background: #25a745;
+  color: #fff;
+}
+button[mat-raised-button]:not([color=\"primary\"]) {
+  background: #444;
+  color: #fff;
+}
+
+/* Pacotes */
+.pacotes-container {
+  display: flex;
+  gap: 32px;
+  margin: 18px 0;
+  align-items: flex-start;
+}
+.pacotes-conteudo {
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 12px 18px;
+  min-width: 180px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.pacotes-conteudo h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.mat-radio-button {
+  margin-right: 12px;
+  font-size: 16px;
+  --mdc-radio-unselected-icon-color: #888 !important;
+  --mdc-radio-selected-icon-color: #444 !important;
+  --mdc-radio-unselected-hover-icon-color: #666 !important;
+  --mdc-radio-selected-hover-icon-color: #222 !important;
+}
+
+/* Tabela */
+.table {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-top: 24px;
+}
+.mat-header-row, .mat-header-cell {
+  background: #ececec !important;
+  color: #444 !important;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 2px solid #e0e0e0;
+}
+.mat-row, .mat-cell {
+  font-size: 17px;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+.foto-mini {
+  width: 80px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.09);
+}
+
+/* Paginação */
+.mat-paginator {
+  margin-top: 18px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .form { padding: 12px 6px; }
+  .filtros-grid { gap: 8px; }
+  .totais { font-size: 18px; }
+  .mat-header-row, .mat-header-cell { font-size: 15px; }
+  .mat-row, .mat-cell { font-size: 14px; }
+}

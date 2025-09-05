@@ -1,0 +1,118 @@
+.mat-mdc-radio-button .mdc-radio__background .mdc-radio__outer-circle {
+  border-color: #000 !important;
+}
+.mat-mdc-radio-button .mdc-radio__background .mdc-radio__inner-circle {
+  background-color: #000 !important;
+  border-color: #000 !important;
+}
+.mat-mdc-radio-button .mdc-radio__background .mdc-radio__ripple,
+.mat-mdc-radio-button .mdc-radio__background .mdc-radio__focus-ring {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.mat-mdc-radio-button .mdc-label {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+.mat-mdc-radio-button.mat-mdc-radio-disabled .mdc-label {
+  color: #000 !important;
+  opacity: 0.5 !important;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.pacote-group {
+  grid-column: 1 / -1;
+  margin-top: 16px;
+}
+
+.fotos-container {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.foto-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.foto-preview {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.limite-fotos {
+  color: red;
+}
+
+mat-card {
+  width: 100vw !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: #e6f0ff !important;
+}
+.card-contend {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  background-color: #fff;
+  padding: 0 2vw 2vw 2vw;
+  box-sizing: border-box;
+}
+.titulo {
+  background-color: transparent;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 30px;
+  padding: 0;
+}
+.titulo-pagina {
+  text-align: center;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  font-weight: 500;
+  color: #419ddf;
+  margin: 0;
+}
+.btn-salvar {
+  background: #419ddf !important;
+  color: #fff !important;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.btn-salvar:hover {
+  background: #3180d6 !important;
+}
+.btn-salvar:active {
+  background: #2171b8 !important;
+}
+.btn-voltar {
+  background: #cbcbcc !important;
+  color: #525252 !important;
+  font-weight: bold;
+}
+.btn-voltar:hover {
+  background: #e1e1e1 !important;
+}
+.btn-voltar:active {
+  background: #d1d1d1 !important;
+}

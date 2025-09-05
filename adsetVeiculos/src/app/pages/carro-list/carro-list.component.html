@@ -1,0 +1,203 @@
+
+<div class="painel-top">
+  <div class="logo">
+    <a routerLink="/">
+      <img src="adset-lead.png" alt="ADSet Lead" class="logo-principal" />
+    </a>
+  </div>
+  <div class="totais">
+    <span class="total">110 veículos<br><span style="color:#3a7bd5;font-size:18px;">Total</span></span>
+    <span class="com-fotos">080 veículos<br><span style="color:#25a745;font-size:18px;">com fotos</span></span>
+    <span class="sem-fotos">030 veículos<br><span style="color:#e6362a;font-size:18px;">sem fotos</span></span>
+  </div>
+  <div class="exportar-estoque">
+    <span>Exportar Estoque</span>
+    <mat-icon>file_download</mat-icon>
+    <mat-icon>file_download</mat-icon>
+  </div>
+  <div class="painel-botoes">
+    <button mat-raised-button class="btn-cadastrar-circular" [routerLink]="['/carros/cadastrar']" title="Cadastrar veículo">
+      <mat-icon>drive_eta</mat-icon>
+    </button>
+    <button mat-raised-button class="btn-salvar">
+      <mat-icon>public</mat-icon> Salvar
+    </button>
+  </div>
+</div>
+
+<form class="filtros-bar" [formGroup]="filtroForm" (ngSubmit)="buscarCarros()">
+  <div class="filtros-grid">
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Placa</mat-label>
+      <input matInput formControlName="placa" mask="AAA-9A99" (keyup)="toUppercase($event)" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Marca</mat-label>
+      <input matInput formControlName="marca" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Modelo</mat-label>
+      <input matInput formControlName="modelo" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Ano Min</mat-label>
+      <mat-select formControlName="anoMin">
+        <mat-option *ngFor="let ano of anos" [value]="ano">{{ ano }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Ano Max</mat-label>
+      <mat-select formControlName="anoMax">
+        <mat-option *ngFor="let ano of anos" [value]="ano">{{ ano }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Preço</mat-label>
+      <mat-select formControlName="preco">
+        <mat-option [value]="'10000-50000'">10mil a 50mil</mat-option>
+        <mat-option [value]="'50000-90000'">50mil a 90mil</mat-option>
+        <mat-option [value]="'90000'">+90mil</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Fotos</mat-label>
+      <mat-select formControlName="hasPhotos">
+        <mat-option [value]="true">Com Fotos</mat-option>
+        <mat-option [value]="false">Sem Fotos</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Opcionais</mat-label>
+      <input matInput formControlName="opcionais" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="campo">
+      <mat-label>Cor</mat-label>
+      <mat-select formControlName="cor">
+        <mat-option *ngFor="let cor of cores" [value]="cor">{{ cor }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="buscar-centralizado">
+    <button mat-raised-button class="btn-buscar" type="submit" aria-label="Buscar carros">
+      <mat-icon>search</mat-icon> Buscar
+    </button>
+  </div>
+  <div class="pacotes-container">
+    <mat-radio-group formControlName="pacoteIcarros" aria-label="Pacote iCarros" class="pacotes-conteudo">
+      <h4>Pacote iCarros</h4>
+      <mat-radio-button [value]="1">Bronze</mat-radio-button>
+      <mat-radio-button [value]="2">Diamante</mat-radio-button>
+      <mat-radio-button [value]="3">Platinum</mat-radio-button>
+      <mat-radio-button [value]="4">Básico</mat-radio-button>
+    </mat-radio-group>
+    <mat-radio-group formControlName="pacoteWebmotors" aria-label="Pacote WebMotors" class="pacotes-conteudo">
+      <h4>Pacote WebMotors</h4>
+      <mat-radio-button [value]="1">Bronze</mat-radio-button>
+      <mat-radio-button [value]="2">Diamante</mat-radio-button>
+      <mat-radio-button [value]="3">Platinum</mat-radio-button>
+      <mat-radio-button [value]="4">Básico</mat-radio-button>
+    </mat-radio-group>
+    <div class="botoes-direita">
+      <button mat-raised-button class="btn-cadastrar" aria-label="Limpar filtros" (click)="limparFiltros()">
+        <mat-icon>clear</mat-icon> Limpar Filtros
+      </button>
+    </div>
+  </div>
+</form>
+
+<br />
+
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  class="mat-elevation-z8, table"
+>
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let carro">
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="deletarCarro(carro.id)"
+        matTooltip="Excluir carro"
+      >
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="primary"
+        (click)="editarCarro(carro.id)"
+        matTooltip="Editar carro"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="foto">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Foto</th>
+    <td mat-cell *matCellDef="let carro">
+      <img
+        *ngIf="carro.fotos.length > 0"
+        [src]="carro.fotos[0].url"
+        alt="Foto do carro"
+        class="foto-mini"
+      />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="marcaModelo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca / Modelo</th>
+    <td mat-cell *matCellDef="let carro">
+      {{ carro.marca }} / {{ carro.modelo }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="placa">
+    <th mat-header-cell *matHeaderCellDef>Placa</th>
+    <td mat-cell *matCellDef="let carro">{{ formatarPlaca(carro.placa) }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="ano">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ano</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.ano }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="cor">
+    <th mat-header-cell *matHeaderCellDef>Cor</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.cor }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="preco">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Preço</th>
+    <td mat-cell *matCellDef="let carro">
+      R$ {{ carro.preco | number : "1.2-2" }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="opcionais">
+    <th mat-header-cell *matHeaderCellDef>Opcionais</th>
+    <td mat-cell *matCellDef="let carro">{{ carro.listaOpcionais }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="quilometragem">
+    <th mat-header-cell *matHeaderCellDef>Quilometragem</th>
+    <td mat-cell *matCellDef="let carro">
+      {{ carro.quilometragem | number : "1.0-0" }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<div class="mat-mdc-paginator-outer-container tabela-footer">
+  <mat-paginator
+    [length]="totalCarrosFiltrados"
+    [pageSize]="tamanhoPagina"
+    [pageSizeOptions]="[2, 5, 10, 15, 20, 25, 50, 100]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

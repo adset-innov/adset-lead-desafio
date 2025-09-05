@@ -1,0 +1,184 @@
+<mat-card>
+  <div class="titulo">
+    <h1 class="titulo-pagina mat-h1 mat-primary">Editar Carro</h1>
+  </div>
+  <mat-card-content class="card-contend">
+    <form [formGroup]="carroForm" (ngSubmit)="salvar()" class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Placa</mat-label>
+        <input
+          matInput
+          formControlName="placa"
+          mask="AAA-9A99"
+          (keyup)="toUppercase($event)"
+        />
+        <mat-error
+          *ngIf="
+            carroForm.get('placa')?.touched && carroForm.get('placa')?.invalid
+          "
+        >
+          Placa é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Marca</mat-label>
+        <input matInput formControlName="marca" />
+        <mat-error
+          *ngIf="
+            carroForm.get('marca')?.touched && carroForm.get('marca')?.invalid
+          "
+        >
+          Marca é obrigatória.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Modelo</mat-label>
+        <input matInput formControlName="modelo" />
+        <mat-error
+          *ngIf="
+            carroForm.get('modelo')?.touched && carroForm.get('modelo')?.invalid
+          "
+        >
+          Modelo é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ano</mat-label>
+        <input matInput type="number" formControlName="ano" />
+        <mat-error
+          *ngIf="carroForm.get('ano')?.touched && carroForm.get('ano')?.invalid"
+        >
+          Ano inválido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Preço</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="preco"
+          mask="separator.2"
+          thousandSeparator="."
+          decimalMarker=","
+          prefix="R$ "
+        />
+        <mat-error
+          *ngIf="
+            carroForm.get('preco')?.touched && carroForm.get('preco')?.invalid
+          "
+        >
+          Preço é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cor</mat-label>
+        <input matInput formControlName="cor" />
+        <mat-error
+          *ngIf="carroForm.get('cor')?.touched && carroForm.get('cor')?.invalid"
+        >
+          Cor é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Opcionais</mat-label>
+        <input
+          matInput
+          formControlName="listaOpcionais"
+          placeholder="Ex: Ar-condicionado, Direção hidráulica"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Quilometragem</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="quilometragem"
+          mask="separator.0"
+          thousandSeparator="."
+        />
+      </mat-form-field>
+
+      <div class="pacote-group">
+        <h3 class="pacote-label">Pacote iCarros:</h3>
+        <mat-radio-group formControlName="pacoteIcarros">
+          <mat-radio-button [value]="1">Bronze</mat-radio-button>
+          <mat-radio-button [value]="2">Diamante</mat-radio-button>
+          <mat-radio-button [value]="3">Platinum</mat-radio-button>
+          <mat-radio-button [value]="4">Básico</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="pacote-group">
+        <h3 class="pacote-label">Pacote WebMotors:</h3>
+        <mat-radio-group formControlName="pacoteWebmotors">
+          <mat-radio-button [value]="1">Bronze</mat-radio-button>
+          <mat-radio-button [value]="2">Diamante</mat-radio-button>
+          <mat-radio-button [value]="3">Platinum</mat-radio-button>
+          <mat-radio-button [value]="4">Básico</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div formArrayName="fotos" class="fotos-container">
+        <h3>Fotos do Automóvel</h3>
+        <div
+          *ngFor="let foto of fotos.controls; let i = index"
+          [formGroupName]="i"
+          class="foto-item"
+        >
+          <ng-container *ngIf="foto.get('url')?.value; else novaFoto">
+            <img
+              [src]="foto.get('url')?.value"
+              alt="Foto do carro"
+              class="foto-preview"
+            />
+            <button
+              mat-icon-button
+              color="warn"
+              type="button"
+              (click)="removerFoto(i)"
+              aria-label="Remover foto"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-container>
+
+          <ng-template #novaFoto>
+            <mat-form-field appearance="outline" class="foto-url">
+              <input
+                matInput
+                formControlName="url"
+                placeholder="Cole a URL da nova foto"
+              />
+            </mat-form-field>
+          </ng-template>
+        </div>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          type="button"
+          (click)="adicionarFoto()"
+          [disabled]="fotos.length >= 15"
+        >
+          <mat-icon>add</mat-icon> Adicionar Foto
+        </button>
+
+        <p *ngIf="fotos.length >= 15" class="limite-fotos">
+          Limite de 15 fotos atingido.
+        </p>
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button class="btn-salvar" color="primary" type="submit">Salvar</button>
+        <button class="btn-voltar" mat-button [routerLink]="['/carros']">Voltar</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
