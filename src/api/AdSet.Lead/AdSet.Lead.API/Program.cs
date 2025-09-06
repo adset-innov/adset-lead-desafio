@@ -7,7 +7,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 // Logging
-builder.Host.UseSerilog((context, services, configuration) =>
+builder.Host.UseSerilog((context, _, configuration) =>
 {
     configuration
         .ReadFrom.Configuration(context.Configuration)
@@ -55,18 +55,19 @@ using (var scope = app.Services.CreateScope())
         var canConnect = await db.Database.CanConnectAsync();
         if (canConnect)
         {
-            Log.Information("Database connection established successfully.");
+            Log.Information("\e[32mDatabase connection established successfully.\e[0m");
         }
         else
         {
-            Log.Warning("Database connection failed: Database not accessible or does not exist.");
+            Log.Warning("\e[33mDatabase connection failed: Database not accessible or does not exist.\e[0m");
         }
     }
     catch (Exception ex)
     {
-        Log.Error(ex, "Database connection failed with exception.");
+        Log.Error(ex, "\e[31mDatabase connection failed with exception.\e[0m");
     }
 }
+
 
 // Middlewares
 app.UseSerilogRequestLogging();
