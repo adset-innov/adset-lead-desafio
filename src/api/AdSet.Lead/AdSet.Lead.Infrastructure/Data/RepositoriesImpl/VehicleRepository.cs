@@ -70,7 +70,7 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
     public async Task<int> GetWithoutPhotosCountAsync()
     {
         return await context.Vehicles
-            .CountAsync(v => v.Photos.Any());
+            .CountAsync(v => !v.Photos.Any());
     }
 
     public async Task<IEnumerable<string>> GetDistinctColorsAsync()
