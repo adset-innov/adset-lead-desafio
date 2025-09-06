@@ -1,38 +1,51 @@
-﻿using AdSet.Lead.Domain.Entities;
+﻿using AdSet.Lead.Core.Exceptions;
+using AdSet.Lead.Domain.Entities;
 using AdSet.Lead.Domain.Repositories;
 using AdSet.Lead.Infrastructure.Data.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdSet.Lead.Infrastructure.Data.RepositoriesImpl;
 
 public class PhotoRepository(AppDbContext context) : IPhotoRepository
 {
-    public Task SaveAsync()
+    public async Task SaveAsync()
     {
-        throw new NotImplementedException();
+        await context.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<Photo>> GetAllAsync()
+    public async Task<IEnumerable<Photo>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await context.Photos.ToListAsync();
     }
 
-    public Task<Photo> GetByIdAsync(Guid id)
+    public async Task<Photo> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var photo = await context.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+        if (photo is null)
+            throw new DbNotFoundException($"Photo with id {id} not found.");
+
+        return photo;
     }
 
-    public Task AddAsync(Photo photo)
+    public async Task AddAsync(Photo photo)
     {
-        throw new NotImplementedException();
+        await context.Photos.AddAsync(photo);
     }
 
     public Task UpdateAsync(Photo entity)
     {
-        throw new NotImplementedException();
+        context.Photos.Update(entity);
+        return Task.CompletedTask;
     }
 
-    public Task DeleteByIdAsync(Guid id)
+    public async Task DeleteByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var photo = await context.Photos.FindAsync(id);
+
+        if (photo is null)
+            throw new DbNotFoundException($"Photo with id {id} not found.");
+
+        context.Photos.Remove(photo);
     }
 }
