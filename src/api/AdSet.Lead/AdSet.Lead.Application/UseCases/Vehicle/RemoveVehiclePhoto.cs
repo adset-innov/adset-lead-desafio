@@ -25,10 +25,10 @@ public class RemoveVehiclePhoto(IVehicleRepository repository)
         vehicle.RemovePhoto(input.PhotoId);
         await repository.SaveAsync();
 
-        return new RemoveVehiclePhotoOutput(vehicle.Id.ToString());
+        return new RemoveVehiclePhotoOutput(vehicle.Id.ToString(), input.PhotoId.ToString());
     }
 }
 
 public record RemoveVehiclePhotoInput(Guid VehicleId, Guid PhotoId);
 
-public record RemoveVehiclePhotoOutput(string VehicleId);
+public record RemoveVehiclePhotoOutput(string VehicleId, string PhotoId);

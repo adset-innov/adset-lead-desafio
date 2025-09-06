@@ -8,6 +8,7 @@ public static class AddUseCasesServiceExtension
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
         // Vehicle
+        services.AddScoped<AddOrUpdateVehiclePortalPackage>();
         services.AddScoped<CreateVehicle>();
         services.AddScoped<DeleteVehicle>();
         services.AddScoped<GetAllVehicles>();
@@ -16,8 +17,11 @@ public static class AddUseCasesServiceExtension
         services.AddScoped<GetTotalCountVehicle>();
         services.AddScoped<GetWithoutPhotosCountVehicle>();
         services.AddScoped<GetWithPhotosCountVehicle>();
+        services.AddScoped<RemoveVehiclePhoto>();
+        services.AddScoped<RemoveVehiclePortalPackage>();
         services.AddScoped<SearchVehicles>();
         services.AddScoped<UpdateVehicle>();
+        services.AddScoped<UploadVehiclePhoto>();
 
         return services;
     }
