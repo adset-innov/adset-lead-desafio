@@ -71,7 +71,10 @@ using (var scope = app.Services.CreateScope())
 
 // Middlewares
 app.UseSerilogRequestLogging();
+
 app.UseCors("DefaultCorsPolicy");
+
+app.UseStaticFiles();
 
 // Run
 app.MapControllers();
