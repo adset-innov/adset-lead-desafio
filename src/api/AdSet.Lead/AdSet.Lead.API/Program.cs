@@ -1,3 +1,4 @@
+using AdSet.Lead.Infrastructure.Data.Database;
 using AdSet.Lead.Infrastructure.IoC;
 using AdSet.Lead.Infrastructure.Settings;
 using Scalar.AspNetCore;
@@ -5,21 +6,20 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Logging
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .Enrich.FromLogContext()
+        .Enrich.WithEnvironmentName();
+});
+
 // Default Setup
 builder.Services.AddControllers();
 
 // Db Context
 builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-// Logging
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .Enrich.FromLogContext()
-    .Enrich.WithEnvironmentName()
-    .WriteTo.Console()
-    .CreateLogger();
-
-builder.Host.UseSerilog();
 
 // Repositories
 builder.Services.AddRepositories();
@@ -27,8 +27,7 @@ builder.Services.AddRepositories();
 // Use Cases
 builder.Services.AddUseCases();
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// OpenAPI
 builder.Services.Configure<OpenApiSettings>(
     builder.Configuration.GetSection("OpenApiSettings"));
 builder.Services.AddOpenApi("v1");
@@ -46,6 +45,28 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Database Connection Test
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        var canConnect = await db.Database.CanConnectAsync();
+        if (canConnect)
+        {
+            Log.Information("Database connection established successfully.");
+        }
+        else
+        {
+            Log.Warning("Database connection failed: Database not accessible or does not exist.");
+        }
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "Database connection failed with exception.");
+    }
+}
 
 // Middlewares
 app.UseSerilogRequestLogging();
@@ -65,7 +86,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Production Environment Security
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
