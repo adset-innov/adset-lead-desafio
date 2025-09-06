@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\AdSet.Lead.Core\AdSet.Lead.Core.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Domain\AdSet.Lead.Domain.csproj"/>
+    </ItemGroup>
+
 </Project>

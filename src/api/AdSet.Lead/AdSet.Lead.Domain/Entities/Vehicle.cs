@@ -19,7 +19,7 @@ public sealed class Vehicle : IEntity
     public int Mileage { get; private set; }
     public Color Color { get; private set; }
     public decimal Price { get; private set; }
-    public VehicleOptions Options { get; private set; } = new(false, false, false, false);
+    public VehicleOptions Options { get; private set; } = new();
 
     private readonly List<Photo> _photos = [];
     public IReadOnlyCollection<Photo> Photos => _photos.AsReadOnly();
@@ -60,7 +60,7 @@ public sealed class Vehicle : IEntity
         Color = new Color(color);
         Price = price;
         Mileage = mileage;
-        Options = options ?? new VehicleOptions(false, false, false, false);
+        Options = options ?? new VehicleOptions();
         _photos.AddRange(photoList);
         _portalPackages.AddRange(portalPackageList);
     }

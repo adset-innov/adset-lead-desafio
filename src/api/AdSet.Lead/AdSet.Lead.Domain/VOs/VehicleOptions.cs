@@ -7,15 +7,13 @@ public sealed class VehicleOptions
     public bool Airbag { get; }
     public bool AbsBrakes { get; }
 
-    private VehicleOptions()
-    {
-    }
+    private VehicleOptions() { }
 
     public VehicleOptions(
-        bool airConditioning,
-        bool alarm,
-        bool airbag,
-        bool absBrakes
+        bool airConditioning = false,
+        bool alarm = false,
+        bool airbag = false,
+        bool absBrakes = false
     )
     {
         AirConditioning = airConditioning;
@@ -28,7 +26,8 @@ public sealed class VehicleOptions
         bool? airConditioning = null,
         bool? alarm = null,
         bool? airbag = null,
-        bool? absBrakes = null)
+        bool? absBrakes = null
+    )
     {
         return new VehicleOptions(
             airConditioning ?? AirConditioning,
@@ -38,19 +37,15 @@ public sealed class VehicleOptions
         );
     }
 
-    private bool Equals(VehicleOptions other)
-        => AirConditioning == other.AirConditioning
-           && Alarm == other.Alarm
-           && Airbag == other.Airbag
-           && AbsBrakes == other.AbsBrakes;
+    private bool Equals(VehicleOptions other) =>
+        AirConditioning == other.AirConditioning &&
+        Alarm == other.Alarm &&
+        Airbag == other.Airbag &&
+        AbsBrakes == other.AbsBrakes;
 
+    public override bool Equals(object? obj) =>
+        obj is VehicleOptions other && Equals(other);
 
-    public override bool Equals(object? obj)
-    {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((VehicleOptions)obj);
-    }
-
-    public override int GetHashCode() => HashCode.Combine(AirConditioning, Alarm, Airbag, AbsBrakes);
-}
+    public override int GetHashCode() =>
+        HashCode.Combine(AirConditioning, Alarm, Airbag, AbsBrakes);
+} 

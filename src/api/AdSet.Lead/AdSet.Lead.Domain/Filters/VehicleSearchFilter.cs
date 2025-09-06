@@ -1,4 +1,5 @@
 ﻿using AdSet.Lead.Domain.Enums;
+using AdSet.Lead.Domain.Interfaces;
 using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.Domain.Filters;
@@ -17,5 +18,5 @@ public sealed class VehicleSearchFilter
     public VehicleOptions? Options { get; init; }
     public Portal? Portal { get; init; }
     public Package? Package { get; init; }
-    public PaginationFilter Pagination { get; init; } = new(1, 10);
+    public IPaginationFilter Pagination { get; init; } = new PaginationFilter(1, 10);
 }
