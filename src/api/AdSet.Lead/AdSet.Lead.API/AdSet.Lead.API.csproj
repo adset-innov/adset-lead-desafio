@@ -8,6 +8,20 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.7.2"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0"/>
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AdSet.Lead.Application\AdSet.Lead.Application.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Core\AdSet.Lead.Core.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Domain\AdSet.Lead.Domain.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Infrastructure\AdSet.Lead.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

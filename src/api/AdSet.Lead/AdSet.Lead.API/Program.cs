@@ -1,41 +1,77 @@
+using AdSet.Lead.Infrastructure.IoC;
+using AdSet.Lead.Infrastructure.Settings;
+using Scalar.AspNetCore;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Default Setup
+builder.Services.AddControllers();
+
+// Db Context
+builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+// Logging
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .Enrich.WithEnvironmentName()
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+// Repositories
+builder.Services.AddRepositories();
+
+// Use Cases
+builder.Services.AddUseCases();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.Configure<OpenApiSettings>(
+    builder.Configuration.GetSection("OpenApiSettings"));
+builder.Services.AddOpenApi("v1");
+
+// Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DefaultCorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middlewares
+app.UseSerilogRequestLogging();
+app.UseCors("DefaultCorsPolicy");
+
+// Run
+app.MapControllers();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options.Title = "AdSet Lead API";
+        options.Theme = ScalarTheme.BluePlanet;
+        options.ShowSidebar = true;
+    });
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+// Production Environment Security
+if (!app.Environment.IsDevelopment())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    app.UseHttpsRedirection();
+    app.UseHsts();
+}
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+public abstract partial class Program;
