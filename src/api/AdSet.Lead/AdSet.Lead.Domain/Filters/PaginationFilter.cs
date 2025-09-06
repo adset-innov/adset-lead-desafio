@@ -1,7 +1,7 @@
 ﻿using AdSet.Lead.Core.Exceptions;
 using AdSet.Lead.Domain.Interfaces;
 
-namespace AdSet.Lead.Domain.VOs;
+namespace AdSet.Lead.Domain.Filters;
 
 public sealed class PaginationFilter : IPaginationFilter
 {

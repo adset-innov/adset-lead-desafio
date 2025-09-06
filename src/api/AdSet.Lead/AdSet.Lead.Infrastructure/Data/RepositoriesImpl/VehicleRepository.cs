@@ -1,70 +1,104 @@
-﻿using AdSet.Lead.Domain.Entities;
-using AdSet.Lead.Domain.Enums;
-using AdSet.Lead.Domain.Interfaces;
+﻿using AdSet.Lead.Core.Exceptions;
+using AdSet.Lead.Domain.Entities;
+using AdSet.Lead.Domain.Filters;
 using AdSet.Lead.Domain.Repositories;
 using AdSet.Lead.Domain.VOs;
 using AdSet.Lead.Infrastructure.Data.Database;
+using AdSet.Lead.Infrastructure.Data.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdSet.Lead.Infrastructure.Data.RepositoriesImpl;
 
 public class VehicleRepository(AppDbContext context) : IVehicleRepository
 {
-    public Task SaveAsync()
+    public async Task SaveAsync()
     {
-        throw new NotImplementedException();
+        await context.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<Vehicle>> GetAllAsync()
+    public async Task<IEnumerable<Vehicle>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await context.Vehicles
+            .Include(v => v.Photos)
+            .ToListAsync();
     }
 
-    public Task<Vehicle> GetByIdAsync(Guid id)
+    public async Task<Vehicle> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var vehicle = await context.Vehicles
+            .Include(v => v.Photos)
+            .FirstOrDefaultAsync(v => v.Id == id);
+
+        if (vehicle is null)
+            throw new DbNotFoundException($"Vehicle with id {id} not found.");
+
+        return vehicle;
     }
 
-    public Task AddAsync(Vehicle vehicle)
+    public async Task AddAsync(Vehicle vehicle)
     {
-        throw new NotImplementedException();
+        await context.Vehicles.AddAsync(vehicle);
     }
 
-    public Task UpdateAsync(Vehicle entity)
+    public Task UpdateAsync(Vehicle vehicle)
     {
-        throw new NotImplementedException();
+        context.Vehicles.Update(vehicle);
+        return Task.CompletedTask;
     }
 
-    public Task DeleteByIdAsync(Guid id)
+    public async Task DeleteByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var vehicle = await context.Vehicles.FindAsync(id);
+
+        if (vehicle is null)
+            throw new DbNotFoundException($"Vehicle with id {id} not found.");
+
+        context.Vehicles.Remove(vehicle);
     }
 
-    public Task<int> GetTotalCountAsync()
+    public async Task<int> GetTotalCountAsync()
     {
-        throw new NotImplementedException();
+        return await context.Vehicles.CountAsync();
     }
 
-    public Task<int> GetWithPhotosCountAsync()
+    public async Task<int> GetWithPhotosCountAsync()
     {
-        throw new NotImplementedException();
+        return await context.Vehicles
+            .CountAsync(v => v.Photos.Any());
     }
 
-    public Task<int> GetWithoutPhotosCountAsync()
+    public async Task<int> GetWithoutPhotosCountAsync()
     {
-        throw new NotImplementedException();
+        return await context.Vehicles
+            .CountAsync(v => v.Photos.Any());
     }
 
-    public Task<IEnumerable<string>> GetDistinctColorsAsync()
+    public async Task<IEnumerable<string>> GetDistinctColorsAsync()
     {
-        throw new NotImplementedException();
+        return await context.Vehicles
+            .Select(v => v.Color.Value)
+            .Distinct()
+            .ToListAsync();
     }
 
-    public Task<PagedResult<Vehicle>> SearchAsync(string? plate = null, string? brand = null, string? model = null,
-        int? yearMin = null,
-        int? yearMax = null, decimal? priceMin = null, decimal? priceMax = null, bool? hasPhotos = null,
-        string? color = null, VehicleOptions? options = null, Portal? portal = null, Package? package = null,
-        IPaginationFilter? pagination = null)
+    public async Task<PagedResult<Vehicle>> SearchAsync(VehicleSearchFilter filter)
     {
-        throw new NotImplementedException();
+        var query = context.Vehicles
+            .Include(v => v.Photos)
+            .ApplyFilters(filter);
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .Skip((filter.Pagination.PageNumber - 1) * filter.Pagination.PageSize)
+            .Take(filter.Pagination.PageSize)
+            .ToListAsync();
+
+        return new PagedResult<Vehicle>(
+            items,
+            totalCount,
+            filter.Pagination.PageNumber,
+            filter.Pagination.PageSize
+        );
     }
 }

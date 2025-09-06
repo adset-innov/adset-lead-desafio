@@ -1,5 +1,4 @@
 ﻿using AdSet.Lead.Domain.Entities;
-using AdSet.Lead.Infrastructure.Data.Configurations.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

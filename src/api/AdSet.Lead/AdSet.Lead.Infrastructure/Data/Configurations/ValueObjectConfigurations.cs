@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AdSet.Lead.Infrastructure.Data.Configurations.Extensions;
+namespace AdSet.Lead.Infrastructure.Data.Configurations;
 
 public static class ValueObjectConfigurations
 {
