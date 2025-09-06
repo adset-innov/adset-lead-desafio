@@ -9,7 +9,6 @@ public static class AddRepositoriesServiceExtension
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IVehicleRepository, VehicleRepository>();
-        services.AddScoped<IPhotoRepository, PhotoRepository>();
 
         return services;
     }
