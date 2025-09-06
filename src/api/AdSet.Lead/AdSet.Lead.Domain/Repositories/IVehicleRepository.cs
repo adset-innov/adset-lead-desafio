@@ -1,5 +1,4 @@
 ﻿using AdSet.Lead.Domain.Entities;
-using AdSet.Lead.Domain.Enums;
 using AdSet.Lead.Domain.Filters;
 using AdSet.Lead.Domain.Interfaces;
 using AdSet.Lead.Domain.VOs;

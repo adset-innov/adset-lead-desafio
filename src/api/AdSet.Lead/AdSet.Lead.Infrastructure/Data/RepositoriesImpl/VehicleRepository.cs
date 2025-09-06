@@ -40,12 +40,6 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
         await context.Vehicles.AddAsync(vehicle);
     }
 
-    public Task UpdateAsync(Vehicle vehicle)
-    {
-        context.Vehicles.Update(vehicle);
-        return Task.CompletedTask;
-    }
-
     public async Task DeleteByIdAsync(Guid id)
     {
         var vehicle = await context.Vehicles.FindAsync(id);

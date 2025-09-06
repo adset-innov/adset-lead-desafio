@@ -93,6 +93,31 @@ public sealed class Vehicle : IEntity
             throw new DomainValidationException("A vehicle can only have one package per portal.");
     }
 
+    public void UpdateDetails(
+        string brand,
+        string model,
+        int year,
+        string licensePlate,
+        string color,
+        decimal price,
+        int mileage,
+        VehicleOptions? options = null
+    )
+    {
+        Validate(brand, model, year, price, _photos, _portalPackages);
+
+        Brand = brand;
+        Model = model;
+        Year = year;
+        LicensePlate = new LicensePlate(licensePlate);
+        Color = new Color(color);
+        Price = price;
+        Mileage = mileage;
+        Options = options ?? Options;
+
+        UpdatedOn = DateTime.UtcNow;
+    }
+
     public void AddPhoto(Photo photo)
     {
         if (photo is null)
