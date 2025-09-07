@@ -3,7 +3,7 @@ using AdSet.Lead.Domain.Interfaces;
 
 namespace AdSet.Lead.Domain.Filters;
 
-public sealed class PaginationFilter : IPaginationFilter
+public sealed class PaginationFilter
 {
     public int PageNumber { get; }
     public int PageSize { get; }

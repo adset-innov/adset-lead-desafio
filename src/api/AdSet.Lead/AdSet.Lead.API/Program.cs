@@ -21,6 +21,9 @@ builder.Services.AddControllers();
 // Db Context
 builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 
+// Services
+builder.Services.AddInfrastructureServices();
+
 // Repositories
 builder.Services.AddRepositories();
 

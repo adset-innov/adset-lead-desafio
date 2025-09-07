@@ -2,7 +2,6 @@
 using AdSet.Lead.Application.Mappers;
 using AdSet.Lead.Domain.Enums;
 using AdSet.Lead.Domain.Filters;
-using AdSet.Lead.Domain.Interfaces;
 using AdSet.Lead.Domain.Repositories;
 using AdSet.Lead.Domain.VOs;
 
@@ -56,7 +55,7 @@ public record SearchVehiclesInput(
     VehicleOptions? Options,
     Portal? Portal,
     Package? Package,
-    IPaginationFilter Pagination
+    PaginationFilter Pagination
 );
 
 public record SearchVehiclesOutput(

@@ -11,14 +11,14 @@ public class UpdateVehicle(IVehicleRepository repository)
         var existing = await repository.GetByIdAsync(Guid.Parse(input.Id));
 
         existing.UpdateDetails(
-            input.Vehicle.Brand,
-            input.Vehicle.Model,
-            input.Vehicle.Year,
-            input.Vehicle.LicensePlate,
-            input.Vehicle.Color,
-            input.Vehicle.Price,
-            input.Vehicle.Mileage,
-            VehicleOptionsMapper.FromDto(input.Vehicle.Options)
+            input.Brand,
+            input.Model,
+            input.Year,
+            input.LicensePlate,
+            input.Color,
+            input.Price,
+            input.Mileage,
+            VehicleOptionsMapper.FromDto(input.Options)
         );
 
         await repository.SaveAsync();
@@ -27,6 +27,16 @@ public class UpdateVehicle(IVehicleRepository repository)
     }
 }
 
-public record UpdateVehicleInput(string Id, VehicleDto Vehicle);
+public record UpdateVehicleInput(
+    string Id,
+    string Brand,
+    string Model,
+    int Year,
+    string LicensePlate,
+    string Color,
+    decimal Price,
+    int Mileage,
+    VehicleOptionsDto Options
+);
 
 public record UpdateVehicleOutput(string Id);

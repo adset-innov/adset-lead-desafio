@@ -1,6 +1,4 @@
-﻿using AdSet.Lead.Domain.VOs;
-
-namespace AdSet.Lead.Application.DTOs;
+﻿namespace AdSet.Lead.Application.DTOs;
 
 public record VehicleDto(
     string Id,

@@ -1,4 +1,5 @@
-﻿using AdSet.Lead.Application.DTOs;
+﻿using System.Text.Json;
+using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.UseCases.Vehicle;
 using AdSet.Lead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,43 @@ public class VehicleController(
 ) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateVehicleInput req)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Create(
+        [FromForm] string brand,
+        [FromForm] string model,
+        [FromForm] int year,
+        [FromForm] string licensePlate,
+        [FromForm] string color,
+        [FromForm] decimal price,
+        [FromForm] int mileage,
+        [FromForm] string optionsJson,
+        [FromForm] List<IFormFile>? files,
+        [FromForm] string? portalPackagesJson)
     {
-        var output = await createVehicleUc.Execute(req);
+        var options = JsonSerializer.Deserialize<VehicleOptionsDto>(optionsJson);
+        var portalPackages = portalPackagesJson != null
+            ? JsonSerializer.Deserialize<List<PortalPackageDto>>(portalPackagesJson)
+            : null;
+
+        var fileInputs = files?.Select(f => new CreateVehicleFile(f.OpenReadStream(), f.FileName)).ToList();
+
+        var input = new CreateVehicleInput(
+            brand,
+            model,
+            year,
+            licensePlate,
+            color,
+            price,
+            mileage,
+            options!,
+            fileInputs,
+            portalPackages
+        );
+
+        var output = await createVehicleUc.Execute(input);
         return Ok(output);
     }
+
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
@@ -53,9 +86,9 @@ public class VehicleController(
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] VehicleDto req)
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateVehicleInput req)
     {
-        var input = new UpdateVehicleInput(id.ToString(), req);
+        var input = req with { Id = id.ToString() };
         var output = await updateVehicleUc.Execute(input);
         return Ok(output);
     }

@@ -28,11 +28,11 @@ public static class VehicleMapper
     {
         var options = VehicleOptionsMapper.FromDto(dto.Options);
 
-        var photos = dto.Photos?
+        var photos = dto.Photos
             .Select(PhotoMapper.FromDto)
             .ToList();
 
-        var portalPackages = dto.PortalPackages?
+        var portalPackages = dto.PortalPackages
             .Select(PortalPackageMapper.FromDto)
             .ToList();
 
