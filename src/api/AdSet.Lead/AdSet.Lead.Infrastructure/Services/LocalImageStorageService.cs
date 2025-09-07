@@ -1,16 +1,15 @@
 ﻿using AdSet.Lead.Application.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace AdSet.Lead.Infrastructure.Services;
 
-public class LocalImageStorageService : IImageStorageService
+public class LocalImageStorageService(IConfiguration configuration) : IImageStorageService
 {
     private readonly string _rootFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-    private static readonly string[] AllowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+    private readonly string _baseUrl = configuration["App:BaseUrl"] ?? "http://localhost:5100";
 
     public async Task<string> SaveImageAsync(Stream fileStream, string fileName, string folder)
     {
-        ValidateImage(fileStream, fileName);
-
         var folderPath = Path.Combine(_rootFolder, folder);
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
@@ -23,7 +22,8 @@ public class LocalImageStorageService : IImageStorageService
             await fileStream.CopyToAsync(stream);
         }
 
-        return $"/uploads/{folder}/{newFileName}".Replace("\\", "/");
+        var absolutePath = $"{_baseUrl}/uploads/{folder}/{newFileName}".Replace("\\", "/");
+        return absolutePath;
     }
 
     public void DeleteImage(string relativePath)
@@ -31,18 +31,5 @@ public class LocalImageStorageService : IImageStorageService
         var fullPath = Path.Combine(_rootFolder, relativePath.TrimStart('/'));
         if (File.Exists(fullPath))
             File.Delete(fullPath);
-    }
-
-    private static void ValidateImage(Stream fileStream, string fileName)
-    {
-        if (fileStream == null || fileStream.Length == 0)
-            throw new ArgumentException("Invalid image.");
-
-        if (fileStream.Length > 5 * 1024 * 1024)
-            throw new ArgumentException("Image size cannot exceed 5MB.");
-
-        var extension = Path.GetExtension(fileName).ToLowerInvariant();
-        if (!AllowedExtensions.Contains(extension))
-            throw new ArgumentException($"Image type {extension} is not allowed.");
     }
 }

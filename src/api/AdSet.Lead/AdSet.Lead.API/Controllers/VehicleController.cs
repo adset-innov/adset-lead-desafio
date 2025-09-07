@@ -3,6 +3,7 @@ using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.UseCases.Vehicle;
 using AdSet.Lead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using AdSet.Lead.API.Helpers;
 
 namespace AdSet.Lead.API.Controllers;
 
@@ -39,6 +40,10 @@ public class VehicleController(
         [FromForm] List<IFormFile>? files,
         [FromForm] string? portalPackagesJson)
     {
+        var error = ImageValidationHelper.Validate(files);
+        if (error != null)
+            return BadRequest(error);
+
         var options = JsonSerializer.Deserialize<VehicleOptionsDto>(optionsJson);
         var portalPackages = portalPackagesJson != null
             ? JsonSerializer.Deserialize<List<PortalPackageDto>>(portalPackagesJson)
@@ -62,7 +67,6 @@ public class VehicleController(
         var output = await createVehicleUc.Execute(input);
         return Ok(output);
     }
-
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
@@ -131,16 +135,13 @@ public class VehicleController(
     [HttpPost("{id:guid}/photos")]
     public async Task<IActionResult> UploadPhoto(Guid id, IFormFile? file)
     {
-        if (file == null || file.Length == 0)
-            return BadRequest("Invalid file.");
+        var error = ImageValidationHelper.Validate(file);
+        if (error != null)
+            return BadRequest(error);
 
-        if (file.Length > 5 * 1024 * 1024)
-            return BadRequest("File size cannot exceed 5MB.");
-
-        await using var stream = file.OpenReadStream();
+        await using var stream = file!.OpenReadStream();
 
         var input = new UploadVehiclePhotoInput(id, stream, file.FileName);
-
         var output = await uploadVehiclePhotoUc.Execute(input);
 
         return Ok(output);
