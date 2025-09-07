@@ -24,8 +24,4 @@
         <ProjectReference Include="..\AdSet.Lead.Infrastructure\AdSet.Lead.Infrastructure.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="wwwroot\"/>
-    </ItemGroup>
-
 </Project>
