@@ -1,6 +1,5 @@
 ﻿using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Domain.Entities;
-using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.Application.Mappers;
 
@@ -19,32 +18,22 @@ public static class VehicleMapper
             vehicle.Color.Value,
             vehicle.Price,
             vehicle.Mileage,
-            new VehicleOptionsDto(
-                vehicle.Options.AirConditioning,
-                vehicle.Options.Alarm,
-                vehicle.Options.Airbag,
-                vehicle.Options.AbsBrakes
-            ),
-            vehicle.Photos.Select(p => new PhotoDto(p.Id.ToString(), p.Url)).ToList(),
-            vehicle.PortalPackages.Select(pp => new PortalPackageDto(pp.Portal, pp.Package)).ToList()
+            VehicleOptionsMapper.ToDto(vehicle.Options),
+            vehicle.Photos.Select(PhotoMapper.ToDto).ToList(),
+            vehicle.PortalPackages.Select(PortalPackageMapper.ToDto).ToList()
         );
     }
 
     public static Vehicle FromDto(VehicleDto dto)
     {
-        var options = new VehicleOptions(
-            dto.Options.AirConditioning,
-            dto.Options.Alarm,
-            dto.Options.Airbag,
-            dto.Options.AbsBrakes
-        );
+        var options = VehicleOptionsMapper.FromDto(dto.Options);
 
         var photos = dto.Photos?
-            .Select(p => new Photo(p.Url))
+            .Select(PhotoMapper.FromDto)
             .ToList();
 
         var portalPackages = dto.PortalPackages?
-            .Select(pp => new PortalPackage(pp.Portal, pp.Package))
+            .Select(PortalPackageMapper.FromDto)
             .ToList();
 
         return new Vehicle(
