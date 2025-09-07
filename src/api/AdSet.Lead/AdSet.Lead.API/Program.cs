@@ -16,7 +16,8 @@ builder.Host.UseSerilog((context, _, configuration) =>
 });
 
 // Default Setup
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opt => { opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true; });
 
 // Db Context
 builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));

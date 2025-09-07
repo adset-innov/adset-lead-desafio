@@ -36,18 +36,13 @@ public class VehicleController(
         [FromForm] string color,
         [FromForm] decimal price,
         [FromForm] int mileage,
-        [FromForm] string optionsJson,
+        [FromFormJson] VehicleOptionsDto options,
         [FromForm] List<IFormFile>? files,
-        [FromForm] string? portalPackagesJson)
+        [FromFormJson] List<PortalPackageDto>? portalPackages)
     {
         var error = ImageValidationHelper.Validate(files);
         if (error != null)
             return BadRequest(error);
-
-        var options = JsonSerializer.Deserialize<VehicleOptionsDto>(optionsJson);
-        var portalPackages = portalPackagesJson != null
-            ? JsonSerializer.Deserialize<List<PortalPackageDto>>(portalPackagesJson)
-            : null;
 
         var fileInputs = files?.Select(f => new CreateVehicleFile(f.OpenReadStream(), f.FileName)).ToList();
 
@@ -59,7 +54,7 @@ public class VehicleController(
             color,
             price,
             mileage,
-            options!,
+            options,
             fileInputs,
             portalPackages
         );
