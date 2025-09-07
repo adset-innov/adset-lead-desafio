@@ -1,5 +1,6 @@
 ﻿using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.Mappers;
+using AdSet.Lead.Domain.VOs;
 using AdSet.Lead.Domain.Repositories;
 
 namespace AdSet.Lead.Application.UseCases.Vehicle;
@@ -18,7 +19,7 @@ public class UpdateVehicle(IVehicleRepository repository)
             input.Color,
             input.Price,
             input.Mileage,
-            VehicleOptionsMapper.FromDto(input.Options)
+            new VehicleOptions(input.Options ?? new Dictionary<string, bool>())
         );
 
         await repository.SaveAsync();
@@ -36,7 +37,7 @@ public record UpdateVehicleInput(
     string Color,
     decimal Price,
     int Mileage,
-    VehicleOptionsDto Options
+    Dictionary<string, bool>? Options
 );
 
 public record UpdateVehicleOutput(string Id);

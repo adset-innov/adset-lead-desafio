@@ -2,6 +2,7 @@
 using AdSet.Lead.Application.Interfaces;
 using AdSet.Lead.Application.Mappers;
 using AdSet.Lead.Domain.Entities;
+using AdSet.Lead.Domain.VOs;
 using AdSet.Lead.Domain.Repositories;
 
 namespace AdSet.Lead.Application.UseCases.Vehicle;
@@ -20,7 +21,7 @@ public class CreateVehicle(IVehicleRepository repository, IImageStorageService i
             input.Color,
             input.Price,
             input.Mileage,
-            VehicleOptionsMapper.FromDto(input.Options),
+            new VehicleOptions(input.Options ?? new Dictionary<string, bool>()),
             photos,
             input.PortalPackages?.Select(PortalPackageMapper.FromDto)
         );
@@ -56,7 +57,7 @@ public record CreateVehicleInput(
     string Color,
     decimal Price,
     int Mileage,
-    VehicleOptionsDto Options,
+    Dictionary<string, bool>? Options,
     List<CreateVehicleFile>? Files,
     List<PortalPackageDto>? PortalPackages
 );

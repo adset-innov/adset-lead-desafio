@@ -11,7 +11,7 @@ public record VehicleDto(
     string Color,
     decimal Price,
     int Mileage,
-    VehicleOptionsDto Options,
+    Dictionary<string, bool> Options,
     List<PhotoDto> Photos,
     List<PortalPackageDto> PortalPackages
 );

@@ -7,7 +7,6 @@ using AdSet.Lead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using AdSet.Lead.API.Helpers;
 using AdSet.Lead.Domain.Filters;
-using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.API.Controllers;
 
@@ -46,7 +45,7 @@ public class VehicleController(
         [FromForm] string color,
         [FromForm] decimal price,
         [FromForm] int mileage,
-        [FromForm] string options,
+        [FromForm] string options, // JSON string vindo do form
         [FromForm] List<IFormFile>? files,
         [FromForm] string? portalPackages
     )
@@ -55,7 +54,7 @@ public class VehicleController(
         if (error != null)
             return BadRequest(error);
 
-        if (!TryDeserialize(options, out VehicleOptionsDto? optionsDto, out var optionsError))
+        if (!TryDeserialize(options, out Dictionary<string, bool>? optionsDict, out var optionsError))
             return BadRequest($"Invalid 'Options' JSON: {optionsError}");
 
         List<PortalPackageDto>? portalPackagesDto = null;
@@ -75,7 +74,7 @@ public class VehicleController(
             color,
             price,
             mileage,
-            optionsDto!,
+            optionsDict ?? new Dictionary<string, bool>(), // ✅ agora direto
             fileInputs,
             portalPackagesDto
         );
@@ -140,8 +139,7 @@ public class VehicleController(
         [FromQuery] decimal? priceMax,
         [FromQuery] bool? hasPhotos,
         [FromQuery] string? color,
-        [FromQueryBinder<VehicleOptionsFilterBinder>]
-        VehicleOptionsFilter? options,
+        [FromQueryBinder<VehicleOptionsFilterBinder>] VehicleOptionsFilter? options,
         [FromQuery] Portal? portal,
         [FromQuery] Package? package,
         [FromQuery] int pageNumber = 1,
@@ -157,7 +155,6 @@ public class VehicleController(
         var output = await searchVehiclesUc.Execute(input);
         return Ok(output);
     }
-
 
     [HttpGet("count/total")]
     public async Task<IActionResult> GetTotalCount()
@@ -227,3 +224,4 @@ public class VehicleController(
         return Ok(output);
     }
 }
+ 
