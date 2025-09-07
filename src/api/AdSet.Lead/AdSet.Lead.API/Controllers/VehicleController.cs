@@ -1,9 +1,13 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using AdSet.Lead.API.Binders;
 using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.UseCases.Vehicle;
 using AdSet.Lead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using AdSet.Lead.API.Helpers;
+using AdSet.Lead.Domain.Filters;
+using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.API.Controllers;
 
@@ -26,6 +30,12 @@ public class VehicleController(
     RemoveVehiclePortalPackage removeVehiclePortalPackageUc
 ) : ControllerBase
 {
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = { new JsonStringEnumConverter() }
+    };
+
     [HttpPost]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> Create(
@@ -36,13 +46,24 @@ public class VehicleController(
         [FromForm] string color,
         [FromForm] decimal price,
         [FromForm] int mileage,
-        [FromFormJson] VehicleOptionsDto options,
+        [FromForm] string options,
         [FromForm] List<IFormFile>? files,
-        [FromFormJson] List<PortalPackageDto>? portalPackages)
+        [FromForm] string? portalPackages
+    )
     {
-        var error = ImageValidationHelper.Validate(files);
+        var error = ImageValidator.Validate(files);
         if (error != null)
             return BadRequest(error);
+
+        if (!TryDeserialize(options, out VehicleOptionsDto? optionsDto, out var optionsError))
+            return BadRequest($"Invalid 'Options' JSON: {optionsError}");
+
+        List<PortalPackageDto>? portalPackagesDto = null;
+        if (!string.IsNullOrWhiteSpace(portalPackages) &&
+            !TryDeserialize(portalPackages, out portalPackagesDto, out var portalError))
+        {
+            return BadRequest($"Invalid 'PortalPackages' JSON: {portalError}");
+        }
 
         var fileInputs = files?.Select(f => new CreateVehicleFile(f.OpenReadStream(), f.FileName)).ToList();
 
@@ -54,13 +75,29 @@ public class VehicleController(
             color,
             price,
             mileage,
-            options,
+            optionsDto!,
             fileInputs,
-            portalPackages
+            portalPackagesDto
         );
 
         var output = await createVehicleUc.Execute(input);
         return Ok(output);
+    }
+
+    private static bool TryDeserialize<T>(string json, out T? result, out string? error)
+    {
+        try
+        {
+            result = JsonSerializer.Deserialize<T>(json, JsonOptions);
+            error = null;
+            return true;
+        }
+        catch (JsonException ex)
+        {
+            result = default;
+            error = ex.Message;
+            return false;
+        }
     }
 
     [HttpDelete("{id:guid}")]
@@ -93,11 +130,34 @@ public class VehicleController(
     }
 
     [HttpGet("search")]
-    public async Task<IActionResult> Search([FromQuery] SearchVehiclesInput req)
+    public async Task<IActionResult> Search(
+        [FromQuery] string? plate,
+        [FromQuery] string? brand,
+        [FromQuery] string? model,
+        [FromQuery] int? yearMin,
+        [FromQuery] int? yearMax,
+        [FromQuery] decimal? priceMin,
+        [FromQuery] decimal? priceMax,
+        [FromQuery] bool? hasPhotos,
+        [FromQuery] string? color,
+        [FromQueryBinder<VehicleOptionsFilterBinder>]
+        VehicleOptionsFilter? options,
+        [FromQuery] Portal? portal,
+        [FromQuery] Package? package,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10
+    )
     {
-        var output = await searchVehiclesUc.Execute(req);
+        var input = new SearchVehiclesInput(
+            plate, brand, model, yearMin, yearMax,
+            priceMin, priceMax, hasPhotos, color,
+            options, portal, package, pageNumber, pageSize
+        );
+
+        var output = await searchVehiclesUc.Execute(input);
         return Ok(output);
     }
+
 
     [HttpGet("count/total")]
     public async Task<IActionResult> GetTotalCount()
@@ -130,7 +190,7 @@ public class VehicleController(
     [HttpPost("{id:guid}/photos")]
     public async Task<IActionResult> UploadPhoto(Guid id, IFormFile? file)
     {
-        var error = ImageValidationHelper.Validate(file);
+        var error = ImageValidator.Validate(file);
         if (error != null)
             return BadRequest(error);
 

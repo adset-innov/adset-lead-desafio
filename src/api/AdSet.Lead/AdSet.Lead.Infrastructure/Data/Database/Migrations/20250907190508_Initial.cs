@@ -25,10 +25,7 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                     Mileage = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    HasAirConditioning = table.Column<bool>(type: "bit", nullable: false),
-                    HasAlarm = table.Column<bool>(type: "bit", nullable: false),
-                    HasAirbag = table.Column<bool>(type: "bit", nullable: false),
-                    HasAbsBrakes = table.Column<bool>(type: "bit", nullable: false)
+                    Options = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

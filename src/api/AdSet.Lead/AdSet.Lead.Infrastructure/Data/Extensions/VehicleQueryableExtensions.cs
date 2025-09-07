@@ -7,7 +7,7 @@ public static class VehicleQueryableExtensions
 {
     public static IQueryable<Vehicle> ApplyFilters(this IQueryable<Vehicle> query, VehicleSearchFilter filter)
     {
-        return query
+        query = query
             .WhereIf(!string.IsNullOrWhiteSpace(filter.Plate),
                 v => v.LicensePlate.Value.Contains(filter.Plate!))
             .WhereIf(!string.IsNullOrWhiteSpace(filter.Brand),
@@ -22,23 +22,33 @@ public static class VehicleQueryableExtensions
                 v => v.Price >= filter.PriceMin!.Value)
             .WhereIf(filter.PriceMax.HasValue,
                 v => v.Price <= filter.PriceMax!.Value)
-            .WhereIf(filter.HasPhotos == true,
+
+            // Photo
+            .WhereIf(filter.HasPhotos is true,
                 v => v.Photos.Any())
-            .WhereIf(filter.HasPhotos == false,
+            .WhereIf(filter.HasPhotos is false,
                 v => !v.Photos.Any())
+
+            // Color
             .WhereIf(!string.IsNullOrWhiteSpace(filter.Color),
                 v => v.Color.Value == filter.Color!)
-            .WhereIf(filter.Options?.AirConditioning == true,
-                v => v.Options.AirConditioning)
-            .WhereIf(filter.Options?.Alarm == true,
-                v => v.Options.Alarm)
-            .WhereIf(filter.Options?.Airbag == true,
-                v => v.Options.Airbag)
-            .WhereIf(filter.Options?.AbsBrakes == true,
-                v => v.Options.AbsBrakes)
+
+            // Portal and Package
             .WhereIf(filter.Portal.HasValue,
                 v => v.PortalPackages.Any(pp => pp.Portal == filter.Portal))
             .WhereIf(filter.Package.HasValue,
                 v => v.PortalPackages.Any(pp => pp.Package == filter.Package));
+
+        if (filter.Options is { Options.Count: > 0 })
+        {
+            foreach (var (key, expected) in filter.Options.Options)
+            {
+                query = query.Where(v =>
+                    v.Options.Options.ContainsKey(key) &&
+                    v.Options.Options[key] == expected);
+            }
+        }
+
+        return query;
     }
 }

@@ -25,7 +25,7 @@ public class SearchVehicles(IVehicleRepository repository)
             Options = input.Options,
             Portal = input.Portal,
             Package = input.Package,
-            Pagination = input.Pagination
+            Pagination = new PaginationFilter(input.PageNumber, input.PageSize)
         };
 
         var pagedResult = await repository.SearchAsync(filter);
@@ -52,10 +52,11 @@ public record SearchVehiclesInput(
     decimal? PriceMax,
     bool? HasPhotos,
     string? Color,
-    VehicleOptions? Options,
+    VehicleOptionsFilter? Options,
     Portal? Portal,
     Package? Package,
-    PaginationFilter Pagination
+    int PageNumber = 1,
+    int PageSize = 10
 );
 
 public record SearchVehiclesOutput(

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using AdSet.Lead.Infrastructure.Data.Database;
 using AdSet.Lead.Infrastructure.IoC;
 using AdSet.Lead.Infrastructure.Settings;
@@ -17,7 +18,11 @@ builder.Host.UseSerilog((context, _, configuration) =>
 
 // Default Setup
 builder.Services.AddControllers()
-    .AddJsonOptions(opt => { opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true; });
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 // Db Context
 builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));

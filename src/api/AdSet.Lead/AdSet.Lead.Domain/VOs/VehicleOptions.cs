@@ -1,51 +1,53 @@
-﻿namespace AdSet.Lead.Domain.VOs;
+﻿using static System.HashCode;
+
+namespace AdSet.Lead.Domain.VOs;
 
 public sealed class VehicleOptions
 {
-    public bool AirConditioning { get; }
-    public bool Alarm { get; }
-    public bool Airbag { get; }
-    public bool AbsBrakes { get; }
+    public Dictionary<string, bool> Options { get; } = new(StringComparer.OrdinalIgnoreCase);
 
-    private VehicleOptions() { }
-
-    public VehicleOptions(
-        bool airConditioning = false,
-        bool alarm = false,
-        bool airbag = false,
-        bool absBrakes = false
-    )
+    private VehicleOptions()
     {
-        AirConditioning = airConditioning;
-        Alarm = alarm;
-        Airbag = airbag;
-        AbsBrakes = absBrakes;
     }
 
-    public VehicleOptions With(
-        bool? airConditioning = null,
-        bool? alarm = null,
-        bool? airbag = null,
-        bool? absBrakes = null
-    )
+    public VehicleOptions(Dictionary<string, bool>? options = null)
     {
-        return new VehicleOptions(
-            airConditioning ?? AirConditioning,
-            alarm ?? Alarm,
-            airbag ?? Airbag,
-            absBrakes ?? AbsBrakes
-        );
+        Options = options ?? new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
     }
 
-    private bool Equals(VehicleOptions other) =>
-        AirConditioning == other.AirConditioning &&
-        Alarm == other.Alarm &&
-        Airbag == other.Airbag &&
-        AbsBrakes == other.AbsBrakes;
+    public void AddOrUpdate(string key, bool value)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+            throw new ArgumentException("Option key cannot be null or empty", nameof(key));
+
+        Options[key] = value;
+    }
+
+    public bool HasOption(string key) =>
+        Options.TryGetValue(key, out var value) && value;
+
+    public VehicleOptions WithOption(string key, bool value)
+    {
+        var clone = new Dictionary<string, bool>(Options, StringComparer.OrdinalIgnoreCase)
+        {
+            [key] = value
+        };
+        return new VehicleOptions(clone);
+    }
+
+    private sealed class KeyValuePairComparer : IEqualityComparer<KeyValuePair<string, bool>>
+    {
+        public bool Equals(KeyValuePair<string, bool> x, KeyValuePair<string, bool> y) =>
+            StringComparer.OrdinalIgnoreCase.Equals(x.Key, y.Key) && x.Value == y.Value;
+
+        public int GetHashCode(KeyValuePair<string, bool> obj) =>
+            Combine(StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Key), obj.Value);
+    }
 
     public override bool Equals(object? obj) =>
-        obj is VehicleOptions other && Equals(other);
+        obj is VehicleOptions other &&
+        Options.OrderBy(k => k.Key).SequenceEqual(other.Options.OrderBy(k => k.Key), new KeyValuePairComparer());
 
     public override int GetHashCode() =>
-        HashCode.Combine(AirConditioning, Alarm, Airbag, AbsBrakes);
-} 
+        Combine(Options.Count, string.Join(';', Options.Select(x => $"{x.Key}:{x.Value}")));
+}

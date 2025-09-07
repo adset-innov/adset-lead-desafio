@@ -7,21 +7,11 @@ public static class VehicleOptionsMapper
 {
     public static VehicleOptionsDto ToDto(VehicleOptions options)
     {
-        return new VehicleOptionsDto(
-            options.AirConditioning,
-            options.Alarm,
-            options.Airbag,
-            options.AbsBrakes
-        );
+        return new VehicleOptionsDto(new Dictionary<string, bool>(options.Options));
     }
 
     public static VehicleOptions FromDto(VehicleOptionsDto dto)
     {
-        return new VehicleOptions(
-            dto.AirConditioning,
-            dto.Alarm,
-            dto.Airbag,
-            dto.AbsBrakes
-        );
+        return new VehicleOptions(new Dictionary<string, bool>(dto.Options));
     }
 }

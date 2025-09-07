@@ -1,6 +1,6 @@
 ﻿namespace AdSet.Lead.API.Helpers;
 
-public static class ImageValidationHelper
+public static class ImageValidator
 {
     private static readonly string[] AllowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
     private const long MaxFileSize = 5 * 1024 * 1024; // 5MB 
