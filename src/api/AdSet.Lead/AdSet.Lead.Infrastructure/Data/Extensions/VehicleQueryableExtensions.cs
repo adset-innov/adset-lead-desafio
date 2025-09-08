@@ -22,32 +22,14 @@ public static class VehicleQueryableExtensions
                 v => v.Price >= filter.PriceMin!.Value)
             .WhereIf(filter.PriceMax.HasValue,
                 v => v.Price <= filter.PriceMax!.Value)
-
-            // Photo
-            .WhereIf(filter.HasPhotos is true,
-                v => v.Photos.Any())
-            .WhereIf(filter.HasPhotos is false,
-                v => !v.Photos.Any())
-
-            // Color
+            .WhereIf(filter.HasPhotos is true, v => v.Photos.Any())
+            .WhereIf(filter.HasPhotos is false, v => !v.Photos.Any())
             .WhereIf(!string.IsNullOrWhiteSpace(filter.Color),
                 v => v.Color.Value == filter.Color!)
-
-            // Portal and Package
             .WhereIf(filter.Portal.HasValue,
                 v => v.PortalPackages.Any(pp => pp.Portal == filter.Portal))
             .WhereIf(filter.Package.HasValue,
                 v => v.PortalPackages.Any(pp => pp.Package == filter.Package));
-
-        if (filter.Options is { Options.Count: > 0 })
-        {
-            foreach (var (key, expected) in filter.Options.Options)
-            {
-                query = query.Where(v =>
-                    v.Options.Options.ContainsKey(key) &&
-                    v.Options.Options[key] == expected);
-            }
-        }
 
         return query;
     }

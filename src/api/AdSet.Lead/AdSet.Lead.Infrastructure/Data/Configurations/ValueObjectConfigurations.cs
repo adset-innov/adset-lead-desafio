@@ -8,7 +8,7 @@ namespace AdSet.Lead.Infrastructure.Data.Configurations;
 
 public static class ValueObjectConfigurations
 {
-    private static readonly System.Text.Json.JsonSerializerOptions JsonOptions = new()
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
@@ -40,7 +40,7 @@ public static class ValueObjectConfigurations
         };
 
         builder.Property(o => o.Options)
-            .HasColumnName("Options")
+            .HasColumnName("Values")
             .HasConversion(
                 v => JsonSerializer.Serialize(v, options),
                 v => JsonSerializer.Deserialize<Dictionary<string, bool>>(v, options)

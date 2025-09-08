@@ -1,12 +1,10 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using AdSet.Lead.API.Binders;
 using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.UseCases.Vehicle;
 using AdSet.Lead.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using AdSet.Lead.API.Helpers;
-using AdSet.Lead.Domain.Filters;
 
 namespace AdSet.Lead.API.Controllers;
 
@@ -45,7 +43,7 @@ public class VehicleController(
         [FromForm] string color,
         [FromForm] decimal price,
         [FromForm] int mileage,
-        [FromForm] string options, // JSON string vindo do form
+        [FromForm] string options,
         [FromForm] List<IFormFile>? files,
         [FromForm] string? portalPackages
     )
@@ -74,7 +72,7 @@ public class VehicleController(
             color,
             price,
             mileage,
-            optionsDict ?? new Dictionary<string, bool>(), // ✅ agora direto
+            optionsDict ?? new Dictionary<string, bool>(),
             fileInputs,
             portalPackagesDto
         );
@@ -139,7 +137,6 @@ public class VehicleController(
         [FromQuery] decimal? priceMax,
         [FromQuery] bool? hasPhotos,
         [FromQuery] string? color,
-        [FromQueryBinder<VehicleOptionsFilterBinder>] VehicleOptionsFilter? options,
         [FromQuery] Portal? portal,
         [FromQuery] Package? package,
         [FromQuery] int pageNumber = 1,
@@ -149,7 +146,7 @@ public class VehicleController(
         var input = new SearchVehiclesInput(
             plate, brand, model, yearMin, yearMax,
             priceMin, priceMax, hasPhotos, color,
-            options, portal, package, pageNumber, pageSize
+            portal, package, pageNumber, pageSize
         );
 
         var output = await searchVehiclesUc.Execute(input);
@@ -224,4 +221,3 @@ public class VehicleController(
         return Ok(output);
     }
 }
- 

@@ -22,7 +22,6 @@ public class SearchVehicles(IVehicleRepository repository)
             PriceMax = input.PriceMax,
             HasPhotos = input.HasPhotos,
             Color = input.Color,
-            Options = input.Options,
             Portal = input.Portal,
             Package = input.Package,
             Pagination = new PaginationFilter(input.PageNumber, input.PageSize)
@@ -52,7 +51,6 @@ public record SearchVehiclesInput(
     decimal? PriceMax,
     bool? HasPhotos,
     string? Color,
-    VehicleOptionsFilter? Options,
     Portal? Portal,
     Package? Package,
     int PageNumber = 1,

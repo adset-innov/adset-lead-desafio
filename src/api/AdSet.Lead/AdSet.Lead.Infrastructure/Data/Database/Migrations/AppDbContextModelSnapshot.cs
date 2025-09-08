@@ -159,10 +159,10 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                             b1.Property<Guid>("VehicleId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("Options")
+                            b1.Property<string>("Values")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Options");
+                                .HasColumnName("Values");
 
                             b1.HasKey("VehicleId");
 
