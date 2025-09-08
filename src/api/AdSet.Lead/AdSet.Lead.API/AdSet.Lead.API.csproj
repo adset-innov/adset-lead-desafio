@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.7.2"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="9.0.0"/>
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AdSet.Lead.Application\AdSet.Lead.Application.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Core\AdSet.Lead.Core.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Domain\AdSet.Lead.Domain.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Infrastructure\AdSet.Lead.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\1f9e7697-da53-4de7-ae64-42e76c1cf0d0.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\20bfde85-dbae-4342-872d-95ed98d1fb8a.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\37117fb2-de67-46e5-be97-3e967ba71067.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\5ba1927a-c4a3-4ad3-ac36-0a103e794a92.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\6e3584fa-dca6-4f68-b4d0-2e746e6ae3dd.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\aba7ffa6-93d1-4fda-8884-61e45cf67562.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\b98ceb41-93dd-4ba0-bd9e-e927ab85cf19.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\bc450aaa-6967-4b5e-bede-e6a641788b98.png"/>
+        <_ContentIncludedByDefault Remove="wwwroot\uploads\vehicles\e77ec27d-6f82-4686-885d-ee0cd38cc449.png"/>
+    </ItemGroup>
+
+</Project>

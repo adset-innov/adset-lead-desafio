@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AdSet.Lead.Core\AdSet.Lead.Core.csproj"/>
+        <ProjectReference Include="..\AdSet.Lead.Domain\AdSet.Lead.Domain.csproj"/>
+    </ItemGroup>
+
+</Project>
