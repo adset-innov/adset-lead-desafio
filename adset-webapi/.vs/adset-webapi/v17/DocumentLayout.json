@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\adset.data\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|solutionrelative:adset.data\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D19E6B6-81EE-4536-803B-03A31D8E3167}|AdSet.Domain\\AdSet.Domain.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\adset.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D19E6B6-81EE-4536-803B-03A31D8E3167}|AdSet.Domain\\AdSet.Domain.csproj|solutionrelative:adset.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{43578E80-EA41-4E57-A439-D04D07BEC5DC}|AdSet.Application\\AdSet.Application.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\adset.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{43578E80-EA41-4E57-A439-D04D07BEC5DC}|AdSet.Application\\AdSet.Application.csproj|solutionrelative:adset.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\AdSet.Data\\Class1.cs",
+              "RelativeDocumentMoniker": "AdSet.Data\\Class1.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\AdSet.Data\\Class1.cs",
+              "RelativeToolTip": "AdSet.Data\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-08T14:08:32.694Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\AdSet.Domain\\Class1.cs",
+              "RelativeDocumentMoniker": "AdSet.Domain\\Class1.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\AdSet.Domain\\Class1.cs",
+              "RelativeToolTip": "AdSet.Domain\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-08T13:46:21.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\AdSet.Application\\Class1.cs",
+              "RelativeDocumentMoniker": "AdSet.Application\\Class1.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\AdSet.Application\\Class1.cs",
+              "RelativeToolTip": "AdSet.Application\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-08T13:44:15.675Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
