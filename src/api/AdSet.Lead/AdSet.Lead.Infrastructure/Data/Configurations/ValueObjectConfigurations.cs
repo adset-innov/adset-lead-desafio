@@ -8,11 +8,6 @@ namespace AdSet.Lead.Infrastructure.Data.Configurations;
 
 public static class ValueObjectConfigurations
 {
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
     public static void ConfigureLicensePlate<T>(this OwnedNavigationBuilder<T, LicensePlate> builder)
         where T : class
     {
