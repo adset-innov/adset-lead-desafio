@@ -1,0 +1,91 @@
+# =================================
+# Build Folders
+# =================================
+bin/
+obj/
+out/
+publish/
+TestResults/
+
+# =================================
+# Visual Studio
+# =================================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.cachefile
+
+# =================================
+# Rider / JetBrains
+# =================================
+.idea/
+*.iml
+
+# =================================
+# NuGet Packages
+# =================================
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# =================================
+# Logs / Temporary Files
+# =================================
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# =================================
+# Compiled binaries / DLL / EXE / PDB
+# =================================
+*.dll
+*.exe
+*.pdb
+*.app
+*.lib
+*.so
+*.dylib
+
+# =================================
+# Cache / IntelliSense / VS Generated
+# =================================
+*.cache
+.ide.
+*.vsix
+*.resharper
+
+# =================================
+# Configurations / Settings
+# =================================
+*.user
+*.userprefs
+*.editorconfig
+*.publishsettings
+*.pubxml
+*.targets
+*.props
+
+# =================================
+# JSON / Data / Database
+# =================================
+*.json
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# =================================
+# Others
+# =================================
+*.psess
+*.vsp
+*.vspx
+*.vsix
+*.log
+*.orig

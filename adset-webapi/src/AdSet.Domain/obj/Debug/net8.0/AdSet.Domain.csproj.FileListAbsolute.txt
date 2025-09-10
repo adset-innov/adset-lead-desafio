@@ -1,0 +1,16 @@
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\bin\Debug\net8.0\AdSet.Domain.deps.json
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\bin\Debug\net8.0\AdSet.Domain.dll
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\bin\Debug\net8.0\AdSet.Domain.pdb
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.AssemblyInfoInputs.cache
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.AssemblyInfo.cs
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.csproj.CoreCompileInputs.cache
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.sourcelink.json
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.dll
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\refint\AdSet.Domain.dll
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.pdb
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\ref\AdSet.Domain.dll
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\bin\Debug\net8.0\AdSet.Core.dll
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\bin\Debug\net8.0\AdSet.Core.pdb
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Domain.csproj.AssemblyReference.cache
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\AdSet.Domain\obj\Debug\net8.0\AdSet.Do.30BE7407.Up2Date

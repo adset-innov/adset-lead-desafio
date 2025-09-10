@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdSet.Application\AdSet.Application.csproj" />
+    <ProjectReference Include="..\AdSet.Core\AdSet.Core.csproj" />
+    <ProjectReference Include="..\AdSet.Domain\AdSet.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
