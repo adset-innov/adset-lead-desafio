@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250908203550_Initial")]
+    [Migration("20250910134140_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -162,10 +162,10 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                             b1.Property<Guid>("VehicleId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("Values")
+                            b1.Property<string>("Options")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Values");
+                                .HasColumnName("VehicleOptions");
 
                             b1.HasKey("VehicleId");
 

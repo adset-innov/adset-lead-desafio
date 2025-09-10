@@ -40,7 +40,7 @@ public static class ValueObjectConfigurations
         };
 
         builder.Property(o => o.Options)
-            .HasColumnName("Values")
+            .HasColumnName("VehicleOptions")
             .HasConversion(
                 v => JsonSerializer.Serialize(v, options),
                 v => JsonSerializer.Deserialize<Dictionary<string, bool>>(v, options)
