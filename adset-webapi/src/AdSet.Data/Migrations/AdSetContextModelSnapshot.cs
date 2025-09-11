@@ -32,11 +32,104 @@ namespace AdSet.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Optionals");
+                    b.ToTable("Optionals", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Ar Condicionado"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Alarme"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Airbag"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Freio ABS"
+                        });
+                });
+
+            modelBuilder.Entity("AdSet.Domain.Entities.Package", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Packages", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Bronze"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Diamante"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Platinum"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Básico"
+                        });
+                });
+
+            modelBuilder.Entity("AdSet.Domain.Entities.Portal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Portals", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "iCarros"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "WebMotors"
+                        });
                 });
 
             modelBuilder.Entity("AdSet.Domain.Entities.Vehicle", b =>
@@ -92,13 +185,10 @@ namespace AdSet.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FileName")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -110,57 +200,42 @@ namespace AdSet.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("VehicleImage", (string)null);
+                    b.ToTable("VehicleImages", (string)null);
                 });
 
             modelBuilder.Entity("AdSet.Domain.Entities.VehicleOptional", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("VehicleId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OptionalId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("VehicleId", "OptionalId");
 
                     b.HasIndex("OptionalId");
 
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("VehicleOptionals");
+                    b.ToTable("VehicleOptionals", (string)null);
                 });
 
             modelBuilder.Entity("AdSet.Domain.Entities.VehiclePortalPackage", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Package")
-                        .HasMaxLength(20)
-                        .HasColumnType("int");
-
-                    b.Property<int>("Portal")
-                        .HasMaxLength(20)
-                        .HasColumnType("int");
-
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("PortalId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("VehicleId", "Portal")
-                        .IsUnique();
+                    b.Property<int>("PackageId")
+                        .HasColumnType("int");
 
-                    b.ToTable("VehiclePortalPackage", (string)null);
+                    b.HasKey("VehicleId", "PortalId");
+
+                    b.HasIndex("PackageId");
+
+                    b.HasIndex("PortalId");
+
+                    b.ToTable("VehiclePortalPackages", (string)null);
                 });
 
             modelBuilder.Entity("AdSet.Domain.Entities.VehicleImage", b =>
@@ -195,11 +270,27 @@ namespace AdSet.Data.Migrations
 
             modelBuilder.Entity("AdSet.Domain.Entities.VehiclePortalPackage", b =>
                 {
+                    b.HasOne("AdSet.Domain.Entities.Package", "Package")
+                        .WithMany("VehiclePortalPackages")
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AdSet.Domain.Entities.Portal", "Portal")
+                        .WithMany("VehiclePortalPackages")
+                        .HasForeignKey("PortalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AdSet.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("VechiclePortalPackages")
+                        .WithMany("VehiclePortalPackages")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Package");
+
+                    b.Navigation("Portal");
 
                     b.Navigation("Vehicle");
                 });
@@ -209,13 +300,23 @@ namespace AdSet.Data.Migrations
                     b.Navigation("VehicleOptionals");
                 });
 
+            modelBuilder.Entity("AdSet.Domain.Entities.Package", b =>
+                {
+                    b.Navigation("VehiclePortalPackages");
+                });
+
+            modelBuilder.Entity("AdSet.Domain.Entities.Portal", b =>
+                {
+                    b.Navigation("VehiclePortalPackages");
+                });
+
             modelBuilder.Entity("AdSet.Domain.Entities.Vehicle", b =>
                 {
-                    b.Navigation("VechiclePortalPackages");
-
                     b.Navigation("VehicleImages");
 
                     b.Navigation("VehicleOptionals");
+
+                    b.Navigation("VehiclePortalPackages");
                 });
 #pragma warning restore 612, 618
         }

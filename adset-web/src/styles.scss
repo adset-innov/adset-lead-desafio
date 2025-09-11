@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* utilidades finas para o layout do mock */
+.badge { @apply text-xs px-2 py-0.5 rounded-full bg-gray-100 border border-gray-200 text-gray-700; }
+.card  { @apply bg-white rounded-xl shadow-card; }
+

@@ -1,5 +1,4 @@
-﻿using AdSet.Data.Repositories;
-using adset_webapi.Mappings; 
+﻿using AdSet.Data.Repositories; 
 
 namespace adset_webapi.Configuration
 {
@@ -10,7 +9,6 @@ namespace adset_webapi.Configuration
             .AddContext()
             .AddUseCases()
             .AddRespositories();
-            //.AddViewModelMapper();
 
         public static IServiceCollection AddContext(this IServiceCollection services)
             => services
@@ -24,19 +22,22 @@ namespace adset_webapi.Configuration
 
         public static IServiceCollection AddUseCases(this IServiceCollection services)
             => services
-                .AddScoped<ISearchVehicles, SearchVehicles>();
+                .AddScoped<ISearchVehicles, SearchVehicles>()
+                .AddScoped<ICreateVehicles, CreateVehicles>()
+                .AddScoped<IDeleteVehicles, DeleteVehicles>()
+                .AddScoped<IUpdateVehicles, UpdateVehicles>()
+                .AddScoped<IUpdateVehiclePortalPackages, UpdateVehiclePortalPackages>()
+                .AddScoped<IGetFilterOptions, GetFilterOptions>();
 
-       public static IServiceCollection AddRespositories(this IServiceCollection services)
+
+        public static IServiceCollection AddRespositories(this IServiceCollection services)
             => services
-                .AddScoped<IVehiclesRepository, VehiclesRepository>();
-
-        //public static IServiceCollection AddViewModelMapper(this IServiceCollection services)
-        //{
-        //    services.AddAutoMapper(typeof(ViewModelMappingProfile).Assembly);
-        //    return services;
-        //}
-    
+                .AddScoped<IVehiclesRepository, VehiclesRepository>()
+                .AddScoped<IOptionalRepository, OptionalRepository>()
+                .AddScoped<IVehicleOptionalRepository, VehicleOptionalRepository>()
+                .AddScoped<IVehicleImageRepository, VehicleImageRepository>()
+                .AddScoped<IVehiclePortalPackagesRepository, VehiclePortalPackagesRepository>()
+                .AddScoped<IPortalRepository, PortalRepository>()
+                .AddScoped<IPackagesRepository, PackagesRepository>();
     }
-
-
 }

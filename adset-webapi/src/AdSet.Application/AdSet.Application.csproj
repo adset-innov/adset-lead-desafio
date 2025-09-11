@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AdSet.Core\AdSet.Core.csproj" />
     <ProjectReference Include="..\AdSet.Domain\AdSet.Domain.csproj" />
   </ItemGroup>

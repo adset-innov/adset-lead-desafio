@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdSet.Infra.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbaa7c5e14735d20ed7796e174c49ffce26bebb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+458a5e1264b27cc313010253cb26fba4ec5beed6")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdSet.Infra.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdSet.Infra.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

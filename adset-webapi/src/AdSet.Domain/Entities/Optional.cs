@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<VehicleOptional> VehicleOptionals { get; set; } = new List<VehicleOptional>();
+        public virtual ICollection<VehicleOptional> VehicleOptionals { get; set; } = new List<VehicleOptional>();
     }
 }

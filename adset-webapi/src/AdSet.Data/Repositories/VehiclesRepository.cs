@@ -1,4 +1,6 @@
-﻿namespace AdSet.Data.Repositories
+﻿using AdSet.Domain.Entities;
+
+namespace AdSet.Data.Repositories
 {
     public class VehiclesRepository : IVehiclesRepository
     {
@@ -49,7 +51,7 @@
                     query = query.Where(v => v.VehicleImages.Any());
                 else
                     query = query.Where(v => !v.VehicleImages.Any());
-            } 
+            }
 
             if (filters.Colors != null && filters.Colors.Count > 0)
                 query = query.Where(v => filters.Colors.Contains(v.Color));
@@ -71,6 +73,13 @@
             return vehicle;
         }
 
+        public async Task<Vehicle> FindById(int vehicleId)
+            =>   await context.Vehicles
+               .Include(v => v.VehicleOptionals)
+               .Include(v => v.VehicleImages)
+               .FirstOrDefaultAsync(v => v.Id == vehicleId);
+
+
         public async Task Delete(Vehicle vehicle)
         {;
             context.Vehicles.Remove(vehicle);
@@ -82,6 +91,15 @@
             context.Vehicles.Update(vehicle);
             await context.SaveChangesAsync();
             return vehicle;
+        }
+
+        public async Task<List<string>> SearchColorsDistinct()
+        {
+           return await context.Vehicles
+                    .Select(v => v.Color)
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .ToListAsync();
         }
     }
 }

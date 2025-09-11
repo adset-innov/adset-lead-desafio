@@ -4,16 +4,14 @@
     {
         public void Configure(EntityTypeBuilder<VehicleImage> builder)
         {
-            builder.ToTable("VehicleImage");
+            builder.ToTable("VehicleImages");
+            builder.HasKey(vi => vi.Id);
+            builder.Property(vi => vi.ImageUrl).IsRequired().HasMaxLength(500);
 
-            builder.HasKey(f => f.Id);
-
-            builder.Property(f => f.FilePath)
-                   .IsRequired();
-
-            builder.HasOne(f => f.Vehicle)
+            builder.HasOne(vi => vi.Vehicle)
                    .WithMany(v => v.VehicleImages)
-                   .HasForeignKey(f => f.VehicleId);
+                   .HasForeignKey(vi => vi.VehicleId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

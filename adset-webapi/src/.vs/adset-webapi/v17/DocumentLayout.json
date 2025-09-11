@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset.data\\repositories\\vehiclesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|solutionrelative:adset.data\\repositories\\vehiclesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset.data\\configuration\\vehicleimageconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|solutionrelative:adset.data\\configuration\\vehicleimageconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D19E6B6-81EE-4536-803B-03A31D8E3167}|AdSet.Domain\\AdSet.Domain.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset.domain\\entities\\vehicleportalpackage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D19E6B6-81EE-4536-803B-03A31D8E3167}|AdSet.Domain\\AdSet.Domain.csproj|solutionrelative:adset.domain\\entities\\vehicleportalpackage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset.data\\configuration\\optionalconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|solutionrelative:adset.data\\configuration\\optionalconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{916AC9F6-E816-443E-A152-208724021215}|adset-webapi\\AdSet.Api.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\controllers\\vehiclesendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{916AC9F6-E816-443E-A152-208724021215}|adset-webapi\\AdSet.Api.csproj|solutionrelative:adset-webapi\\controllers\\vehiclesendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Migrations\\20250910195816_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AdSet.Data\\Migrations\\20250910195816_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{916AC9F6-E816-443E-A152-208724021215}|adset-webapi\\AdSet.Api.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\mappings\\viewmodelmappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{916AC9F6-E816-443E-A152-208724021215}|adset-webapi\\AdSet.Api.csproj|solutionrelative:adset-webapi\\mappings\\viewmodelmappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset.data\\configuration\\vehicleoptionalconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|solutionrelative:adset.data\\configuration\\vehicleoptionalconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{916AC9F6-E816-443E-A152-208724021215}|adset-webapi\\AdSet.Api.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{916AC9F6-E816-443E-A152-208724021215}|adset-webapi\\AdSet.Api.csproj|solutionrelative:adset-webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|c:\\users\\mila_neves\\source\\repos\\adsetlead\\adset-lead-desafio\\adset-webapi\\src\\adset.data\\context\\adsetcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D875A8D6-FFAE-49A9-A5D1-70BC03301C1D}|AdSet.Data\\AdSet.Data.csproj|solutionrelative:adset.data\\context\\adsetcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,72 +30,70 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VehiclesRepository.cs",
-              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Repositories\\VehiclesRepository.cs",
-              "RelativeDocumentMoniker": "AdSet.Data\\Repositories\\VehiclesRepository.cs",
-              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Repositories\\VehiclesRepository.cs",
-              "RelativeToolTip": "AdSet.Data\\Repositories\\VehiclesRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "20250910195816_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Migrations\\20250910195816_InitialCreate.cs",
+              "RelativeDocumentMoniker": "AdSet.Data\\Migrations\\20250910195816_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Migrations\\20250910195816_InitialCreate.cs",
+              "RelativeToolTip": "AdSet.Data\\Migrations\\20250910195816_InitialCreate.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T00:45:53.049Z",
+              "WhenOpened": "2025-09-10T19:58:17.133Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "VehiclePortalPackage.cs",
-              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Domain\\Entities\\VehiclePortalPackage.cs",
-              "RelativeDocumentMoniker": "AdSet.Domain\\Entities\\VehiclePortalPackage.cs",
-              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Domain\\Entities\\VehiclePortalPackage.cs",
-              "RelativeToolTip": "AdSet.Domain\\Entities\\VehiclePortalPackage.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "OptionalConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Configuration\\OptionalConfiguration.cs",
+              "RelativeDocumentMoniker": "AdSet.Data\\Configuration\\OptionalConfiguration.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Configuration\\OptionalConfiguration.cs",
+              "RelativeToolTip": "AdSet.Data\\Configuration\\OptionalConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T00:44:23.534Z",
+              "WhenOpened": "2025-09-10T19:53:17.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VehicleImageConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Configuration\\VehicleImageConfiguration.cs",
+              "RelativeDocumentMoniker": "AdSet.Data\\Configuration\\VehicleImageConfiguration.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Configuration\\VehicleImageConfiguration.cs",
+              "RelativeToolTip": "AdSet.Data\\Configuration\\VehicleImageConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T19:51:12.267Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ViewModelMappingProfile.cs",
-              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\Mappings\\ViewModelMappingProfile.cs",
-              "RelativeDocumentMoniker": "adset-webapi\\Mappings\\ViewModelMappingProfile.cs",
-              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\Mappings\\ViewModelMappingProfile.cs",
-              "RelativeToolTip": "adset-webapi\\Mappings\\ViewModelMappingProfile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "VehicleOptionalConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Configuration\\VehicleOptionalConfiguration.cs",
+              "RelativeDocumentMoniker": "AdSet.Data\\Configuration\\VehicleOptionalConfiguration.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Configuration\\VehicleOptionalConfiguration.cs",
+              "RelativeToolTip": "AdSet.Data\\Configuration\\VehicleOptionalConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T00:44:05.965Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T19:51:10.743Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\Program.cs",
-              "RelativeDocumentMoniker": "adset-webapi\\Program.cs",
-              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\Program.cs",
-              "RelativeToolTip": "adset-webapi\\Program.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Title": "AdSetContext.cs",
+              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Context\\AdSetContext.cs",
+              "RelativeDocumentMoniker": "AdSet.Data\\Context\\AdSetContext.cs",
+              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\AdSet.Data\\Context\\AdSetContext.cs",
+              "RelativeToolTip": "AdSet.Data\\Context\\AdSetContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T23:37:25.568Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VehiclesEndpoints.cs",
-              "DocumentMoniker": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\Controllers\\VehiclesEndpoints.cs",
-              "RelativeDocumentMoniker": "adset-webapi\\Controllers\\VehiclesEndpoints.cs",
-              "ToolTip": "C:\\Users\\mila_neves\\source\\repos\\AdSetLead\\adset-lead-desafio\\adset-webapi\\src\\adset-webapi\\Controllers\\VehiclesEndpoints.cs",
-              "RelativeToolTip": "adset-webapi\\Controllers\\VehiclesEndpoints.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T23:36:38.893Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T19:50:08.15Z"
             }
           ]
         }

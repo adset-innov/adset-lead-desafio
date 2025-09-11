@@ -148,10 +148,10 @@ C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\a
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\obj\Debug\net8.0\AdSet.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\AdSet.Infra.Core.dll
 C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\bin\Debug\net8.0\AdSet.Infra.Core.pdb
+C:\Users\mila_neves\source\repos\AdSetLead\adset-lead-desafio\adset-webapi\src\adset-webapi\obj\Debug\net8.0\AdSet.Api.MvcApplicationPartsAssemblyInfo.cs

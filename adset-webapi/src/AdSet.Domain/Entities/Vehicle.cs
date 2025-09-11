@@ -12,6 +12,7 @@
         public decimal Price { get; set; }
         public virtual ICollection<VehicleOptional> VehicleOptionals { get; set; } = new List<VehicleOptional>();
         public virtual ICollection<VehicleImage> VehicleImages { get; set; } = new List<VehicleImage>();
-        public virtual ICollection<VehiclePortalPackage> VechiclePortalPackages { get; set; } = new List<VehiclePortalPackage>();
+        public virtual ICollection<VehiclePortalPackage> VehiclePortalPackages { get; set; } = new List<VehiclePortalPackage>();
+        
     }
 }
