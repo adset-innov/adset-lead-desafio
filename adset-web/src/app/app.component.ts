@@ -17,7 +17,7 @@ interface Vehicle {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   // filtros simulados
@@ -50,9 +50,9 @@ export class AppComponent {
   get withPhotosCount() { return 80; }
   get withoutPhotosCount() { return 30; }
 
-  search() { /* aqui entraria sua chamada de API */ }
-  save()   { /* salvar filtros/estoque */ }
-  export() { /* exportar CSV/Excel */ }
+  search() { }
+  save()   {  }
+  export() { }
 
   setPortal(p: PortalFlag) { this.selectedPortal = p; }
 
