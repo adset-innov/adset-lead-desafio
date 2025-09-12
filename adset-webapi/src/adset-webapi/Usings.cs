@@ -4,3 +4,5 @@ global using Microsoft.EntityFrameworkCore;
 global using AdSet.Domain.Repositories;
 global using AdSet.Domain.Common.Filters;
 global using AdSet.Core;
+global using AdSet.Application.UseCases.Optionals;
+global using Microsoft.AspNetCore.Mvc;

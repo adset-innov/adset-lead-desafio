@@ -27,17 +27,21 @@ namespace adset_webapi.Configuration
                 .AddScoped<IDeleteVehicles, DeleteVehicles>()
                 .AddScoped<IUpdateVehicles, UpdateVehicles>()
                 .AddScoped<IUpdateVehiclePortalPackages, UpdateVehiclePortalPackages>()
-                .AddScoped<IGetFilterOptions, GetFilterOptions>();
+                .AddScoped<IGetFilterOptions, GetFilterOptions>()
+
+                //Optionals
+                .AddScoped<IGetAllOptionals, GetAllOptionals>();
+
 
 
         public static IServiceCollection AddRespositories(this IServiceCollection services)
             => services
                 .AddScoped<IVehiclesRepository, VehiclesRepository>()
-                .AddScoped<IOptionalRepository, OptionalRepository>()
                 .AddScoped<IVehicleOptionalRepository, VehicleOptionalRepository>()
                 .AddScoped<IVehicleImageRepository, VehicleImageRepository>()
                 .AddScoped<IVehiclePortalPackagesRepository, VehiclePortalPackagesRepository>()
                 .AddScoped<IPortalRepository, PortalRepository>()
-                .AddScoped<IPackagesRepository, PackagesRepository>();
+                .AddScoped<IPackagesRepository, PackagesRepository>()
+                .AddScoped<IOptionalRepository, OptionalRepository>();
     }
 }

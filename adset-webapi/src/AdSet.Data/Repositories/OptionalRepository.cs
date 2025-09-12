@@ -1,6 +1,4 @@
-﻿using AdSet.Domain.Repositories;
-
-namespace AdSet.Data.Repositories
+﻿namespace AdSet.Data.Repositories
 {
     public class OptionalRepository : IOptionalRepository
     {
@@ -21,6 +19,17 @@ namespace AdSet.Data.Repositories
             return await context.Optionals
                 .Where(o => optionalNames.Contains(o.Name))
                 .ToListAsync();
+        }
+        public async Task<List<Optional>> FindByIds(List<int> ids)
+        {
+            return await context.Optionals
+                .Where(o => ids.Contains(o.Id))
+                .ToListAsync();
+        }
+
+        public async Task<List<Optional>> GetAll()
+        {
+            return await context.Optionals.ToListAsync();
         }
     }
 }

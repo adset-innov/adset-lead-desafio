@@ -1,5 +1,4 @@
 using adset_webapi.Configuration;
-using adset_webapi.Controllers;
 using adset_webapi.Mappings;
 
 
@@ -13,8 +12,19 @@ builder.Services.AddSwaggerGen();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(cfg => { }, typeof(ViewModelMappingProfile).Assembly);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // origem do Angular
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
+app.UseCors("AllowAngular");
 
 
 // Configure the HTTP request pipeline.
@@ -42,7 +52,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//app.MapVehiclesEndpoints();
 
 app.Run();
 

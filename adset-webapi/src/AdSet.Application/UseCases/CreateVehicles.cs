@@ -30,13 +30,14 @@ namespace AdSet.Application.UseCases
         public async Task Execute(CreateUpdateVehicleViewModel request)
         {
             var vehicleEntity = mapper.Map<Vehicle>(request);
+            //lembrar de usar UnitOfWork
             await vehiclesRepository.Add(vehicleEntity);
 
             if (request.Optionals != null && request.Optionals.Any())
             {
-                var optionalNames = request.Optionals;
+                var optionalIds = request.Optionals;
 
-                var optionals = await optionalRepository.FindByNames(optionalNames);
+                var optionals = await optionalRepository.FindByIds(optionalIds);
 
                 foreach (var optional in optionals)
                 {

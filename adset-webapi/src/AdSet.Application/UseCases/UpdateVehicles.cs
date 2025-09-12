@@ -32,6 +32,7 @@ namespace AdSet.Application.UseCases
         public async Task Execute(CreateUpdateVehicleViewModel request)
         {
             var vehicleEntity = mapper.Map<Vehicle>(request);
+            //lembrar de usar UnitOfWork
             await vehiclesRepository.Update(vehicleEntity);
 
             var vehicleToUpdate = await vehiclesRepository.FindById(vehicleEntity.Id);
@@ -43,9 +44,8 @@ namespace AdSet.Application.UseCases
 
             if (request.Optionals != null && request.Optionals.Any())
             {
-                var optionalNames = request.Optionals;
-
-                var optionals = await optionalRepository.FindByNames(optionalNames);
+                var optionalIds = request.Optionals;
+                var optionals = await optionalRepository.FindByIds(optionalIds);
 
                 foreach (var optional in optionals)
                 {
@@ -58,25 +58,25 @@ namespace AdSet.Application.UseCases
                 }
             }
 
-            await UpdateVehicleImages(vehicleToUpdate, request.Images, request.ExistingImageIdsToKeep);
+            await UpdateVehicleImages(vehicleToUpdate, request.Images);
         }
 
-        private async Task UpdateVehicleImages(Vehicle vehicleToUpdate, IFormFileCollection newImages, List<int> existingImageIdsToKeep)
+        private async Task UpdateVehicleImages(Vehicle vehicleToUpdate, IFormFileCollection newImages)
         { 
             var imagesToDelete = await vehicleImageRepository.FindByVehicleId(vehicleToUpdate.Id);
 
-            foreach (var image in imagesToDelete)
-            {
-                if (!existingImageIdsToKeep.Contains(image.Id))
-                {
-                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), image.ImageUrl);
-                    if (File.Exists(fullPath))
-                    {
-                        File.Delete(fullPath);
-                    }
-                    await vehicleImageRepository.Delete(image);
-                }
-            }
+            //foreach (var image in imagesToDelete)
+            //{
+            //    if (!existingImageIdsToKeep.Contains(image.Id))
+            //    {
+            //        var fullPath = Path.Combine(Directory.GetCurrentDirectory(), image.ImageUrl);
+            //        if (File.Exists(fullPath))
+            //        {
+            //            File.Delete(fullPath);
+            //        }
+            //        await vehicleImageRepository.Delete(image);
+            //    }
+            //}
 
             if (newImages != null && newImages.Any())
             {

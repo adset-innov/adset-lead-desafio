@@ -1,0 +1,95 @@
+<h2 class="text-xl font-bold mb-4">
+  {{ formTitle }}
+</h2>
+
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="save()" class="space-y-4">
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label>Marca</label>
+      <input formControlName="make" class="w-full border rounded px-2 py-1" />
+        <div *ngIf="form.get('make')?.invalid && form.get('make')?.touched" class="text-red-500 text-sm">
+        Marca é obrigatória
+        </div>
+    </div>
+    <div>
+      <label>Modelo</label>
+      <input formControlName="model" class="w-full border rounded px-2 py-1" />
+        <div *ngIf="form.get('model')?.invalid && form.get('model')?.touched" class="text-red-500 text-sm">
+        Modelo é obrigatório
+        </div>
+    </div>
+    <div>
+      <label>Ano</label>
+      <input type="number" formControlName="year" class="w-full border rounded px-2 py-1" />
+        <div *ngIf="form.get('year')?.invalid && form.get('year')?.touched" class="text-red-500 text-sm">
+        Ano é obrigatória
+        </div>
+    </div>
+    <div>
+      <label>Placa</label>
+      <input formControlName="plate" class="w-full border rounded px-2 py-1 uppercase" maxlength="7" />
+        <div *ngIf="form.get('plate')?.invalid && form.get('plate')?.touched" class="text-red-500 text-sm">
+        Placa é obrigatória
+        </div>
+    </div>
+    <div>
+      <label>Km</label>
+      <input type="number" formControlName="km" class="w-full border rounded px-2 py-1" />
+        <div *ngIf="form.get('km')?.invalid && form.get('km')?.touched" class="text-red-500 text-sm">
+        Km é obrigatória
+        </div>
+    </div>
+  <div>
+    <label>Cor</label>
+      <input
+        formControlName="color"
+        list="lista-cores"
+        class="w-full border rounded px-2 py-1"
+        placeholder="Digite ou selecione a cor"
+      />
+      <datalist id="lista-cores">
+        <option *ngFor="let cor of colors" [value]="cor"></option>
+      </datalist>
+
+      <div *ngIf="form.get('color')?.invalid && form.get('color')?.touched" class="text-red-500 text-sm">
+        Cor é obrigatória
+      </div>
+  </div>
+    <div>
+      <label>Preço</label>
+      <input type="number" formControlName="price" class="w-full border rounded px-2 py-1" />
+        <div *ngIf="form.get('color')?.invalid && form.get('color')?.touched" class="text-red-500 text-sm">
+        Preço é obrigatório
+        </div>
+    </div>
+  </div>
+
+  <!-- Opcionais -->
+  <div>
+    <label>Opcionais</label>
+    <div class="flex flex-wrap gap-2 mt-2">
+      <button
+        type="button"
+        *ngFor="let opt of optionals"
+        (click)="toggleOptional(opt)"
+        [class.bg-blue-500]="form.value.optionals.includes(opt.id)"
+        [class.text-white]="form.value.optionals.includes(opt.id)"
+        class="px-3 py-1 border rounded">
+        {{ opt.nome }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Upload de fotos -->
+  <div>
+    <label>Fotos (máx. 15)</label>
+    <input type="file" multiple (change)="onFilesPicked($event)" class="mt-2" />
+    <div class="grid grid-cols-5 gap-2 mt-2">
+      <img *ngFor="let img of imagePreviews" [src]="img" class="w-full h-24 object-cover rounded" />
+    </div>
+  </div>
+
+  <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-4">
+    {{ initial?.id ? 'Atualizar' : 'Salvar' }}
+  </button>
+</form>

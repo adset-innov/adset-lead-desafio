@@ -5,7 +5,6 @@ namespace AdSet.Application.ViewModels
 {
     public class CreateUpdateVehicleViewModel
     {
-        // Campos obrigatórios:
         [Required(ErrorMessage = "A placa é obrigatória.")]
         [StringLength(10, ErrorMessage = "A placa deve ter no máximo 10 caracteres.")]
         public string Plate { get; set; } = string.Empty;
@@ -30,13 +29,10 @@ namespace AdSet.Application.ViewModels
         [Range(0.01, 999999999.99, ErrorMessage = "O preço deve ser maior que zero.")]
         public decimal Price { get; set; }
 
-        [Range(0, int.MaxValue, ErrorMessage = "A quilometragem deve ser um valor positivo.")]
         public int? Km { get; set; }
 
-        [MaxLength(15, ErrorMessage = "É permitido no máximo 15 fotos.")]
-        public IFormFileCollection Images { get; set; }
+        public IFormFileCollection? Images { get; set; }
 
-        public List<string> Optionals { get; set; } = new List<string>();
-        public List<int> ExistingImageIdsToKeep { get; set; }
+        public List<int> Optionals { get; set; } = new List<int>();
     }
 }
