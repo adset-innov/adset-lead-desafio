@@ -12,22 +12,35 @@ namespace AdSet.Data.Repositories
 
         public async Task<PagedList<Vehicle>> Search(SearchVehiclesFilter filters, int currentPage = 1, int pageSize = 10)
         {
-            IQueryable<Vehicle> query = context.Vehicles;
+            IQueryable<Vehicle> query = context.Vehicles
+                                           .Include(v => v.VehicleImages)
+                                           .Include(v => v.VehicleOptionals)
+                                           .ThenInclude(vo => vo.Optional)
+                                           .Include(v => v.VehiclePortalPackages);
 
-            if (!string.IsNullOrEmpty(filters.Plate))
-                query = query.Where(x => filters.Plate.Contains(x.Plate));
+            if (!string.IsNullOrWhiteSpace(filters.Plate))
+            {
+                var plateFilter = filters.Plate.Trim().ToLower();
+                query = query.Where(x => x.Plate.ToLower().Contains(plateFilter));
+            }
 
-            if (!string.IsNullOrEmpty(filters.Make))
-                query = query.Where(x => filters.Make.Contains(x.Make));
+            if (!string.IsNullOrWhiteSpace(filters.Make))
+            {
+                var makeFilter = filters.Make.Trim().ToLower();
+                query = query.Where(x => x.Make.ToLower().Contains(makeFilter));
+            }
 
-            if (!string.IsNullOrEmpty(filters.Model))
-                query = query.Where(x => filters.Model.Contains(x.Model));
+            if (!string.IsNullOrWhiteSpace(filters.Model))
+            {
+                var modelFilter = filters.Model.Trim().ToLower();
+                query = query.Where(x => x.Model.ToLower().Contains(modelFilter));
+            }
 
             if (filters.YearMin.HasValue)
                 query = query.Where(x => x.Year >= filters.YearMin.Value);
 
             if (filters.YearMax.HasValue)
-                query = query.Where(x => x.Year >= filters.YearMax.Value);
+                query = query.Where(x => x.Year <= filters.YearMax.Value);
 
             if (!string.IsNullOrEmpty(filters.Price))
             {
@@ -53,14 +66,23 @@ namespace AdSet.Data.Repositories
                     query = query.Where(v => !v.VehicleImages.Any());
             }
 
-            if (filters.Colors != null && filters.Colors.Count > 0)
-                query = query.Where(v => filters.Colors.Contains(v.Color));
-
-            if (filters.Optionais != null && filters.Optionais.Count > 0)
+            if (filters.Colors != null && filters.Colors.Any())
             {
+                var colorsFilter = filters.Colors
+                    .Where(c => !string.IsNullOrWhiteSpace(c))
+                    .Select(c => c.Trim().ToLower())
+                    .ToList();
+
+                query = query.Where(v => colorsFilter.Contains(v.Color.ToLower()));
+            }
+
+            if (filters.Optionals != null && filters.Optionals.Any())
+            {
+                var optionalsFilter = filters.Optionals;
+
                 query = query.Where(v =>
-                    filters.Optionais.All(nome =>
-                        v.VehicleOptionals.Any(vo => vo.Optional.Name == nome)));
+                    optionalsFilter.All(optId =>
+                        v.VehicleOptionals.Any(vo => vo.OptionalId == optId)));
             }
 
             return await query.ToPagedListAsync(currentPage, pageSize);

@@ -2,7 +2,7 @@
 
 namespace AdSet.Application.UseCases
 {
-    public interface ISearchVehicles : IUseCase<SearchVehiclesRequest, PagedList<CreateUpdateVehicleViewModel>> { }
+    public interface ISearchVehicles : IUseCase<SearchVehiclesRequest, PagedList<VehicleResponseViewModel>> { }
 
     public class SearchVehicles : ISearchVehicles
     {
@@ -15,11 +15,17 @@ namespace AdSet.Application.UseCases
             this.vehiclesRepository = vehiclesRepository;
         }
 
-        public async Task<PagedList<CreateUpdateVehicleViewModel>> Execute(SearchVehiclesRequest request)
+        public async Task<PagedList<VehicleResponseViewModel>> Execute(SearchVehiclesRequest request)
         {
-            var result = await vehiclesRepository.Search(request.filters, request.CurrentPage, request.PageSize);
-            var pagedVehiclesResult = mapper.Map<PagedList<CreateUpdateVehicleViewModel>>(result);
-            return pagedVehiclesResult;
+            var result = await vehiclesRepository.Search(request.filters, request.CurrentPage, request.PageSize);   
+            var mappedItems = mapper.Map<List<VehicleResponseViewModel>>(result.Items);
+
+            return new PagedList<VehicleResponseViewModel>(
+                mappedItems,
+                result.TotalPages,
+                result.CurrentPage,
+                result.PageSize
+            );
         }
     }
 

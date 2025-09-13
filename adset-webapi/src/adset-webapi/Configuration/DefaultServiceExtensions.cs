@@ -1,4 +1,6 @@
-﻿using AdSet.Data.Repositories; 
+﻿using AdSet.Data.Repositories;
+using AdSet.Domain.Interfaces;
+using AdSet.Infra.Data;
 
 namespace adset_webapi.Configuration
 {
@@ -36,6 +38,7 @@ namespace adset_webapi.Configuration
 
         public static IServiceCollection AddRespositories(this IServiceCollection services)
             => services
+                .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddScoped<IVehiclesRepository, VehiclesRepository>()
                 .AddScoped<IVehicleOptionalRepository, VehicleOptionalRepository>()
                 .AddScoped<IVehicleImageRepository, VehicleImageRepository>()

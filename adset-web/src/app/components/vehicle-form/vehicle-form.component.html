@@ -81,13 +81,20 @@
   </div>
 
   <!-- Upload de fotos -->
-  <div>
-    <label>Fotos (máx. 15)</label>
-    <input type="file" multiple (change)="onFilesPicked($event)" class="mt-2" />
-    <div class="grid grid-cols-5 gap-2 mt-2">
-      <img *ngFor="let img of imagePreviews" [src]="img" class="w-full h-24 object-cover rounded" />
-    </div>
+ <div>
+  <label>Fotos (máx. 15)</label>
+  <input type="file" multiple (change)="onFilesPicked($event)" class="mt-2" />
+
+  <!-- Mensagem de erro -->
+  <p *ngIf="imagePreviews.length >= 15" class="text-red-600 font-semibold mt-1">
+    Você atingiu o limite máximo de 15 fotos.
+  </p>
+
+  <!-- Pré-visualização -->
+  <div class="grid grid-cols-5 gap-2 mt-2">
+    <img *ngFor="let img of imagePreviews" [src]="img" class="w-full h-24 object-cover rounded" />
   </div>
+</div>
 
   <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-4">
     {{ initial?.id ? 'Atualizar' : 'Salvar' }}

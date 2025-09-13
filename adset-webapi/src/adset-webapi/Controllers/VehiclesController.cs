@@ -9,11 +9,12 @@ namespace adset_webapi.Controllers
     {
         [HttpPost("search")]
         public async Task<IResult> Search(
-            [FromBody] SearchVehiclesFilter filter,
+            [FromBody] SearchVehiclesFilter? filter,
             [FromServices] ISearchVehicles searchVehicles,
             [FromQuery] int currentPage = 1,
             [FromQuery] int pageSize = 10)
         {
+            filter ??= new SearchVehiclesFilter();
             var request = new SearchVehiclesRequest(filter, currentPage, pageSize);
             return Results.Ok(await searchVehicles.Execute(request));
         }
@@ -29,20 +30,21 @@ namespace adset_webapi.Controllers
 
         [HttpPut("{id}")]
         public async Task<IResult> Update(
-            [FromForm] int id,
-            [FromBody] CreateUpdateVehicleViewModel vehiclesViewModel,
+            int id,
+            [FromForm] CreateUpdateVehicleViewModel vehiclesViewModel,
             [FromServices] IUpdateVehicles updateVehicles)
         {
+            vehiclesViewModel.Id = id;
             await updateVehicles.Execute(vehiclesViewModel);
             return Results.Ok(new { Success = true, Message = "Vehicle updated!" });
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public async Task<IResult> Delete(
-           [FromRoute] int vehicelId,
+           int id,
            [FromServices] IDeleteVehicles deleteVehicles)
         {
-            await deleteVehicles.Execute(vehicelId);
+            await deleteVehicles.Execute(id);
             return Results.Ok(new { Success = true, Message = "Vehicle removed!" });
         }
 

@@ -1,0 +1,207 @@
+<div class="min-h-screen bg-slate-100" [formGroup]="filterForm">
+  <!-- Top bar -->
+  <header class="w-full bg-white shadow-sm">
+    <div class="bg-gray-200 mx-auto  px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/logo.png" class="h-10 sm:h-12 md:h-14 w-auto" />
+      </div>
+    </div>
+  </header>
+  <hr class="border-t border-gray-300" />
+
+  <!-- Faixa de métricas -->
+  <div class="flex flex-wrap items-center justify-center md:justify-between bg-gray-200 px-4 sm:px-6 py-3 border-b border-gray-300 gap-4">
+
+    <div class="flex flex-wrap divide-x divide-gray-400 text-center font-[Tahoma]">
+      <div class="px-4 sm:px-6">
+        <div class="text-xl sm:text-[16px] text-gray-500 font-semibold">
+          {{ totalVehicles }} veículos
+        </div>
+        <div class="text-xl sm:text-[13px] text-blue-600">Total</div>
+      </div>
+
+      <!-- Com fotos -->
+      <div class="px-4 sm:px-6">
+        <div class="text-xl sm:text-[16px] text-gray-500 font-semibold">
+          {{ vehiclesWithPhotos }} veículos
+        </div>
+        <div class="text-xl sm:text-[13px] text-green-600">com fotos</div>
+      </div>
+
+      <!-- Sem fotos -->
+      <div class="px-4 sm:px-6">
+        <div class="text-xl sm:text-[16px] text-gray-500 font-semibold">
+          {{ vehiclesWithoutPhotos }} veículos
+        </div>
+        <div class="text-xl sm:text-[13px] text-red-600">sem fotos</div>
+      </div>
+
+      <!-- Exportar Estoque -->
+      <div class="px-4 sm:px-6 flex flex-col items-center">
+        <div class="text-xl sm:text-[16px] text-gray-500 font-semibold">Exportar Estoque</div>
+        <img src="assets/excel-icon.png" alt="Excel"  class="h-6 sm:h-7 md:h-8 w-auto mt-1" />
+      </div>
+
+      <!-- Cadastrar veículo -->
+      <div class="px-4 sm:px-6 mt-2">
+          <button (click)="openNewForm()" class="relative group">
+            <img src="assets/cadastro-car-icon.png"
+                alt="Cadastrar veículo"
+                class="h-12 sm:h-14 md:h-16 lg:h-20 w-auto mx-auto" />
+            <span
+              role="tooltip"
+              class="pointer-events-none absolute -top-10 left-1/2 transform -translate-x-1/2
+                    whitespace-nowrap px-3 py-1 rounded text-xs bg-gray-800 text-white shadow
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50">
+              Cadastrar Veículo
+            </span>
+
+            <div
+              class="pointer-events-none absolute -top-3 left-1/2 transform -translate-x-1/2
+                    rotate-45 w-3 h-3 bg-gray-800
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50"
+              aria-hidden="true">
+            </div>
+          </button>
+        </div>
+      </div>
+
+    <div class="mt-2">
+      <button (click)="savePackages()">
+        <img src="assets/salvar-icon.png" alt="Salvar" class="h-12 sm:h-14 md:h-16 lg:h-20" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <form (ngSubmit)="onSearch()" class="bg-white shadow-md rounded-b-2xl border border-gray-200 px-3 py-2 relative" [formGroup]="filterForm">
+    <div *ngIf="filtrosVisiveis" class="grid grid-cols-9 gap-2 items-end">
+
+      <div>
+        <label class="block text-xs text-gray-700 font-semibold" maxlength="7">Placa</label>
+        <input formControlName="plate" type="text" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs" />
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-700 font-semibold">Marca</label>
+        <input formControlName="make" type="text" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs" />
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-700 font-semibold">Modelo</label>
+        <input formControlName="model" type="text" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs" />
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-700 font-semibold">Ano Min</label>
+        <select formControlName="yearMin" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs">
+          <option [ngValue]="null">Todos</option>
+          <option *ngFor="let ano of years" [ngValue]="ano">{{ ano }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs text-gray-700 font-semibold">Ano Max</label>
+        <select formControlName="yearMax" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs">
+          <option [ngValue]="null">Todos</option>
+          <option *ngFor="let ano of years" [ngValue]="ano">{{ ano }}</option>
+        </select>
+      </div>
+
+     <div>
+      <label class="block text-xs text-gray-700 font-semibold">Preço</label>
+      <select formControlName="price" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs">
+        <option [ngValue]="null">Todos</option>
+        <option *ngFor="let opt of priceOptions" [ngValue]="opt.value">{{ opt.label }}</option>
+      </select>
+    </div>
+
+      <div>
+        <label class="block text-xs text-gray-700 font-semibold">Fotos</label>
+        <select formControlName="images" class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs">
+          <option [ngValue]="null">Todos</option>
+          <option [ngValue]="true">Com fotos</option>
+          <option [ngValue]="false">Sem fotos</option>
+        </select>
+      </div>
+
+<div>
+  <label class="block text-xs text-gray-700 font-semibold">Opcionais</label>
+  <div class="relative">
+    <div
+      class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs cursor-pointer bg-white flex justify-between items-center"
+      (click)="toggleDropdown()">
+      <span>
+        {{ selectedOpcionaisLabels.length > 0 ? selectedOpcionaisLabels.join(', ') : 'Selecione...' }}
+      </span>
+      <svg class="w-4 h-4 text-gray-500 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+
+    <div
+      *ngIf="dropdownOpen"
+      class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-40 overflow-y-auto text-xs">
+
+      <div *ngFor="let opc of opcionaisList" class="px-2 py-1 flex items-center gap-2 hover:bg-gray-100">
+        <input
+          type="checkbox"
+          [value]="opc.id"
+          (change)="onOpcionalChange($event, opc)"
+          [checked]="selectedOpcionais.includes(opc.id)"
+          class="rounded border-gray-300"
+          />
+          <span>{{ opc.nome }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <div>
+    <label class="block text-xs text-gray-700 font-semibold">Cor</label>
+      <div class="relative">
+        <select formControlName="colors"
+          class="w-full rounded-full border border-gray-300 px-2 py-1 text-xs pr-8 bg-white">
+          <option value="">Todas</option>
+          <option *ngFor="let cor of colors" [value]="cor">{{ cor }}</option>
+        </select>
+      </div>
+      </div>
+    </div>
+
+    <!-- Botão de expandir/recolher -->
+    <button
+      type="button"
+      (click)="toggleFiltros()"
+      class="absolute -bottom-3 right-4 bg-white rounded-full border border-gray-300 shadow p-1 hover:bg-gray-100 transition">
+      <span *ngIf="filtrosVisiveis">⬆️</span>
+      <span *ngIf="!filtrosVisiveis">⬇️</span>
+    </button>
+
+    <!-- Botão Buscar -->
+    <div class="flex justify-center mt-2">
+      <button type="submit" class="flex items-center gap-1 bg-green-600 text-white text-sm font-semibold px-4 py-1 rounded-full hover:bg-green-700 transition">
+        <img src="assets/search-icon.png" />
+      </button>
+    </div>
+  </form>
+
+  <!-- Lista -->
+  <app-vehicles-list
+  [vehicles]="vehicles"
+  (editVehicle)="onEditVehicle($event)">
+</app-vehicles-list>
+
+  <div *ngIf="showForm" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded shadow-lg w-[800px] p-4 relative">
+      <!-- Botão fechar -->
+      <button (click)="closeForm()" class="absolute top-2 right-2 text-gray-600">✖</button>
+
+    <app-vehicle-form
+      *ngIf="showForm"
+      [initial]="selectedVehicle"
+      (saved)="onSaved($event)">
+    </app-vehicle-form>
+    </div>
+  </div>
+</div>

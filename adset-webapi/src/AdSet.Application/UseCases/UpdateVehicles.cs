@@ -1,9 +1,4 @@
-﻿using AdSet.Domain.Entities;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Reflection;
-
-namespace AdSet.Application.UseCases
+﻿namespace AdSet.Application.UseCases
 {
     public interface IUpdateVehicles : IUseCaseWithRequest<CreateUpdateVehicleViewModel> { }
 
@@ -32,6 +27,7 @@ namespace AdSet.Application.UseCases
         public async Task Execute(CreateUpdateVehicleViewModel request)
         {
             var vehicleEntity = mapper.Map<Vehicle>(request);
+            vehicleEntity.Id  = request.Id;
             //lembrar de usar UnitOfWork
             await vehiclesRepository.Update(vehicleEntity);
 
@@ -62,21 +58,8 @@ namespace AdSet.Application.UseCases
         }
 
         private async Task UpdateVehicleImages(Vehicle vehicleToUpdate, IFormFileCollection newImages)
-        { 
+        {
             var imagesToDelete = await vehicleImageRepository.FindByVehicleId(vehicleToUpdate.Id);
-
-            //foreach (var image in imagesToDelete)
-            //{
-            //    if (!existingImageIdsToKeep.Contains(image.Id))
-            //    {
-            //        var fullPath = Path.Combine(Directory.GetCurrentDirectory(), image.ImageUrl);
-            //        if (File.Exists(fullPath))
-            //        {
-            //            File.Delete(fullPath);
-            //        }
-            //        await vehicleImageRepository.Delete(image);
-            //    }
-            //}
 
             if (newImages != null && newImages.Any())
             {
@@ -85,17 +68,18 @@ namespace AdSet.Application.UseCases
 
                 var imagesToProcess = newImages.Take(remainingCapacity);
 
+                string solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+                string vehicleFolder = Path.Combine(solutionRoot, "uploads", "images", vehicleToUpdate.Id.ToString());
+
+                if (!Directory.Exists(vehicleFolder))
+                {
+                    Directory.CreateDirectory(vehicleFolder);
+                }
+
                 foreach (var imageFile in imagesToProcess)
                 {
-                    var uploadDirectory = "uploads/images";
-                    var fullPathDir = Path.Combine(Directory.GetCurrentDirectory(), uploadDirectory);
-                    if (!Directory.Exists(fullPathDir))
-                    {
-                        Directory.CreateDirectory(fullPathDir);
-                    }
-
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                    var filePath = Path.Combine(fullPathDir, fileName);
+                    var filePath = Path.Combine(vehicleFolder, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -105,8 +89,10 @@ namespace AdSet.Application.UseCases
                     var vehicleImage = new VehicleImage
                     {
                         VehicleId = vehicleToUpdate.Id,
-                        ImageUrl = Path.Combine(uploadDirectory, fileName).Replace("\\", "/")
+                        // 🔹 URL pública relativa, que o Angular vai consumir
+                        ImageUrl = $"/uploads/images/{vehicleToUpdate.Id}/{fileName}"
                     };
+
                     await vehicleImageRepository.Add(vehicleImage);
                 }
             }

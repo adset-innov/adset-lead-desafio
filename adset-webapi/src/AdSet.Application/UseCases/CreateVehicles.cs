@@ -1,5 +1,4 @@
-﻿using AdSet.Domain.Entities;
-using AutoMapper;
+﻿using AdSet.Domain.Interfaces;
 
 namespace AdSet.Application.UseCases
 {
@@ -8,6 +7,7 @@ namespace AdSet.Application.UseCases
     public class CreateVehicles : ICreateVehicles
     {
         private readonly IMapper mapper;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IVehiclesRepository vehiclesRepository;
         private readonly IOptionalRepository optionalRepository;
         private readonly IVehicleOptionalRepository vehicleOptionalRepository;
@@ -15,12 +15,14 @@ namespace AdSet.Application.UseCases
 
         public CreateVehicles(
             IMapper mapper,
+            IUnitOfWork unitOfWork,
             IVehiclesRepository vehiclesRepository,
             IOptionalRepository optionalRepository,
             IVehicleOptionalRepository vehicleOptionalRepository,
             IVehicleImageRepository vehicleImageRepository) 
         {
             this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
             this.vehiclesRepository = vehiclesRepository;
             this.optionalRepository = optionalRepository;
             this.vehicleOptionalRepository = vehicleOptionalRepository;
@@ -29,10 +31,18 @@ namespace AdSet.Application.UseCases
 
         public async Task Execute(CreateUpdateVehicleViewModel request)
         {
+            
             var vehicleEntity = mapper.Map<Vehicle>(request);
-            //lembrar de usar UnitOfWork
+            //usar o UnitOfWork
             await vehiclesRepository.Add(vehicleEntity);
 
+            await ProcessOptionals(request, vehicleEntity.Id);
+            await ProcessImages(request, vehicleEntity.Id);
+
+        }
+
+        private async Task ProcessOptionals(CreateUpdateVehicleViewModel request, int vehicleEntityId)
+        {
             if (request.Optionals != null && request.Optionals.Any())
             {
                 var optionalIds = request.Optionals;
@@ -43,18 +53,22 @@ namespace AdSet.Application.UseCases
                 {
                     var vehicleOptional = new VehicleOptional
                     {
-                        VehicleId = vehicleEntity.Id,
+                        VehicleId = vehicleEntityId,
                         OptionalId = optional.Id
                     };
                     await vehicleOptionalRepository.Add(vehicleOptional);
                 }
             }
+        }
 
+        private async Task ProcessImages(CreateUpdateVehicleViewModel request, int vehicleEntityId)
+        {
             if (request.Images != null && request.Images.Any())
             {
                 var imagesToProcess = request.Images.Take(15);
-                string uploadDirectory = "uploads/images";
-                string fullPath = Path.Combine(Directory.GetCurrentDirectory(), uploadDirectory);
+         
+                string fullPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+                string uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "uploads", "images", vehicleEntityId.ToString());
 
                 if (!Directory.Exists(fullPath))
                 {
@@ -71,10 +85,11 @@ namespace AdSet.Application.UseCases
                         await imageFile.CopyToAsync(stream);
                     }
 
+                    var relativePath = $"/uploads/images/{vehicleEntityId}/{fileName}";
                     var vehicleImage = new VehicleImage
                     {
-                        VehicleId = vehicleEntity.Id,
-                        ImageUrl = Path.Combine(uploadDirectory, fileName).Replace("\\", "/")
+                        VehicleId = vehicleEntityId,
+                        ImageUrl = relativePath
                     };
                     await vehicleImageRepository.Add(vehicleImage);
                 }

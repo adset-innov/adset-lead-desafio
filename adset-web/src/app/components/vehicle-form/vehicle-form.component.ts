@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../../services/vehicle.service';
-import { Vehicle } from '../../models/vehicle.model';
+import { Vehicle } from '../../models/VehicleModel';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -56,8 +56,8 @@ export class VehicleFormComponent implements OnInit {
 
      this.loadOpcionais();
 
-    if (this.initial?.images) {
-      this.imagePreviews = this.initial.images;
+    if (this.initial?.imageUrls) {
+      this.imagePreviews = this.initial.imageUrls;
     }
   }
 
@@ -73,7 +73,7 @@ export class VehicleFormComponent implements OnInit {
       optionals: this.initial?.optionals || [],
     });
 
-    this.imagePreviews = this.initial?.images || [];
+    this.imagePreviews = this.initial?.imageUrls || [];
   }
 
   loadOpcionais() {
@@ -113,47 +113,47 @@ export class VehicleFormComponent implements OnInit {
   return this.initial?.id ? 'Editar Veículo' : 'Cadastrar Veículo';
   }
 
-  save() {
-     if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
+    save() {
+      if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+      const vehicle = this.form.value;
+
+      const formData = new FormData();
+
+      formData.append('make', vehicle.make);
+      formData.append('model', vehicle.model);
+      formData.append('year', vehicle.year);
+      formData.append('plate', vehicle.plate);
+      formData.append('km', vehicle.km);
+      formData.append('color', vehicle.color);
+      formData.append('price', vehicle.price);
+
+      vehicle.optionals.forEach((optId: number) => {
+        formData.append('optionals', optId.toString());
+      });
+
+      this.selectedFiles.forEach(file => {
+        formData.append('Images', file);
+      });
+
+    if (this.initial?.id) {
+      this.svc.update(this.initial.id, formData).subscribe({
+        next: (res) => {
+          console.log('Veículo atualizado!', res);
+          this.saved.emit(res);
+        },
+        error: (err) => console.error('Erro ao atualizar', err)
+      });
+    } else {
+      this.svc.create(formData).subscribe({
+        next: (res) => {
+          console.log('Veículo salvo!', res);
+          this.saved.emit(res);
+        },
+        error: (err) => console.error('Erro ao salvar', err)
+      });
+    }
   }
-    const vehicle = this.form.value;
-
-    const formData = new FormData();
-
-    formData.append('make', vehicle.make);
-    formData.append('model', vehicle.model);
-    formData.append('year', vehicle.year);
-    formData.append('plate', vehicle.plate);
-    formData.append('km', vehicle.km);
-    formData.append('color', vehicle.color);
-    formData.append('price', vehicle.price);
-
-    vehicle.optionals.forEach((optId: number) => {
-      formData.append('optionals', optId.toString());
-    });
-
-    this.selectedFiles.forEach(file => {
-      formData.append('Images', file);
-    });
-
-  if (this.initial?.id) {
-    this.svc.update(this.initial.id, formData).subscribe({
-      next: (res) => {
-        console.log('Veículo atualizado!', res);
-        this.saved.emit(res);
-      },
-      error: (err) => console.error('Erro ao atualizar', err)
-    });
-  } else {
-    this.svc.create(formData).subscribe({
-      next: (res) => {
-        console.log('Veículo salvo!', res);
-        this.saved.emit(res);
-      },
-      error: (err) => console.error('Erro ao salvar', err)
-    });
-  }
-}
 }

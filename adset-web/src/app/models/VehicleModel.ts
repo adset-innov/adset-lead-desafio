@@ -1,3 +1,8 @@
+export interface VehicleImage {
+  id: number;
+  imageUrls: string;
+}
+
 export interface Vehicle {
   id: number;
   plate: string;
@@ -7,7 +12,7 @@ export interface Vehicle {
   color: string;
   price: number;
   km?: number;
-  images?: string[];
+  imageUrls: string[];
   optionals?: number[];
   portalPackages?: {
     icarros: string;
