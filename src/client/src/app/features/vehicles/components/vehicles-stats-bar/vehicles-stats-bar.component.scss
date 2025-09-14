@@ -74,11 +74,22 @@
       .register-vehicle-icon {
         width: 3rem;
         height: 3rem;
+        margin: 0 0.5rem 0 0;
+        cursor: pointer;
+
+        &:hover {
+          filter: brightness(95%);
+        }
       }
 
       .save-icon {
         width: 8rem;
         height: 3rem;
+        cursor: pointer;
+
+        &:hover {
+          filter: brightness(95%);
+        }
       }
     }
   }

@@ -1,0 +1,111 @@
+<div class="search-bar" [class.collapsed]="collapsed">
+  <div class="field">
+    <label>Placa</label>
+    <input type="text" [(ngModel)]="filters.plate" />
+  </div>
+
+  <div class="field">
+    <label>Marca</label>
+    <input type="text" [(ngModel)]="filters.brand" />
+  </div>
+
+  <div class="field">
+    <label>Modelo</label>
+    <input type="text" [(ngModel)]="filters.model" />
+  </div>
+
+  <div class="field-group">
+    <div class="field">
+      <label>Ano Min</label>
+      <div class="select-wrapper left">
+        <select [(ngModel)]="filters.yearMin">
+          <option [ngValue]="null">Todos</option>
+          <option *ngFor="let year of years" [ngValue]="year">
+            {{ year }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Ano Max</label>
+      <div class="select-wrapper right">
+        <select [(ngModel)]="filters.yearMax">
+          <option [ngValue]="null">Todos</option>
+          <option *ngFor="let year of years" [ngValue]="year">
+            {{ year }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Preço</label>
+    <div class="select-wrapper">
+      <select
+        [(ngModel)]="selectedPriceRange"
+        (ngModelChange)="onPriceChange($event)"
+      >
+        <option [ngValue]="">Todos</option>
+        <option [ngValue]="'10-50'">10mil a 50mil</option>
+        <option [ngValue]="'50-90'">50mil a 90mil</option>
+        <option [ngValue]="'90+'">+90mil</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Fotos</label>
+    <div class="select-wrapper">
+      <select [(ngModel)]="filters.hasPhotos">
+        <option [ngValue]="null">Todos</option>
+        <option [ngValue]="true">Com Fotos</option>
+        <option [ngValue]="false">Sem Fotos</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Opcionais</label>
+    <input type="text" [(ngModel)]="filters.brand" />
+  </div>
+
+  <div class="field">
+    <label>Cor</label>
+    <div class="select-wrapper auto-width">
+      <select [(ngModel)]="filters.color">
+        <option [ngValue]="null">Todos</option>
+        <option *ngFor="let color of colors" [ngValue]="color">
+          {{ color }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn btn-reset" (click)="onReset()" title="Limpar filtros">
+    ↺
+  </button>
+</div>
+
+<div class="search-bar-action">
+  <div class="center">
+    <button
+      [class.search-btn-collapsed]="collapsed"
+      class="btn btn-search"
+      (click)="collapsed ? {} : onSearch()"
+    >
+      <img class="search-icon" src="assets/images/search-icon.svg" />
+      <p>Buscar</p>
+    </button>
+  </div>
+
+  <div class="right">
+    <button class="btn btn-dropdown" (click)="toggleCollapse()">
+      <img
+        [class.rotated]="collapsed"
+        src="assets/images/chevron-top-icon.svg"
+      />
+    </button>
+  </div>
+</div>
