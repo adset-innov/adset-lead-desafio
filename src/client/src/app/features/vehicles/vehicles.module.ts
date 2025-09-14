@@ -5,9 +5,10 @@ import { VehiclesRoutingModule } from './vehicles-routing.module';
 import { VehiclesPageComponent } from './pages/vehicles-page/vehicles-page.component';
 import { MaterialModule } from '../../shared/material.module';
 import { SharedModule } from '../../shared/shared.module';
+import { VehiclesStatsBarComponent } from './components/vehicles-stats-bar/vehicles-stats-bar.component';
 
 @NgModule({
-  declarations: [VehiclesPageComponent],
+  declarations: [VehiclesPageComponent, VehiclesStatsBarComponent],
   imports: [
     CommonModule,
     FormsModule,

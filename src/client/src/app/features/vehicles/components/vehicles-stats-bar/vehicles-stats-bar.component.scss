@@ -1,0 +1,85 @@
+.vehicles-stats-bar-container {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  background-color: #e7e7e7;
+  border-bottom: 1px solid #c6c7c8;
+
+  .left-container {
+    display: flex;
+    align-items: center;
+
+    .vehicles-count-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1.4rem;
+
+      h1 {
+        font-size: 0.9375rem;
+        font-weight: normal;
+        color: #87888a;
+      }
+
+      h2 {
+        font-size: 0.8125rem;
+      }
+
+      &.total h2 {
+        color: #0b72b5;
+      }
+
+      &.with-photos h2 {
+        color: #28a745;
+      }
+
+      &.without-photos h2 {
+        color: #dc3545;
+      }
+    }
+
+    .export-stock-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.75rem;
+
+      h1 {
+        font-size: 0.8125rem;
+        color: #87888a;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .export-csv-icon {
+        width: 2.735rem;
+        height: 1.5rem;
+      }
+    }
+  }
+
+  .right-container {
+    display: flex;
+    flex-grow: 1;
+
+    .vehicle-actions-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      width: 100%;
+
+      .register-vehicle-icon {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .save-icon {
+        width: 8rem;
+        height: 3rem;
+      }
+    }
+  }
+}
