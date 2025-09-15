@@ -1,24 +1,25 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { Vehicle } from '../../models/VehicleModel';
 import { SearchVehiclesFilter } from '../../models/SearchVehiclesFilter';
-import { PortalPackageSelection } from '../../models/PortalPackageSelection';
+import { PortalPackageSelection, UpdateVehiclePortalPackages } from '../../models/PortalPackageSelection';
 import { VehicleService } from '../../services/vehicle.service';
 
 
 @Component({
   selector: 'app-vehicles-list',
   templateUrl: './vehicles-list.component.html',
-  styleUrls: ['./vehicles-list.component.scss']
+  styleUrls: ['./vehicles-list.component.scss'],
 })
 export class VehicleListComponent {
   showForm = false;
   selectedVehicle: Vehicle | null = null;
+  @Output() packagesSelected = new EventEmitter<UpdateVehiclePortalPackages>();
   @Input() filter!: SearchVehiclesFilter;
   @Input() vehicles: Vehicle[] = [];
   @Output() editVehicle = new EventEmitter<Vehicle>();
   packages: PortalPackageSelection[] = [
-    { portal: 'iCarros', packageName: 'Diamante Feirão', selected: false },
-    { portal: 'WebMotors', packageName: 'Básico', selected: true }
+    { portalName: 'iCarros', packageName: 'Diamante Feirão', selected: false },
+    { portalName: 'WebMotors', packageName: 'Básico', selected: false }
   ];
   totalVehicles = 0;
   vehiclesWithPhotos = 0;
@@ -85,5 +86,9 @@ export class VehicleListComponent {
   pageChanged(page: number) {
   this.currentPage = page;
   this.search();
-}
+  }
+
+  onPackagesSelected(event: UpdateVehiclePortalPackages) {
+  this.packagesSelected.emit(event);
+  }
 }

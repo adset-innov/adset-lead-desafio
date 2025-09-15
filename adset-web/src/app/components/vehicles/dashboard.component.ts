@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UpdateVehiclePortalPackages } from 'src/app/models/PortalPackageSelection';
-import { SearchVehiclesFilter } from 'src/app/models/SearchVehiclesFilter';
-import { Vehicle } from 'src/app/models/VehicleModel';
-import { VehicleService } from 'src/app/services/vehicle.service';
+
+import { VehicleListComponent } from "../vehicles-list/vehicles-list.component";
+import { Vehicle } from '../../models/VehicleModel';
+import { UpdateVehiclePortalPackages } from '../../models/PortalPackageSelection';
+import { SearchVehiclesFilter } from '../../models/SearchVehiclesFilter';
+import { VehicleService } from '../../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -169,6 +171,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    console.log(this.selectedPackages);
     this.vehicleService.updatePackages(this.selectedPackages).subscribe({
       next: () => alert('Pacotes salvos com sucesso!'),
       error: (err) => console.error('Erro ao salvar pacotes:', err)

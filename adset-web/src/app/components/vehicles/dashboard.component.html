@@ -187,9 +187,11 @@
   </form>
 
   <!-- Lista -->
-  <app-vehicles-list
+ <app-vehicles-list
   [vehicles]="vehicles"
-  (editVehicle)="onEditVehicle($event)">
+  [filter]="currentFilter"
+  (editVehicle)="onEditVehicle($event)"
+  (packagesSelected)="onPackagesSelected($event)">
 </app-vehicles-list>
 
   <div *ngIf="showForm" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

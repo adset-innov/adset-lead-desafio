@@ -1,8 +1,8 @@
 ﻿using AdSet.Domain.Entities;
 
-namespace AdSet.Application.UseCases
+namespace AdSet.Application.UseCases.Packages
 {
-   public interface IUpdateVehiclePortalPackages : IUseCaseWithRequest<UpdateVehiclePortalPackagesViewModel> { }
+    public interface IUpdateVehiclePortalPackages : IUseCaseWithRequest<UpdateVehiclePortalPackagesViewModel> { }
 
     public class UpdateVehiclePortalPackages : IUpdateVehiclePortalPackages
     {
@@ -10,7 +10,7 @@ namespace AdSet.Application.UseCases
         private readonly IPackagesRepository packagesRepository;
         private readonly IPortalRepository portalRepository;
 
-        public UpdateVehiclePortalPackages (
+        public UpdateVehiclePortalPackages(
             IVehiclePortalPackagesRepository vehiclePortalPackagesRepository,
             IPackagesRepository packagesRepository,
             IPortalRepository portalRepository)
@@ -23,9 +23,6 @@ namespace AdSet.Application.UseCases
 
         public async Task Execute(UpdateVehiclePortalPackagesViewModel model)
         {
-            if (model.PortalSelections == null || !model.PortalSelections.Any())
-                throw new Exception("Registry not found");
-
             foreach (var selection in model.PortalSelections)
             {
                 await ProcessPortalPackage(model.VehicleId, selection.PortalName, selection.PackageName);
@@ -34,27 +31,19 @@ namespace AdSet.Application.UseCases
 
         private async Task ProcessPortalPackage(int vehicleId, string portalName, string? packageName)
         {
-            var portal = await portalRepository.FindByName(portalName);
-            if (portal == null)
-                throw new Exception("Registry not found");
-
-            if (string.IsNullOrWhiteSpace(packageName))
-            {
-                var existingEntry = await vehiclePortalPackagesRepository.FindByVehicleId(vehicleId, portal.Id);
-
-                if (existingEntry != null)
-                    await vehiclePortalPackagesRepository.Delete(existingEntry);
-                return;
-            }
+            var portal = await portalRepository.FindByName(portalName)
+                 ?? throw new Exception($"Portal '{portalName}' não encontrado.");
 
             var package = await packagesRepository.FindByName(packageName);
-            if (package == null)
-                throw new Exception("Registry not found");
 
-            var existingEntryForVehiclePortal = await vehiclePortalPackagesRepository.FindByVehicleId(vehicleId, portal.Id);
 
-            if (existingEntryForVehiclePortal != null)
-                existingEntryForVehiclePortal.PackageId = package.Id;
+            var existingEntry = await vehiclePortalPackagesRepository.FindByVehicleId(vehicleId, portal.Id);
+
+            if (existingEntry != null)
+            {
+                existingEntry.PackageId = package.Id;
+                await vehiclePortalPackagesRepository.Update(existingEntry);
+            }
             else
             {
                 var newEntry = new VehiclePortalPackage

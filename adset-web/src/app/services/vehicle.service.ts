@@ -41,7 +41,7 @@ export class VehicleService {
   }
 
    updatePackages(model: UpdateVehiclePortalPackages): Observable<any> {
-    return this.http.post(`${this.baseUrl}/update`, model);
+    return this.http.post(`${this.baseUrl}/VehiclePortalPackages/update`, model);
   }
 
 }

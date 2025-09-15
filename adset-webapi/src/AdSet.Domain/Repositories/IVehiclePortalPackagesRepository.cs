@@ -7,5 +7,6 @@ namespace AdSet.Domain.Repositories
         Task<VehiclePortalPackage> Add(VehiclePortalPackage vehiclePortalPackage);
         Task<VehiclePortalPackage> FindByVehicleId(int vehicleId, int portalId);
         Task Delete(VehiclePortalPackage vehiclePortalPackage);
+        Task<VehiclePortalPackage> Update(VehiclePortalPackage vehicle);
     }
 }

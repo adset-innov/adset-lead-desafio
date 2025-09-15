@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {  UpdateVehiclePortalPackages } from 'src/app/models/PortalPackageSelection';
-import { VehicleService } from 'src/app/services/vehicle.service';
+import { VehicleService } from '../../services/vehicle.service';
+import { UpdateVehiclePortalPackages } from '../../models/PortalPackageSelection';
+
 
 
 @Component({
@@ -10,6 +11,7 @@ import { VehicleService } from 'src/app/services/vehicle.service';
 export class VehiclePackagesComponent {
   @Input() vehicleId!: number;
   @Output() packagesSelected = new EventEmitter<UpdateVehiclePortalPackages>();
+@Input() portalPackages: { icarros?: string; webmotors?: string } | undefined;
   icarrosPackages = [
     { name: 'Diamante Feirão', code: '010 - 008' },
     { name: 'Diamante', code: '030 - 025' },
@@ -28,6 +30,17 @@ export class VehiclePackagesComponent {
 
   constructor(private vehicleService: VehicleService) {}
 
+  ngOnChanges() {
+    if (this.portalPackages) {
+      if (this.portalPackages.icarros) {
+        this.icarrosSelected = this.portalPackages.icarros;
+      }
+      if (this.portalPackages.webmotors) {
+        this.webmotorsSelected = this.portalPackages.webmotors;
+      }
+    }
+  }
+
   selectPackage(portal: string, packageName: string) {
     if (portal === 'iCarros') {
       this.icarrosSelected = packageName;
@@ -42,10 +55,10 @@ export class VehiclePackagesComponent {
     const selections: any[] = [];
 
     if (this.icarrosSelected) {
-      selections.push({ portal: 'iCarros', packageName: this.icarrosSelected, selected: true });
+      selections.push({ portalName: 'iCarros', packageName: this.icarrosSelected, selected: true });
     }
     if (this.webmotorsSelected) {
-      selections.push({ portal: 'WebMotors', packageName: this.webmotorsSelected, selected: true });
+      selections.push({ portalName: 'WebMotors', packageName: this.webmotorsSelected, selected: true });
     }
 
     const model: UpdateVehiclePortalPackages = {
@@ -58,14 +71,14 @@ export class VehiclePackagesComponent {
   }
 
     save() {
-    const model: UpdateVehiclePortalPackages = {
-      vehicleId: this.vehicleId,
-      portalSelections: []
-    };
+      const model: UpdateVehiclePortalPackages = {
+        vehicleId: this.vehicleId,
+        portalSelections: []
+      };
 
     if (this.icarrosSelected) {
       model.portalSelections.push({
-          portal: 'iCarros',
+          portalName: 'iCarros',
           packageName: this.icarrosSelected,
           selected: true
         });
@@ -73,7 +86,7 @@ export class VehiclePackagesComponent {
 
     if (this.webmotorsSelected) {
        model.portalSelections.push({
-        portal: 'WebMotors',
+        portalName: 'WebMotors',
         packageName: this.webmotorsSelected,
         selected: true
       });

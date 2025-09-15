@@ -101,7 +101,11 @@
         R$ {{ v.price | number:'1.2-2' }}
       </p>
     </div>
-      <app-vehicle-packages [vehicleId]="v.id"></app-vehicle-packages>
+      <app-vehicle-packages
+        [vehicleId]="v.id"
+        [portalPackages]="v.portalPackages"
+        (packagesSelected)="onPackagesSelected($event)">
+</app-vehicle-packages>
   </div>
 </div>
 <!-- <div *ngFor="let v of vehicles | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalVehicles }">

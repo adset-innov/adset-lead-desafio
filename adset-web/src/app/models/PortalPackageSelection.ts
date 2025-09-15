@@ -1,5 +1,5 @@
 export interface PortalPackageSelection {
-  portal: string;
+  portalName: string;
   packageName: string;
   selected: boolean;
 }

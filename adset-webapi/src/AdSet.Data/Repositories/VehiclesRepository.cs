@@ -13,10 +13,13 @@ namespace AdSet.Data.Repositories
         public async Task<PagedList<Vehicle>> Search(SearchVehiclesFilter filters, int currentPage = 1, int pageSize = 10)
         {
             IQueryable<Vehicle> query = context.Vehicles
-                                           .Include(v => v.VehicleImages)
-                                           .Include(v => v.VehicleOptionals)
-                                           .ThenInclude(vo => vo.Optional)
-                                           .Include(v => v.VehiclePortalPackages);
+                                            .Include(v => v.VehicleImages)
+                                            .Include(v => v.VehicleOptionals)
+                                                .ThenInclude(vo => vo.Optional)
+                                            .Include(v => v.VehiclePortalPackages)
+                                                .ThenInclude(vpp => vpp.Portal) 
+                                            .Include(v => v.VehiclePortalPackages)
+                                                .ThenInclude(vpp => vpp.Package);
 
             if (!string.IsNullOrWhiteSpace(filters.Plate))
             {

@@ -1,4 +1,4 @@
-﻿using AdSet.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AdSet.Data.Repositories
 {
@@ -27,6 +27,13 @@ namespace AdSet.Data.Repositories
             context.VehiclePortalPackages.Remove(vehiclePortalPackage);
             await context.SaveChangesAsync();
         }
-         
+
+        public async Task<VehiclePortalPackage> Update(VehiclePortalPackage vehicle)
+        {
+            context.VehiclePortalPackages.Update(vehicle);
+            await context.SaveChangesAsync();
+            return vehicle;
+        }
+
     }
 }

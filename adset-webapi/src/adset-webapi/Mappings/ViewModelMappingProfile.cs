@@ -1,5 +1,6 @@
 ﻿using AdSet.Application.ViewModels;
 using AdSet.Domain.Entities;
+using adset_webapi.Controllers;
 using AutoMapper;
 
 namespace adset_webapi.Mappings
@@ -18,11 +19,14 @@ namespace adset_webapi.Mappings
             CreateMap<Vehicle, VehicleResponseViewModel>()
                 .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(src => src.VehicleImages.Select(img => img.ImageUrl).ToList()))
                 .ForMember(dest => dest.OptionalNames, opt => opt.MapFrom(src => src.VehicleOptionals.Select(vo => vo.Optional.Name).ToList()))
-                .ForMember(dest => dest.PortalPackages, opt => opt.MapFrom(src => src.VehiclePortalPackages.Select(vpp => new PortalPackageSelectionViewModel
-                {
-                    PortalName = vpp.Portal.Name,
-                    PackageName = vpp.Package.Name
-                }).ToList()));
+                .ForMember(dest => dest.PortalPackages, opt => opt.MapFrom(src =>
+                    src.VehiclePortalPackages.Select(vpp => new PortalPackageSelectionViewModel
+                    {
+                        PortalName = vpp.Portal != null ? vpp.Portal.Name : string.Empty,
+                        PackageName = vpp.Package != null ? vpp.Package.Name : string.Empty
+                    }).ToList()
+                ));
+            CreateMap<Package, UpdateVehiclePortalPackagesViewModel>();
         }
     }
 }

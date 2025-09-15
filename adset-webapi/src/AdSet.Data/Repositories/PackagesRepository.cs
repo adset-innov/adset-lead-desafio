@@ -1,6 +1,4 @@
-﻿using AdSet.Domain.Entities;
-
-namespace AdSet.Data.Repositories
+﻿namespace AdSet.Data.Repositories
 {
     public class PackagesRepository : IPackagesRepository
     {
@@ -14,6 +12,5 @@ namespace AdSet.Data.Repositories
         {
             return await context.Packages.FirstOrDefaultAsync(p => p.Name == name);
         }
-
     }
 }
