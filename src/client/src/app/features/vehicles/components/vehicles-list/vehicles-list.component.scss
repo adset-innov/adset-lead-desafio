@@ -1,0 +1,133 @@
+.vehicles-list-container {
+  margin: 0.5rem;
+
+  .no-vehicles {
+    padding: 1rem;
+
+    p {
+      color: #707173;
+    }
+  }
+
+  .vehicles-list-item {
+    display: flex;
+
+    height: 8.125rem;
+
+    .delete-vehicle-icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2rem;
+      height: 100%;
+      background-color: #e7e7e7;
+      margin-right: 0.5rem;
+
+      &:hover {
+        cursor: pointer;
+        filter: brightness(0.95);
+      }
+
+      .delete-vehicle-icon {
+        width: 0.8125rem;
+        height: 1rem;
+      }
+    }
+
+    .vehicle-photo-container {
+      height: 100%;
+      width: 11rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .vehicle-infos-container {
+      display: flex;
+      background-color: #e7e7e7;
+      height: 100%;
+      width: 100%;
+
+      .left-container {
+        width: 50%;
+
+        .brand-model-year-container {
+          display: flex;
+          align-items: center;
+          background-color: #ffffff;
+          padding: 0.5rem;
+          margin: 0.5rem 1rem;
+          width: max-content;
+          border-radius: 0.5rem;
+
+          p {
+            color: #707173;
+            font-weight: bold;
+            font-size: 0.8125rem;
+          }
+        }
+
+        .plate-mileage-color-container {
+          margin: 1rem;
+          display: flex;
+          flex-direction: column;
+
+          p {
+            color: #58585a;
+            font-size: 0.71875rem;
+
+            span {
+              color: #41a62a;
+            }
+          }
+        }
+      }
+
+      .right-container {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: end;
+        width: 50%;
+        height: 100%;
+
+        .extra-infos-container {
+          display: flex;
+          padding: 1rem;
+          gap: 1rem;
+
+          .edit-vehicle-icon {
+            width: 1.6875rem;
+          }
+
+          .photos-quantity-container,
+          .options-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .photo-icon,
+            .options-icon {
+              width: 1.125rem;
+              height: 0.925rem;
+              margin-bottom: 0.25rem;
+            }
+
+            p {
+              color: #40a52b;
+              font-size: 0.6875rem;
+            }
+
+            .options-icon {
+              width: 1.5rem !important;
+              height: 1rem !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

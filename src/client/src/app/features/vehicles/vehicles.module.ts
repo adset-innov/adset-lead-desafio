@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { VehiclesStatsBarComponent } from './components/vehicles-stats-bar/vehicles-stats-bar.component';
 import { VehiclesSearchBarComponent } from './components/vehicles-search-bar/vehicles-search-bar.component';
 import { VehiclesFiltersBarComponent } from './components/vehicles-filters-bar/vehicles-filters-bar.component';
+import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { VehiclesFiltersBarComponent } from './components/vehicles-filters-bar/v
     VehiclesStatsBarComponent,
     VehiclesSearchBarComponent,
     VehiclesFiltersBarComponent,
+    VehiclesListComponent,
   ],
   imports: [
     CommonModule,

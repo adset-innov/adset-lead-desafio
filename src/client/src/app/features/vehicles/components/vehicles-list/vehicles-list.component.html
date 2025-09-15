@@ -1,0 +1,80 @@
+<div class="vehicles-list-container">
+  <!-- No vehicles -->
+  <div class="no-vehicles" *ngIf="!vehicles || vehicles.length === 0">
+    <p>Nenhum veículo foi encontrado.</p>
+  </div>
+
+  <!-- Vehicles list -->
+  <div class="vehicles-list-item" *ngFor="let v of vehicles">
+    <!-- Delete vehicle -->
+    <div class="delete-vehicle-icon-container" (click)="onDelete(v.id)">
+      <img
+        class="delete-vehicle-icon"
+        src="assets/images/trash-icon.svg"
+        alt="Delete Vehicle Icon"
+      />
+    </div>
+
+    <!-- Vehicle photo -->
+    <div class="vehicle-photo-container">
+      <img
+        [src]="
+          v.photos?.length
+            ? v.photos[0].url
+            : 'assets/images/car-placeholder-image.png'
+        "
+        alt="Vehicle Photo"
+      />
+    </div>
+
+    <!-- Vehicle info -->
+    <div class="vehicle-infos-container">
+      <div class="left-container">
+        <!-- Brand, model and year -->
+        <div class="brand-model-year-container">
+          <p>{{ v.brand }} {{ v.model }} | {{ v.year }}</p>
+        </div>
+
+        <!-- Plate, mileage, color, price -->
+        <div class="plate-mileage-color-container">
+          <p>
+            Plate - <span>{{ v.licensePlate }}</span>
+          </p>
+          <p>
+            Mileage - <span>{{ v.mileage | number }}</span>
+          </p>
+          <p>
+            Color - <span>{{ v.color }}</span>
+          </p>
+          <p>
+            Price - <span>{{ v.price | currency: "BRL" }}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="right-container">
+        <div class="extra-infos-container">
+          <!-- Edit -->
+          <img
+            class="edit-vehicle-icon"
+            src="assets/images/edit-vehicle-icon.svg"
+            (click)="onEdit(v.id)"
+            alt="Edit Vehicle"
+          />
+
+          <!-- Photos count -->
+          <div class="photos-quantity-container">
+            <img class="photo-icon" src="assets/images/photo-icon.svg" />
+            <p>{{ v.photos?.length || 0 }}</p>
+          </div>
+
+          <!-- Options -->
+          <div class="options-container">
+            <img class="options-icon" src="assets/images/options-icon.svg" />
+            <p>Options</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

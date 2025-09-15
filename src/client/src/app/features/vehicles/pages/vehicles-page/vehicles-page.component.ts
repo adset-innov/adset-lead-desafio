@@ -30,5 +30,11 @@ export class VehiclesPageComponent implements OnInit {
 
   onEditVehicle(id: string): void {
     console.log('Edit vehicle:', id);
+    // this.vm.updateVehicle(id, {...})
+  }
+
+  onDeleteVehicle(id: string): void {
+    console.log('Delete vehicle:', id);
+    this.vm.deleteVehicle(id);
   }
 }

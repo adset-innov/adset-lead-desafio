@@ -1,13 +1,22 @@
 <section id="vehicles-page">
   <app-header></app-header>
+
   <app-vehicles-stats-bar
     [totalCount]="(vm.totalCount$ | async) ?? 0"
     [withPhotosCount]="(vm.withPhotosCount$ | async) ?? 0"
     [withoutPhotosCount]="(vm.withoutPhotosCount$ | async) ?? 0"
   ></app-vehicles-stats-bar>
+
   <app-vehicles-search-bar></app-vehicles-search-bar>
+
   <app-vehicles-filters-bar
     [pageSize]="vm.filters.pageSize ?? 10"
     (pageSizeChange)="vm.changePageSize($event)"
   ></app-vehicles-filters-bar>
+
+  <app-vehicles-list
+    [vehicles]="(vm.vehicles$ | async) ?? []"
+    (edit)="onEditVehicle($event)"
+    (delete)="onDeleteVehicle($event)"
+  ></app-vehicles-list>
 </section>
