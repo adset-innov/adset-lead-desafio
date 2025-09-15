@@ -7,12 +7,14 @@ import { MaterialModule } from '../../shared/material.module';
 import { SharedModule } from '../../shared/shared.module';
 import { VehiclesStatsBarComponent } from './components/vehicles-stats-bar/vehicles-stats-bar.component';
 import { VehiclesSearchBarComponent } from './components/vehicles-search-bar/vehicles-search-bar.component';
+import { VehiclesFiltersBarComponent } from './components/vehicles-filters-bar/vehicles-filters-bar.component';
 
 @NgModule({
   declarations: [
     VehiclesPageComponent,
     VehiclesStatsBarComponent,
     VehiclesSearchBarComponent,
+    VehiclesFiltersBarComponent,
   ],
   imports: [
     CommonModule,

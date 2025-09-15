@@ -42,7 +42,6 @@ export class VehiclesSearchBarComponent {
   }
 
   onSearch(): void {
-    console.log('oi');
     this.search.emit(this.filters);
   }
 

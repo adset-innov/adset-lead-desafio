@@ -1,0 +1,159 @@
+.vehicles-filter-bar {
+  display: flex;
+  align-items: end;
+  background: #e7e7e7;
+  padding: 0 0 0.5rem 0;
+
+  .erase-filters-icon {
+    width: 3.1875rem;
+    height: 1.5rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
+
+    &:hover {
+      filter: brightness(0.95);
+    }
+  }
+
+  .filter-item {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+
+    .label {
+      color: #58585a;
+      font-size: 0.6875rem;
+      margin-right: 0.1rem;
+    }
+
+    .sort-icons {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.25rem;
+
+      .triangle {
+        width: 0;
+        height: 0;
+        margin: 1px 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        cursor: pointer;
+
+        &.up {
+          border-bottom: 6px solid #888;
+        }
+
+        &.down {
+          border-top: 6px solid #888;
+        }
+
+        &.active.up {
+          border-bottom-color: #40a52b;
+        }
+
+        &.active.down {
+          border-top-color: #40a52b;
+        }
+      }
+    }
+
+    .separator {
+      width: 2px;
+      height: 1rem;
+      background-color: #c4c4c4;
+      margin-left: 0.5rem;
+    }
+
+    &.show-select {
+      margin-left: auto;
+      margin-right: 1rem;
+
+      .select-wrapper {
+        position: relative;
+        display: inline-block;
+
+        select {
+          height: 1.5rem;
+          padding: 0 2.5rem 0 0.5rem;
+          border: 0.0625rem solid #3d3d3f;
+          border-radius: 1rem;
+          font-size: 0.8125rem;
+          appearance: none;
+          background-color: #f6f6f6;
+          color: #58585a;
+          font-weight: bold;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 1rem;
+          height: 100%;
+          background: #40a52b;
+          pointer-events: none;
+        }
+
+        &::after {
+          content: "▾";
+          position: absolute;
+          top: 50%;
+          right: 0.15rem;
+          transform: translateY(-50%);
+          font-size: 1rem;
+          color: #fff;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .icarros-container,
+  .webmotors-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    background-color: #ffffff;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    margin-right: 1rem;
+
+    .icarros-logo,
+    .webmotors-logo {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .action-capsule {
+      position: absolute;
+      bottom: -1.125rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.2rem 0.5rem;
+      background: #fff;
+      border-radius: 2rem;
+
+      img {
+        width: 0.75rem;
+      }
+    }
+
+    .action-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

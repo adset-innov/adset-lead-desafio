@@ -1,0 +1,74 @@
+<div class="vehicles-filter-bar">
+  <img class="erase-filters-icon" src="assets/images/erase-filters-icon.svg" />
+
+  <!-- Brand / Model -->
+  <div class="filter-item">
+    <p class="label">Marca / Modelo</p>
+    <div class="sort-icons">
+      <span class="triangle up active"></span>
+      <span class="triangle down"></span>
+    </div>
+    <div class="separator"></div>
+  </div>
+
+  <!-- Year -->
+  <div class="filter-item">
+    <p class="label">Ano</p>
+    <div class="sort-icons">
+      <span class="triangle up"></span>
+      <span class="triangle down active"></span>
+    </div>
+    <div class="separator"></div>
+  </div>
+
+  <!-- Price -->
+  <div class="filter-item">
+    <p class="label">Preço</p>
+    <div class="sort-icons">
+      <span class="triangle up"></span>
+      <span class="triangle down active"></span>
+    </div>
+    <div class="separator"></div>
+  </div>
+
+  <!-- Photos -->
+  <div class="filter-item">
+    <p class="label">Fotos</p>
+    <div class="sort-icons">
+      <span class="triangle up"></span>
+      <span class="triangle down active"></span>
+    </div>
+    <div class="separator"></div>
+  </div>
+
+  <!-- Show Select -->
+  <div class="filter-item show-select">
+    <div class="select-wrapper auto-width">
+      <select [ngModel]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+        <option [ngValue]="10">Exibir 10</option>
+        <option [ngValue]="50">Exibir 50</option>
+        <option [ngValue]="100">Exibir 100</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ICarros -->
+  <div class="icarros-container">
+    <img class="icarros-logo" src="assets/images/icarros-logo.svg" />
+
+    <div class="action-capsule">
+      <img src="assets/images/download-icon.svg" class="action-icon" />
+      <img src="assets/images/eraser-icon.svg" class="action-icon" />
+    </div>
+  </div>
+
+  <!-- WebMotors -->
+  <div class="webmotors-container">
+    <img class="webmotors-logo" src="assets/images/webmotors-logo.svg" />
+
+    <div class="action-capsule">
+      <img src="assets/images/download-icon.svg" class="action-icon" />
+      <img src="assets/images/eraser-icon.svg" class="action-icon" />
+    </div>
+  </div>
+</div>

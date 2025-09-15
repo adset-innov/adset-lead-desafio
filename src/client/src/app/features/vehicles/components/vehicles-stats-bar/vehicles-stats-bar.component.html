@@ -2,7 +2,7 @@
   <div class="left-container">
     <!-- Vehicles Total -->
     <div class="vehicles-count-box total">
-      <h1>110 veículos</h1>
+      <h1>{{ totalCount }} veículos</h1>
       <h2>Total</h2>
     </div>
 
@@ -10,7 +10,7 @@
 
     <!-- Vehicles with Photos -->
     <div class="vehicles-count-box with-photos">
-      <h1>080 veículos</h1>
+      <h1>{{ withPhotosCount }} veículos</h1>
       <h2>com fotos</h2>
     </div>
 
@@ -18,13 +18,13 @@
 
     <!-- Vehicles without Photos -->
     <div class="vehicles-count-box without-photos">
-      <h1>030 veículos</h1>
+      <h1>{{ withoutPhotosCount }} veículos</h1>
       <h2>sem fotos</h2>
     </div>
 
     <app-vertical-separator-slash></app-vertical-separator-slash>
 
-    <!-- Export Stock  -->
+    <!-- Export Stock -->
     <div class="export-stock-container">
       <h1>Exportar Estoque</h1>
       <img class="export-csv-icon" src="assets/images/export-csv-icon.svg" />
@@ -33,7 +33,7 @@
     <app-vertical-separator-slash></app-vertical-separator-slash>
   </div>
 
-  <!-- Register Vehicle  -->
+  <!-- Register Vehicle -->
   <div class="right-container">
     <div class="vehicle-actions-container">
       <img

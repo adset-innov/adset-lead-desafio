@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-vehicles-stats-bar',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicles-stats-bar.component.scss'],
 })
 export class VehiclesStatsBarComponent implements OnInit {
+  @Input() totalCount = 0;
+  @Input() withPhotosCount = 0;
+  @Input() withoutPhotosCount = 0;
+
   constructor() {}
 
   ngOnInit(): void {}

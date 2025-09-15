@@ -21,7 +21,9 @@ export class VehiclesPageViewModel {
   colors$ = new BehaviorSubject<string[]>([]);
   loading$ = new BehaviorSubject<boolean>(false);
 
-  private filters: SearchVehiclesRequest = {
+  pageSize$ = new BehaviorSubject<number>(10); // 👈 expõe o pageSize atual
+
+  filters: SearchVehiclesRequest = {
     pageNumber: 1,
     pageSize: 10,
   };
@@ -79,6 +81,13 @@ export class VehiclesPageViewModel {
 
   changePage(page: number): void {
     this.filters.pageNumber = page;
+    this.loadVehicles();
+  }
+
+  changePageSize(size: number): void {
+    this.filters.pageSize = size;
+    this.filters.pageNumber = 1; // resetar para primeira página
+    this.pageSize$.next(size); // atualizar o BehaviorSubject
     this.loadVehicles();
   }
 
