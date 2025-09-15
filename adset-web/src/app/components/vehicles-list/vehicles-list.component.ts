@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { PortalPackageSelection } from 'src/app/models/PortalPackageSelection';
-import { SearchVehiclesFilter } from 'src/app/models/SearchVehiclesFilter';
-import { Vehicle } from 'src/app/models/VehicleModel';
-import { VehicleService } from 'src/app/services/vehicle.service';
-import { environment } from 'src/environment/environment';
+import { Vehicle } from '../../models/VehicleModel';
+import { SearchVehiclesFilter } from '../../models/SearchVehiclesFilter';
+import { PortalPackageSelection } from '../../models/PortalPackageSelection';
+import { VehicleService } from '../../services/vehicle.service';
+
 
 @Component({
   selector: 'app-vehicles-list',
@@ -13,7 +13,6 @@ import { environment } from 'src/environment/environment';
 export class VehicleListComponent {
   showForm = false;
   selectedVehicle: Vehicle | null = null;
-  environment = environment;
   @Input() filter!: SearchVehiclesFilter;
   @Input() vehicles: Vehicle[] = [];
   @Output() editVehicle = new EventEmitter<Vehicle>();

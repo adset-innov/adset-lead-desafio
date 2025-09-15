@@ -8,7 +8,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/vehicles/dashboard.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 import { VehiclePackagesComponent } from './components/vehicle-packages/vehicle-packages.component';
 
 @NgModule({
@@ -26,8 +26,7 @@ import { VehiclePackagesComponent } from './components/vehicle-packages/vehicle-
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    NgxPaginationModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
