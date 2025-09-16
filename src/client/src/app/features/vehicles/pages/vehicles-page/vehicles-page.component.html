@@ -7,7 +7,11 @@
     [withoutPhotosCount]="(vm.withoutPhotosCount$ | async) ?? 0"
   ></app-vehicles-stats-bar>
 
-  <app-vehicles-search-bar></app-vehicles-search-bar>
+  <app-vehicles-search-bar
+    [colors]="(vm.colors$ | async) ?? []"
+    (search)="vm.applyFilters($event)"
+    (reset)="vm.applyFilters({}, true)"
+  ></app-vehicles-search-bar>
 
   <app-vehicles-filters-bar
     [pageSize]="vm.filters.pageSize ?? 10"

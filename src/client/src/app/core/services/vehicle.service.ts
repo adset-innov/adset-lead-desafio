@@ -92,8 +92,8 @@ export class VehicleService {
     );
   }
 
-  getDistinctColors(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/colors`);
+  getDistinctColors(): Observable<{ colors: string[] }> {
+    return this.http.get<{ colors: string[] }>(`${this.baseUrl}/colors`);
   }
 
   uploadPhoto(id: string, file: File): Observable<Photo> {

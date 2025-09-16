@@ -12,7 +12,6 @@
   .vehicles-list-item {
     display: flex;
     margin-bottom: 0.5rem;
-
     height: 8.125rem;
 
     .delete-vehicle-icon-container {
@@ -38,7 +37,9 @@
 
     .vehicle-photo-container {
       height: 100%;
-      width: 16rem;
+      min-width: 10%;
+      width: 12rem;
+      max-width: 12rem;
 
       img {
         width: 100%;
@@ -93,8 +94,8 @@
       .right-container {
         display: flex;
         flex-direction: column;
-        align-items: end;
-        justify-content: end;
+        align-items: flex-end;
+        justify-content: flex-end;
         width: 50%;
         height: 100%;
 
@@ -157,26 +158,22 @@
   }
 
   .vehicle-portals-container {
-    min-width: 25vw;
+    width: 24rem;
 
     .portal-checkboxes-container {
-      display: flex;
-      gap: 1rem;
-      background: #fff;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: start;
+      width: 24rem;
 
       .portal-group {
         display: flex;
         flex-direction: column;
         border-right: 1px solid #c4c4c4;
-        padding: 0 1rem;
-
-        &:last-child {
-          border-right: none;
-        }
+        padding: 0 0.5rem;
 
         .portal-body {
           background: #fff;
-          padding: 0.5rem;
           border-radius: 0 0 0.25rem 0.25rem;
 
           .portal-option {

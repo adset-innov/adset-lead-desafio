@@ -86,16 +86,30 @@ export class VehiclesPageViewModel {
   loadColors(): void {
     console.log('[VehiclesVM] loadColors called');
 
-    this.vehicleService.getDistinctColors().subscribe((r: string[]) => {
-      console.log('[VehiclesVM] distinct colors response:', r);
-      this.colors$.next(r);
+    this.vehicleService.getDistinctColors().subscribe({
+      next: (r) => {
+        console.log('[VehiclesVM] distinct colors response:', r);
+        this.colors$.next(r.colors);
+      },
+      error: (err) => {
+        console.error('[VehiclesVM] Failed to load colors', err);
+      },
     });
   }
 
-  applyFilters(filters: Partial<SearchVehiclesRequest>): void {
+  applyFilters(filters: Partial<SearchVehiclesRequest>, reset = false): void {
     console.log('[VehiclesVM] applyFilters called with:', filters);
 
-    this.filters = { ...this.filters, ...filters, pageNumber: 1 };
+    if (reset) {
+      this.filters = {
+        pageNumber: 1,
+        pageSize: this.filters.pageSize ?? 10,
+        ...filters,
+      };
+    } else {
+      this.filters = { ...this.filters, ...filters, pageNumber: 1 };
+    }
+
     this.loadVehicles();
   }
 
