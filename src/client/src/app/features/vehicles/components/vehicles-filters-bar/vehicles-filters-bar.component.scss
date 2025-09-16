@@ -66,7 +66,7 @@
 
     &.show-select {
       margin-left: auto;
-      margin-right: 1rem;
+      margin-right: 0.5rem;
 
       .select-wrapper {
         position: relative;
@@ -109,50 +109,56 @@
     }
   }
 
-  .icarros-container,
-  .webmotors-container {
-    position: relative;
+  .portals-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0.75rem 2rem;
-    background-color: #ffffff;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    margin-right: 1rem;
+    gap: 4rem;
+    min-width: 25vw;
 
-    .icarros-logo,
-    .webmotors-logo {
-      width: 2rem;
-      height: 2rem;
-    }
-
-    .action-capsule {
-      position: absolute;
-      bottom: -1.125rem;
-      left: 50%;
-      transform: translateX(-50%);
+    .icarros-container,
+    .webmotors-container {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 0.2rem 0.5rem;
-      background: #fff;
-      border-radius: 2rem;
+      padding: 0.75rem 2rem;
+      background-color: #ffffff;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
 
-      img {
-        width: 0.75rem;
+      .icarros-logo,
+      .webmotors-logo {
+        width: 2rem;
+        height: 2rem;
       }
-    }
 
-    .action-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-      cursor: pointer;
-      transition: transform 0.2s;
+      .action-capsule {
+        position: absolute;
+        bottom: -1.125rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        background: #fff;
+        border-radius: 2rem;
 
-      &:hover {
-        transform: scale(1.05);
+        img {
+          width: 0.75rem;
+        }
+      }
+
+      .action-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }

@@ -38,16 +38,16 @@
         <!-- Plate, mileage, color, price -->
         <div class="plate-mileage-color-container">
           <p>
-            Plate - <span>{{ v.licensePlate }}</span>
+            Placa - <span>{{ v.licensePlate }}</span>
           </p>
           <p>
-            Mileage - <span>{{ v.mileage | number }}</span>
+            Km - <span>{{ v.mileage | number }}</span>
           </p>
           <p>
-            Color - <span>{{ v.color }}</span>
+            Cor - <span>{{ v.color }}</span>
           </p>
           <p>
-            Price - <span>{{ v.price | currency: "BRL" }}</span>
+            Preço - <span>{{ v.price | currency: "BRL" }}</span>
           </p>
         </div>
       </div>
@@ -71,7 +71,61 @@
           <!-- Options -->
           <div class="options-container">
             <img class="options-icon" src="assets/images/options-icon.svg" />
-            <p>Options</p>
+            <p>Opcionais</p>
+          </div>
+        </div>
+        <div class="price-container">
+          <h1>
+            {{ v.price | currency: "BRL" }}
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle portals -->
+    <div class="vehicle-portals-container">
+      <div class="portal-checkboxes-container">
+        <!-- iCarros -->
+        <div class="portal-group">
+          <div class="portal-body">
+            <div class="portal-option">
+              <input type="checkbox" id="feirao" />
+              <label for="feirao">Diamante Feirão</label>
+              <span class="count"
+                ><span class="red">010</span> -
+                <span class="green">008</span></span
+              >
+            </div>
+            <div class="portal-option">
+              <input type="checkbox" id="diamante" checked />
+              <label for="diamante">Diamante</label>
+              <span class="count"
+                ><span class="red">030</span> -
+                <span class="green">025</span></span
+              >
+            </div>
+            <div class="portal-option">
+              <input type="checkbox" id="platinum" />
+              <label for="platinum">Platinum</label>
+              <span class="count"
+                ><span class="red">040</span> -
+                <span class="green">010</span></span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- WebMotors -->
+        <div class="portal-group">
+          <div class="portal-body">
+            <div class="portal-option">
+              <input type="checkbox" id="basico" checked />
+              <label for="basico">Básico</label>
+              <span class="count"
+                ><span class="red">030</span> -
+                <span class="green">025</span></span
+              >
+            </div>
           </div>
         </div>
       </div>
