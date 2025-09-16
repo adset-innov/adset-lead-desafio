@@ -79,7 +79,8 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
     {
         var query = context.Vehicles
             .Include(v => v.Photos)
-            .ApplyFilters(filter);
+            .ApplyFilters(filter)
+            .ApplyOrdering(filter);
 
         var totalCount = await query.CountAsync();
 

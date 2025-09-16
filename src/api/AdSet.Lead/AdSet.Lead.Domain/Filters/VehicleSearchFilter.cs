@@ -16,4 +16,7 @@ public sealed class VehicleSearchFilter
     public Portal? Portal { get; init; }
     public Package? Package { get; init; }
     public PaginationFilter Pagination { get; init; } = new(1, 10);
+
+    public string? SortField { get; set; }
+    public string? SortDirection { get; set; }
 }

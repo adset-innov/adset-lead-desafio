@@ -33,4 +33,38 @@ public static class VehicleQueryableExtensions
 
         return query;
     }
+
+    public static IQueryable<Vehicle> ApplyOrdering(
+        this IQueryable<Vehicle> query,
+        VehicleSearchFilter filter
+    )
+    {
+        if (string.IsNullOrWhiteSpace(filter.SortField))
+            return query.OrderBy(v => v.CreatedOn);
+
+        return filter.SortField.ToLower() switch
+        {
+            "brand" => filter.SortDirection == "desc"
+                ? query.OrderByDescending(v => v.Brand)
+                : query.OrderBy(v => v.Brand),
+
+            "model" => filter.SortDirection == "desc"
+                ? query.OrderByDescending(v => v.Model)
+                : query.OrderBy(v => v.Model),
+
+            "year" => filter.SortDirection == "desc"
+                ? query.OrderByDescending(v => v.Year)
+                : query.OrderBy(v => v.Year),
+
+            "price" => filter.SortDirection == "desc"
+                ? query.OrderByDescending(v => v.Price)
+                : query.OrderBy(v => v.Price),
+
+            "photos" => filter.SortDirection == "desc"
+                ? query.OrderByDescending(v => v.Photos.Count)
+                : query.OrderBy(v => v.Photos.Count),
+
+            _ => query.OrderBy(v => v.CreatedOn)
+        };
+    }
 }

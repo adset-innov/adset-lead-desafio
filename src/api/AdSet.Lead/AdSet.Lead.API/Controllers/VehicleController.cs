@@ -58,9 +58,7 @@ public class VehicleController(
         List<PortalPackageDto>? portalPackagesDto = null;
         if (!string.IsNullOrWhiteSpace(portalPackages) &&
             !TryDeserialize(portalPackages, out portalPackagesDto, out var portalError))
-        {
             return BadRequest($"Invalid 'PortalPackages' JSON: {portalError}");
-        }
 
         var fileInputs = files?.Select(f => new CreateVehicleFile(f.OpenReadStream(), f.FileName)).ToList();
 
@@ -140,13 +138,16 @@ public class VehicleController(
         [FromQuery] Portal? portal,
         [FromQuery] Package? package,
         [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10
+        [FromQuery] int pageSize = 10,
+        [FromQuery] string? sortField = null,
+        [FromQuery] string? sortDirection = null
     )
     {
         var input = new SearchVehiclesInput(
             plate, brand, model, yearMin, yearMax,
             priceMin, priceMax, hasPhotos, color,
-            portal, package, pageNumber, pageSize
+            portal, package, pageNumber, pageSize,
+            sortField, sortDirection
         );
 
         var output = await searchVehiclesUc.Execute(input);
