@@ -15,4 +15,6 @@ export interface SearchVehiclesRequest {
   package?: Package;
   pageNumber?: number;
   pageSize?: number;
+  sortField?: string;
+  sortDirection?: 'asc' | 'desc';
 }

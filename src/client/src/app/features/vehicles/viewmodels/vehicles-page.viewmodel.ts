@@ -129,6 +129,19 @@ export class VehiclesPageViewModel {
     this.loadVehicles();
   }
 
+  applySort(sort: { field: string; direction: 'asc' | 'desc' | null }): void {
+    console.log('[VehiclesVM] applySort called with:', sort);
+
+    this.filters = {
+      ...this.filters,
+      sortField: sort.field,
+      sortDirection: sort.direction ?? undefined,
+      pageNumber: 1,
+    };
+
+    this.loadVehicles();
+  }
+
   createVehicle(req: CreateVehicleRequest): void {
     console.log('[VehiclesVM] createVehicle called with:', req);
 

@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="vehicles-list.component.scss" />
 <div class="vehicles-list-container">
   <!-- No vehicles -->
   <div class="no-vehicles" *ngIf="!vehicles || vehicles.length === 0">
@@ -46,9 +45,6 @@
           </p>
           <p>
             Cor - <span>{{ v.color }}</span>
-          </p>
-          <p>
-            Preço - <span>{{ v.price | currency: "BRL" }}</span>
           </p>
         </div>
       </div>

@@ -1,4 +1,8 @@
 #vehicles-page {
   display: flex;
   flex-direction: column;
+
+  .vehicles-list {
+    margin-bottom: 1rem;
+  }
 }

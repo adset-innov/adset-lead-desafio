@@ -16,11 +16,20 @@
   <app-vehicles-filters-bar
     [pageSize]="vm.filters.pageSize ?? 10"
     (pageSizeChange)="vm.changePageSize($event)"
+    (sortChange)="vm.applySort($event)"
   ></app-vehicles-filters-bar>
 
   <app-vehicles-list
+    class="vehicles-list"
     [vehicles]="(vm.vehicles$ | async) ?? []"
     (edit)="onEditVehicle($event)"
     (delete)="onDeleteVehicle($event)"
   ></app-vehicles-list>
+
+  <app-paginator
+    [totalCount]="(vm.totalCount$ | async) ?? 0"
+    [pageSize]="(vm.pageSize$ | async) ?? 10"
+    [currentPage]="vm.filters.pageNumber ?? 1"
+    (pageChange)="vm.changePage($event)"
+  ></app-paginator>
 </section>

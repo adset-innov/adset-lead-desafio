@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VerticalSeparatorSlashComponent } from './vertical-separator-slash.component';
 
-describe('HeaderComponent', () => {
+describe('VerticalSeparatorSlashComponent', () => {
   let component: VerticalSeparatorSlashComponent;
   let fixture: ComponentFixture<VerticalSeparatorSlashComponent>;
 

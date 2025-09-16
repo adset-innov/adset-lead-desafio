@@ -5,8 +5,16 @@
   <div class="filter-item">
     <p class="label">Marca / Modelo</p>
     <div class="sort-icons">
-      <span class="triangle up active"></span>
-      <span class="triangle down"></span>
+      <span
+        class="triangle up"
+        [class.active]="isActive('brandModel', 'asc')"
+        (click)="toggleSort('brandModel', 'asc')"
+      ></span>
+      <span
+        class="triangle down"
+        [class.active]="isActive('brandModel', 'desc')"
+        (click)="toggleSort('brandModel', 'desc')"
+      ></span>
     </div>
     <div class="separator"></div>
   </div>
@@ -15,8 +23,16 @@
   <div class="filter-item">
     <p class="label">Ano</p>
     <div class="sort-icons">
-      <span class="triangle up"></span>
-      <span class="triangle down active"></span>
+      <span
+        class="triangle up"
+        [class.active]="isActive('year', 'asc')"
+        (click)="toggleSort('year', 'asc')"
+      ></span>
+      <span
+        class="triangle down"
+        [class.active]="isActive('year', 'desc')"
+        (click)="toggleSort('year', 'desc')"
+      ></span>
     </div>
     <div class="separator"></div>
   </div>
@@ -25,8 +41,16 @@
   <div class="filter-item">
     <p class="label">Preço</p>
     <div class="sort-icons">
-      <span class="triangle up"></span>
-      <span class="triangle down active"></span>
+      <span
+        class="triangle up"
+        [class.active]="isActive('price', 'asc')"
+        (click)="toggleSort('price', 'asc')"
+      ></span>
+      <span
+        class="triangle down"
+        [class.active]="isActive('price', 'desc')"
+        (click)="toggleSort('price', 'desc')"
+      ></span>
     </div>
     <div class="separator"></div>
   </div>
@@ -35,8 +59,16 @@
   <div class="filter-item">
     <p class="label">Fotos</p>
     <div class="sort-icons">
-      <span class="triangle up"></span>
-      <span class="triangle down active"></span>
+      <span
+        class="triangle up"
+        [class.active]="isActive('photos', 'asc')"
+        (click)="toggleSort('photos', 'asc')"
+      ></span>
+      <span
+        class="triangle down"
+        [class.active]="isActive('photos', 'desc')"
+        (click)="toggleSort('photos', 'desc')"
+      ></span>
     </div>
     <div class="separator"></div>
   </div>
@@ -45,6 +77,8 @@
   <div class="filter-item show-select">
     <div class="select-wrapper auto-width">
       <select [ngModel]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+        <option [ngValue]="1">Exibir 1</option>
+        <option [ngValue]="5">Exibir 5</option>
         <option [ngValue]="10">Exibir 10</option>
         <option [ngValue]="50">Exibir 50</option>
         <option [ngValue]="100">Exibir 100</option>
