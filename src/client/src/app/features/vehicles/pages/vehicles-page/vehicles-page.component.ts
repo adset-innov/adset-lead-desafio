@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VehiclesPageViewModel } from '../../viewmodels/vehicles-page.viewmodel';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateVehicleModalComponent } from '../../components/create-vehicle-modal/create-vehicle-modal.component';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -8,7 +10,10 @@ import { VehiclesPageViewModel } from '../../viewmodels/vehicles-page.viewmodel'
   providers: [VehiclesPageViewModel],
 })
 export class VehiclesPageComponent implements OnInit {
-  constructor(public vm: VehiclesPageViewModel) {}
+  constructor(
+    public vm: VehiclesPageViewModel,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.vm.loadVehicles();
@@ -17,7 +22,14 @@ export class VehiclesPageComponent implements OnInit {
   }
 
   onCreateVehicle(): void {
-    console.log('Create vehicle clicked');
+    const dialogRef = this.dialog.open(CreateVehicleModalComponent, {
+      width: '600px',
+    });
+
+    dialogRef.componentInstance.save.subscribe((req) => {
+      this.vm.createVehicle(req);
+      dialogRef.close();
+    });
   }
 
   onSave(): void {

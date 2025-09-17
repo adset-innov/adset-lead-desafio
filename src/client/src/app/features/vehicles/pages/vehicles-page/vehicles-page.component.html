@@ -5,6 +5,8 @@
     [totalCount]="(vm.totalCount$ | async) ?? 0"
     [withPhotosCount]="(vm.withPhotosCount$ | async) ?? 0"
     [withoutPhotosCount]="(vm.withoutPhotosCount$ | async) ?? 0"
+    (createVehicle)="onCreateVehicle()"
+    (save)="onSave()"
   ></app-vehicles-stats-bar>
 
   <app-vehicles-search-bar

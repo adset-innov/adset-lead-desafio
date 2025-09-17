@@ -9,6 +9,7 @@ import { VehiclesStatsBarComponent } from './components/vehicles-stats-bar/vehic
 import { VehiclesSearchBarComponent } from './components/vehicles-search-bar/vehicles-search-bar.component';
 import { VehiclesFiltersBarComponent } from './components/vehicles-filters-bar/vehicles-filters-bar.component';
 import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.component';
+import { CreateVehicleModalComponent } from './components/create-vehicle-modal/create-vehicle-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.
     VehiclesSearchBarComponent,
     VehiclesFiltersBarComponent,
     VehiclesListComponent,
+    CreateVehicleModalComponent,
   ],
   imports: [
     CommonModule,

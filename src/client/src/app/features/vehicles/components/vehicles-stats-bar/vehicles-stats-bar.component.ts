@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-vehicles-stats-bar',
@@ -10,7 +10,18 @@ export class VehiclesStatsBarComponent implements OnInit {
   @Input() withPhotosCount = 0;
   @Input() withoutPhotosCount = 0;
 
+  @Output() createVehicle = new EventEmitter<void>();
+  @Output() save = new EventEmitter<void>();
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  onCreateClick(): void {
+    this.createVehicle.emit();
+  }
+
+  onSaveClick(): void {
+    this.save.emit();
+  }
 }
