@@ -26,6 +26,7 @@
     [vehicles]="(vm.vehicles$ | async) ?? []"
     (edit)="onEditVehicle($event)"
     (delete)="onDeleteVehicle($event)"
+    (viewPhotos)="onViewPhotos($event)"
   ></app-vehicles-list>
 
   <app-paginator

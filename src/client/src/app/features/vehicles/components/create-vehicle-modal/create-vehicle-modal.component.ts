@@ -1,8 +1,8 @@
-import { VehicleOptionsService } from '../../../../core/services/vehicle-options.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { VehicleOptionsService } from '../../../../core/services/vehicle-options.service';
 import { VehicleOption } from '../../../../core/models/vehicle-option';
 import { Observable, of } from 'rxjs';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { debounceTime, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -33,6 +33,8 @@ export class CreateVehicleModalComponent implements OnInit {
       price: [''],
       mileage: [''],
       optionSearch: [''],
+      iCarrosPackage: [''],
+      webMotorsPackage: [''],
     });
 
     this.filteredOptions$ = this.form.get('optionSearch')!.valueChanges.pipe(
@@ -63,20 +65,15 @@ export class CreateVehicleModalComponent implements OnInit {
     const optionName =
       typeof name === 'string' ? name.trim() : name?.name?.trim();
 
-    console.log('createNewOption recebeu:', name, '->', optionName);
-
     if (!optionName) return;
 
     this.optionsService.create(optionName).subscribe({
       next: (res) => {
-        console.log('Novo option criado:', res);
         if (res && res.name) {
           this.addOption({ id: res.id, name: res.name });
         }
       },
-      error: (err) => {
-        console.error('Erro ao criar option', err);
-      },
+      error: (err) => console.error('Erro ao criar option', err),
     });
   }
 
@@ -87,10 +84,27 @@ export class CreateVehicleModalComponent implements OnInit {
   }
 
   save() {
+    const portalPackages: any[] = [];
+
+    if (this.form.value.iCarrosPackage) {
+      portalPackages.push({
+        portal: 'ICarros',
+        package: this.form.value.iCarrosPackage,
+      });
+    }
+
+    if (this.form.value.webMotorsPackage) {
+      portalPackages.push({
+        portal: 'WebMotors',
+        package: this.form.value.webMotorsPackage,
+      });
+    }
+
     const vehicle = {
       ...this.form.value,
       options: this.selectedOptions.map((o) => o.name),
       files: this.files,
+      portalPackages,
     };
 
     this.vehicleCreated.emit(vehicle);

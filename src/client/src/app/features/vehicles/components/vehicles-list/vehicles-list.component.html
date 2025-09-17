@@ -16,7 +16,7 @@
     </div>
 
     <!-- Vehicle photo -->
-    <div class="vehicle-photo-container">
+    <div class="vehicle-photo-container" (click)="onViewPhotos(v)">
       <img
         [src]="
           v.photos?.length
@@ -60,7 +60,7 @@
           />
 
           <!-- Photos count -->
-          <div class="photos-quantity-container">
+          <div class="photos-quantity-container" (click)="onViewPhotos(v)">
             <img class="photo-icon" src="assets/images/photo-icon.svg" />
             <p>{{ v.photos?.length || 0 }}</p>
           </div>

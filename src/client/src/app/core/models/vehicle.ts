@@ -12,7 +12,7 @@ export interface Vehicle {
   mileage: number;
   color: string;
   price: number;
-  options: { [key: string]: boolean };
+  options: string[];
   photos: Photo[];
   portalPackages: PortalPackage[];
 }

@@ -10,6 +10,7 @@ export class VehiclesListComponent {
   @Input() vehicles: Vehicle[] = [];
   @Output() edit = new EventEmitter<string>();
   @Output() delete = new EventEmitter<string>();
+  @Output() viewPhotos = new EventEmitter<Vehicle>();
 
   onEdit(id: string) {
     this.edit.emit(id);
@@ -17,5 +18,9 @@ export class VehiclesListComponent {
 
   onDelete(id: string) {
     this.delete.emit(id);
+  }
+
+  onViewPhotos(vehicle: Vehicle) {
+    this.viewPhotos.emit(vehicle);
   }
 }

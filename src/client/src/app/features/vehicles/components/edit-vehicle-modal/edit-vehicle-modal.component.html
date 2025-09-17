@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Criar veículo</h1>
+<h1 mat-dialog-title>Editar veículo</h1>
 
 <div mat-dialog-content>
   <form [formGroup]="form" class="vehicle-form">
@@ -50,7 +50,6 @@
       <mat-chip-list #chipList>
         <mat-chip
           *ngFor="let opt of selectedOptions"
-          [selectable]="true"
           [removable]="true"
           (removed)="removeOption(opt)"
         >
@@ -76,14 +75,12 @@
           {{ option.name }}
         </mat-option>
 
-        <!-- Create new option -->
         <mat-option
           *ngIf="
             (filteredOptions$ | async)?.length === 0 &&
             form.get('optionSearch')?.value
           "
-          [value]="form.get('optionSearch')?.value"
-          (onSelectionChange)="createNewOption($event.source.value)"
+          (click)="createNewOption(form.get('optionSearch')?.value)"
         >
           Criar "{{ form.get("optionSearch")?.value }}"
         </mat-option>
@@ -117,7 +114,7 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="cancel()">Cancelar</button>
   <button
     mat-flat-button
     color="primary"

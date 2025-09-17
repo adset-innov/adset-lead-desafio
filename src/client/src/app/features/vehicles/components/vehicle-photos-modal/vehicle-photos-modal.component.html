@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Fotos do veículo</h1>
+
+<div mat-dialog-content class="photos-container">
+  <img *ngIf="currentPhoto" [src]="currentPhoto" alt="Vehicle photo" />
+
+  <div class="controls">
+    <button mat-icon-button (click)="prev()" [disabled]="currentIndex === 0">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <span>{{ currentIndex + 1 }} / {{ data.photos.length }}</span>
+
+    <button
+      mat-icon-button
+      (click)="next()"
+      [disabled]="currentIndex === data.photos.length - 1"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Fechar</button>
+</div>

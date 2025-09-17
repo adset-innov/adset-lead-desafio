@@ -47,6 +47,11 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
+
+        &:hover {
+          cursor: pointer;
+          filter: brightness(0.95);
+        }
       }
     }
 
@@ -136,6 +141,13 @@
             .options-icon {
               width: 1.5rem !important;
               height: 1rem !important;
+            }
+
+            .photo-icon {
+              &:hover {
+                cursor: pointer;
+                filter: brightness(0.95);
+              }
             }
           }
         }

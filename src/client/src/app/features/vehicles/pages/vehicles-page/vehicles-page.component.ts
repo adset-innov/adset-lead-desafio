@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { VehiclesPageViewModel } from '../../viewmodels/vehicles-page.viewmodel';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateVehicleModalComponent } from '../../components/create-vehicle-modal/create-vehicle-modal.component';
+import { EditVehicleModalComponent } from '../../components/edit-vehicle-modal/edit-vehicle-modal.component';
+import { VehiclePhotosModalComponent } from '../../components/vehicle-photos-modal/vehicle-photos-modal.component';
+import { Vehicle } from '../../../../core/models/vehicle';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -41,8 +44,27 @@ export class VehiclesPageComponent implements OnInit {
   }
 
   onEditVehicle(id: string): void {
-    console.log('Edit vehicle:', id);
-    // this.vm.updateVehicle(id, {...})
+    const vehicle = this.vm.vehicles$.getValue().find((v) => v.id === id);
+    if (!vehicle) return;
+
+    const dialogRef = this.dialog.open(EditVehicleModalComponent, {
+      width: '600px',
+      data: vehicle,
+    });
+
+    dialogRef.componentInstance.vehicleUpdated.subscribe((req) => {
+      this.vm.updateVehicle(id, req);
+      dialogRef.close();
+    });
+  }
+
+  onViewPhotos(vehicle: Vehicle): void {
+    if (!vehicle.photos?.length) return;
+
+    this.dialog.open(VehiclePhotosModalComponent, {
+      width: '800px',
+      data: { photos: vehicle.photos },
+    });
   }
 
   onDeleteVehicle(id: string): void {

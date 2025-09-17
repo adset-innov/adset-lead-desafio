@@ -12,6 +12,8 @@ import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { CreateVehicleModalComponent } from './components/create-vehicle-modal/create-vehicle-modal.component';
+import { EditVehicleModalComponent } from './components/edit-vehicle-modal/edit-vehicle-modal.component';
+import { VehiclePhotosModalComponent } from './components/vehicle-photos-modal/vehicle-photos-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CreateVehicleModalComponent } from './components/create-vehicle-modal/c
     VehiclesFiltersBarComponent,
     VehiclesListComponent,
     CreateVehicleModalComponent,
+    EditVehicleModalComponent,
+    VehiclePhotosModalComponent,
   ],
   imports: [
     CommonModule,
