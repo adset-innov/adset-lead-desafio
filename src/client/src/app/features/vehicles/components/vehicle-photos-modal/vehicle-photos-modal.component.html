@@ -1,25 +1,53 @@
 <h1 mat-dialog-title>Fotos do veículo</h1>
 
 <div mat-dialog-content class="photos-container">
-  <img *ngIf="currentPhoto" [src]="currentPhoto" alt="Vehicle photo" />
+  <ng-container *ngIf="data.photos.length; else noPhotos">
+    <img *ngIf="currentPhoto" [src]="currentPhoto" alt="Vehicle photo" />
 
-  <div class="controls">
-    <button mat-icon-button (click)="prev()" [disabled]="currentIndex === 0">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
+    <div class="controls">
+      <button mat-icon-button (click)="prev()" [disabled]="currentIndex === 0">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
 
-    <span>{{ currentIndex + 1 }} / {{ data.photos.length }}</span>
+      <span>{{ currentIndex + 1 }} / {{ data.photos.length }}</span>
 
-    <button
-      mat-icon-button
-      (click)="next()"
-      [disabled]="currentIndex === data.photos.length - 1"
-    >
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </div>
+      <button
+        mat-icon-button
+        (click)="next()"
+        [disabled]="currentIndex === data.photos.length - 1"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #noPhotos>
+    <p>Nenhuma foto encontrada.</p>
+  </ng-template>
 </div>
 
 <div mat-dialog-actions>
+  <!-- Upload Photo -->
+  <button mat-flat-button color="primary" (click)="fileInput.click()">
+    Adicionar foto
+  </button>
+  <input
+    #fileInput
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    hidden
+  />
+
+  <!-- Remove Photo -->
+  <button
+    mat-button
+    color="warn"
+    (click)="removeCurrentPhoto()"
+    [disabled]="!data.photos.length"
+  >
+    Remover foto
+  </button>
+
   <button mat-button (click)="close()">Fechar</button>
 </div>

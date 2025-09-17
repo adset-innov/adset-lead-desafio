@@ -67,9 +67,17 @@ export class VehiclesPageComponent implements OnInit {
   onViewPhotos(vehicle: Vehicle): void {
     if (!vehicle.photos?.length) return;
 
-    this.dialog.open(VehiclePhotosModalComponent, {
+    const dialogRef = this.dialog.open(VehiclePhotosModalComponent, {
       width: '800px',
-      data: { photos: vehicle.photos },
+      data: { vehicleId: vehicle.id, photos: [...vehicle.photos] },
+    });
+
+    dialogRef.componentInstance.photoAdded.subscribe((file: File) => {
+      this.vm.uploadPhoto(vehicle.id, file);
+    });
+
+    dialogRef.componentInstance.photoRemoved.subscribe((photoId: string) => {
+      this.vm.removePhoto(vehicle.id, photoId);
     });
   }
 
