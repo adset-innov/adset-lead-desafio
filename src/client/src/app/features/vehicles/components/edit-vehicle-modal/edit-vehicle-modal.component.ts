@@ -18,7 +18,6 @@ export class EditVehicleModalComponent implements OnInit {
   form!: FormGroup;
   filteredOptions$: Observable<VehicleOption[]> = of([]);
   selectedOptions: VehicleOption[] = [];
-  files: File[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -55,13 +54,6 @@ export class EditVehicleModalComponent implements OnInit {
         value ? this.optionsService.search(value) : of([]),
       ),
     );
-  }
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.files = Array.from(input.files);
-    }
   }
 
   addOption(option: VehicleOption | null | undefined) {
@@ -113,7 +105,6 @@ export class EditVehicleModalComponent implements OnInit {
       id: this.vehicle.id,
       ...this.form.value,
       options: this.selectedOptions.map((o) => o.name),
-      files: this.files,
       portalPackages,
     };
 
