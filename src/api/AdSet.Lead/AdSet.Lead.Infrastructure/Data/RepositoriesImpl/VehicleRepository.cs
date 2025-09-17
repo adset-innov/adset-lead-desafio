@@ -20,6 +20,8 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
     {
         return await context.Vehicles
             .Include(v => v.Photos)
+            .Include(v => v.Options)
+            .Include(v => v.PortalPackages)
             .ToListAsync();
     }
 
@@ -92,6 +94,8 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
     {
         var query = context.Vehicles
             .Include(v => v.Photos)
+            .Include(v => v.Options)
+            .Include(v => v.PortalPackages)
             .ApplyFilters(filter)
             .ApplyOrdering(filter);
 
@@ -110,3 +114,4 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
         );
     }
 }
+ 
