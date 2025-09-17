@@ -46,7 +46,7 @@ public class VehicleOptionRepository(AppDbContext context) : IVehicleOptionRepos
     public async Task<VehicleOption?> GetByNameAsync(string name)
     {
         return await context.VehicleOptions
-            .FirstOrDefaultAsync(o => o.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+            .FirstOrDefaultAsync(o => o.Name.ToLower() == name.ToLower());
     }
 
     public async Task<IEnumerable<VehicleOption>> SearchByNameAsync(string query)

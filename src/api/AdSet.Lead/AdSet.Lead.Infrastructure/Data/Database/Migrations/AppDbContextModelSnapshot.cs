@@ -39,7 +39,7 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid?>("VehicleId")
+                    b.Property<Guid>("VehicleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -124,10 +124,13 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
 
             modelBuilder.Entity("AdSet.Lead.Domain.Entities.Photo", b =>
                 {
-                    b.HasOne("AdSet.Lead.Domain.Entities.Vehicle", null)
+                    b.HasOne("AdSet.Lead.Domain.Entities.Vehicle", "Vehicle")
                         .WithMany("Photos")
                         .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("AdSet.Lead.Domain.Entities.Vehicle", b =>

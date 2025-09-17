@@ -12,13 +12,14 @@ public class PhotoConfiguration : IEntityTypeConfiguration<Photo>
 
         builder.Property(p => p.CreatedOn).IsRequired();
         builder.Property(p => p.UpdatedOn).IsRequired();
+
         builder.Property(p => p.Url)
             .IsRequired()
             .HasMaxLength(500);
 
-        builder.HasOne<Vehicle>()
+        builder.HasOne(p => p.Vehicle)
             .WithMany(v => v.Photos)
-            .HasForeignKey("VehicleId")
+            .HasForeignKey(p => p.VehicleId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

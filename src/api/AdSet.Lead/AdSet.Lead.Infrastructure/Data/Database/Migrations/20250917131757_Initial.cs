@@ -52,8 +52,8 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {

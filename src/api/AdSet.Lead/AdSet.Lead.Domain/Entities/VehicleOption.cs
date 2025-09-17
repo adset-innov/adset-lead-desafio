@@ -9,7 +9,6 @@ public sealed class VehicleOption : IEntity
     public DateTime CreatedOn { get; private set; }
     public DateTime UpdatedOn { get; private set; }
     public string Name { get; private set; } = string.Empty;
-    public ICollection<Vehicle> Vehicles { get; private set; } = new List<Vehicle>();
 
     private VehicleOption()
     {

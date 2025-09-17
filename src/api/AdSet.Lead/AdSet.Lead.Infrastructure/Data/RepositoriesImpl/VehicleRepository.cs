@@ -27,6 +27,8 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
     {
         var vehicle = await context.Vehicles
             .Include(v => v.Photos)
+            .Include(v => v.Options)
+            .Include(v => v.PortalPackages)
             .FirstOrDefaultAsync(v => v.Id == id);
 
         if (vehicle is null)
@@ -38,6 +40,17 @@ public class VehicleRepository(AppDbContext context) : IVehicleRepository
     public async Task AddAsync(Vehicle vehicle)
     {
         await context.Vehicles.AddAsync(vehicle);
+    }
+
+    public async Task AddPhotoAsync(Photo photo)
+    {
+        await context.Photos.AddAsync(photo);
+    }
+
+    public Task RemovePhotoAsync(Photo photo)
+    {
+        context.Photos.Remove(photo);
+        return Task.CompletedTask;
     }
 
     public async Task DeleteByIdAsync(Guid id)

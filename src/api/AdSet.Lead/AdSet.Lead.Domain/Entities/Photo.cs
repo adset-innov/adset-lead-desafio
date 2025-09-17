@@ -8,7 +8,8 @@ public class Photo : IEntity
     public Guid Id { get; private set; }
     public DateTime CreatedOn { get; private set; }
     public DateTime UpdatedOn { get; private set; }
-
+    public Guid VehicleId { get; private set; }
+    public Vehicle Vehicle { get; private set; } = null!;
     public string Url { get; private set; } = string.Empty;
 
     private Photo()
@@ -24,6 +25,11 @@ public class Photo : IEntity
         UpdatedOn = DateTime.UtcNow;
 
         Url = url;
+    }
+
+    internal void SetVehicleId(Guid vehicleId) // 🔑 setter controlado
+    {
+        VehicleId = vehicleId;
     }
 
     private static void Validate(string url)

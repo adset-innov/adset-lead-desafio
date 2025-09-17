@@ -17,8 +17,11 @@ public class UploadVehiclePhoto(IVehicleRepository repository, IImageStorageServ
         );
 
         var vehicle = await repository.GetByIdAsync(input.VehicleId);
-        vehicle.AddPhoto(new Photo(photoUrl));
 
+        var photo = new Photo(photoUrl);
+        vehicle.AddPhoto(photo);
+
+        await repository.AddPhotoAsync(photo);
         await repository.SaveAsync();
 
         return new UploadVehiclePhotoOutput(

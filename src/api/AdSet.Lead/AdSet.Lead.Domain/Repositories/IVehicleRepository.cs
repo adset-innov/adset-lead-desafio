@@ -12,4 +12,6 @@ public interface IVehicleRepository : IRepository<Vehicle>
     Task<int> GetWithoutPhotosCountAsync();
     Task<IEnumerable<string>> GetDistinctColorsAsync();
     Task<PagedResult<Vehicle>> SearchAsync(VehicleSearchFilter filter);
+    Task AddPhotoAsync(Photo photo);
+    Task RemovePhotoAsync(Photo photo);
 }

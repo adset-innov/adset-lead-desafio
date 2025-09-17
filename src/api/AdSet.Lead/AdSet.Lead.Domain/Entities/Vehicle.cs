@@ -159,6 +159,7 @@ public sealed class Vehicle : IEntity
         if (_photos.Count >= 15)
             throw new DomainValidationException("A vehicle can have a maximum of 15 photos.");
 
+        photo.SetVehicleId(Id);
         _photos.Add(photo);
         UpdatedOn = DateTime.UtcNow;
     }

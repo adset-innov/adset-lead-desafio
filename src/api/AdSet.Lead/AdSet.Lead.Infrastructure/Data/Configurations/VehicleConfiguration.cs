@@ -22,7 +22,7 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.OwnsOne(v => v.Color, c => c.ConfigureColor());
 
         builder.HasMany(v => v.Options)
-            .WithMany(o => o.Vehicles)
+            .WithMany()
             .UsingEntity<Dictionary<string, object>>(
                 "VehicleOptionJoin",
                 j => j.HasOne<VehicleOption>()
@@ -38,11 +38,6 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
                     j.HasKey("VehicleId", "OptionId");
                     j.ToTable("VehicleOptionsMap");
                 });
-
-
-        builder.HasMany(v => v.Photos)
-            .WithOne()
-            .OnDelete(DeleteBehavior.Cascade);
 
         builder.OwnsMany(v => v.PortalPackages, pp => pp.ConfigurePortalPackages());
     }

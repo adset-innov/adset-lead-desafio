@@ -14,7 +14,10 @@ public class RemoveVehiclePhoto(IVehicleRepository repository, IImageStorageServ
             throw new ArgumentException("Photo not found.");
 
         imageStorageService.DeleteImage(photo.Url);
+
         vehicle.RemovePhoto(input.PhotoId);
+
+        await repository.RemovePhotoAsync(photo);
 
         await repository.SaveAsync();
 

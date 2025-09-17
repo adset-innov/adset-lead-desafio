@@ -29,7 +29,7 @@ public static class VehicleQueryableExtensions
             .WhereIf(filter.Options != null && filter.Options.Count != 0,
                 v => filter.Options!.All(opt =>
                     v.Options.Any(o =>
-                        o.Name.Contains(opt, StringComparison.CurrentCultureIgnoreCase))))
+                        o.Name.ToLower().Contains(opt.ToLower()))))
             .WhereIf(filter.Portal.HasValue,
                 v => v.PortalPackages.Any(pp => pp.Portal == filter.Portal))
             .WhereIf(filter.Package.HasValue,
