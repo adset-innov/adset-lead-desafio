@@ -26,30 +26,6 @@ public static class ValueObjectConfigurations
             .HasMaxLength(50);
     }
 
-    public static void ConfigureVehicleOptions<T>(this OwnedNavigationBuilder<T, VehicleOptions> builder)
-        where T : class
-    {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        builder.Property(o => o.Options)
-            .HasColumnName("VehicleOptions")
-            .HasConversion(
-                v => JsonSerializer.Serialize(v, options),
-                v => JsonSerializer.Deserialize<Dictionary<string, bool>>(v, options)
-                     ?? new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase))
-            .Metadata.SetValueComparer(
-                new ValueComparer<Dictionary<string, bool>>(
-                    (d1, d2) => d1 != null && d2 != null && d1.Count == d2.Count && !d1.Except(d2).Any(),
-                    d => d.Aggregate(0, (a, v) => HashCode.Combine(a, v.Key.GetHashCode(), v.Value.GetHashCode())),
-                    d => d.ToDictionary(entry => entry.Key, entry => entry.Value, StringComparer.OrdinalIgnoreCase)
-                )
-            );
-
-        builder.Property(o => o.Options).HasColumnType("nvarchar(max)");
-    }
 
     public static void ConfigurePortalPackages<T>(this OwnedNavigationBuilder<T, PortalPackage> builder)
         where T : class

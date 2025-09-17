@@ -12,6 +12,20 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "VehicleOptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleOptions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vehicles",
                 columns: table => new
                 {
@@ -24,8 +38,7 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                     LicensePlate = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Mileage = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    VehicleOptions = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,10 +85,39 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "VehicleOptionsMap",
+                columns: table => new
+                {
+                    VehicleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleOptionsMap", x => new { x.VehicleId, x.OptionId });
+                    table.ForeignKey(
+                        name: "FK_VehicleOptionsMap_VehicleOptions_OptionId",
+                        column: x => x.OptionId,
+                        principalTable: "VehicleOptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehicleOptionsMap_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_VehicleId",
                 table: "Photos",
                 column: "VehicleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleOptionsMap_OptionId",
+                table: "VehicleOptionsMap",
+                column: "OptionId");
         }
 
         /// <inheritdoc />
@@ -86,6 +128,12 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "PortalPackage");
+
+            migrationBuilder.DropTable(
+                name: "VehicleOptionsMap");
+
+            migrationBuilder.DropTable(
+                name: "VehicleOptions");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

@@ -1,15 +1,17 @@
 ﻿using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.Mappers;
-using AdSet.Lead.Domain.VOs;
+using AdSet.Lead.Application.Services;
 using AdSet.Lead.Domain.Repositories;
 
 namespace AdSet.Lead.Application.UseCases.Vehicle;
 
-public class UpdateVehicle(IVehicleRepository repository)
+public class UpdateVehicle(IVehicleRepository repository, VehicleOptionService optionService)
 {
     public async Task<UpdateVehicleOutput> Execute(UpdateVehicleInput input)
     {
         var existing = await repository.GetByIdAsync(Guid.Parse(input.Id));
+
+        var options = await optionService.ResolveOptionsAsync(input.Options);
 
         existing.UpdateDetails(
             input.Brand,
@@ -19,7 +21,7 @@ public class UpdateVehicle(IVehicleRepository repository)
             input.Color,
             input.Price,
             input.Mileage,
-            new VehicleOptions(input.Options ?? new Dictionary<string, bool>())
+            options
         );
 
         await repository.SaveAsync();
@@ -37,7 +39,7 @@ public record UpdateVehicleInput(
     string Color,
     decimal Price,
     int Mileage,
-    Dictionary<string, bool>? Options
+    IEnumerable<string>? Options
 );
 
 public record UpdateVehicleOutput(string Id);

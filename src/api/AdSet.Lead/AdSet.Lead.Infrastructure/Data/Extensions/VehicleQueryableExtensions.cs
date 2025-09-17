@@ -26,6 +26,10 @@ public static class VehicleQueryableExtensions
             .WhereIf(filter.HasPhotos is false, v => !v.Photos.Any())
             .WhereIf(!string.IsNullOrWhiteSpace(filter.Color),
                 v => v.Color.Value == filter.Color!)
+            .WhereIf(filter.Options != null && filter.Options.Count != 0,
+                v => filter.Options!.All(opt =>
+                    v.Options.Any(o =>
+                        o.Name.Contains(opt, StringComparison.CurrentCultureIgnoreCase))))
             .WhereIf(filter.Portal.HasValue,
                 v => v.PortalPackages.Any(pp => pp.Portal == filter.Portal))
             .WhereIf(filter.Package.HasValue,
@@ -34,10 +38,7 @@ public static class VehicleQueryableExtensions
         return query;
     }
 
-    public static IQueryable<Vehicle> ApplyOrdering(
-        this IQueryable<Vehicle> query,
-        VehicleSearchFilter filter
-    )
+    public static IQueryable<Vehicle> ApplyOrdering(this IQueryable<Vehicle> query, VehicleSearchFilter filter)
     {
         if (string.IsNullOrWhiteSpace(filter.SortField))
             return query.OrderBy(v => v.CreatedOn);

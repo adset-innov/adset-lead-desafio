@@ -20,7 +20,25 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 
         builder.OwnsOne(v => v.LicensePlate, lp => lp.ConfigureLicensePlate());
         builder.OwnsOne(v => v.Color, c => c.ConfigureColor());
-        builder.OwnsOne(v => v.Options, o => o.ConfigureVehicleOptions());
+
+        builder.HasMany(v => v.Options)
+            .WithMany(o => o.Vehicles)
+            .UsingEntity<Dictionary<string, object>>(
+                "VehicleOptionJoin",
+                j => j.HasOne<VehicleOption>()
+                    .WithMany()
+                    .HasForeignKey("OptionId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j => j.HasOne<Vehicle>()
+                    .WithMany()
+                    .HasForeignKey("VehicleId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j =>
+                {
+                    j.HasKey("VehicleId", "OptionId");
+                    j.ToTable("VehicleOptionsMap");
+                });
+
 
         builder.HasMany(v => v.Photos)
             .WithOne()

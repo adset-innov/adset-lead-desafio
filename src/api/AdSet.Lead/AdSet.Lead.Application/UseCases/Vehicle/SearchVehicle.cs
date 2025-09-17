@@ -3,7 +3,6 @@ using AdSet.Lead.Application.Mappers;
 using AdSet.Lead.Domain.Enums;
 using AdSet.Lead.Domain.Filters;
 using AdSet.Lead.Domain.Repositories;
-using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.Application.UseCases.Vehicle;
 
@@ -24,6 +23,7 @@ public class SearchVehicles(IVehicleRepository repository)
             Color = input.Color,
             Portal = input.Portal,
             Package = input.Package,
+            Options = input.Options,
             Pagination = new PaginationFilter(input.PageNumber, input.PageSize),
             SortField = input.SortField,
             SortDirection = input.SortDirection
@@ -55,6 +55,7 @@ public record SearchVehiclesInput(
     string? Color,
     Portal? Portal,
     Package? Package,
+    List<string>? Options,
     int PageNumber = 1,
     int PageSize = 10,
     string? SortField = null,

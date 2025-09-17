@@ -19,7 +19,11 @@ public sealed class Vehicle : IEntity
     public int Mileage { get; private set; }
     public Color Color { get; private set; }
     public decimal Price { get; private set; }
-    public VehicleOptions Options { get; private set; } = new();
+
+    private readonly List<VehicleOption> _options = [];
+
+    public IReadOnlyCollection<VehicleOption> Options =>
+        _options.AsReadOnly();
 
     private readonly List<Photo> _photos = [];
     public IReadOnlyCollection<Photo> Photos => _photos.AsReadOnly();
@@ -39,11 +43,12 @@ public sealed class Vehicle : IEntity
         string color,
         decimal price,
         int mileage = 0,
-        VehicleOptions? options = null,
+        IEnumerable<VehicleOption>? options = null,
         IEnumerable<Photo>? photos = null,
         IEnumerable<PortalPackage>? portalPackages = null
     )
     {
+        var optionList = options?.ToList() ?? [];
         var photoList = photos?.ToList() ?? [];
         var portalPackageList = portalPackages?.ToList() ?? [];
 
@@ -60,7 +65,7 @@ public sealed class Vehicle : IEntity
         Color = new Color(color);
         Price = price;
         Mileage = mileage;
-        Options = options ?? new VehicleOptions();
+        _options.AddRange(optionList);
         _photos.AddRange(photoList);
         _portalPackages.AddRange(portalPackageList);
     }
@@ -101,7 +106,7 @@ public sealed class Vehicle : IEntity
         string color,
         decimal price,
         int mileage,
-        VehicleOptions? options = null
+        IEnumerable<VehicleOption>? options = null
     )
     {
         Validate(brand, model, year, price, _photos, _portalPackages);
@@ -113,10 +118,38 @@ public sealed class Vehicle : IEntity
         Color = new Color(color);
         Price = price;
         Mileage = mileage;
-        Options = options ?? Options;
+
+        if (options is not null)
+        {
+            _options.Clear();
+            _options.AddRange(options);
+        }
 
         UpdatedOn = DateTime.UtcNow;
     }
+
+    public void AddOption(VehicleOption option)
+    {
+        if (option is null)
+            throw new DomainValidationException("Option cannot be null.");
+
+        if (_options.Any(o => o.Name.Equals(option.Name, StringComparison.OrdinalIgnoreCase)))
+            throw new DomainValidationException($"Option '{option.Name}' already exists.");
+
+        _options.Add(option);
+        UpdatedOn = DateTime.UtcNow;
+    }
+
+    public void RemoveOption(Guid optionId)
+    {
+        var option = _options.FirstOrDefault(o => o.Id == optionId);
+        if (option is null)
+            throw new DomainValidationException("Option not found.");
+
+        _options.Remove(option);
+        UpdatedOn = DateTime.UtcNow;
+    }
+
 
     public void AddPhoto(Photo photo)
     {

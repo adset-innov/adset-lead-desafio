@@ -1,6 +1,5 @@
 ﻿using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Domain.Entities;
-using AdSet.Lead.Domain.VOs;
 
 namespace AdSet.Lead.Application.Mappers;
 
@@ -19,7 +18,7 @@ public static class VehicleMapper
             vehicle.Color.Value,
             vehicle.Price,
             vehicle.Mileage,
-            new Dictionary<string, bool>(vehicle.Options.Options),
+            vehicle.Options.Select(o => new VehicleOptionDto(o.Id, o.Name)).ToList(),
             vehicle.Photos.Select(PhotoMapper.ToDto).ToList(),
             vehicle.PortalPackages.Select(PortalPackageMapper.ToDto).ToList()
         );
@@ -27,7 +26,9 @@ public static class VehicleMapper
 
     public static Vehicle FromDto(VehicleDto dto)
     {
-        var options = new VehicleOptions(dto.Options);
+        var options = dto.Options
+            .Select(o => new VehicleOption(o.Name)) // aqui você pode decidir se reaproveita o Id ou não
+            .ToList();
 
         var photos = dto.Photos
             .Select(PhotoMapper.FromDto)

@@ -6,6 +6,7 @@ namespace AdSet.Lead.Infrastructure.Data.Database;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Vehicle> Vehicles { get; init; }
+    public DbSet<VehicleOption> VehicleOptions { get; init; }
     public DbSet<Photo> Photos { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

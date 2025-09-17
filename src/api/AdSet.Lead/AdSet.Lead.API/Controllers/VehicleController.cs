@@ -52,7 +52,7 @@ public class VehicleController(
         if (error != null)
             return BadRequest(error);
 
-        if (!TryDeserialize(options, out Dictionary<string, bool>? optionsDict, out var optionsError))
+        if (!TryDeserialize(options, out List<string>? optionNames, out var optionsError))
             return BadRequest($"Invalid 'Options' JSON: {optionsError}");
 
         List<PortalPackageDto>? portalPackagesDto = null;
@@ -70,7 +70,7 @@ public class VehicleController(
             color,
             price,
             mileage,
-            optionsDict ?? new Dictionary<string, bool>(),
+            optionNames ?? [],
             fileInputs,
             portalPackagesDto
         );
@@ -78,6 +78,7 @@ public class VehicleController(
         var output = await createVehicleUc.Execute(input);
         return Ok(output);
     }
+
 
     private static bool TryDeserialize<T>(string json, out T? result, out string? error)
     {
@@ -137,6 +138,7 @@ public class VehicleController(
         [FromQuery] string? color,
         [FromQuery] Portal? portal,
         [FromQuery] Package? package,
+        [FromQuery] List<string>? options,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 10,
         [FromQuery] string? sortField = null,
@@ -146,13 +148,14 @@ public class VehicleController(
         var input = new SearchVehiclesInput(
             plate, brand, model, yearMin, yearMax,
             priceMin, priceMax, hasPhotos, color,
-            portal, package, pageNumber, pageSize,
-            sortField, sortDirection
+            portal, package, options,
+            pageNumber, pageSize, sortField, sortDirection
         );
 
         var output = await searchVehiclesUc.Execute(input);
         return Ok(output);
     }
+
 
     [HttpGet("count/total")]
     public async Task<IActionResult> GetTotalCount()

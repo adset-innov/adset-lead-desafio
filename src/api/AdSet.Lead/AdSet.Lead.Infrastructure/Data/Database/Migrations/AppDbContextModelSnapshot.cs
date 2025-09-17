@@ -85,6 +85,43 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                     b.ToTable("Vehicles");
                 });
 
+            modelBuilder.Entity("AdSet.Lead.Domain.Entities.VehicleOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VehicleOptions");
+                });
+
+            modelBuilder.Entity("VehicleOptionJoin", b =>
+                {
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OptionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("VehicleId", "OptionId");
+
+                    b.HasIndex("OptionId");
+
+                    b.ToTable("VehicleOptionsMap", (string)null);
+                });
+
             modelBuilder.Entity("AdSet.Lead.Domain.Entities.Photo", b =>
                 {
                     b.HasOne("AdSet.Lead.Domain.Entities.Vehicle", null)
@@ -154,34 +191,28 @@ namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
                                 .HasForeignKey("VehicleId");
                         });
 
-                    b.OwnsOne("AdSet.Lead.Domain.VOs.VehicleOptions", "Options", b1 =>
-                        {
-                            b1.Property<Guid>("VehicleId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Options")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
-                                .HasColumnName("VehicleOptions");
-
-                            b1.HasKey("VehicleId");
-
-                            b1.ToTable("Vehicles");
-
-                            b1.WithOwner()
-                                .HasForeignKey("VehicleId");
-                        });
-
                     b.Navigation("Color")
                         .IsRequired();
 
                     b.Navigation("LicensePlate")
                         .IsRequired();
 
-                    b.Navigation("Options")
+                    b.Navigation("PortalPackages");
+                });
+
+            modelBuilder.Entity("VehicleOptionJoin", b =>
+                {
+                    b.HasOne("AdSet.Lead.Domain.Entities.VehicleOption", null)
+                        .WithMany()
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PortalPackages");
+                    b.HasOne("AdSet.Lead.Domain.Entities.Vehicle", null)
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AdSet.Lead.Domain.Entities.Vehicle", b =>

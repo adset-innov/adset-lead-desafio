@@ -1,17 +1,22 @@
 ﻿using AdSet.Lead.Application.DTOs;
 using AdSet.Lead.Application.Interfaces;
 using AdSet.Lead.Application.Mappers;
+using AdSet.Lead.Application.Services;
 using AdSet.Lead.Domain.Entities;
-using AdSet.Lead.Domain.VOs;
 using AdSet.Lead.Domain.Repositories;
 
 namespace AdSet.Lead.Application.UseCases.Vehicle;
 
-public class CreateVehicle(IVehicleRepository repository, IImageStorageService imageStorageService)
+public class CreateVehicle(
+    IVehicleRepository vehicleRepository,
+    VehicleOptionService optionService,
+    IImageStorageService imageStorageService
+)
 {
     public async Task<CreateVehicleOutput> Execute(CreateVehicleInput input)
     {
         var photos = await SavePhotosAsync(input.Files);
+        var options = await optionService.ResolveOptionsAsync(input.Options);
 
         var vehicle = new Domain.Entities.Vehicle(
             input.Brand,
@@ -21,13 +26,13 @@ public class CreateVehicle(IVehicleRepository repository, IImageStorageService i
             input.Color,
             input.Price,
             input.Mileage,
-            new VehicleOptions(input.Options ?? new Dictionary<string, bool>()),
+            options,
             photos,
             input.PortalPackages?.Select(PortalPackageMapper.FromDto)
         );
 
-        await repository.AddAsync(vehicle);
-        await repository.SaveAsync();
+        await vehicleRepository.AddAsync(vehicle);
+        await vehicleRepository.SaveAsync();
 
         return new CreateVehicleOutput(vehicle.Id.ToString());
     }
@@ -41,7 +46,12 @@ public class CreateVehicle(IVehicleRepository repository, IImageStorageService i
 
         foreach (var file in files)
         {
-            var photoUrl = await imageStorageService.SaveImageAsync(file.FileStream, file.FileName, "vehicles");
+            var photoUrl = await imageStorageService.SaveImageAsync(
+                file.FileStream,
+                file.FileName,
+                "vehicles"
+            );
+
             photos.Add(new Photo(photoUrl));
         }
 
@@ -57,7 +67,7 @@ public record CreateVehicleInput(
     string Color,
     decimal Price,
     int Mileage,
-    Dictionary<string, bool>? Options,
+    List<string>? Options,
     List<CreateVehicleFile>? Files,
     List<PortalPackageDto>? PortalPackages
 );

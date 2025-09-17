@@ -28,6 +28,7 @@ builder.Services.AddControllers()
 builder.Services.AddAppDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 // Services
+builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 
 // Repositories
@@ -63,13 +64,9 @@ using (var scope = app.Services.CreateScope())
     {
         var canConnect = await db.Database.CanConnectAsync();
         if (canConnect)
-        {
             Log.Information("\e[32mDatabase connection established successfully.\e[0m");
-        }
         else
-        {
             Log.Warning("\e[33mDatabase connection failed: Database not accessible or does not exist.\e[0m");
-        }
     }
     catch (Exception ex)
     {
