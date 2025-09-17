@@ -8,17 +8,17 @@ public class CreateVehicleOption(IVehicleOptionRepository repository)
     {
         var existing = await repository.GetByNameAsync(input.Name);
         if (existing is not null)
-            return new CreateVehicleOptionOutput(existing.Id, false);
+            return new CreateVehicleOptionOutput(existing.Id, existing.Name, false);
 
         var option = new Domain.Entities.VehicleOption(input.Name);
 
         await repository.AddAsync(option);
         await repository.SaveAsync();
 
-        return new CreateVehicleOptionOutput(option.Id, true);
+        return new CreateVehicleOptionOutput(option.Id, option.Name, true);
     }
 }
 
 public record CreateVehicleOptionInput(string Name);
 
-public record CreateVehicleOptionOutput(Guid Id, bool Created);
+public record CreateVehicleOptionOutput(Guid Id, string Name, bool Created);
