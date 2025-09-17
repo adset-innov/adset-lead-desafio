@@ -27,7 +27,7 @@ public static class VehicleMapper
     public static Vehicle FromDto(VehicleDto dto)
     {
         var options = dto.Options
-            .Select(o => new VehicleOption(o.Name)) // aqui você pode decidir se reaproveita o Id ou não
+            .Select(o => new VehicleOption(o.Name))
             .ToList();
 
         var photos = dto.Photos

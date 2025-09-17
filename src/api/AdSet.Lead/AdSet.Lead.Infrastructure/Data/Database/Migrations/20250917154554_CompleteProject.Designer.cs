@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250917131757_Initial")]
-    partial class Initial
+    [Migration("20250917154554_CompleteProject")]
+    partial class CompleteProject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

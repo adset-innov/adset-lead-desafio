@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AdSet.Lead.Infrastructure.Data.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class CompleteProject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
