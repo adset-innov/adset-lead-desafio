@@ -13,6 +13,7 @@ export interface SearchVehiclesRequest {
   color?: string;
   portal?: Portal;
   package?: Package;
+  options?: string[];
   pageNumber?: number;
   pageSize?: number;
   sortField?: string;

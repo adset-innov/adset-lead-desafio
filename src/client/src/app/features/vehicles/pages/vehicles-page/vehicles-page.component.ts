@@ -26,7 +26,7 @@ export class VehiclesPageComponent implements OnInit {
       width: '600px',
     });
 
-    dialogRef.componentInstance.save.subscribe((req) => {
+    dialogRef.componentInstance.vehicleCreated.subscribe((req) => {
       this.vm.createVehicle(req);
       dialogRef.close();
     });

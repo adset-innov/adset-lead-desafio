@@ -9,6 +9,8 @@ import { VehiclesStatsBarComponent } from './components/vehicles-stats-bar/vehic
 import { VehiclesSearchBarComponent } from './components/vehicles-search-bar/vehicles-search-bar.component';
 import { VehiclesFiltersBarComponent } from './components/vehicles-filters-bar/vehicles-filters-bar.component';
 import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 import { CreateVehicleModalComponent } from './components/create-vehicle-modal/create-vehicle-modal.component';
 
 @NgModule({
@@ -27,6 +29,8 @@ import { CreateVehicleModalComponent } from './components/create-vehicle-modal/c
     VehiclesRoutingModule,
     MaterialModule,
     SharedModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ],
 })
 export class VehiclesModule {}

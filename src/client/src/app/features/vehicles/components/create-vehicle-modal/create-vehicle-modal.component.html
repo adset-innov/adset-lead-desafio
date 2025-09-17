@@ -1,41 +1,96 @@
 <h1 mat-dialog-title>Criar veículo</h1>
+
 <div mat-dialog-content>
   <form [formGroup]="form" class="vehicle-form">
+    <!-- Brand -->
     <mat-form-field appearance="fill">
       <mat-label>Marca</mat-label>
       <input matInput formControlName="brand" />
     </mat-form-field>
 
+    <!-- Model -->
     <mat-form-field appearance="fill">
       <mat-label>Modelo</mat-label>
       <input matInput formControlName="model" />
     </mat-form-field>
 
+    <!-- Year -->
     <mat-form-field appearance="fill">
       <mat-label>Ano</mat-label>
       <input type="number" matInput formControlName="year" />
     </mat-form-field>
 
+    <!-- License Plate -->
     <mat-form-field appearance="fill">
       <mat-label>Placa</mat-label>
       <input matInput formControlName="licensePlate" />
     </mat-form-field>
 
+    <!-- Color -->
     <mat-form-field appearance="fill">
       <mat-label>Cor</mat-label>
       <input matInput formControlName="color" />
     </mat-form-field>
 
+    <!-- Price -->
     <mat-form-field appearance="fill">
       <mat-label>Preço</mat-label>
       <input type="number" matInput formControlName="price" />
     </mat-form-field>
 
+    <!-- Mileage -->
     <mat-form-field appearance="fill">
       <mat-label>Quilometragem</mat-label>
       <input type="number" matInput formControlName="mileage" />
     </mat-form-field>
 
+    <!-- VehicleOptions -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Opções</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let opt of selectedOptions"
+          [selectable]="true"
+          [removable]="true"
+          (removed)="removeOption(opt)"
+        >
+          {{ opt.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Adicionar opção"
+          formControlName="optionSearch"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+        />
+      </mat-chip-list>
+
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="addOption($event.option.value)"
+      >
+        <mat-option
+          *ngFor="let option of filteredOptions$ | async"
+          [value]="option"
+        >
+          {{ option.name }}
+        </mat-option>
+
+        <!-- Create new option -->
+        <mat-option
+          *ngIf="
+            (filteredOptions$ | async)?.length === 0 &&
+            form.get('optionSearch')?.value
+          "
+          [value]="form.get('optionSearch')?.value"
+          (onSelectionChange)="createNewOption($event.source.value)"
+        >
+          Criar "{{ form.get("optionSearch")?.value }}"
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Upload Photo -->
     <input type="file" (change)="onFileSelected($event)" multiple />
   </form>
 </div>
@@ -45,7 +100,7 @@
   <button
     mat-flat-button
     color="primary"
-    (click)="submit()"
+    (click)="save()"
     [disabled]="form.invalid"
   >
     Salvar
