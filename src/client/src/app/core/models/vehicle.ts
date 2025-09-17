@@ -1,5 +1,6 @@
 import { PortalPackage } from './portal-package';
 import { Photo } from './photo';
+import { VehicleOption } from './vehicle-option';
 
 export interface Vehicle {
   id: string;
@@ -12,7 +13,7 @@ export interface Vehicle {
   mileage: number;
   color: string;
   price: number;
-  options: string[];
+  options: VehicleOption[];
   photos: Photo[];
   portalPackages: PortalPackage[];
 }

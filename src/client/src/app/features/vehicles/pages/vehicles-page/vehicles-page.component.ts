@@ -5,6 +5,7 @@ import { CreateVehicleModalComponent } from '../../components/create-vehicle-mod
 import { EditVehicleModalComponent } from '../../components/edit-vehicle-modal/edit-vehicle-modal.component';
 import { VehiclePhotosModalComponent } from '../../components/vehicle-photos-modal/vehicle-photos-modal.component';
 import { Vehicle } from '../../../../core/models/vehicle';
+import { VehicleOptionsModalComponent } from '../../components/vehicle-options-modal/vehicle-options-modal.component';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -58,6 +59,11 @@ export class VehiclesPageComponent implements OnInit {
     });
   }
 
+  onDeleteVehicle(id: string): void {
+    console.log('Delete vehicle:', id);
+    this.vm.deleteVehicle(id);
+  }
+
   onViewPhotos(vehicle: Vehicle): void {
     if (!vehicle.photos?.length) return;
 
@@ -67,8 +73,10 @@ export class VehiclesPageComponent implements OnInit {
     });
   }
 
-  onDeleteVehicle(id: string): void {
-    console.log('Delete vehicle:', id);
-    this.vm.deleteVehicle(id);
+  onViewOptions(vehicle: Vehicle): void {
+    this.dialog.open(VehicleOptionsModalComponent, {
+      width: '500px',
+      data: { options: vehicle.options },
+    });
   }
 }

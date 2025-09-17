@@ -47,8 +47,7 @@ export class EditVehicleModalComponent implements OnInit {
       ],
     });
 
-    this.selectedOptions =
-      this.vehicle.options?.map((name) => ({ id: '', name })) ?? [];
+    this.selectedOptions = this.vehicle.options ?? [];
 
     this.filteredOptions$ = this.form.get('optionSearch')!.valueChanges.pipe(
       debounceTime(300),

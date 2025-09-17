@@ -14,6 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CreateVehicleModalComponent } from './components/create-vehicle-modal/create-vehicle-modal.component';
 import { EditVehicleModalComponent } from './components/edit-vehicle-modal/edit-vehicle-modal.component';
 import { VehiclePhotosModalComponent } from './components/vehicle-photos-modal/vehicle-photos-modal.component';
+import { VehicleOptionsModalComponent } from './components/vehicle-options-modal/vehicle-options-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { VehiclePhotosModalComponent } from './components/vehicle-photos-modal/v
     CreateVehicleModalComponent,
     EditVehicleModalComponent,
     VehiclePhotosModalComponent,
+    VehicleOptionsModalComponent,
   ],
   imports: [
     CommonModule,

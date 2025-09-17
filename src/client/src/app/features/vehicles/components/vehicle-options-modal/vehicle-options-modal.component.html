@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Opcionais do veículo</h1>
+
+<div mat-dialog-content>
+  <ng-container *ngIf="data.options?.length; else noOptions">
+    <ul class="options-list">
+      <li *ngFor="let opt of data.options">
+        <mat-icon color="primary">check_circle</mat-icon>
+        <span>{{ opt.name }}</span>
+      </li>
+    </ul>
+  </ng-container>
+
+  <ng-template #noOptions>
+    <p>Este veículo não possui opcionais cadastrados.</p>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Fechar</button>
+</div>

@@ -143,11 +143,9 @@
               height: 1rem !important;
             }
 
-            .photo-icon {
-              &:hover {
-                cursor: pointer;
-                filter: brightness(0.95);
-              }
+            &:hover {
+              cursor: pointer;
+              filter: brightness(0.95);
             }
           }
         }
