@@ -1,4 +1,5 @@
 ﻿using AdSet.Lead.Application.UseCases.Vehicle;
+using AdSet.Lead.Application.UseCases.VehicleOption;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AdSet.Lead.Infrastructure.IoC;
@@ -22,6 +23,10 @@ public static class AddUseCasesServiceExtension
         services.AddScoped<SearchVehicles>();
         services.AddScoped<UpdateVehicle>();
         services.AddScoped<UploadVehiclePhoto>();
+
+        // VehicleOption
+        services.AddScoped<CreateVehicleOption>();
+        services.AddScoped<SearchVehicleOptions>();
 
         return services;
     }

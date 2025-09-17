@@ -15,7 +15,7 @@ public class VehicleOptionsController(
     {
         var output = await createVehicleOptionUc.Execute(input);
         return Ok(output);
-    }
+    } 
 
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery] string query)
