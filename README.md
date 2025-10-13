@@ -4,12 +4,13 @@
 
 ## Solicitação:
 - (1) Criar funcionalidade para incluir, consultar, excluir e alterar cadastro de carros.
-- (2) Na tela de consulta dos veículos apenas 1 (um) pacote deverá ser selecionado por veículo para cada portal iCarros e WebMotors, os pacotes serão (Bronze, Diamante, Platinum ou Básico) e ao clicar em Salvar deverá registrar o pacote selecionado no veículo, conforme layout.
-- (3) O cadastro deverá possuir os campos (Marca, Modelo, Ano, Placa, Km, Cor, Preço, lista de opcionais para atribuir ao veículo ex.: (Ar Condicionado, Alarme, Airbag, Freio ABS)).
-- (4) O <b>MÁXIMO</b> de fotos que deverá permitir serão <b>15 fotos</b> para o veículo no cadastro.
-- (5) Não obrigar o preenchimento dos campos (Km, opcionais e fotos), caso não sejam preenchidos deverá permitir o cadastro.
-- (6) <b>O LAYOUT</b> desenvolvido para o front deverá obrigatoriamente ser <b>EXATAMENTE IGUAL</b> do arquivo disponível (adset-layout.ai), não entregar diferente, faça o comparativo do solicitado e da sua entrega.
-- (7) Nos filtros de dropdown deverão ter as seguintes opções por cada drop: <br><b>Ano Min</b> = 2000, 2001, 2002.. até 2024<br><b>Ano Max</b> = 2000, 2001, 2002.. até 2024<br><b>Preço</b> = 10mil a 50mil, 50mil a 90mil, +90mil<br><b>Fotos</b> = Com Fotos, Sem Fotos<br><b>Cor</b> = Listar as cores com os valores em distinct dos veículos inseridos.
+- (2) Na tela de consulta dos veículos apenas 1 (um) pacote deverá ser selecionado por veículo para cada portal iCarros e WebMotors, os pacotes serão (Bronze, Diamante, Platinum ou Básico).
+- (3) Ao clicar no botão Salvar deverá gravar no banco de dados o pacote selecionado no veículo, conforme layout e regras do item 2.
+- (4) O cadastro deverá possuir os campos (Marca, Modelo, Ano, Placa, Km, Cor, Preço, lista de opcionais para atribuir ao veículo ex.: (Ar Condicionado, Alarme, Airbag, Freio ABS)).
+- (5) O <b>MÁXIMO</b> de fotos que deverá permitir serão <b>15 fotos</b> para o veículo no cadastro.
+- (6) Não obrigar o preenchimento dos campos (Km, opcionais e fotos), caso não sejam preenchidos deverá permitir o cadastro.
+- (7) <b>O LAYOUT</b> desenvolvido para o front deverá obrigatoriamente ser <b>EXATAMENTE IGUAL</b> do arquivo disponível (adset-layout.ai), não entregar diferente, faça o comparativo do solicitado e da sua entrega.
+- (8) Nos filtros de dropdown deverão ter as seguintes opções por cada drop: <br><b>Ano Min</b> = 2000, 2001, 2002.. até 2024<br><b>Ano Max</b> = 2000, 2001, 2002.. até 2024<br><b>Preço</b> = 10mil a 50mil, 50mil a 90mil, +90mil<br><b>Fotos</b> = Com Fotos, Sem Fotos<br><b>Cor</b> = Listar as cores com os valores em distinct dos veículos inseridos.
 
 TODOS os requisitos são obrigatórios a implementação.<br />
 Após terminar seu teste submeta um pull request e aguarde seu feedback.
