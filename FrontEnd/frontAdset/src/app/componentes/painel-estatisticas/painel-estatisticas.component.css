@@ -1,0 +1,36 @@
+.stats-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+}
+
+.stat-item {
+  font-size: 14px;
+  text-align: center;
+
+}
+.stat-item p {
+  margin-bottom: 0%;
+}
+
+.stat-separator {
+  font-size: 36px;
+  color: #d1d1d1;
+  display: inline-block;
+  transform: scaleX(0.5);
+  transform: rotate(15deg);
+}
+
+.stat-item.total span {
+  color: #3498db;
+}
+
+.stat-item.com-fotos span {
+  color: #27ae60;
+}
+
+.stat-item.sem-fotos span {
+  color: #e74c3c;
+}

@@ -1,0 +1,183 @@
+
+.vehicle-card-v2 {
+  display: flex;
+  background-color: #e7e7e7; 
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; 
+  gap: 20px; 
+}
+
+.all-content {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  align-items: center;
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.vehicle-image-container {
+  display: flex;
+  align-items: center;
+}
+.vehicle-image-container img {
+  width: 180px;
+  height: 100%;
+}
+
+.text-green {
+  color: #40a52b; 
+
+}
+.vehicle-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+   height: 100%; 
+   width: 550px;
+}
+
+.content-header .vehicle-title {
+  background-color: white;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  display: inline-block;
+}
+
+.content-body {
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-end; 
+
+}
+
+.vehicle-details {
+  font-size: 13px;
+  color: #555;
+    white-space: nowrap; 
+    width: 300px;   
+
+}
+
+
+.vehicle-details p {
+  margin: 2px 0;
+  color: #555; 
+}
+
+
+
+.vehicle-actions-price {
+  margin-left: 200px;
+  text-align: right;
+}
+
+.vehicle-price {
+  font-size: 16px;
+  color: #40a52b; 
+}
+
+
+
+
+
+
+.vehicle-content,
+.vehicle-actions-price {
+  flex: 0 0 auto;
+}
+
+
+@media (max-width: 768px) {
+  .vehicle-card-v2 {
+    flex-wrap: nowrap; 
+  }
+
+
+  .vehicle-content,
+  .vehicle-actions-price {
+    min-width: 180px; 
+  }
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 25px;
+  margin-bottom: 8px;
+}
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #555;
+}
+.action-item i {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.action-item .icon-edit {
+  color: #3498db; 
+}
+.action-item .action-label {
+  font-size: 12px;
+}
+
+
+.content-header .vehicle-title,
+.vehicle-price {
+  background-color: white;
+  border-radius: 12px;
+  padding: 6px 14px;
+  border: 1px solid #ddd;
+}
+
+
+
+
+
+.action-item .action-label {
+  color: #40a52b;
+}
+
+.portals-row {
+  display: flex;
+  gap: 20px;
+  position: relative;
+
+}
+
+
+.vehicle-image-container {
+  width: 200px;          
+  height: 140px;         
+  overflow: hidden;      
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+}
+
+.vehicle-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+  object-position: center; 
+}
+
+
+.portal-divider-vertical {
+  width: 1px;           
+  height: 130px;         
+  opacity: 20%;
+  background-color: #000000; 
+}
+

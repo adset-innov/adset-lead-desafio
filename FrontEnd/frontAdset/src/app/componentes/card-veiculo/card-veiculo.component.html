@@ -1,0 +1,54 @@
+<article class="all-content" *ngIf="veiculo">
+  <app-botao-deletar (click)="deletarVeiculo(veiculo.id)"></app-botao-deletar>
+  <div class="vehicle-card-v2">
+
+    <div class="vehicle-image-container">
+      <img src="{{imageBaseUrl}}" alt="Foto do Veículo">
+    </div>
+
+    <div class="vehicle-content">
+      <div class="content-header">
+        <span class="vehicle-title"> {{ veiculo.marca }} {{ veiculo.modelo }} | {{ veiculo.ano }}</span>
+      </div>
+      <div class="content-body">
+        <div class="vehicle-details">
+          <p>Placa - <span class="text-green">{{veiculo.placa}}</span></p>
+          <p>Km - <span class="text-green">
+              {{ veiculo.km ? veiculo.km : 'Não informado' }}
+            </span></p>
+          <p>Cor - <span class="text-green">{{veiculo.cor}}</span></p>
+        </div>
+
+        <div class="vehicle-actions-price">
+          <div class="action-buttons">
+            <div class="action-item">
+              <i  class="fas fa-pen-to-square icon-edit" matTooltip="Editar veículo"
+                matTooltipPosition="above" matTooltipClass="custom-tooltip" (click)="editarVeiculo(veiculo.id)"></i>
+            </div>
+            <div class="action-item" (click)="verFotosVeiculo(veiculo.id)" matTooltip="Ver Fotos"
+                matTooltipPosition="above" matTooltipClass="custom-tooltip">
+              <i class="fas fa-camera" ></i>
+              <span class="action-label">{{labelFotos}}</span>
+            </div>
+            <div class="action-item" [matTooltip]="textoOpcionais" matTooltipPosition="above"
+                matTooltipClass="custom-tooltip">
+              <i class="fas fa-car"></i>
+              <span class="action-label" >Opcionais</span>
+            </div>
+          </div>
+        <div class="vehicle-price">R$ {{ veiculo.preco | number:'1.2-2' }}</div>
+        </div>      
+      </div>
+    </div>
+  </div>
+    <app-botao-acao-vertical (click)="desmarcarTodosOsPortais()"></app-botao-acao-vertical>
+  <ng-container *ngFor="let portal of portais;">
+    <app-card-portal
+      [portal]="portal"
+      [pacotesVeiculoPortal]="veiculo.pacotesPortal"
+      [veiculoId]="veiculo.id"
+      #cardportal>
+    </app-card-portal>
+    <div  class="portal-divider-vertical"></div>
+  </ng-container>
+</article>

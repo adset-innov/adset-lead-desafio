@@ -1,0 +1,15 @@
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #e7e7e7;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #e7e7e7;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

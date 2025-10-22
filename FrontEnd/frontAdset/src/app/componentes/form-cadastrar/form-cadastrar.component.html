@@ -1,0 +1,96 @@
+<div class="form-container">
+  <form [formGroup]="veiculoForm" (ngSubmit)="onSubmit()">
+    <h2>Cadastro de Veículo</h2>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label for="marca">Marca *</label>
+        <input type="text" id="marca" formControlName="marca">
+        <div class="erro" *ngIf="veiculoForm.get('marca')?.touched && veiculoForm.get('marca')?.invalid">
+          A marca é obrigatória.
+        </div>
+      </div>
+
+ 
+      <div class="form-group">
+        <label for="modelo">Modelo *</label>
+        <input type="text" id="modelo" formControlName="modelo">
+        <div class="erro" *ngIf="veiculoForm.get('modelo')?.touched && veiculoForm.get('modelo')?.invalid">
+          O modelo é obrigatório.
+        </div>
+      </div>
+
+  
+      <div class="form-group">
+        <label for="ano">Ano *</label>
+        <input type="number" id="ano" formControlName="ano">
+        <div class="erro" *ngIf="veiculoForm.get('ano')?.touched && veiculoForm.get('ano')?.invalid">
+          Informe um ano válido entre 2000 e 2024.
+        </div>
+      </div>
+
+ 
+      <div class="form-group">
+        <label for="placa">Placa *</label>
+        <input type="text" id="placa" formControlName="placa">
+        <div class="erro" *ngIf="veiculoForm.get('placa')?.touched && veiculoForm.get('placa')?.invalid">
+          A placa é obrigatória.
+        </div>
+        <div class="erro" *ngIf=" veiculoForm.get('placa')?.hasError('pattern')">
+          Placa inválida. Use o formato antigo (ABC-1234) ou Mercosul (ABC1D23).
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="km">Km</label>
+        <input type="number" id="km" formControlName="km">
+      </div>
+
+
+      <div class="form-group">
+        <label for="cor">Cor *</label>
+        <input type="text" id="cor" formControlName="cor">
+        <div class="erro" *ngIf="veiculoForm.get('cor')?.touched && veiculoForm.get('cor')?.invalid">
+          A cor é obrigatória.
+        </div>
+      </div>
+
+
+      <div class="form-group full-width">
+        <label for="preco">Preço *</label>
+        <input type="text" id="preco" formControlName="preco" placeholder="R$">
+        <div class="erro" *ngIf="veiculoForm.get('preco')?.touched && veiculoForm.get('preco')?.invalid">
+          O preço é obrigatório.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <h3>Opcionais</h3>
+      <label for="opcional-select">Adicionar Opcional</label>
+      <select id="opcional-select" (change)="adicionarOpcional($event)">
+        <option [value]="" selected disabled selected>Selecione um opcional...</option>
+        <option *ngFor="let opcional of opcionaisDisponiveis" [value]="opcional.id">
+          {{ opcional.descricao }}
+        </option>
+      </select>
+
+      <div class="lista-opcionais-container">
+        <div *ngFor="let opcional of opcionaisSelecionados" class="opcional-item">
+          <span>{{ opcional.descricao }}</span>
+          <button type="button" (click)="removerOpcional(opcional)" class="remove-btn" title="Remover">×</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="fotos">Fotos do Veículo</label>
+      <input type="file" id="fotos" multiple accept="image/*" (change)="onFileSelected($event)">
+    </div>
+
+    <button type="submit">Cadastrar Veículo</button>
+  </form>
+</div>

@@ -1,0 +1,41 @@
+
+
+.custom-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    position: relative;
+    bottom: 73px;
+    left: 30px;
+    width: 40px;
+    cursor: pointer;
+
+
+}
+
+.icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 2px;
+}
+
+.icon .eraser{
+    cursor: pointer;
+}
+.icon .arrow-down{
+    cursor:not-allowed;
+}
+
+.arrow-down {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234CAF50"><path d="M12 21l-8-8h5V3h6v10h5z"/></svg>');
+}
+
+
+.eraser {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23F44336"><path d="M20.41 6.41l-2.83-2.83a2 2 0 0 0-2.83 0l-11.17 11.17a1 1 0 0 0 0 1.41l2.83 2.83a1 1 0 0 0 1.41 0L19 10.41l1.41-1.41a2 2 0 0 0 0-2.83z M5.83 13.17l-1.41-1.41 11-11 1.41 1.41-11 11z"/><path d="M3 19 H 21 V 21 H 3 Z"/></svg>');
+}

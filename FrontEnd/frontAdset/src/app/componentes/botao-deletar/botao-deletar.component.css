@@ -1,0 +1,21 @@
+.delete-tab {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 140px;           
+  width: 40px;             
+  background-color: #e7e7e7;  
+  color: #e74c3c;          
+  border: 1px solid #ddd;  
+  cursor: pointer;
+  font-size: 16px;        
+}
+
+.delete-tab:hover {
+  background-color: #f0f0f0; 
+  transform: scale(1.05);    
+}
+
+.delete-tab:focus {
+  outline: none;              
+}

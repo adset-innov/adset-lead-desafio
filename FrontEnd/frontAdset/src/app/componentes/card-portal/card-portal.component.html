@@ -1,0 +1,18 @@
+
+  <div class="portal-title" matTooltip="{{portal.nome}}" matTooltipPosition="above" matTooltipClass="custom-tooltip">
+    <img src="{{urlLogo}}"/>
+  </div>
+  <app-botao-acao (click)="desmarcarCheckboxes()"></app-botao-acao>
+   
+<div class="portal-content">
+  <div *ngFor="let pacote of portal.pacotes" class="pacote-item">
+    <input
+      type="checkbox"
+      [value]="pacote.id"
+      [checked]="pacote.id === pacoteSelecionadoId"
+      (change)="selecionarPacote(pacote.id, $event)">
+    <label>{{ pacote.nome }}</label>
+  </div>
+</div>
+
+

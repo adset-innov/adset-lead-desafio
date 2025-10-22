@@ -1,0 +1,159 @@
+
+
+
+.form-container {
+    background-color: #fff; 
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container form {
+    width: 100%;
+}
+
+
+form h2 {
+    color: #40a52b; 
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus {
+    outline: none;
+    border-color: #40a52b; 
+}
+
+.form-group input[type="file"] {
+    border: 1px dashed #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+
+h3 {
+    font-weight: 500;
+    margin-bottom: 15px;
+    border-left: 4px solid #40a52b; 
+    padding-left: 10px;
+}
+
+.lista-opcionais-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 45px;
+  border: 1px dashed #40a52b;
+}
+
+.opcional-item {
+  background-color: #40a52b;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  transition: transform 0.2s;
+}
+
+.opcional-item:hover {
+  transform: scale(1.05);
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.remove-btn:hover {
+  color: #fcd34d;
+}
+
+
+
+
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #40a52b; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: #358a24; 
+}
+
+  input.ng-invalid.ng-touched {
+    border: 1px solid #e74c3c;
+    background-color: #fff6f6;
+  }
+
+  .erro {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+  }

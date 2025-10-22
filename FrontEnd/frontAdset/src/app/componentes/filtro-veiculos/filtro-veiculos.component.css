@@ -1,0 +1,237 @@
+.filter-panel {
+  padding: 0;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+
+.fields-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+  border: 1px solid #ccc;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+
+.form-group label {
+  font-size: 12px;
+}
+
+.form-group input {
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.form-group select {
+  padding: 4px;
+  border: 1px solid #ccc;
+  font-size: 10px;
+}
+
+app-botao-buscar {
+  width: 100%;
+  display: block;
+}
+
+
+.form-group.small-select {
+  min-width: 80px;
+
+}
+
+.form-group.small-select2 {
+  min-width: 80px;
+
+}
+
+.select-ano {
+  margin-left: 0px;
+}
+
+.filter-form app-botao-buscar {
+  width: auto;
+  display: block;
+}
+
+
+.filter-form app-botao-buscar .btn-green {
+  width: 150px;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+
+
+
+.small-select select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px 0px 0px 20px;
+  padding: 4px;
+  font-size: 10px;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+}
+
+.small-select2 select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0px 0px 0px 0px;
+  padding: 0px 30px 4px 10px;
+  font-size: 10px;
+  padding: 4px;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+}
+
+
+.form-group {
+  position: relative;
+}
+
+
+.small-select::after {
+  content: "▼";
+  font-size: 10px;
+  color: white;
+  background-color: #686868;
+  border-radius: 0;
+  width: 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0px;
+  top: 70%;
+  transform: translateY(-50%);
+  pointer-events: none;
+
+}
+
+.small-select2::after {
+  content: "▼";
+  font-size: 10px;
+  color: white;
+  background-color: #686868;
+  border-radius: 0;
+  width: 10px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0px;
+  top: 70%;
+  transform: translateY(-50%);
+  pointer-events: none;
+
+}
+
+.small-select,
+.small-select2 {
+  flex: 1;
+}
+
+
+.anos-container {
+  display: flex;
+  gap: 0;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a i {
+  color: green; 
+}
+
+.select-custom {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg fill='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M1.5 5.5l6.5 6 6.5-6'/></svg>"),
+    linear-gradient(to right, white 0%, white calc(100% - 2rem), #40a52b calc(100% - 2rem), #40a52b 100%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right 0.7rem center, right top;
+  background-size: 10px 10px, 100% 100%;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  height: 28px;
+  border-radius: 10px;
+  padding-right: 3rem;
+  padding-left: 1rem;
+  cursor: pointer;
+}
+
+.select-custom:focus {
+  outline: none;
+
+}
+
+.clear-ordenacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #40a52b;
+  color: white;
+  padding: 5px 15px;
+  position: relative;
+}
+
+.clear-ordenacao::after {
+  content: '';
+  position: absolute;
+  right: -10px;      /* largura da ponta */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 10px solid #40a52b; /* cor da seta */
+}
+

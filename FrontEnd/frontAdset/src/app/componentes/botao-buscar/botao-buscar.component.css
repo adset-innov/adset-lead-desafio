@@ -1,0 +1,26 @@
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 0px 0px 10px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-green {
+  background-color: #40a52b;
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: #218838;
+}
+.btn .fa-search {
+  transform: scaleX(-1); 
+}

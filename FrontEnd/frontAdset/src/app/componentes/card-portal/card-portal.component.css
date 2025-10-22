@@ -1,0 +1,51 @@
+.portal-title {
+  background: #ffffff;
+  border-radius: 15px 15px 0px 0px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  text-align: center;
+  position: relative;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  width: 100px;
+  height: 50px;
+  bottom: 66px;
+}
+
+.portal-title img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+
+}
+
+.portal-content {
+height: 70px;
+    display: flex
+;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    padding: 20px;
+    top: -35px;
+
+}
+
+.pacote-item {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-content: space-between;   
+}
+
+.pacote-item label {
+       
+  font-size: 10px;
+  color: #333;
+}

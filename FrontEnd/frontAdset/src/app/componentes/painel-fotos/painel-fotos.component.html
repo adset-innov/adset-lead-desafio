@@ -1,0 +1,106 @@
+<div class="photo-panel" *ngIf="fotos && fotos.length > 0">
+  <div class="photo-header">
+    <h2>Fotos do Veículo</h2>
+
+    <!-- Botão só aparece se houver menos de 15 fotos -->
+    <div class="photo-header-actions" *ngIf="fotos.length < 15">
+      <input
+        type="file"
+        id="inputMaisFotos"
+        multiple
+        accept="image/*"
+        (change)="onSelecionarMaisFotos($event)"
+        hidden
+      />
+      <button class="btn-cadastrar-fotos" (click)="abrirSeletorMaisFotos()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M10.5 2a.5.5 0 0 1 .39.188l.813 1.016H13a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1.297l.812-1.016A.5.5 0 0 1 5.5 2h5zm-2.5 3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm0 1a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/>
+        </svg>
+        <span> + Fotos</span>
+      </button>
+    </div>
+  </div>
+
+  
+  <div class="photos-grid">
+    <div class="photo-card" 
+         *ngFor="let foto of fotos; let i = index; trackBy: trackByFotoId"
+         [attr.data-foto-id]="foto.id"
+         (click)="abrirCarrossel(i)">
+      
+      <img [src]="foto.path" alt="Foto do veículo" class="vehicle-photo">
+      
+      </div>
+  </div>
+</div>
+
+<div class="no-photos" *ngIf="!fotos || fotos.length === 0">
+  <p>Nenhuma foto cadastrada para este veículo.</p>
+
+  <div class="photo-actions">
+    <input
+      type="file"
+      id="inputFotos"
+      multiple
+      accept="image/*"
+      (change)="onSelecionarFotos($event)"
+      hidden
+    />
+<button class="btn-cadastrar-fotos" (click)="abrirSeletorFotos()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M10.5 2a.5.5 0 0 1 .39.188l.813 1.016H13a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h1.297l.812-1.016A.5.5 0 0 1 5.5 2h5zm-2.5 3a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm0 1a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/>
+  </svg>
+  <span>Cadastrar Fotos</span>
+</button>
+
+  </div>
+</div>
+
+
+<div class="carousel-modal" *ngIf="carrosselAberto">
+  
+  <button class="carousel-close" (click)="fecharCarrossel()" [disabled]="isLoadingFoto">&times;</button>
+  
+  <button class="carousel-nav prev" (click)="fotoAnterior()" [disabled]="isLoadingFoto">&#10094;</button>
+  
+  <div class="carousel-content">
+    
+    <div class="carousel-image-wrapper">
+      
+      <img [src]="fotoAtual.path" 
+           alt="Foto do veículo em destaque"
+           [class.loading]="isLoadingFoto">
+      
+      <div class="carousel-loader-overlay" *ngIf="isLoadingFoto">
+        <div class="spinner"></div>
+      </div>
+    </div>
+    
+    <div class="carousel-actions">
+      
+      <label class="carousel-btn edit" [class.disabled]="isLoadingFoto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+        </svg>
+        <span>Editar</span>
+        <input type="file" 
+               hidden 
+               (change)="onSubstituirChange($event)" 
+               accept="image/png, image/jpeg"
+               [disabled]="isLoadingFoto">
+      </label>
+      
+      <button class="carousel-btn delete" (click)="onExcluirClick()" [disabled]="isLoadingFoto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+        </svg>
+        <span>Excluir</span>
+      </button>
+
+    </div>
+  </div>
+  
+  <button class="carousel-nav next" (click)="proximaFoto()" [disabled]="isLoadingFoto">&#10095;</button>
+
+</div>

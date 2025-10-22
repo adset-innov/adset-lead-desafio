@@ -1,0 +1,20 @@
+<nav class="stats-nav" *ngIf="informacoesVeiculos">
+  <div class="stat-item total">
+    <p>{{ informacoesVeiculos.total | number:'3.0' }} veículos</p>
+    <span>Total</span>
+  </div>
+
+  <span class="stat-separator">/</span>
+
+  <div class="stat-item com-fotos">
+    <p>{{ informacoesVeiculos.totalFotos | number:'3.0' }} veículos</p>
+    <span>com fotos</span>
+  </div>
+
+  <span class="stat-separator">/</span>
+
+  <div class="stat-item sem-fotos">
+    <p>{{ informacoesVeiculos.totalSemFotos | number:'3.0' }} veículos</p>
+    <span>sem fotos</span>
+  </div>
+</nav>

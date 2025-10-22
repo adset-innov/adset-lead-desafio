@@ -1,0 +1,10 @@
+<nav class="pagination">
+<a role="button" (click)="irParaPagina(paginaAtual - 1)">&laquo;</a>
+<a role="button" *ngFor="let i of [].constructor(totalPaginas); let idx = index"
+   [class.active]="idx+1 === paginaAtual"
+   (click)="irParaPagina(idx+1)">
+  {{ idx + 1 }}
+</a>
+<a role="button" (click)="irParaPagina(paginaAtual + 1)">&raquo;</a>
+
+</nav>
